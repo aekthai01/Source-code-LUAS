@@ -25,7 +25,8 @@ do
     eq(status.source_owned_root_methods,7,"six static roots plus the conditional P0.3 method are installed")
     eq(status.root_methods_total,29,"root method inventory count")
     for _,name in ipairs(Bridge.METHODS) do
-        if name=="_CheckBullet" then eq(product[name],originals[name],"conditional P0.7 remains payload-owned")
+        if name=="_CheckBullet" or name=="_CheckDurabulity" then
+            eq(product[name],originals[name],"conditional P0.7/P0.8 remain payload-owned without captures")
         else truth(product[name]~=originals[name],name.." replaced") end
     end
     product._CheckProcess=function() end -- explicit teardown must still restore saved payload code.
@@ -162,6 +163,61 @@ do
     eq(ok,false,"transaction aborts after the final P0.7 write fails")
     for _,name in ipairs(Bridge.METHODS) do eq(product[name],originals[name],name.." P0.7 rollback") end
     eq(Bridge.status().installed,false,"P0.7 failed transaction leaves no ownership")
+end
+
+-- P0.8 has one stripped error-logger capture at upvalue 2. The bridge checks
+-- that exact position and leaves the payload method in place if unavailable.
+do
+    Bridge.restore_original()
+    local product=product_fixture()
+    local p3={logger=function() end,error_logger=function() end}
+    local payload_durability=product._CheckDurabulity
+    local empty_environment={
+        Server={ArmedForceServer={GetCurSlotGroupId=function() return "group" end},
+            InventoryServer={GetSlot=function() return {GetEquipItem=function() return nil end} end}},
+        ESlotType={Helmet="helmet",BreastPlate="breastplate"},table={insert=table.insert,
+            concat=table.concat},tostring=tostring,
+    }
+    truth(Bridge.install(product,{dependencies=p3,environment=empty_environment}),"install root overlay without P0.8 capture")
+    eq(product._CheckDurabulity,payload_durability,"missing P0.8 logger keeps payload method")
+    eq(Bridge.status().source_owned_root_methods,7,"P0.8 not owned without logger capture")
+    Bridge.restore_original()
+
+    local product2=product_fixture()
+    local captured_logger=function() end
+    product2._CheckDurabulity=function()
+        if _G==nil then return false end
+        return captured_logger
+    end
+    local payload_durability2=product2._CheckDurabulity
+    local _,upvalue1=debug.getupvalue(payload_durability2,1)
+    local _,upvalue2=debug.getupvalue(payload_durability2,2)
+    eq(upvalue1,_G,"P0.8 U0 is _ENV")
+    eq(upvalue2,captured_logger,"P0.8 U1 is the captured error logger")
+    truth(Bridge.install(product2,{dependencies=p3,environment=empty_environment}),"install P0.8 after exact logger capture")
+    eq(Bridge.status().source_owned_root_methods,8,"P0.8 capture condition adds its wrapper")
+    truth(product2._CheckDurabulity~=payload_durability2,"P0.8 source wrapper installed")
+    product2._CheckDurabulity()
+    Bridge.restore_original()
+    eq(product2._CheckDurabulity,payload_durability2,"P0.8 payload closure restored")
+
+    local product3=product_fixture()
+    local logger3=function() end
+    product3._CheckDurabulity=function()
+        if _G==nil then return false end
+        return logger3
+    end
+    local originals3={}; for _,name in ipairs(Bridge.METHODS) do originals3[name]=product3[name] end
+    local writes=0
+    local ok=Bridge.install(product3,{dependencies=p3,environment=empty_environment,
+        set_method=function(target,name,value)
+            writes=writes+1
+            if writes==8 then error("injected P0.8 install failure") end
+            rawset(target,name,value)
+        end})
+    eq(ok,false,"final conditional P0.8 write failure aborts install")
+    for _,name in ipairs(Bridge.METHODS) do eq(product3[name],originals3[name],name.." P0.8 transaction rollback") end
+    eq(Bridge.status().installed,false,"P0.8 rollback clears ownership")
 end
 
 -- A source exception is propagated once. The preserved payload closure is

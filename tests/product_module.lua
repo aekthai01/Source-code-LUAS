@@ -726,4 +726,247 @@ do
         "distinct descriptions preserve root append order")
 end
 
+local function durability_fixture(spec)
+    spec=spec or {}
+    local calls,abnormalities,decimal_inputs,rounded_inputs,errors={}, {}, {}, {}, {}
+    local items=spec.items or {}
+    local checks=spec.checks or {}
+    local slot_group=spec.slot_group or "durability-group"
+    local field
+    field={
+        GetEquipmentCheckData=function(self,kind,slot_type)
+            eq(self,field,"P0.8 check-data receiver")
+            eq(kind,"insufficient-durability","P0.8 abnormal category")
+            calls[#calls+1]="check:"..tostring(slot_type)
+            return checks[slot_type]
+        end,
+        AddEquipAbnormal=function(self,row)
+            eq(self,field,"P0.8 abnormal receiver")
+            calls[#calls+1]="add"
+            abnormalities[#abnormalities+1]=row
+        end,
+    }
+    local inventory
+    inventory={GetSlot=function(self,slot_type,group)
+        eq(self,inventory,"P0.8 inventory receiver")
+        eq(group,slot_group,"P0.8 captured group")
+        calls[#calls+1]="slot:"..tostring(slot_type)
+        local slot={GetEquipItem=function()
+            calls[#calls+1]="item:"..tostring(slot_type)
+            return items[slot_type]
+        end}
+        return slot
+    end}
+    local armed_server
+    armed_server={GetCurSlotGroupId=function(self)
+        eq(self,armed_server,"P0.8 armed-force server receiver")
+        calls[#calls+1]="group"
+        return slot_group
+    end}
+    local env={
+        Server={ArmedForceServer=armed_server,InventoryServer=inventory},
+        ESlotType={Helmet="helmet",BreastPlate="breastplate"},
+        EFeatureType={Equipment="equipment"},
+        Module={ArmedForce={Field=field,Config={EAbnormalType={InsufficientDurability="insufficient-durability"}}},
+            Inventory={Config={SlotNameMapping={helmet="Head",breastplate="Chest"}}}},
+        MathUtil={
+            GetTheSecondDecimal=function(value,...)
+                local tail=table.pack(...)
+                calls[#calls+1]="decimal:"..tostring(value)
+                decimal_inputs[#decimal_inputs+1]={value=value,tail=tail}
+                if spec.decimal then return spec.decimal(value,#decimal_inputs,table.unpack(tail,1,tail.n)) end
+                return value -- fixture identity; engine helper behavior is not inlined or assumed
+            end,
+            GetRoundingNum=function(value)
+                calls[#calls+1]="round:"..tostring(value)
+                rounded_inputs[#rounded_inputs+1]=value
+                if spec.round then return spec.round(value) end
+                return value -- fixture identity; source forwards the engine helper result
+            end,
+        },
+        string={format=function(description,...)
+            local args=table.pack(...)
+            calls[#calls+1]="format:"..tostring(description)
+            if spec.format then return spec.format(description,args) end
+            return string.format(description,table.unpack(args,1,args.n))
+        end},
+        CommonConfig={Loc={Comma=" | "}},
+        table={insert=table.insert,concat=table.concat},
+        math=math,tostring=tostring,
+    }
+    for slot_type,item in pairs(items) do
+        item.GetFeature=function(self,feature_type)
+            eq(self,item,"P0.8 item feature receiver")
+            eq(feature_type,"equipment","P0.8 requests Equipment feature")
+            calls[#calls+1]="feature:"..tostring(slot_type)
+            if item.missing_feature then return nil end
+            local feature={}
+            feature.IsHelmet=function()
+                calls[#calls+1]="is-helmet:"..tostring(slot_type)
+                return item.is_helmet
+            end
+            feature.IsBreastPlate=function()
+                calls[#calls+1]="is-breastplate:"..tostring(slot_type)
+                return item.is_breastplate
+            end
+            feature.GetDurabilityPercent=function()
+                calls[#calls+1]="durability:"..tostring(slot_type)
+                return item.durability,item.durability_tail
+            end
+            return feature
+        end
+    end
+    local module={}
+    local dependencies={error_logger=function(...)
+        errors[#errors+1]=table.pack(...)
+        calls[#calls+1]="error"
+    end}
+    return module,env,dependencies,calls,abnormalities,decimal_inputs,rounded_inputs,errors
+end
+
+-- P0.8/P0.8.0 follow the bytecode armor-feature gates, nonnegative/switch
+-- checks, two-decimal inclusive threshold, per-slot formatting, and max-key
+-- aggregation. `GetDurabilityPercent` multiple returns are forwarded to the
+-- captured decimal helper, as in the open-result CALL instruction.
+do
+    local module,env,deps,calls,abnormalities=durability_fixture()
+    eq(select("#",Product._CheckDurabulity(module,env,deps)),0,"P0.8 has no explicit return")
+    eq(calls[1],"group"); eq(calls[2],"slot:helmet"); eq(calls[4],"slot:breastplate")
+    eq(#abnormalities,0,"empty armor slots add nothing")
+
+    module,env,deps,calls,abnormalities=durability_fixture({
+        items={helmet={id="hat",missing_feature=true}},
+    })
+    Product._CheckDurabulity(module,env,deps)
+    eq(#abnormalities,0,"item without Equipment feature passes")
+    truth(not table.concat(calls,","):find("check:",1,true),"missing feature skips config lookup")
+
+    module,env,deps,calls,abnormalities=durability_fixture({
+        items={helmet={id="hat",is_helmet=false,is_breastplate=false}},
+        checks={helmet={switch=true,checkValue=0.4,key=4,abnormalDesc="bad %s %d"}},
+    })
+    Product._CheckDurabulity(module,env,deps)
+    eq(table.concat(calls,","):find("is-helmet:helmet,is-breastplate:helmet,slot:breastplate",1,true)~=nil,
+        true,"non-armor feature checks IsHelmet then IsBreastPlate and skips config")
+    eq(#abnormalities,0,"non-helmet/non-breastplate item passes")
+
+    module,env,deps,calls,abnormalities=durability_fixture({
+        items={helmet={id="hat",is_helmet=true}},checks={},
+    })
+    Product._CheckDurabulity(module,env,deps)
+    eq(#abnormalities,0,"missing durability config passes")
+
+    module,env,deps,calls,abnormalities,_,_,errors=durability_fixture({
+        items={helmet={id="hat",is_helmet=true}},
+        checks={helmet={switch=false,checkValue=0.4,key=4,abnormalDesc="bad %s %d"}},
+    })
+    Product._CheckDurabulity(module,env,deps)
+    eq(#abnormalities,0,"disabled durability config passes")
+    eq(#errors,0,"disabled config does not call captured error logger")
+    truth(not table.concat(calls,","):find("durability:",1,true),"disabled config skips durability reads")
+
+    module,env,deps,calls,abnormalities,_,_,errors=durability_fixture({
+        items={helmet={id="hat",is_helmet=true}},
+        checks={helmet={switch=true,checkValue=-0.1,key=4,abnormalDesc="bad %s %d"}},
+    })
+    Product._CheckDurabulity(module,env,deps)
+    eq(#abnormalities,0,"negative durability threshold passes after logging")
+    eq(#errors,1,"negative threshold uses the captured error logger")
+    eq(errors[1][1],"CheckEquipLogic._CheckDurabulity checkValue 小于0！！！")
+    eq(errors[1][2],"helmet")
+    truth(not table.concat(calls,","):find("decimal:",1,true),"negative branch skips decimal helpers")
+
+    module,env,deps,calls,abnormalities,decimal_inputs,rounded_inputs=durability_fixture({
+        items={helmet={id="hat",is_helmet=true,durability=0.42,durability_tail="tail"}},
+        checks={helmet={switch=true,checkValue=0.419,key=17,abnormalDesc="%s durability <= %d"}},
+        decimal=function(value,index)
+            if index==1 then eq(value,0.42); return 0.42 end
+            eq(index,2); eq(value,0.419); return 0.42
+        end,
+        round=function(value) eq(value,41.9,"bytecode passes checkValue*100 to rounding helper"); return 42,"round-tail" end,
+        format=function(description,args)
+            eq(description,"%s durability <= %d")
+            eq(args.n,3,"all rounding-helper returns are passed to string.format")
+            eq(args[1],"Head"); eq(args[2],42); eq(args[3],"round-tail")
+            return "Head durability <= 42"
+        end,
+    })
+    Product._CheckDurabulity(module,env,deps)
+    eq(#decimal_inputs,2,"current and configured durability are normalized separately")
+    eq(decimal_inputs[1].value,0.42); eq(decimal_inputs[1].tail.n,1)
+    eq(decimal_inputs[1].tail[1],"tail","all open GetDurabilityPercent returns reach the decimal helper")
+    eq(decimal_inputs[2].value,0.419,"threshold normalization follows current durability normalization")
+    eq(#rounded_inputs,1); eq(rounded_inputs[1],41.9,"format threshold is multiplied by 100 before rounding")
+    eq(#abnormalities,1,"rounded-equal durability threshold fails inclusively")
+    local abnormal=abnormalities[1]
+    eq(abnormal.key,17); eq(abnormal.abnormalType,"insufficient-durability")
+    eq(abnormal.loc,"Head durability <= 42")
+    eq(table.concat(abnormal.param.abnormalTypeList,","),"helmet")
+
+    module,env,deps,calls,abnormalities=durability_fixture({
+        items={
+            helmet={id="hat",is_helmet=true,durability=0.2},
+            breastplate={id="vest",is_breastplate=true,durability=0.4},
+        },
+        checks={
+            helmet={switch=true,checkValue=0.6,key=7,abnormalDesc="%s low %d"},
+            breastplate={switch=true,checkValue=0.5,key=33,abnormalDesc="%s low %d"},
+        },
+    })
+    Product._CheckDurabulity(module,env,deps)
+    eq(#abnormalities,1,"two failing armor rows produce one abnormal")
+    abnormal=abnormalities[1]
+    eq(abnormal.key,33,"shared key is maximum over failing armor rows")
+    eq(table.concat(abnormal.param.abnormalTypeList,","),"helmet,breastplate","armor enum order preserved")
+    eq(abnormal.loc,"Head low 60 | Chest low 50","all failing locations retain helmet/breastplate order")
+
+    module,env,deps,calls,abnormalities=durability_fixture({
+        items={breastplate={id="vest",is_breastplate=true,durability=0.51}},
+        checks={breastplate={switch=true,checkValue=0.5,key=33,abnormalDesc="%s low %d"}},
+    })
+    Product._CheckDurabulity(module,env,deps)
+    eq(#abnormalities,0,"durability strictly above rounded threshold passes")
+end
+
+-- P0.7/P0.8 execute SELF AddEquipAbnormal before the later abnormal-type
+-- lookup. Preserve the selected function if that lookup mutates the Field.
+do
+    local function verify_saved_add(method_name,fixture,field_name,check_kind)
+        local module,env,deps,calls,abnormalities=fixture()
+        local field=env.Module.ArmedForce.Field
+        local selected_calls,replacement_calls=0,0
+        field.AddEquipAbnormal=function(self,row)
+            eq(self,field,"captured AddEquipAbnormal receiver")
+            selected_calls=selected_calls+1
+            abnormalities[#abnormalities+1]=row
+        end
+        local replacement=function() replacement_calls=replacement_calls+1 end
+        local reads=0
+        env.Module.ArmedForce.Config.EAbnormalType=setmetatable({}, {__index=function(_,key)
+            eq(key,field_name,"bytecode abnormal type lookup")
+            reads=reads+1
+            if reads==2 then field.AddEquipAbnormal=replacement end
+            return reads==1 and check_kind or "captured-type"
+        end})
+        Product[method_name](module,env,deps)
+        eq(reads,2,"one check-row lookup and one abnormal-construction lookup")
+        eq(selected_calls,1,"P0.7/P0.8 call the function captured by SELF")
+        eq(replacement_calls,0,"later config access cannot replace the saved method")
+        eq(abnormalities[1].abnormalType,"captured-type")
+        truth(abnormalities[1].param.abnormalTypeList[1]~=nil,"failure slot is retained")
+    end
+
+    verify_saved_add("_CheckBullet",function()
+        return bullet_fixture({items={left={id="rifle"}},
+            checks={rifle={switch=true,checkValue=2,key=7,abnormalDesc="short"}},
+            counts={rifle=0}})
+    end,"LackBullet","lack-bullet")
+
+    verify_saved_add("_CheckDurabulity",function()
+        return durability_fixture({items={helmet={is_helmet=true,durability=0.1}},
+            checks={helmet={switch=true,checkValue=0.5,key=9,abnormalDesc="%s low %d"}},
+            round=function() return 50 end})
+    end,"InsufficientDurability","insufficient-durability")
+end
+
 print("product-module: ok")

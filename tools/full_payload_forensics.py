@@ -103,7 +103,7 @@ def build():
         if info.get("implementation_status", "").startswith("source-") or info.get("implementation_status") == "source-owned after payload init":
             source_map[path] = ("source_owned", info.get("source"), info.get("reconstructed_name"))
 
-    phase_e_root = {"0.0", "0.1", "0.2", "0.4", "0.5", "0.6", "0.7"}
+    phase_e_root = {"0.0", "0.1", "0.2", "0.4", "0.5", "0.6", "0.7", "0.8"}
     for path in phase_e_root:
         source_map[path] = ("source_owned", "src/spectra/product_module.lua", ROOT_METHODS[int(path.split(".")[-1])])
     # The P0.3 diagnostic closures are stripped upvalues U0/U2. Source behavior
@@ -116,6 +116,8 @@ def build():
     source_map["0.6.0"] = ("source_owned", "src/spectra/product_module.lua", "add_medicine_types_from_items")
     source_map["0.7"] = ("partially_reconstructed", "src/spectra/product_module.lua", "_CheckBullet")
     source_map["0.7.0"] = ("partially_reconstructed", "src/spectra/product_module.lua", "inspect_bullet_slot")
+    source_map["0.8"] = ("partially_reconstructed", "src/spectra/product_module.lua", "_CheckDurabulity")
+    source_map["0.8.0"] = ("partially_reconstructed", "src/spectra/product_module.lua", "check_durability_slot")
     for path in ("0.29.17", "0.29.26", "0.29.29"):
         source_map[path] = ("source_owned", "src/spectra/mutation_runtime.lua", None)
     for number in range(78, 99):
@@ -135,6 +137,7 @@ def build():
         "0.4": ["0.5"],
         "0.6": ["0.6.0"],
         "0.7": ["0.7.0"],
+        "0.8": ["0.8.0"],
     }
     callers = defaultdict(list)
     for caller, callees in direct_calls.items():
@@ -221,7 +224,9 @@ def build():
                 "0.4": "no explicit return", "0.5": "returns key and two ordered medicine-type/description lists",
                 "0.6": "no explicit return", "0.6.0": "no explicit return",
                 "0.7": "no explicit return",
-                "0.7.0": "returns true for no-failure paths; returns false, subtype, matched-minus-required, and formatted location when deficient"}.get(path, "not reconstructed"),
+                "0.7.0": "returns true for no-failure paths; returns false, subtype, matched-minus-required, and formatted location when deficient",
+                "0.8": "no explicit return",
+                "0.8.0": "returns true for no-failure paths; returns false and a formatted location when normalized durability is at or below the configured threshold"}.get(path, "not reconstructed"),
             "public_symbol": public,
             "public_symbol_is_original": public is not None,
             "reconstructed_name": name,
@@ -261,7 +266,7 @@ def build():
                         if entry["prototype_id"] == f"P0.{i}")]["current_ownership"],
                     "source_file": index_entries[next(j for j, entry in enumerate(index_entries)
                         if entry["prototype_id"] == f"P0.{i}")]["source_file"],
-                    "runtime_takeover": "conditional" if i in (3, 7) else ("source" if i < 3 or i in (4, 5, 6) else "payload"),
+                    "runtime_takeover": "conditional" if i in (3, 7, 8) else ("source" if i < 3 or i in (4, 5, 6) else "payload"),
                 } for i, name in enumerate(ROOT_METHODS)
             },
             "ownership_enum": sorted(OWNERSHIP),
@@ -303,10 +308,11 @@ def build():
         "- `P0.5` uses `ipairs` order, `GetEquipmentCheckData(LackMedicine, type)`, the exact `switch` and `table.contains(current, type)` gates, maximum key aggregation, and ordered list appends without deduplication.",
         "- `P0.6` collects `ChestHangingContainer`, `BagContainer`, and `Pocket` capacities in bytecode order, adds `1e-6` to each total/free value, applies the strict rounded-ratio comparison, selects the challenge/player safe-box group, and walks item collections through nested `P0.6.0`.",
         "- `P0.7` and nested `P0.7.0` reconstruct left weapon, right weapon, then pistol checks; preserve captured helper/logger calls, strict insufficient-ammo comparison, negative check-value logging, maximum abnormal key, equal-subtype slot handling, and location order. The method bridge installs P0.7 only when the original closure's ItemHelperTool, both loggers, and identical product table are available; otherwise it leaves the payload method in place.",
+        "- `P0.8` and nested `P0.8.0` reconstruct Helmet then BreastPlate durability checks; preserve equipment-feature type gates, `InsufficientDurability` lookup, negative-value logger behavior, open-return forwarding from `GetDurabilityPercent`, two-decimal normalization, inclusive `current <= threshold` comparison, rounding/slot-name formatting, ordered abnormal fields, and maximum key. The bridge requires original P0.8 U1 error-logger capture; absent capture leaves the payload method.",
         "- The method bridge preserves originals and restores its writes on install failure. It rethrows source exceptions without retrying payload code because earlier operations may already have caused side effects.",
         "", "## Current ownership groups", "",
         f"Source-owned prototypes: `{counts['source_owned']}`; payload-owned: `{counts['payload_owned']}`; partially reconstructed: `{counts['partially_reconstructed']}`; unknown: `{counts['unknown']}`.",
-        "", "`FULL_PAYLOAD_PROTOTYPE_INDEX.json` is the per-prototype authority. The method-level runtime bridge owns P0.0..P0.2 and P0.4..P0.6. P0.3 remains conditional on recovered logger captures; P0.7 is conditionally source-installable because its captured upvalues must match the original closure.",
+        "", "`FULL_PAYLOAD_PROTOTYPE_INDEX.json` is the per-prototype authority. The method-level runtime bridge owns P0.0..P0.2 and P0.4..P0.6. P0.3, P0.7, and P0.8 remain conditional on recovered closure captures.",
         "",
     ]
     (ROOT / "FULL_PAYLOAD_RECONSTRUCTION_MAP.md").write_text("\n".join(map_lines), encoding="utf-8")
@@ -323,7 +329,7 @@ def build():
         f"- Unknown: **{counts['unknown']}**",
         f"- Root methods source-owned: **{root_source_owned} / 29**",
         "", "The inventory is structurally complete, not a claim that all payload behavior has been reconstructed. Unmapped prototypes remain payload-owned. Dead/unreachable is used only with positive reachability evidence; no prototype is marked dead by absence of references.",
-        "P0.3 source logic and tests exist, but its two stripped diagnostic upvalues are only installed when captured from the original function; its default static ownership classification is partial. P0.4..P0.6 and nested P0.6.0 have source implementations and method-level overlays backed by the bytecode-derived call graph. P0.7/P0.7.0 source and regression vectors are materialized, but their ownership stays partially reconstructed until the original helper, both loggers, and module identity pass the install gate.",
+        "P0.3 source logic and tests exist, but its two stripped diagnostic upvalues are only installed when captured from the original function; its default static ownership classification is partial. P0.4..P0.6 and nested P0.6.0 have source implementations and method-level overlays backed by the bytecode-derived call graph. P0.7/P0.7.0 source and regression vectors are materialized but stay partial until the original helper, both loggers, and module identity pass the install gate. P0.8/P0.8.0 source and regression vectors are materialized but stay partial until the original error-logger upvalue passes the install gate.",
         "", "Generated by `python3 tools/full_payload_forensics.py` from `payload_prototypes.json`, `payload_constants.json`, `payload_disassembly.txt`, and the verified payload hash.", "",
     ]
     (ROOT / "RECONSTRUCTION_COVERAGE.md").write_text("\n".join(coverage_lines), encoding="utf-8")

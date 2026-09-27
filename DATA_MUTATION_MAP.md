@@ -138,6 +138,8 @@ protected calls, nil handling and duplicate side-effect risk.
 | `P0.6.0` | `add_medicine_types_from_items` (reconstructed descriptive name) | `product_module.lua` | source |
 | `P0.7` | `_CheckBullet` | `product_module.lua` | partially reconstructed; captured dependency gate |
 | `P0.7.0` | `inspect_bullet_slot` (reconstructed descriptive name) | `product_module.lua` | partially reconstructed with P0.7 |
+| `P0.8` | `_CheckDurabulity` | `product_module.lua` | partially reconstructed; captured logger gate |
+| `P0.8.0` | `check_durability_slot` (reconstructed descriptive name) | `product_module.lua` | partially reconstructed with P0.8 |
 
 P0.4 reads `Field:GetMedicineType()` before enumerating `EDispensingMedicineType`
 through the captured `table.values`, then passes both values through the captured module
@@ -176,6 +178,20 @@ maximum failing row key. Tests cover those branch and ordering rules. The runtim
 P0.7 only when it recovers the original closure's ItemHelperTool, both loggers, and the exact
 module table identity; otherwise the payload closure remains active.
 
+P0.8 captures the current slot-group ID once, then checks `Helmet` followed by
+`BreastPlate`. Nested P0.8.0 returns true for an absent item, missing Equipment feature,
+non-helmet/non-breastplate feature, missing check record, disabled switch, negative
+`checkValue` (after calling the captured error logger), or durability above the normalized
+threshold. It calls `GetEquipmentCheckData(InsufficientDurability, slot_type)` only for
+Helmet/BreastPlate equipment features. For enabled nonnegative settings, it forwards every
+return from `GetDurabilityPercent()` into `MathUtil.GetTheSecondDecimal`, normalizes the
+setting separately, and fails inclusively when normalized current durability is `<=` the
+normalized setting. The failure location calls `string.format(abnormalDesc,
+SlotNameMapping[slot_type], GetRoundingNum(checkValue * 100))`. Root P0.8 appends failed slot
+types and locations in Helmet/BreastPlate order, uses the maximum failing row key, and emits
+one `InsufficientDurability` abnormal. The bridge installs P0.8 only when original closure
+upvalue 2 (P0.8 U1) is a function; otherwise the payload closure stays active.
+
 P0.2 reads both map values from `GetMapNeedValue`, requests `GetEquipmentCheckData(type, 0)`
 for each abnormal type, and only adds records when the corresponding switch is enabled,
 the threshold is nonzero, and the strict bytecode comparison passes (`current < minimum`,
@@ -185,7 +201,7 @@ P0.2 does so in its instruction stream.
 
 P0.3's source preserves challenge/unbound currency selection, rental preset price, the
 seven slot checks, the missing-rental-plan zero fallback, `evtAllEquipmentValueChanged`
-arguments, and the `(total_value, currency_type)` return. P0.0..P0.7 exports and all other
+arguments, and the `(total_value, currency_type)` return. P0.0..P0.8 exports and all other
 prototype ownership are machine-indexed in `FULL_PAYLOAD_PROTOTYPE_INDEX.json`.
 
 ## Runtime checkpoint

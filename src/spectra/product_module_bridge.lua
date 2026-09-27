@@ -13,6 +13,7 @@ M.METHODS = {
     "_CheckUnCarryMedicine",
     "_CheckContainer",
     "_CheckBullet",
+    "_CheckDurabulity",
 }
 M.ROOT_METHOD_COUNT = 29
 
@@ -75,6 +76,20 @@ local function get_bullet_dependencies(fn, target, overrides)
     }
 end
 
+local function get_durability_dependencies(fn, overrides)
+    overrides = type(overrides) == "table" and overrides or {}
+    local error_logger = overrides.error_logger
+    if error_logger == nil then
+        local debug_lib = rawget(_G, "debug")
+        if type(debug_lib) ~= "table" or type(debug_lib.getupvalue) ~= "function" then return nil end
+        local ok, _, value = pcall(debug_lib.getupvalue, fn, 2) -- P0.8 U1, captured error logger
+        if not ok then return nil end
+        error_logger = value
+    end
+    if type(error_logger) ~= "function" then return nil end
+    return { error_logger = error_logger }
+end
+
 local function wrap(name, target, dependencies, environment)
     return function(...)
         local arguments = table.pack(...)
@@ -127,6 +142,9 @@ function M.install(target, options)
     local bullet_dependencies = get_bullet_dependencies(
         rawget(target, "_CheckBullet"), target, options.bullet_dependencies)
     if bullet_dependencies then source_targets._CheckBullet = Source._CheckBullet end
+    local durability_dependencies = get_durability_dependencies(
+        rawget(target, "_CheckDurabulity"), options.durability_dependencies)
+    if durability_dependencies then source_targets._CheckDurabulity = Source._CheckDurabulity end
 
     local set_method = options.set_method or default_set_method
     local pending_originals, pending_wrappers = {}, {}
@@ -135,7 +153,8 @@ function M.install(target, options)
         if source_target then
             pending_originals[name] = rawget(target, name)
             local dependencies = name == "GetAllEquipmentValue" and p3_dependencies
-                or (name == "_CheckBullet" and bullet_dependencies or nil)
+                or (name == "_CheckBullet" and bullet_dependencies
+                or (name == "_CheckDurabulity" and durability_dependencies or nil))
             pending_wrappers[name] = wrap(name, source_target, dependencies, environment)
         end
     end
@@ -164,6 +183,7 @@ function M.install(target, options)
         methods = M.owned_methods(),
         p3_logger_captures = p3_dependencies ~= nil,
         p7_captures = bullet_dependencies ~= nil,
+        p8_error_logger_capture = durability_dependencies ~= nil,
     }
 end
 

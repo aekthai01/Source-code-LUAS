@@ -16,7 +16,7 @@ All prototype names without a recovered public root export are reconstructed des
 | `P0.5` | `_CheckUnCarryMedicine` | `source_owned` | `src/spectra/product_module.lua` |
 | `P0.6` | `_CheckContainer` | `source_owned` | `src/spectra/product_module.lua` |
 | `P0.7` | `_CheckBullet` | `partially_reconstructed` | `src/spectra/product_module.lua` |
-| `P0.8` | `_CheckDurabulity` | `payload_owned` | `payload` |
+| `P0.8` | `_CheckDurabulity` | `partially_reconstructed` | `src/spectra/product_module.lua` |
 | `P0.9` | `CheckEquipSlotEmpty` | `payload_owned` | `payload` |
 | `P0.10` | `CheckEquipSlotValue` | `payload_owned` | `payload` |
 | `P0.11` | `DynamicGuidPriceFinishFetch` | `payload_owned` | `payload` |
@@ -50,10 +50,11 @@ Exact root fields: `EquipTypeList`, `ContainerTypeList`.
 - `P0.5` uses `ipairs` order, `GetEquipmentCheckData(LackMedicine, type)`, the exact `switch` and `table.contains(current, type)` gates, maximum key aggregation, and ordered list appends without deduplication.
 - `P0.6` collects `ChestHangingContainer`, `BagContainer`, and `Pocket` capacities in bytecode order, adds `1e-6` to each total/free value, applies the strict rounded-ratio comparison, selects the challenge/player safe-box group, and walks item collections through nested `P0.6.0`.
 - `P0.7` and nested `P0.7.0` reconstruct left weapon, right weapon, then pistol checks; preserve captured helper/logger calls, strict insufficient-ammo comparison, negative check-value logging, maximum abnormal key, equal-subtype slot handling, and location order. The method bridge installs P0.7 only when the original closure's ItemHelperTool, both loggers, and identical product table are available; otherwise it leaves the payload method in place.
+- `P0.8` and nested `P0.8.0` reconstruct Helmet then BreastPlate durability checks; preserve equipment-feature type gates, `InsufficientDurability` lookup, negative-value logger behavior, open-return forwarding from `GetDurabilityPercent`, two-decimal normalization, inclusive `current <= threshold` comparison, rounding/slot-name formatting, ordered abnormal fields, and maximum key. The bridge requires original P0.8 U1 error-logger capture; absent capture leaves the payload method.
 - The method bridge preserves originals and restores its writes on install failure. It rethrows source exceptions without retrying payload code because earlier operations may already have caused side effects.
 
 ## Current ownership groups
 
-Source-owned prototypes: `79`; payload-owned: `214`; partially reconstructed: `3`; unknown: `0`.
+Source-owned prototypes: `79`; payload-owned: `212`; partially reconstructed: `5`; unknown: `0`.
 
-`FULL_PAYLOAD_PROTOTYPE_INDEX.json` is the per-prototype authority. The method-level runtime bridge owns P0.0..P0.2 and P0.4..P0.6. P0.3 remains conditional on recovered logger captures; P0.7 is conditionally source-installable because its captured upvalues must match the original closure.
+`FULL_PAYLOAD_PROTOTYPE_INDEX.json` is the per-prototype authority. The method-level runtime bridge owns P0.0..P0.2 and P0.4..P0.6. P0.3, P0.7, and P0.8 remain conditional on recovered closure captures.

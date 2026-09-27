@@ -46,12 +46,12 @@ Exact root fields include `EquipTypeList` and `ContainerTypeList`.
 structure, constants, upvalues, conservative direct calls, bytecode global/table references,
 current ownership, static reachability, source mapping, evidence and confidence.
 `FULL_PAYLOAD_RECONSTRUCTION_MAP.md` maps each of the exact root exports above to its
-prototype. Current root overlay coverage is 6/29 source-owned methods; P0.3 and P0.7 are
-partial because original diagnostic/helper captures must be recovered from their payload
+prototype. Current root overlay coverage is 6/29 source-owned methods; P0.3, P0.7 and P0.8
+are partial because original diagnostic/helper captures must be recovered from their payload
 closures. P0.7 also requires the captured module table to match the product table. See
 `RECONSTRUCTION_COVERAGE.md` for machine-generated totals.
 
-The source for P0.0..P0.7, including nested P0.6.0 and P0.7.0, is in
+The source for P0.0..P0.8, including nested P0.6.0, P0.7.0 and P0.8.0, is in
 `src/spectra/product_module.lua`. P0.0-P0.2 and P0.4-P0.6 are installed through a
 rollback-capable module overlay after payload
 initialization. P0.3 source tests cover challenge currency, rental value, slot summation and
@@ -64,6 +64,9 @@ P0.7/P0.7.0 tests cover left/right/pistol traversal, captured-helper ABI, negati
 requirements, strict count comparison, equal-subtype location deduplication,
 different-subtype/pistol ordering, maximum key aggregation, upvalue capture, module identity
 gating and transactional rollback.
+P0.8/P0.8.0 tests cover helmet/breastplate eligibility, negative and disabled settings,
+open-return durability forwarding, rounded inclusive thresholds, abnormal formatting/order,
+maximum key, captured logger indexing and whole-install rollback.
 
 ## Exact imported/required namespaces observed at payload root
 

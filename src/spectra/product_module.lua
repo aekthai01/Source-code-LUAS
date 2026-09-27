@@ -14,6 +14,7 @@ M.PROTOTYPES = {
     _CheckUnCarryMedicine = "0.5",
     _CheckContainer = "0.6",
     _CheckBullet = "0.7",
+    _CheckDurabulity = "0.8",
 }
 M.ROOT_FIELDS = { "EquipTypeList", "ContainerTypeList" }
 
@@ -395,13 +396,93 @@ function M._CheckBullet(module, globals, dependencies)
     end
     if location then
         local field = globals.Module.ArmedForce.Field
-        local abnormal = {
-            key = abnormal_key,
-            abnormalType = globals.Module.ArmedForce.Config.EAbnormalType.LackBullet,
-            loc = location,
-            param = { abnormalTypeList = abnormal_types },
-        }
-        field:AddEquipAbnormal(abnormal)
+        local add_abnormal = field.AddEquipAbnormal
+        local abnormal = {}
+        abnormal.key = abnormal_key
+        abnormal.abnormalType = globals.Module.ArmedForce.Config.EAbnormalType.LackBullet
+        abnormal.loc = location
+        local param = {}
+        param.abnormalTypeList = abnormal_types
+        abnormal.param = param
+        add_abnormal(field, abnormal)
+    end
+end
+
+-- P0.8 and nested P0.8.0 reconstruct the helmet/breastplate durability check.
+-- `check_durability_slot` is a descriptive name for stripped P0.8.0.
+function M._CheckDurabulity(module, globals, dependencies)
+    globals = globals_or_default(globals)
+    dependencies = assert(dependencies, "P0.8 captured dependencies required")
+    local error_logger = assert(dependencies.error_logger, "P0.8 error logger capture missing")
+
+    local abnormal_key = 0
+    local slot_group_id = globals.Server.ArmedForceServer:GetCurSlotGroupId()
+
+    local function check_durability_slot(slot_type)
+        local slot = globals.Server.InventoryServer:GetSlot(slot_type, slot_group_id)
+        local item = slot:GetEquipItem()
+        if not item then return true end
+
+        local equipment_feature = item:GetFeature(globals.EFeatureType.Equipment)
+        if not equipment_feature then return true end
+        if not equipment_feature:IsHelmet() and not equipment_feature:IsBreastPlate() then
+            return true
+        end
+
+        local field = globals.Module.ArmedForce.Field
+        local check_data = field:GetEquipmentCheckData(
+            globals.Module.ArmedForce.Config.EAbnormalType.InsufficientDurability, slot_type)
+        if not check_data or not check_data.switch then return true end
+
+        local check_value = check_data.checkValue
+        if not (0 <= check_value) then
+            error_logger("CheckEquipLogic._CheckDurabulity checkValue 小于0！！！", slot_type)
+            return true
+        end
+        if not check_value then return true end
+
+        local durability = globals.MathUtil.GetTheSecondDecimal(
+            equipment_feature:GetDurabilityPercent())
+        local normalized_threshold = globals.MathUtil.GetTheSecondDecimal(check_value)
+        if durability <= normalized_threshold then
+            abnormal_key = globals.math.max(abnormal_key, check_data.key)
+            local format = globals.string.format
+            local description = check_data.abnormalDesc
+            local slot_name = globals.Module.Inventory.Config.SlotNameMapping[slot_type]
+            local location = format(description, slot_name,
+                globals.MathUtil.GetRoundingNum(check_value * 100))
+            return false, location
+        end
+        return true
+    end
+
+    local helmet_ok, helmet_location = check_durability_slot(globals.ESlotType.Helmet)
+    local breastplate_ok, breastplate_location = check_durability_slot(globals.ESlotType.BreastPlate)
+    local abnormal_types, locations = {}, {}
+    if not helmet_ok then
+        globals.table.insert(abnormal_types, globals.ESlotType.Helmet)
+        globals.table.insert(locations, globals.tostring(helmet_location))
+    end
+    if not breastplate_ok then
+        globals.table.insert(abnormal_types, globals.ESlotType.BreastPlate)
+        globals.table.insert(locations, globals.tostring(breastplate_location))
+    end
+
+    local location
+    if not helmet_ok or not breastplate_ok then
+        location = globals.table.concat(locations, globals.CommonConfig.Loc.Comma)
+    end
+    if location then
+        local field = globals.Module.ArmedForce.Field
+        local add_abnormal = field.AddEquipAbnormal
+        local abnormal = {}
+        abnormal.key = abnormal_key
+        abnormal.abnormalType = globals.Module.ArmedForce.Config.EAbnormalType.InsufficientDurability
+        abnormal.loc = location
+        local param = {}
+        param.abnormalTypeList = abnormal_types
+        abnormal.param = param
+        add_abnormal(field, abnormal)
     end
 end
 

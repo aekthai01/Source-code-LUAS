@@ -40,14 +40,14 @@ GitHub Actions runs the same validation path and a second deterministic build.
 
 ## Current Phase D / Phase E artifact
 
-Phase: `E3-root-bullet-check-reconstruction`
+Phase: `E3-root-durability-check-reconstruction`
 
-- source size `382810`
-- source SHA-256 `c3218057337f71eb73ed07d368f17578292d96626c05816fc3efa0a6c3bf1405`
-- standard chunk size `304485`
-- standard SHA-256 `8ce8a7e17555920eabaef89a909534d19b3a445c510e937f50ee9b0ccb8dbb0c`
-- custom chunk size `304485`
-- custom SHA-256 `700cfcb0a84ef902def7177c6bc7072afa1ca7ffe9d874d5b6e11134e4ec5521`
+- source size `387518`
+- source SHA-256 `95b0b52451685292b95137a533eea618485a740e9d87515287ef5ab0c7a55770`
+- standard chunk size `306747`
+- standard SHA-256 `14b4a057ea2e4af169cc07d12f29aa720ceb86a59ce5777153eb8639af5181f4`
+- custom chunk size `306747`
+- custom SHA-256 `e7df52db4f7b768fd2312d897b6a357a586e94599897fdf21a8af3b841acf830`
 
 `validation_phase_d.json` is the machine-readable checkpoint.
 
@@ -73,6 +73,7 @@ Still payload-owned:
 
 - root P0.3 when original diagnostic U0/U2 closures are unavailable
 - root P0.7 bullet check when captured helper/logger/module identity is unavailable; its source and tests exist but the prototype remains partially reconstructed
+- root P0.8 durability check when its captured error logger is unavailable; its source and tests exist but the prototype remains partially reconstructed
 - remaining unreconstructed business/equipment behavior outside the migrated Phase D
   feature/visual surfaces
 - saved payload feature/aim functions retained only as transactional fallback
@@ -154,15 +155,16 @@ complete restore. Game runtime execution remains unverified.
 
 `FULL_PAYLOAD_PROTOTYPE_INDEX.json` is generated from the verified payload prototype,
 constant and disassembly artifacts. It contains exactly 296 prototype paths. Generated
-coverage is 79 source-owned, 214 payload-owned, 3 partially reconstructed, 0 verified
+coverage is 79 source-owned, 212 payload-owned, 5 partially reconstructed, 0 verified
 dead and 0 unknown. Static closure reachability does not assert runtime invocation.
 
 `FULL_PAYLOAD_RECONSTRUCTION_MAP.md` records exact P0.0..P0.28 exports and the
 `EquipTypeList` / `ContainerTypeList` fields. `src/spectra/product_module.lua` materializes
-P0.0..P0.7 plus nested callbacks P0.6.0 and P0.7.0; tests cover flow branches, process call order,
+P0.0..P0.8 plus nested callbacks P0.6.0, P0.7.0 and P0.8.0; tests cover flow branches, process call order,
 threshold boundaries, rental and currency paths, medicine traversal/filtering/aggregation,
 container capacity and safe-box branches, bullet slot ordering, negative/rounded bullet
-requirements, subtype combination, abnormal construction and event arguments.
+requirements, subtype combination, armor eligibility, durability threshold/formatting,
+abnormal construction and event arguments.
 `product_module_bridge.lua` receives `state.product` after payload execution, preserves
 originals and rolls back partial installation. P0.0..P0.2 and P0.4..P0.6 are installed by
 default (6/29 root methods). P0.3 is source tested but runtime installation
@@ -171,7 +173,8 @@ exceptions propagate without retrying possibly non-reversible effects. P0.7 rema
 the bridge checks closure upvalues 2..5 for `ItemHelperTool`, debug logger, the identical
 product table and error logger; if any capture is missing or mismatched the payload method
 stays installed. Direct bridge tests verify both the capture indices and rollback at the P0.7
-write.
+write. P0.8 conditionally captures its single error logger at debug upvalue 2; source takeover
+requires that exact capture and rolls back the full method set if its write fails.
 
 CI regenerates the full inventory, asserts exactly 296 entries, runs Phase D and Phase E
 tests, checks ownership consistency and repeats the custom build for determinism. The
