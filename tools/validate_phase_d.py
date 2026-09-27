@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import base64, hashlib, json, re, shutil, subprocess, sys
+from collections import Counter
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
@@ -31,6 +32,43 @@ def main():
     source=ROOT/'spectra_wrapper_phase_d_source.lua'; standard=ROOT/'spectra_wrapper_phase_d.standard.luac'; custom=ROOT/'spectra_wrapper_phase_d.custom.luac'
     assert sha(baseline)==EXPECTED_BASELINE_SHA and baseline.stat().st_size==180034
     assert sha(payload)==EXPECTED_PAYLOAD_SHA and payload.stat().st_size==108533
+    inventory_path=ROOT/'FULL_PAYLOAD_PROTOTYPE_INDEX.json'
+    coverage_path=ROOT/'RECONSTRUCTION_COVERAGE.md'
+    reconstruction_map_path=ROOT/'FULL_PAYLOAD_RECONSTRUCTION_MAP.md'
+    inventory=json.loads(inventory_path.read_text())
+    prototypes=inventory.get('prototypes',{})
+    prototype_metadata=json.loads((ROOT/'payload_prototypes.json').read_text())
+    assert len(prototype_metadata)==296 and inventory.get('_meta',{}).get('total_prototypes')==296
+    assert len(prototypes)==296 and set(prototypes)=={p['path'] for p in prototype_metadata}
+    ownership_enum={'source_owned','payload_owned','partially_reconstructed','dead_or_unreachable_verified','unknown'}
+    assert set(inventory.get('_meta',{}).get('ownership_enum',[]))==ownership_enum
+    ownership_counts=Counter(p['current_ownership'] for p in prototypes.values())
+    assert set(ownership_counts)<=ownership_enum and sum(ownership_counts.values())==296
+    reported=inventory.get('coverage',{})
+    assert reported.get('classified')==296
+    for name in ownership_enum:
+        assert reported.get(name)==ownership_counts[name],f'coverage ownership mismatch: {name}'
+    root_methods=inventory.get('_meta',{}).get('root_public_methods',{})
+    assert len(root_methods)==29
+    assert [root_methods[name]['prototype_id'] for name in root_methods]==[f'P0.{i}' for i in range(29)]
+    assert root_methods['CheckEquipmentBeforEnterGameProcess']['current_ownership']=='source_owned'
+    assert root_methods['_CheckProcess']['current_ownership']=='source_owned'
+    assert root_methods['_CheckEquipmentValue']['current_ownership']=='source_owned'
+    assert root_methods['GetAllEquipmentValue']['current_ownership']=='partially_reconstructed'
+    assert reported.get('root_methods_source_owned')==3 and reported.get('root_methods_total')==29
+    assert inventory.get('_meta',{}).get('root_fields')==['EquipTypeList','ContainerTypeList']
+    coverage_text=coverage_path.read_text()
+    reconstruction_map_text=reconstruction_map_path.read_text()
+    assert f"- Total prototypes: **{len(prototypes)}**" in coverage_text
+    assert f"- Classified: **{reported['classified']}**" in coverage_text
+    assert f"- Source-owned reachable: **{reported['source_owned']}**" in coverage_text
+    assert f"- Payload-owned reachable: **{reported['payload_owned']}**" in coverage_text
+    assert f"- Partially reconstructed: **{reported['partially_reconstructed']}**" in coverage_text
+    assert f"- Dead/unreachable verified: **{reported['dead_or_unreachable_verified']}**" in coverage_text
+    assert f"- Unknown: **{reported['unknown']}**" in coverage_text
+    assert f"- Root methods source-owned: **{reported['root_methods_source_owned']} / 29**" in coverage_text
+    for name, method in root_methods.items():
+        assert f"| `{method['prototype_id']}` | `{name}` |" in reconstruction_map_text
     b64=(ROOT/'embedded_payload.b64').read_text().strip(); assert base64.b64decode(b64)==payload.read_bytes()
     embed=(ROOT/'src/spectra/payload_embed.lua').read_text()
     chunks=re.findall(r'^\s*"([A-Za-z0-9+/=]+)",\s*$',embed,re.M)
@@ -60,6 +98,8 @@ def main():
     out_chain=run([lua,str(ROOT/'tests/aim_chain.lua'),str(ROOT)]); assert 'aim-chain: ok' in out_chain
     out_chain_fidelity=run([lua,str(ROOT/'tests/aim_chain_fidelity.lua'),str(ROOT)]); assert 'aim-chain-fidelity: ok' in out_chain_fidelity
     out_transaction=run([lua,str(ROOT/'tests/aim_transaction.lua'),str(ROOT)]); assert 'aim-transaction: ok' in out_transaction
+    out_product=run([lua,str(ROOT/'tests/product_module.lua'),str(ROOT)]); assert 'product-module: ok' in out_product
+    out_product_bridge=run([lua,str(ROOT/'tests/product_module_bridge.lua'),str(ROOT)]); assert 'product-module-bridge: ok' in out_product_bridge
     out_vr=run([lua,str(ROOT/'tests/visual_runtime.lua'),str(ROOT)]); assert 'visual-runtime: ok' in out_vr
     out_mr=run([lua,str(ROOT/'tests/mutation_runtime.lua'),str(ROOT)]); assert 'mutation-runtime: ok' in out_mr
     out_fb=run([lua,str(ROOT/'tests/payload_feature_bridge.lua'),str(ROOT)]); assert 'payload-feature-bridge: ok' in out_fb
@@ -68,7 +108,7 @@ def main():
     out2=run([lua,str(ROOT/'tests/smoke.lua'),str(ROOT)]); assert 'smoke: ok' in out2
     out3=run([lua,str(ROOT/'tests/protocol_fixture.lua'),str(ROOT)]); assert 'protocol-fixture: ok' in out3
     report={
-      'phase':'D4-aim-source-runtime-takeover',
+      'phase':'E1-full-payload-inventory-and-root-method-overlay',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
       'reconstructed_group':{
         'ui_prototype':'0.29.105',
@@ -103,11 +143,27 @@ def main():
         },
         'intentional_title_change':{'baseline':'@starrmods        ','reconstructed':'@DrkZeref'}
       },
+      'phase_e':{
+        'prototype_index_count':len(prototypes),
+        'classified_prototypes':reported['classified'],
+        'source_owned_reachable':reported['source_owned'],
+        'payload_owned_reachable':reported['payload_owned'],
+        'partially_reconstructed':reported['partially_reconstructed'],
+        'dead_or_unreachable_verified':reported['dead_or_unreachable_verified'],
+        'unknown':reported['unknown'],
+        'root_methods_source_owned':reported['root_methods_source_owned'],
+        'root_methods_total':reported['root_methods_total'],
+        'root_public_symbols_exact':True,
+        'root_fields_exact':['EquipTypeList','ContainerTypeList'],
+        'p0_source_methods':['0.0','0.1','0.2','0.3'],
+        'product_module_overlay_bridge':True,
+        'p0_3_logger_upvalues_conditionally_captured':True,
+      },
       'checks':{
         'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,
         'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'runtime_ownership_gate':'passed',
         'native_settings_ui_smoke':'passed','feature_control_unit':'passed','character_visuals_unit':'passed',
-        'aim_runtime_unit':'passed','aim_mutation_unit':'passed','aim_differential_unit':'passed','aim_bones_unit':'passed','aim_refresh_unit':'passed','aim_abi_unit':'passed','aim_dispatch_unit':'passed','aim_chain_unit':'passed','aim_chain_fidelity_unit':'passed','aim_transaction_unit':'passed','visual_runtime_unit':'passed','mutation_runtime_unit':'passed',
+        'aim_runtime_unit':'passed','aim_mutation_unit':'passed','aim_differential_unit':'passed','aim_bones_unit':'passed','aim_refresh_unit':'passed','aim_abi_unit':'passed','aim_dispatch_unit':'passed','aim_chain_unit':'passed','aim_chain_fidelity_unit':'passed','aim_transaction_unit':'passed','product_module_unit':'passed','product_module_bridge_unit':'passed','visual_runtime_unit':'passed','mutation_runtime_unit':'passed',
         'payload_feature_bridge_unit':'passed','visual_scan_unit':'passed','visual_background_unit':'passed','payload_visual_bridge_unit':'passed',
         'wrapper_smoke':'passed','protocol_fixture':'passed','game_runtime_test':False
       },

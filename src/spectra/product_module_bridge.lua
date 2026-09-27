@@ -1,0 +1,142 @@
+local S = ...
+assert(type(S) == "table", "spectra module table required")
+local Source = assert(S.ProductModule, "ProductModule required")
+local M = {}
+S.ProductModuleBridge = M
+
+M.METHODS = {
+    "CheckEquipmentBeforEnterGameProcess",
+    "_CheckProcess",
+    "_CheckEquipmentValue",
+    "GetAllEquipmentValue",
+}
+M.ROOT_METHOD_COUNT = 29
+
+local product
+local originals = {}
+local installed = {}
+local last_error
+
+local function get_logger_dependencies(fn, overrides)
+    overrides = type(overrides) == "table" and overrides or {}
+    local logger, error_logger = overrides.logger, overrides.error_logger
+    if type(logger) == "function" and type(error_logger) == "function" then
+        return { logger = logger, error_logger = error_logger }
+    end
+    local debug_lib = rawget(_G, "debug")
+    if type(debug_lib) ~= "table" or type(debug_lib.getupvalue) ~= "function" then return nil end
+    local ok1, _, captured_logger = pcall(debug_lib.getupvalue, fn, 1) -- P0.3 U0
+    local ok3, _, captured_error_logger = pcall(debug_lib.getupvalue, fn, 3) -- P0.3 U2
+    if ok1 and ok3 and type(captured_logger) == "function"
+        and type(captured_error_logger) == "function" then
+        return { logger = captured_logger, error_logger = captured_error_logger }
+    end
+    return nil
+end
+
+local function wrap(name, target, dependencies)
+    return function()
+        local result = table.pack(pcall(target, product, _G, dependencies))
+        if not result[1] then
+            last_error = tostring(result[2])
+            -- These routines can reset data, add abnormalities, or emit an
+            -- event before an exception. Retrying the payload closure could
+            -- duplicate those effects, so preserve its error behavior without
+            -- automatic retry. The original method remains restorable.
+            error(result[2], 0)
+        end
+        last_error = nil
+        return table.unpack(result, 2, result.n)
+    end
+end
+
+local function default_set_method(target, name, value)
+    rawset(target, name, value)
+end
+
+function M.install(target, options)
+    if next(installed) ~= nil then return true end
+    if type(target) ~= "table" then return false, "payload product table missing" end
+    options = type(options) == "table" and options or {}
+    for _, name in ipairs(M.METHODS) do
+        if type(rawget(target, name)) ~= "function" then
+            return false, "payload method missing: " .. name
+        end
+    end
+
+    local source_targets = {
+        CheckEquipmentBeforEnterGameProcess = Source.CheckEquipmentBeforEnterGameProcess,
+        _CheckProcess = Source._CheckProcess,
+        _CheckEquipmentValue = Source._CheckEquipmentValue,
+    }
+    local p3_dependencies = get_logger_dependencies(rawget(target, "GetAllEquipmentValue"), options.dependencies)
+    if p3_dependencies then source_targets.GetAllEquipmentValue = Source.GetAllEquipmentValue end
+
+    local set_method = options.set_method or default_set_method
+    local pending_originals, pending_wrappers = {}, {}
+    for _, name in ipairs(M.METHODS) do
+        local source_target = source_targets[name]
+        if source_target then
+            pending_originals[name] = rawget(target, name)
+            pending_wrappers[name] = wrap(name, source_target, p3_dependencies)
+        end
+    end
+
+    for _, name in ipairs(M.METHODS) do
+        local replacement = pending_wrappers[name]
+        if replacement then
+            local ok, err = pcall(set_method, target, name, replacement)
+            if ok and rawget(target, name) ~= replacement then
+                ok, err = false, "payload method replacement did not stick: " .. name
+            end
+            if not ok then
+                for restore_name, original in pairs(pending_originals) do
+                    rawset(target, restore_name, original)
+                end
+                originals, installed = {}, {}
+                last_error = tostring(err)
+                return false, last_error
+            end
+        end
+    end
+    originals, installed = pending_originals, pending_wrappers
+    product = target
+    last_error = nil
+    return true, { methods = M.owned_methods(), p3_logger_captures = p3_dependencies ~= nil }
+end
+
+function M.after_payload_load(target, options)
+    return M.install(target, options)
+end
+
+function M.restore_original()
+    if type(product) == "table" then
+        for name, original in pairs(originals) do
+            rawset(product, name, original)
+        end
+    end
+    product, originals, installed = nil, {}, {}
+    last_error = nil
+    return true
+end
+
+function M.owned_methods()
+    local result = {}
+    for _, name in ipairs(M.METHODS) do result[name] = installed[name] ~= nil end
+    return result
+end
+
+function M.status()
+    local ownership = M.owned_methods()
+    local count = 0
+    for _, name in ipairs(M.METHODS) do if ownership[name] then count = count + 1 end end
+    return {
+        installed = count > 0,
+        source_owned_root_methods = count,
+        root_methods_total = M.ROOT_METHOD_COUNT,
+        methods = ownership,
+        last_error = last_error,
+    }
+end
+
+return M

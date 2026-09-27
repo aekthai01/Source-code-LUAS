@@ -32,21 +32,22 @@ From a clean checkout:
 ```sh
 python3 tools/build_phase_d.py
 python3 tools/aim_forensics.py
+python3 tools/full_payload_forensics.py
 python3 tools/validate_phase_d.py
 ```
 
 GitHub Actions runs the same validation path and a second deterministic build.
 
-## Current Phase D artifact
+## Current Phase D / Phase E artifact
 
-Phase: `D4-aim-source-runtime-takeover`
+Phase: `E1-full-payload-inventory-and-root-method-overlay`
 
-- source size `352444`
-- source SHA-256 `3af199cf24137cd83fa2fc90f2238603051d3e9b719bfb7d27de804f069297f5`
-- standard chunk size `289901`
-- standard SHA-256 `63892e328fb3c883f65eae9b8fe1edf746eb8b12811602a9d940abc9cdc13662`
-- custom chunk size `289901`
-- custom SHA-256 `d8375155a5cae76a95cd6d72e0d1a17144771d5b9debff61c7c714e225ec00b9`
+- source size `367368`
+- source SHA-256 `6f24a418885b30f6659d180f510a5bfe1fc191e9e4e545faeabbca0e4525227b`
+- standard chunk size `298119`
+- standard SHA-256 `eb50a2aa5855476cf05aeb6228e68881d939f40cf727c17467096d8cdb1fa7b5`
+- custom chunk size `298119`
+- custom SHA-256 `55e80c120edb8c4e53ebfeaa4826794e9e3255100f8e97e30fb2e7d7cfb012d9`
 
 `validation_phase_d.json` is the machine-readable checkpoint.
 
@@ -60,6 +61,8 @@ Source-owned after the byte-identical payload initializes:
 - `converge`
 - `aim`
 - `anti_shake`
+- root P0.0..P0.2 method overlay
+- P0.3 source logic with conditional runtime ownership when original logger captures are available
 - source `set_dongdong_feature_config` (`P0.29.73`)
 - source `set_dongdong_aim_part` (`P0.29.77`)
 - aim chain `P68 -> P67 -> P63 -> P66 -> P65`
@@ -68,6 +71,7 @@ Source-owned after the byte-identical payload initializes:
 
 Still payload-owned:
 
+- root P0.3 when original diagnostic U0/U2 closures are unavailable
 - remaining unreconstructed business/equipment behavior outside the migrated Phase D
   feature/visual surfaces
 - saved payload feature/aim functions retained only as transactional fallback
@@ -138,4 +142,29 @@ runtime. CI/mock success is not a substitute for that engine-runtime execution.
 
 ## Follow-up rollback hardening
 
-Before delegating a failed source transaction, the bridge verifies every saved field and requires bone restoration to succeed when bone records are pending. Failed restoration retains snapshots and returns false without entering payload. `tests/aim_transaction.lua` covers field, partial and bone failures. Game runtime execution remains unverified.
+Before delegating a failed source transaction, the bridge verifies every saved field and
+bone record. Bone checks include captured array counts, canonical values at all indices,
+owner bindings, parent-array entries and parent-owner links. Failed restoration retains
+snapshots and the bone-name pool and returns false without entering payload. Focused tests
+create two actual bone records and cover partial value, binding and index failures plus
+complete restore. Game runtime execution remains unverified.
+
+## Phase E1 full inventory and root methods
+
+`FULL_PAYLOAD_PROTOTYPE_INDEX.json` is generated from the verified payload prototype,
+constant and disassembly artifacts. It contains exactly 296 prototype paths. Generated
+coverage is 75 source-owned, 220 payload-owned, 1 partially reconstructed, 0 verified
+dead and 0 unknown. Static closure reachability does not assert runtime invocation.
+
+`FULL_PAYLOAD_RECONSTRUCTION_MAP.md` records exact P0.0..P0.28 exports and the
+`EquipTypeList` / `ContainerTypeList` fields. `src/spectra/product_module.lua` materializes
+P0.0 through P0.3; tests cover flow branches, call order, threshold boundaries, rental and
+currency paths, and event arguments. `product_module_bridge.lua` receives `state.product`
+after payload execution, preserves originals and rolls back partial installation. P0.0,
+P0.1 and P0.2 are installed by default (3/29 root methods). P0.3 is source tested but
+runtime installation requires the original U0/U2 logger closures; without those it stays
+payload-owned. Source exceptions propagate without retrying possibly non-reversible effects.
+
+CI regenerates the full inventory, asserts exactly 296 entries, runs Phase D and Phase E
+tests, checks ownership consistency and repeats the custom build for determinism. The
+workflow uses `actions/checkout@v6`, whose action metadata specifies Node 24.

@@ -1,5 +1,5 @@
 {
-  "phase": "D4-aim-source-runtime-takeover",
+  "phase": "E1-full-payload-inventory-and-root-method-overlay",
   "baseline": {
     "size": 180034,
     "sha256": "35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536"
@@ -9,16 +9,16 @@
     "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263"
   },
   "phase_d_source": {
-    "size": 352444,
-    "sha256": "3af199cf24137cd83fa2fc90f2238603051d3e9b719bfb7d27de804f069297f5"
+    "size": 367368,
+    "sha256": "6f24a418885b30f6659d180f510a5bfe1fc191e9e4e545faeabbca0e4525227b"
   },
   "phase_d_standard": {
-    "size": 289901,
-    "sha256": "63892e328fb3c883f65eae9b8fe1edf746eb8b12811602a9d940abc9cdc13662"
+    "size": 298119,
+    "sha256": "eb50a2aa5855476cf05aeb6228e68881d939f40cf727c17467096d8cdb1fa7b5"
   },
   "phase_d_custom": {
-    "size": 289901,
-    "sha256": "d8375155a5cae76a95cd6d72e0d1a17144771d5b9debff61c7c714e225ec00b9"
+    "size": 298119,
+    "sha256": "55e80c120edb8c4e53ebfeaa4826794e9e3255100f8e97e30fb2e7d7cfb012d9"
   },
   "reconstructed_group": {
     "ui_prototype": "0.29.105",
@@ -136,6 +136,30 @@
       "reconstructed": "@DrkZeref"
     }
   },
+  "phase_e": {
+    "prototype_index_count": 296,
+    "classified_prototypes": 296,
+    "source_owned_reachable": 75,
+    "payload_owned_reachable": 220,
+    "partially_reconstructed": 1,
+    "dead_or_unreachable_verified": 0,
+    "unknown": 0,
+    "root_methods_source_owned": 3,
+    "root_methods_total": 29,
+    "root_public_symbols_exact": true,
+    "root_fields_exact": [
+      "EquipTypeList",
+      "ContainerTypeList"
+    ],
+    "p0_source_methods": [
+      "0.0",
+      "0.1",
+      "0.2",
+      "0.3"
+    ],
+    "product_module_overlay_bridge": true,
+    "p0_3_logger_upvalues_conditionally_captured": true
+  },
   "checks": {
     "baseline_identity": true,
     "payload_identity": true,
@@ -156,6 +180,8 @@
     "aim_chain_unit": "passed",
     "aim_chain_fidelity_unit": "passed",
     "aim_transaction_unit": "passed",
+    "product_module_unit": "passed",
+    "product_module_bridge_unit": "passed",
     "visual_runtime_unit": "passed",
     "mutation_runtime_unit": "passed",
     "payload_feature_bridge_unit": "passed",

@@ -7,13 +7,23 @@ jobs:
   validate:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install Lua 5.3 toolchain
         run: sudo apt-get update && sudo apt-get install -y lua5.3
       - name: Regenerate aim implementation index
         run: |
           python3 tools/aim_forensics.py
           git diff --exit-code -- AIM_PROTOTYPE_INDEX.json
+      - name: Regenerate complete payload inventory and coverage
+        run: |
+          python3 tools/full_payload_forensics.py
+          python3 - <<'PY'
+          import json
+          d=json.load(open('FULL_PAYLOAD_PROTOTYPE_INDEX.json'))
+          assert d['_meta']['total_prototypes'] == 296
+          assert len(d['prototypes']) == 296
+          PY
+          git diff --exit-code -- FULL_PAYLOAD_PROTOTYPE_INDEX.json FULL_PAYLOAD_RECONSTRUCTION_MAP.md RECONSTRUCTION_COVERAGE.md
       - name: Build and run focused regressions
         run: |
           python3 tools/build_phase_d.py

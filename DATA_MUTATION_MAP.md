@@ -124,6 +124,27 @@ single underlying array can be restored through multiple aliases.
 `P2/P3/P4/P12` call semantics. Focused tests cover self/static ordering, fallback order,
 protected calls, nil handling and duplicate side-effect risk.
 
+## Phase E1 equipment-check root path
+
+| Prototype | Exact payload export | Reconstructed source | Runtime owner |
+|---|---|---|---|
+| `P0.0` | `CheckEquipmentBeforEnterGameProcess` | `product_module.lua` | source |
+| `P0.1` | `_CheckProcess` | `product_module.lua` | source |
+| `P0.2` | `_CheckEquipmentValue` | `product_module.lua` | source |
+| `P0.3` | `GetAllEquipmentValue` | `product_module.lua` | partial; needs original U0/U2 diagnostic closures |
+
+P0.2 reads both map values from `GetMapNeedValue`, requests `GetEquipmentCheckData(type, 0)`
+for each abnormal type, and only adds records when the corresponding switch is enabled,
+the threshold is nonzero, and the strict bytecode comparison passes (`current < minimum`,
+`maximum < current`). It writes the recovered `key`, `abnormalType`, `loc`, and `param`
+fields. The source re-reads Field/config paths between the lower and upper checks because
+P0.2 does so in its instruction stream.
+
+P0.3's source preserves challenge/unbound currency selection, rental preset price, the
+seven slot checks, the missing-rental-plan zero fallback, `evtAllEquipmentValueChanged`
+arguments, and the `(total_value, currency_type)` return. P0.0..P0.3 exports and all other
+prototype ownership are machine-indexed in `FULL_PAYLOAD_PROTOTYPE_INDEX.json`.
+
 ## Runtime checkpoint
 
 Current deterministic hashes and test results are authoritative in
