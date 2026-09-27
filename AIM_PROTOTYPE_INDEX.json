@@ -29,11 +29,18 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_30_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.31",
+      "0.29.32",
+      "0.29.34",
+      "0.29.35"
+    ]
   },
   "0.29.31": {
     "evidence": "_aim_sections/0_29_31.txt",
@@ -73,11 +80,24 @@
       0,
       1
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.30",
+        "call_instruction": 8,
+        "upvalue_slot": 0
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_31_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.37",
+      "0.29.38",
+      "0.29.39",
+      "0.29.65"
+    ]
   },
   "0.29.32": {
     "evidence": "_aim_sections/0_29_32.txt",
@@ -116,11 +136,23 @@
       0,
       1
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.30",
+        "call_instruction": 8,
+        "upvalue_slot": 0
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_32_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.33",
+      "0.29.43",
+      "0.29.65"
+    ]
   },
   "0.29.33": {
     "evidence": "_aim_sections/0_29_33.txt",
@@ -151,11 +183,22 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.32",
+        "call_instruction": 4,
+        "upvalue_slot": 0
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_33_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.43",
+      "0.29.65"
+    ]
   },
   "0.29.34": {
     "evidence": "_aim_sections/0_29_34.txt",
@@ -193,11 +236,22 @@
       0,
       1
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.30",
+        "call_instruction": 8,
+        "upvalue_slot": 0
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_34_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.43",
+      "0.29.65"
+    ]
   },
   "0.29.35": {
     "evidence": "_aim_sections/0_29_35.txt",
@@ -234,11 +288,22 @@
       0,
       1
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.30",
+        "call_instruction": 8,
+        "upvalue_slot": 0
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_35_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.39",
+      "0.29.65"
+    ]
   },
   "0.29.36": {
     "evidence": "_aim_sections/0_29_36.txt",
@@ -284,11 +349,15 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_36_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.65"
+    ]
   },
   "0.29.37": {
     "evidence": "_aim_sections/0_29_37.txt",
@@ -313,11 +382,19 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.31",
+        "call_instruction": 4,
+        "upvalue_slot": 0
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_37_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
   },
   "0.29.38": {
     "evidence": "_aim_sections/0_29_38.txt",
@@ -345,11 +422,19 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.31",
+        "call_instruction": 4,
+        "upvalue_slot": 0
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_38_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
   },
   "0.29.39": {
     "evidence": "_aim_sections/0_29_39.txt",
@@ -386,11 +471,26 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.31",
+        "call_instruction": 4,
+        "upvalue_slot": 0
+      },
+      {
+        "callee": "0.29.35",
+        "call_instruction": 10,
+        "upvalue_slot": 1
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_39_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.65"
+    ]
   },
   "0.29.40": {
     "evidence": "_aim_sections/0_29_40.txt",
@@ -439,11 +539,26 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.10",
+        "call_instruction": 5,
+        "upvalue_slot": 0
+      },
+      {
+        "callee": "0.29.10",
+        "call_instruction": 8,
+        "upvalue_slot": 0
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_40_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.41"
+    ]
   },
   "0.29.41": {
     "evidence": "_aim_sections/0_29_41.txt",
@@ -485,11 +600,21 @@
       1,
       3
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.40",
+        "call_instruction": 17,
+        "upvalue_slot": 2
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_41_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.65"
+    ]
   },
   "0.29.42": {
     "evidence": "_aim_sections/0_29_42.txt",
@@ -520,11 +645,15 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_42_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.65"
+    ]
   },
   "0.29.43": {
     "evidence": "_aim_sections/0_29_43.txt",
@@ -575,11 +704,31 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.32",
+        "call_instruction": 4,
+        "upvalue_slot": 0
+      },
+      {
+        "callee": "0.29.34",
+        "call_instruction": 6,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.33",
+        "call_instruction": 8,
+        "upvalue_slot": 2
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_43_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.65"
+    ]
   },
   "0.29.44": {
     "evidence": "_aim_sections/0_29_44.txt",
@@ -659,11 +808,46 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.10",
+        "call_instruction": 5,
+        "upvalue_slot": 0
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 34,
+        "upvalue_slot": 3
+      },
+      {
+        "callee": "0.29.10",
+        "call_instruction": 37,
+        "upvalue_slot": 0
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 55,
+        "upvalue_slot": 3
+      },
+      {
+        "callee": "0.29.12",
+        "call_instruction": 59,
+        "upvalue_slot": 4
+      },
+      {
+        "callee": "0.29.10",
+        "call_instruction": 64,
+        "upvalue_slot": 0
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_44_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.45"
+    ]
   },
   "0.29.45": {
     "evidence": "_aim_sections/0_29_45.txt",
@@ -714,11 +898,21 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.44",
+        "call_instruction": 18,
+        "upvalue_slot": 3
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_45_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.61"
+    ]
   },
   "0.29.61": {
     "evidence": "_aim_sections/0_29_61.txt",
@@ -789,11 +983,37 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.54",
+        "call_instruction": 6,
+        "upvalue_slot": 0
+      },
+      {
+        "callee": "0.29.45",
+        "call_instruction": 26,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.56",
+        "call_instruction": 34,
+        "upvalue_slot": 3
+      },
+      {
+        "callee": "0.29.59",
+        "call_instruction": 44,
+        "upvalue_slot": 4
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_61_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.62",
+      "0.29.63"
+    ]
   },
   "0.29.62": {
     "evidence": "_aim_sections/0_29_62.txt",
@@ -884,11 +1104,56 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.48",
+        "call_instruction": 14,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.49",
+        "call_instruction": 28,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 40,
+        "upvalue_slot": 3
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 44,
+        "upvalue_slot": 3
+      },
+      {
+        "callee": "0.29.61",
+        "call_instruction": 78,
+        "upvalue_slot": 4
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 87,
+        "upvalue_slot": 3
+      },
+      {
+        "callee": "0.29.61",
+        "call_instruction": 121,
+        "upvalue_slot": 4
+      },
+      {
+        "callee": "0.29.57",
+        "call_instruction": 131,
+        "upvalue_slot": 5
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_62_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.63"
+    ]
   },
   "0.29.63": {
     "evidence": "_aim_sections/0_29_63.txt",
@@ -959,11 +1224,62 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.2",
+        "call_instruction": 16,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 22,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.61",
+        "call_instruction": 38,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 45,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.62",
+        "call_instruction": 61,
+        "upvalue_slot": 3
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 68,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.61",
+        "call_instruction": 84,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 91,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.62",
+        "call_instruction": 107,
+        "upvalue_slot": 3
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_63_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.64.0",
+      "0.29.67.0"
+    ]
   },
   "0.29.64": {
     "evidence": "_aim_sections/0_29_64.txt",
@@ -1033,11 +1349,34 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.60",
+        "call_instruction": 16,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.13",
+        "call_instruction": 19,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.18",
+        "call_instruction": 22,
+        "upvalue_slot": 3
+      },
+      {
+        "callee": "0.29.20",
+        "call_instruction": 35,
+        "upvalue_slot": 5
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_64_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
   },
   "0.29.65": {
     "evidence": "_aim_sections/0_29_65.txt",
@@ -1269,11 +1608,131 @@
       1,
       3
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.10",
+        "call_instruction": 5,
+        "upvalue_slot": 0
+      },
+      {
+        "callee": "0.29.10",
+        "call_instruction": 8,
+        "upvalue_slot": 0
+      },
+      {
+        "callee": "0.29.36",
+        "call_instruction": 11,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.31",
+        "call_instruction": 18,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.32",
+        "call_instruction": 21,
+        "upvalue_slot": 3
+      },
+      {
+        "callee": "0.29.33",
+        "call_instruction": 23,
+        "upvalue_slot": 4
+      },
+      {
+        "callee": "0.29.34",
+        "call_instruction": 25,
+        "upvalue_slot": 5
+      },
+      {
+        "callee": "0.29.43",
+        "call_instruction": 30,
+        "upvalue_slot": 6
+      },
+      {
+        "callee": "0.29.39",
+        "call_instruction": 194,
+        "upvalue_slot": 8
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 311,
+        "upvalue_slot": 9
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 327,
+        "upvalue_slot": 9
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 343,
+        "upvalue_slot": 9
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 359,
+        "upvalue_slot": 9
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 375,
+        "upvalue_slot": 9
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 391,
+        "upvalue_slot": 9
+      },
+      {
+        "callee": "0.29.41",
+        "call_instruction": 553,
+        "upvalue_slot": 10
+      },
+      {
+        "callee": "0.29.42",
+        "call_instruction": 564,
+        "upvalue_slot": 11
+      },
+      {
+        "callee": "0.29.35",
+        "call_instruction": 561,
+        "upvalue_slot": 12
+      },
+      {
+        "callee": "0.29.42",
+        "call_instruction": 657,
+        "upvalue_slot": 11
+      },
+      {
+        "callee": "0.29.42",
+        "call_instruction": 667,
+        "upvalue_slot": 11
+      },
+      {
+        "callee": "0.29.42",
+        "call_instruction": 756,
+        "upvalue_slot": 11
+      },
+      {
+        "callee": "0.29.42",
+        "call_instruction": 768,
+        "upvalue_slot": 11
+      },
+      {
+        "callee": "0.29.42",
+        "call_instruction": 785,
+        "upvalue_slot": 11
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "replace_aim_field",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.66"
+    ]
   },
   "0.29.66": {
     "evidence": "_aim_sections/0_29_66.txt",
@@ -1354,11 +1813,214 @@
     "return_B_operands": [
       1
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.10",
+        "call_instruction": 8,
+        "upvalue_slot": 0
+      },
+      {
+        "callee": "0.29.10",
+        "call_instruction": 11,
+        "upvalue_slot": 0
+      },
+      {
+        "callee": "0.29.65",
+        "call_instruction": 23,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.15",
+        "call_instruction": 31,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.18",
+        "call_instruction": 35,
+        "upvalue_slot": 3
+      },
+      {
+        "callee": "0.29.20",
+        "call_instruction": 54,
+        "upvalue_slot": 5
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 63,
+        "upvalue_slot": 8
+      },
+      {
+        "callee": "0.29.66",
+        "call_instruction": 77,
+        "upvalue_slot": 6
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
-    "reconstructed_name": "P0_29_66_descriptive_pending",
+    "reconstructed_name": "walk_and_patch_aim_field",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.66",
+      "0.29.66.0",
+      "0.29.67.0"
+    ]
+  },
+  "0.29.67": {
+    "evidence": "payload_disassembly.txt :: 0.29.67",
+    "instruction_count": 21,
+    "captured_upvalues": [
+      {
+        "scope": "parent_register",
+        "index": 38,
+        "closure": "0.29.18"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 0,
+        "closure": null
+      },
+      {
+        "scope": "parent_register",
+        "index": 40,
+        "closure": "0.29.20"
+      },
+      {
+        "scope": "parent_register",
+        "index": 19,
+        "closure": "0.29.2"
+      },
+      {
+        "scope": "parent_register",
+        "index": 46,
+        "closure": "0.29.26"
+      },
+      {
+        "scope": "parent_register",
+        "index": 50,
+        "closure": "0.29.28"
+      },
+      {
+        "scope": "parent_register",
+        "index": 51,
+        "closure": "0.29.29"
+      },
+      {
+        "scope": "parent_register",
+        "index": 88,
+        "closure": "0.29.63"
+      },
+      {
+        "scope": "parent_register",
+        "index": 91,
+        "closure": "0.29.66"
+      }
+    ],
+    "captured_by": [
+      "0.29.68"
+    ],
+    "globals_from_environment": [
+      "type"
+    ],
+    "constants": [
+      "type",
+      "table"
+    ],
+    "state_keys_in_constants": [],
+    "table_or_config_literals": [],
+    "literal_fields": [],
+    "global_writes": [],
+    "return_B_operands": [
+      1,
+      2
+    ],
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.18",
+        "call_instruction": 5,
+        "upvalue_slot": 0
+      },
+      {
+        "callee": "0.29.20",
+        "call_instruction": 18,
+        "upvalue_slot": 2
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
+    "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
+    "reconstructed_name": "P0_29_67_descriptive_pending",
+    "name_is_original_symbol": false,
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.68"
+    ]
+  },
+  "0.29.68": {
+    "evidence": "payload_disassembly.txt :: 0.29.68",
+    "instruction_count": 38,
+    "captured_upvalues": [
+      {
+        "scope": "parent_register",
+        "index": 27,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 0,
+        "closure": null
+      },
+      {
+        "scope": "parent_register",
+        "index": 33,
+        "closure": "0.29.13"
+      },
+      {
+        "scope": "parent_register",
+        "index": 92,
+        "closure": "0.29.67"
+      }
+    ],
+    "captured_by": [
+      "0.29.69",
+      "0.29.73"
+    ],
+    "globals_from_environment": [
+      "ipairs",
+      "type"
+    ],
+    "constants": [
+      "type",
+      "table",
+      "ipairs",
+      null,
+      true
+    ],
+    "state_keys_in_constants": [],
+    "table_or_config_literals": [],
+    "literal_fields": [],
+    "global_writes": [],
+    "return_B_operands": [
+      1,
+      2
+    ],
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.13",
+        "call_instruction": 19,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.67",
+        "call_instruction": 30,
+        "upvalue_slot": 3
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
+    "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
+    "reconstructed_name": "P0_29_68_descriptive_pending",
+    "name_is_original_symbol": false,
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
   },
   "0.29.74": {
     "evidence": "_aim_sections/0_29_74.txt",
@@ -1440,11 +2102,91 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.2",
+        "call_instruction": 13,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.12",
+        "call_instruction": 20,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 18,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.4",
+        "call_instruction": 30,
+        "upvalue_slot": 3
+      },
+      {
+        "callee": "0.29.3",
+        "call_instruction": 38,
+        "upvalue_slot": 4
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 48,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 55,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 67,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 71,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 75,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.12",
+        "call_instruction": 81,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.3",
+        "call_instruction": 92,
+        "upvalue_slot": 4
+      },
+      {
+        "callee": "0.29.3",
+        "call_instruction": 101,
+        "upvalue_slot": 4
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 129,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.3",
+        "call_instruction": 147,
+        "upvalue_slot": 4
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_74_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.75"
+    ]
   },
   "0.29.75": {
     "evidence": "_aim_sections/0_29_75.txt",
@@ -1516,11 +2258,31 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.74",
+        "call_instruction": 26,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 37,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.3",
+        "call_instruction": 44,
+        "upvalue_slot": 3
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_75_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.77.0.0.0"
+    ]
   },
   "0.29.76": {
     "evidence": "_aim_sections/0_29_76.txt",
@@ -1576,11 +2338,41 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.4",
+        "call_instruction": 20,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 30,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 34,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.4",
+        "call_instruction": 43,
+        "upvalue_slot": 1
+      },
+      {
+        "callee": "0.29.8",
+        "call_instruction": 51,
+        "upvalue_slot": 3
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "P0_29_76_descriptive_pending",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": [
+      "0.29.77.0.0.0"
+    ]
   },
   "0.29.77": {
     "evidence": "proto_0_29_77.txt",
@@ -1645,10 +2437,766 @@
       1,
       2
     ],
-    "call_edges": "Consult upvalue captures and disassembly CALL sites; captures alone do not prove invocation.",
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.8",
+        "call_instruction": 15,
+        "upvalue_slot": 2
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
     "reconstructed_name": "set_dongdong_aim_part",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review"
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
+  },
+  "0.29.62.0": {
+    "evidence": "payload_disassembly.txt :: 0.29.62.0",
+    "instruction_count": 8,
+    "captured_upvalues": [
+      {
+        "scope": "parent_register",
+        "index": 1,
+        "closure": null
+      },
+      {
+        "scope": "parent_register",
+        "index": 0,
+        "closure": null
+      }
+    ],
+    "captured_by": [],
+    "globals_from_environment": [],
+    "constants": [
+      "owner",
+      "key"
+    ],
+    "state_keys_in_constants": [],
+    "table_or_config_literals": [],
+    "literal_fields": [],
+    "global_writes": [],
+    "return_B_operands": [
+      1
+    ],
+    "direct_calls_resolved": [],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
+    "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
+    "reconstructed_name": "P0_29_62_0_descriptive_pending",
+    "name_is_original_symbol": false,
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
+  },
+  "0.29.64.0": {
+    "evidence": "payload_disassembly.txt :: 0.29.64.0",
+    "instruction_count": 15,
+    "captured_upvalues": [
+      {
+        "scope": "parent_upvalue",
+        "index": 3,
+        "closure": "0.29.18"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 6,
+        "closure": "0.29.63"
+      },
+      {
+        "scope": "parent_register",
+        "index": 2,
+        "closure": null
+      }
+    ],
+    "captured_by": [],
+    "globals_from_environment": [],
+    "constants": [],
+    "state_keys_in_constants": [],
+    "table_or_config_literals": [],
+    "literal_fields": [],
+    "global_writes": [],
+    "return_B_operands": [
+      1
+    ],
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.18",
+        "call_instruction": 5,
+        "upvalue_slot": 0
+      },
+      {
+        "callee": "0.29.63",
+        "call_instruction": 9,
+        "upvalue_slot": 1
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
+    "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
+    "reconstructed_name": "P0_29_64_0_descriptive_pending",
+    "name_is_original_symbol": false,
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
+  },
+  "0.29.66.0": {
+    "evidence": "payload_disassembly.txt :: 0.29.66.0",
+    "instruction_count": 19,
+    "captured_upvalues": [
+      {
+        "scope": "parent_upvalue",
+        "index": 6,
+        "closure": "0.29.66"
+      },
+      {
+        "scope": "parent_register",
+        "index": 3,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 4,
+        "closure": null
+      },
+      {
+        "scope": "parent_register",
+        "index": 4,
+        "closure": null
+      },
+      {
+        "scope": "parent_register",
+        "index": 5,
+        "closure": null
+      },
+      {
+        "scope": "parent_register",
+        "index": 6,
+        "closure": null
+      }
+    ],
+    "captured_by": [],
+    "globals_from_environment": [],
+    "constants": [
+      ".",
+      "tostring",
+      1
+    ],
+    "state_keys_in_constants": [],
+    "table_or_config_literals": [],
+    "literal_fields": [],
+    "global_writes": [],
+    "return_B_operands": [
+      1
+    ],
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.66",
+        "call_instruction": 17,
+        "upvalue_slot": 0
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
+    "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
+    "reconstructed_name": "P0_29_66_0_descriptive_pending",
+    "name_is_original_symbol": false,
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
+  },
+  "0.29.67.0": {
+    "evidence": "payload_disassembly.txt :: 0.29.67.0",
+    "instruction_count": 108,
+    "captured_upvalues": [
+      {
+        "scope": "parent_upvalue",
+        "index": 0,
+        "closure": "0.29.18"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 1,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 3,
+        "closure": "0.29.2"
+      },
+      {
+        "scope": "parent_register",
+        "index": 0,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 4,
+        "closure": "0.29.26"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 5,
+        "closure": "0.29.28"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 6,
+        "closure": "0.29.29"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 7,
+        "closure": "0.29.63"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 8,
+        "closure": "0.29.66"
+      },
+      {
+        "scope": "parent_register",
+        "index": 2,
+        "closure": null
+      },
+      {
+        "scope": "parent_register",
+        "index": 3,
+        "closure": null
+      }
+    ],
+    "captured_by": [],
+    "globals_from_environment": [],
+    "constants": [
+      "type",
+      "table",
+      "pcall",
+      "no_recoil",
+      "anti_shake",
+      "converge",
+      0,
+      "aim",
+      "tonumber",
+      "AimAssistorId",
+      null,
+      "value",
+      "Value",
+      "tostring",
+      "Default",
+      1,
+      "NewRow",
+      1001,
+      "NewRow_0",
+      1002,
+      "NewRow_1",
+      1003,
+      "NewRow_2",
+      11001,
+      "NewRow_3",
+      1004,
+      "."
+    ],
+    "state_keys_in_constants": [],
+    "table_or_config_literals": [],
+    "literal_fields": [
+      "Default",
+      "NewRow",
+      "NewRow_0",
+      "NewRow_1",
+      "NewRow_2",
+      "NewRow_3"
+    ],
+    "global_writes": [],
+    "return_B_operands": [
+      1
+    ],
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.18",
+        "call_instruction": 5,
+        "upvalue_slot": 0
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 15,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.26",
+        "call_instruction": 26,
+        "upvalue_slot": 4
+      },
+      {
+        "callee": "0.29.28",
+        "call_instruction": 33,
+        "upvalue_slot": 5
+      },
+      {
+        "callee": "0.29.29",
+        "call_instruction": 45,
+        "upvalue_slot": 6
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 54,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 61,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 66,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.2",
+        "call_instruction": 72,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.63",
+        "call_instruction": 90,
+        "upvalue_slot": 7
+      },
+      {
+        "callee": "0.29.66",
+        "call_instruction": 104,
+        "upvalue_slot": 8
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
+    "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
+    "reconstructed_name": "P0_29_67_0_descriptive_pending",
+    "name_is_original_symbol": false,
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
+  },
+  "0.29.67.0.0": {
+    "evidence": "payload_disassembly.txt :: 0.29.67.0.0",
+    "instruction_count": 7,
+    "captured_upvalues": [
+      {
+        "scope": "parent_register",
+        "index": 0,
+        "closure": null
+      },
+      {
+        "scope": "parent_register",
+        "index": 1,
+        "closure": null
+      },
+      {
+        "scope": "parent_register",
+        "index": 2,
+        "closure": null
+      }
+    ],
+    "captured_by": [],
+    "globals_from_environment": [],
+    "constants": [],
+    "state_keys_in_constants": [],
+    "table_or_config_literals": [],
+    "literal_fields": [],
+    "global_writes": [],
+    "return_B_operands": [
+      1
+    ],
+    "direct_calls_resolved": [],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
+    "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
+    "reconstructed_name": "P0_29_67_0_0_descriptive_pending",
+    "name_is_original_symbol": false,
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
+  },
+  "0.29.74.0": {
+    "evidence": "payload_disassembly.txt :: 0.29.74.0",
+    "instruction_count": 24,
+    "captured_upvalues": [
+      {
+        "scope": "parent_upvalue",
+        "index": 0,
+        "closure": null
+      },
+      {
+        "scope": "parent_register",
+        "index": 1,
+        "closure": null
+      },
+      {
+        "scope": "parent_register",
+        "index": 0,
+        "closure": null
+      }
+    ],
+    "captured_by": [],
+    "globals_from_environment": [
+      "type"
+    ],
+    "constants": [
+      null,
+      "type",
+      "table",
+      "userdata",
+      true,
+      1
+    ],
+    "state_keys_in_constants": [],
+    "table_or_config_literals": [],
+    "literal_fields": [],
+    "global_writes": [],
+    "return_B_operands": [
+      1
+    ],
+    "direct_calls_resolved": [],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
+    "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
+    "reconstructed_name": "P0_29_74_0_descriptive_pending",
+    "name_is_original_symbol": false,
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
+  },
+  "0.29.76.0": {
+    "evidence": "payload_disassembly.txt :: 0.29.76.0",
+    "instruction_count": 9,
+    "captured_upvalues": [
+      {
+        "scope": "parent_upvalue",
+        "index": 1,
+        "closure": "0.29.4"
+      },
+      {
+        "scope": "parent_register",
+        "index": 1,
+        "closure": null
+      }
+    ],
+    "captured_by": [],
+    "globals_from_environment": [],
+    "constants": [
+      "InitAmmos"
+    ],
+    "state_keys_in_constants": [],
+    "table_or_config_literals": [],
+    "literal_fields": [],
+    "global_writes": [],
+    "return_B_operands": [
+      1
+    ],
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.4",
+        "call_instruction": 7,
+        "upvalue_slot": 0
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
+    "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
+    "reconstructed_name": "P0_29_76_0_descriptive_pending",
+    "name_is_original_symbol": false,
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
+  },
+  "0.29.77.0": {
+    "evidence": "proto_0_29_77_0.txt",
+    "instruction_count": 38,
+    "captured_upvalues": [
+      {
+        "scope": "parent_register",
+        "index": 0,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 0,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 3,
+        "closure": "0.29.73"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 4,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 2,
+        "closure": "0.29.8"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 5,
+        "closure": "0.29.76"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 6,
+        "closure": "0.29.75"
+      }
+    ],
+    "captured_by": [],
+    "globals_from_environment": [
+      "custom_dongdong_aim_part_revision",
+      "custom_dongdong_toggle_state"
+    ],
+    "constants": [
+      "custom_dongdong_aim_part_revision",
+      "custom_dongdong_toggle_state",
+      "aim",
+      true,
+      "anti_shake",
+      null,
+      "custom_dongdong_bone_array_snapshots",
+      "custom_dongdong_bone_name_pool",
+      "custom_dongdong_bone_cache_revision",
+      0.04
+    ],
+    "state_keys_in_constants": [
+      "custom_dongdong_aim_part_revision",
+      "custom_dongdong_bone_array_snapshots",
+      "custom_dongdong_bone_cache_revision",
+      "custom_dongdong_bone_name_pool",
+      "custom_dongdong_toggle_state"
+    ],
+    "table_or_config_literals": [],
+    "literal_fields": [
+      "aim",
+      "anti_shake"
+    ],
+    "global_writes": [
+      "custom_dongdong_bone_array_snapshots",
+      "custom_dongdong_bone_cache_revision",
+      "custom_dongdong_bone_name_pool"
+    ],
+    "return_B_operands": [
+      1
+    ],
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.73",
+        "call_instruction": 28,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.8",
+        "call_instruction": 36,
+        "upvalue_slot": 4
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
+    "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
+    "reconstructed_name": "P0_29_77_0_descriptive_pending",
+    "name_is_original_symbol": false,
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
+  },
+  "0.29.77.0.0": {
+    "evidence": "proto_0_29_77_0_0.txt",
+    "instruction_count": 12,
+    "captured_upvalues": [
+      {
+        "scope": "parent_upvalue",
+        "index": 2,
+        "closure": "0.29.73"
+      },
+      {
+        "scope": "parent_register",
+        "index": 1,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 4,
+        "closure": "0.29.8"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 0,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 1,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 5,
+        "closure": "0.29.76"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 6,
+        "closure": "0.29.75"
+      }
+    ],
+    "captured_by": [],
+    "globals_from_environment": [],
+    "constants": [
+      0.1
+    ],
+    "state_keys_in_constants": [],
+    "table_or_config_literals": [],
+    "literal_fields": [],
+    "global_writes": [],
+    "return_B_operands": [
+      1
+    ],
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.73",
+        "call_instruction": 6,
+        "upvalue_slot": 0
+      },
+      {
+        "callee": "0.29.8",
+        "call_instruction": 10,
+        "upvalue_slot": 2
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
+    "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
+    "reconstructed_name": "P0_29_77_0_0_descriptive_pending",
+    "name_is_original_symbol": false,
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
+  },
+  "0.29.77.0.0.0": {
+    "evidence": "proto_0_29_77_0_0_0.txt",
+    "instruction_count": 19,
+    "captured_upvalues": [
+      {
+        "scope": "parent_upvalue",
+        "index": 3,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 4,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 5,
+        "closure": "0.29.76"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 6,
+        "closure": "0.29.75"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 2,
+        "closure": "0.29.8"
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 1,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 0,
+        "closure": "0.29.73"
+      }
+    ],
+    "captured_by": [],
+    "globals_from_environment": [],
+    "constants": [
+      "custom_dongdong_aim_part_revision",
+      0.38
+    ],
+    "state_keys_in_constants": [
+      "custom_dongdong_aim_part_revision"
+    ],
+    "table_or_config_literals": [],
+    "literal_fields": [],
+    "global_writes": [],
+    "return_B_operands": [
+      1
+    ],
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.76",
+        "call_instruction": 9,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.75",
+        "call_instruction": 13,
+        "upvalue_slot": 3
+      },
+      {
+        "callee": "0.29.8",
+        "call_instruction": 17,
+        "upvalue_slot": 4
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
+    "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
+    "reconstructed_name": "P0_29_77_0_0_0_descriptive_pending",
+    "name_is_original_symbol": false,
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
+  },
+  "0.29.77.0.0.0.0": {
+    "evidence": "proto_0_29_77_0_0_0_0.txt",
+    "instruction_count": 29,
+    "captured_upvalues": [
+      {
+        "scope": "parent_upvalue",
+        "index": 1,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 5,
+        "closure": null
+      },
+      {
+        "scope": "parent_upvalue",
+        "index": 6,
+        "closure": "0.29.73"
+      }
+    ],
+    "captured_by": [],
+    "globals_from_environment": [],
+    "constants": [
+      "custom_dongdong_toggle_state",
+      "aim",
+      true,
+      "anti_shake"
+    ],
+    "state_keys_in_constants": [
+      "custom_dongdong_toggle_state"
+    ],
+    "table_or_config_literals": [],
+    "literal_fields": [
+      "aim",
+      "anti_shake"
+    ],
+    "global_writes": [],
+    "return_B_operands": [
+      1
+    ],
+    "direct_calls_resolved": [
+      {
+        "callee": "0.29.73",
+        "call_instruction": 16,
+        "upvalue_slot": 2
+      },
+      {
+        "callee": "0.29.73",
+        "call_instruction": 27,
+        "upvalue_slot": 2
+      }
+    ],
+    "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
+    "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
+    "reconstructed_name": "P0_29_77_0_0_0_0_descriptive_pending",
+    "name_is_original_symbol": false,
+    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
+    "callers_resolved": []
   }
 }

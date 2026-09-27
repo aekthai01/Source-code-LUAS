@@ -139,3 +139,10 @@ and exact replacement return contract. Runtime ownership has not changed.
 
 `P0.29.66` traversal is now represented in source with snapshot/restore checks,
 while `P0.29.67/68` and the active feature bridge continue to use the payload.
+
+The aim-only `P0.29.67` row branch now resolves bytecode profile row IDs in
+source, and requires explicit bone handling before it can be used by the bridge.
+`aim_bones.lua` now provides inert, tested `P0.29.45/61..64` source.
+
+`aim_bones.lua` also materializes the `P0.29.64` table refresh, with tested
+snapshot restoration before rescanning the aim-assistor table.
