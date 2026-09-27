@@ -258,7 +258,7 @@ function M._CheckContainer(module, globals)
     inspect_slot("BagContainer")
     inspect_slot("Pocket")
 
-    if storage_data and storage_data.switch and storage_data.checkValue > 0 then
+    if storage_data and storage_data.switch and storage_data.checkValue >= 0 then
         local math_util = globals.MathUtil
         local remaining_ratio = math_util.GetTheSecondDecimal(remaining_capacity / total_capacity)
         local configured_ratio = globals.MathUtil.GetTheSecondDecimal(storage_data.checkValue)
@@ -295,7 +295,7 @@ function M._CheckContainer(module, globals)
     local get_safe_box_data = current_field.GetEquipmentCheckData
     local unnecessary_type = globals.Module.ArmedForce.Config.EAbnormalType.HasUnnecessaryItems
     local unnecessary_data = get_safe_box_data(current_field, unnecessary_type, 0)
-    if unnecessary_data and unnecessary_data.switch and unnecessary_data.checkValue > 0 then
+    if unnecessary_data and unnecessary_data.switch and unnecessary_data.checkValue >= 0 then
         local rounded_threshold = globals.MathUtil.GetRoundingNum(unnecessary_data.checkValue)
         if rounded_threshold < used_capacity then
             local field = globals.Module.ArmedForce.Field

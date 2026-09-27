@@ -537,6 +537,32 @@ do
     run2()
     eq(#abnormalities2,0,"missing storage record and disabled safe-box switch add no abnormalities")
     truth(calls2[1]=="check:storage","storage config lookup still occurs when data is missing")
+
+    local run_zero,calls_zero,abnormalities_zero,medicine_zero,format_zero,decimals_zero,rounded_zero=container_fixture({
+        challenge=false,
+        check_data={
+            storage={switch=true,checkValue=0,key=3,abnormalDesc="zero"},
+            unnecessary={switch=true,checkValue=0,key=4,abnormalDesc="zero"},
+        },
+    })
+    run_zero()
+    eq(#decimals_zero,2,"zero storage threshold follows the bytecode nonnegative branch")
+    eq(#rounded_zero,1,"zero safe-box threshold is rounded")
+    eq(rounded_zero[1],0)
+    eq(#abnormalities_zero,1,"zero safe-box threshold still compares used capacity")
+    eq(abnormalities_zero[1].abnormalType,"unnecessary")
+
+    local run_negative,calls_negative,abnormalities_negative,medicine_negative,format_negative,decimals_negative,rounded_negative=container_fixture({
+        challenge=false,
+        check_data={
+            storage={switch=true,checkValue=-0.01,key=5,abnormalDesc="negative"},
+            unnecessary={switch=true,checkValue=-1,key=6,abnormalDesc="negative"},
+        },
+    })
+    run_negative()
+    eq(#abnormalities_negative,0,"negative thresholds leave both bytecode branches")
+    eq(#decimals_negative,0,"negative storage check skips decimal helpers")
+    eq(#rounded_negative,0,"negative safe-box check skips rounding")
 end
 
 print("product-module: ok")

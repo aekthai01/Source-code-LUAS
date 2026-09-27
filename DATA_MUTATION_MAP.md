@@ -157,6 +157,9 @@ ratio is strictly below the normalized setting. The safe-box path chooses
 `ESlotGroup.Player`; its `HasUnnecessaryItems` comparison is also strict. Nested P0.6.0
 walks item collections with `pairs`, selecting `EItemType.Medicine` items whose Health
 feature and `medicineType` are both truthy, and calls `Field:AddMedicineType`.
+Both config branches proceed for nonnegative `checkValue` and skip negative values. A
+zero storage threshold still invokes both decimal helpers before the strict comparison;
+a zero safe-box threshold can add an abnormal when used capacity is positive.
 
 P0.2 reads both map values from `GetMapNeedValue`, requests `GetEquipmentCheckData(type, 0)`
 for each abnormal type, and only adds records when the corresponding switch is enabled,
