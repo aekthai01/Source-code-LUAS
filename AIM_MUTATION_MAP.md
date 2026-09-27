@@ -14,7 +14,7 @@ Evidence: verified `embedded_payload.bin` SHA-256 `a0438b2eb2ecdec664dc25a609376
 | `65 → 66` | `P0.29.66` captures and calls `P0.29.65` with `(row, table_name, field, original, row_id)` at `17..23`; when `should_patch`, it snapshots and patches at `24..32`. It recursively descends to depth 13. | `aim_mutation.lua` implements the replacement decisions; caller/snapshot traversal remains payload-owned |
 | `74..76 → 77` | Parent `R99..R102` closures; `P0.29.77` captures `P0.29.76` and `75` for weapon/init refresh, and schedule helper `P0.29.8`. | `feature_control.lua` implements `77`; runtime bridge still delegates aim modes |
 
-`P0.29.65` captures: normalizer `P0.29.10`, mode `36`, speed `31`, FOV `32`, FOV scale `33`, distance `34`, composite `43`, lock delay `39`, safe field read `P0.29.2`, profile lookup `41`, scale/clamp `42`, lock setting `35`. Its source signature exposes `row_id` explicitly. See `proto_0_29.txt:1050..1051`, `_aim_sections/0_29_65.txt`, `_aim_sections/0_29_66.txt` and the index. The `normalize_identifier`, `read_field` and `scale_clamp` dependencies are still injected and must be wired to the existing reconstructed helpers before any takeover.
+`P0.29.65` captures: normalizer `P0.29.10`, mode `36`, speed `31`, FOV `32`, FOV scale `33`, distance `34`, composite `43`, lock delay `39`, safe field read `P0.29.2`, profile lookup `41`, scale/clamp `42`, lock setting `35`. Its source signature exposes `row_id` explicitly. See `proto_0_29.txt:1050..1051`, `_aim_sections/0_29_65.txt`, `_aim_sections/0_29_66.txt` and the index. The `normalize_identifier` and `read_field` dependencies are still injected and must be wired to the existing reconstructed helpers before any takeover.
 
 ## P0.29.65 branch results
 

@@ -8,10 +8,19 @@ S.AimMutation = M
 M.PROTOTYPES = { clamp = "0.29.30", speed = "0.29.31", fov = "0.29.32",
     fov_scale = "0.29.33", distance = "0.29.34", lock_time = "0.29.35",
     mode = "0.29.36", speed_scale = "0.29.37", inverse_speed = "0.29.38",
-    lock_delay = "0.29.39", replacement = "0.29.65" }
+    lock_delay = "0.29.39", qualify_profile_key = "0.29.40",
+    profile_lookup = "0.29.41", scale_clamp = "0.29.42",
+    composite = "0.29.43", replacement = "0.29.65" }
 
 function M.clamp(value, minimum, maximum, fallback)
     return math.min(maximum, math.max(minimum, tonumber(value) or fallback))
+end
+
+function M.scale_clamp(value, multiplier, minimum, maximum)
+    local result = (tonumber(value) or 0) * multiplier
+    if minimum ~= nil and result < minimum then result = minimum end
+    if maximum ~= nil and result > maximum then result = maximum end
+    return result
 end
 
 function M.settings(state)
@@ -38,8 +47,8 @@ local function member(key, names)
     return false
 end
 
--- deps: normalize_identifier=P0.29.10, read_field=P0.29.19,
--- scale_clamp=P0.29.42. The R52 profile matrix and P0.29.40/41 are below.
+-- deps: normalize_identifier=P0.29.10, read_field=P0.29.2.
+-- The R52 profile matrix and P0.29.40/41 are below.
 -- The remaining dependencies must retain their original contracts when an
 -- active row walker is wired to this function.
 function M.replacement(state, deps, row, table_name, field, original, path)
@@ -138,7 +147,7 @@ function M.replacement(state, deps, row, table_name, field, original, path)
 
     local value, qualified = M.profile_lookup(normalize, path, table_name, key)
     if value ~= nil then
-        local scale_clamp = assert(deps.scale_clamp)
+        local scale_clamp = M.scale_clamp
         if qualified == "lockontime" then return scale_clamp(value, cfg.lock, 0.001, 1), true end
         local factor = shooting and has(qualified, "factor") or following and has(qualified, "factor")
         local interval = shooting and member(key, {"deltatime", "cdtime"}) or following and key == "intervaltime"

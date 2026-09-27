@@ -137,6 +137,6 @@ extracted snapshot. The regenerated hashes are in `validation_phase_d.json`.
 
 Validated static artifact for this continuation:
 
-- source: 323762 bytes, SHA-256 `d73577920be1a27db7a597bf9abf8f665c5e101fc3ac0f76980043346ee6a8d3`
-- custom chunk: 270608 bytes, SHA-256 `31db21bb6bf378f93ba99d417729237ee74aaad8e4cda0d39cbadb0e6bc20c9a`
+- source: 324121 bytes, SHA-256 `cfba3f923d94dc0d1d9f225e9d1dc4f9e9e268b30ac4d9835e5b27fb746727de`
+- custom chunk: 270838 bytes, SHA-256 `8e65dfb63c64fd2b4bde03da7e421fbeb2c05ad809a421eb76c50d9fe6e67335`
 - baseline/payload: original hashes unchanged; `game_runtime_test=false`
