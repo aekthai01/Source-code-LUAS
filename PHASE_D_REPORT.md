@@ -56,19 +56,20 @@ P0.0..P0.28 are mapped from bytecode to exact public names. See
 `FULL_PAYLOAD_RECONSTRUCTION_MAP.md` and `RECONSTRUCTION_COVERAGE.md` for generated
 method and ownership maps.
 
-## Phase E1 root business methods
+## Phase E3 root medicine methods
 
-`src/spectra/product_module.lua` reconstructs P0.0..P0.3 from their instruction streams.
+`src/spectra/product_module.lua` reconstructs P0.0..P0.5 from their instruction streams.
 Tests preserve the P0.0 flow branch and repeated flow lookup, P0.1 call order, P0.2
-strict threshold/config behavior and P0.3 challenge/rental/slot/event return contract.
+strict threshold/config behavior, P0.3 challenge/rental/slot/event return contract, and
+P0.4/P0.5 medicine traversal, filtering, aggregation, abnormal construction and call order.
 `product_module_bridge.lua` receives the returned payload module after initialization,
-preserves its original closures, installs P0.0..P0.2 transactionally, and installs P0.3
-only when its stripped U0/U2 logger closures can be captured or explicitly supplied.
+preserves its original closures, installs P0.0..P0.2 and P0.4..P0.5 transactionally,
+and installs P0.3 only when its stripped U0/U2 logger closures can be captured or explicitly supplied.
 Source errors propagate without retrying payload code, avoiding duplicate non-reversible
-side effects. Static ownership is therefore 3/29 root methods; P0.3 is partial until its
+side effects. Static ownership is therefore 5/29 root methods; P0.3 is partial until its
 logger captures are available.
 
-Current full-payload coverage: 296 classified; 75 source-owned, 220 payload-owned, 1
+Current full-payload coverage: 296 classified; 77 source-owned, 218 payload-owned, 1
 partially reconstructed, 0 dead/unreachable verified, 0 unknown. These are inventory
 statuses, not a claim that all payload behavior has been reconstructed. Static closure
 reachability does not assert that every callback runs in a live game session.
@@ -188,7 +189,7 @@ Focused validation includes:
 | `converge` | reconstructed source |
 | `aim` | reconstructed source |
 | `anti_shake` | reconstructed source |
-| root `P0.0..P0.2` methods | reconstructed source, module overlay |
+| root `P0.0..P0.2`, `P0.4..P0.5` methods | reconstructed source, module overlay |
 | root `P0.3` method | partially reconstructed; source bridge requires original logger captures |
 | public visual entries | reconstructed source |
 | visual scan/fashion/tick path | reconstructed source |

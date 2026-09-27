@@ -9,6 +9,8 @@ M.METHODS = {
     "_CheckProcess",
     "_CheckEquipmentValue",
     "GetAllEquipmentValue",
+    "_CheckMedicine",
+    "_CheckUnCarryMedicine",
 }
 M.ROOT_METHOD_COUNT = 29
 
@@ -34,9 +36,17 @@ local function get_logger_dependencies(fn, overrides)
     return nil
 end
 
-local function wrap(name, target, dependencies)
-    return function()
-        local result = table.pack(pcall(target, product, _G, dependencies))
+local function wrap(name, target, dependencies, environment)
+    return function(...)
+        local arguments = table.pack(...)
+        local result
+        if name == "_CheckUnCarryMedicine" then
+            -- Payload P0.5 is a public two-argument helper. Preserve those
+            -- arguments and adapt only the reconstructed environment context.
+            result = table.pack(pcall(target, product, environment, arguments[1], arguments[2]))
+        else
+            result = table.pack(pcall(target, product, environment, dependencies))
+        end
         if not result[1] then
             last_error = tostring(result[2])
             -- These routines can reset data, add abnormalities, or emit an
@@ -58,6 +68,7 @@ function M.install(target, options)
     if next(installed) ~= nil then return true end
     if type(target) ~= "table" then return false, "payload product table missing" end
     options = type(options) == "table" and options or {}
+    local environment = options.environment or _G
     for _, name in ipairs(M.METHODS) do
         if type(rawget(target, name)) ~= "function" then
             return false, "payload method missing: " .. name
@@ -68,6 +79,8 @@ function M.install(target, options)
         CheckEquipmentBeforEnterGameProcess = Source.CheckEquipmentBeforEnterGameProcess,
         _CheckProcess = Source._CheckProcess,
         _CheckEquipmentValue = Source._CheckEquipmentValue,
+        _CheckMedicine = Source._CheckMedicine,
+        _CheckUnCarryMedicine = Source._CheckUnCarryMedicine,
     }
     local p3_dependencies = get_logger_dependencies(rawget(target, "GetAllEquipmentValue"), options.dependencies)
     if p3_dependencies then source_targets.GetAllEquipmentValue = Source.GetAllEquipmentValue end
@@ -78,7 +91,7 @@ function M.install(target, options)
         local source_target = source_targets[name]
         if source_target then
             pending_originals[name] = rawget(target, name)
-            pending_wrappers[name] = wrap(name, source_target, p3_dependencies)
+            pending_wrappers[name] = wrap(name, source_target, p3_dependencies, environment)
         end
     end
 

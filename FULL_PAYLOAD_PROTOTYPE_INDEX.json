@@ -31,15 +31,15 @@
       },
       "_CheckMedicine": {
         "prototype_id": "P0.4",
-        "current_ownership": "payload_owned",
-        "source_file": null,
-        "runtime_takeover": "payload"
+        "current_ownership": "source_owned",
+        "source_file": "src/spectra/product_module.lua",
+        "runtime_takeover": "source"
       },
       "_CheckUnCarryMedicine": {
         "prototype_id": "P0.5",
-        "current_ownership": "payload_owned",
-        "source_file": null,
-        "runtime_takeover": "payload"
+        "current_ownership": "source_owned",
+        "source_file": "src/spectra/product_module.lua",
+        "runtime_takeover": "source"
       },
       "_CheckContainer": {
         "prototype_id": "P0.6",
@@ -199,12 +199,12 @@
   "coverage": {
     "classified": 296,
     "reachable": 296,
-    "source_owned": 75,
-    "payload_owned": 220,
+    "source_owned": 77,
+    "payload_owned": 218,
     "partially_reconstructed": 1,
     "dead_or_unreachable_verified": 0,
     "unknown": 0,
-    "root_methods_source_owned": 3,
+    "root_methods_source_owned": 5,
     "root_methods_total": 29
   },
   "prototypes": {
@@ -1576,15 +1576,17 @@
       "known_callers": [
         "P0.1"
       ],
-      "known_callees": [],
-      "return_contract": "not reconstructed",
+      "known_callees": [
+        "P0.5"
+      ],
+      "return_contract": "no explicit return",
       "public_symbol": "_CheckMedicine",
       "public_symbol_is_original": true,
       "reconstructed_name": "_CheckMedicine",
       "reconstructed_name_is_original_symbol": true,
-      "current_ownership": "payload_owned",
+      "current_ownership": "source_owned",
       "reachability": "reachable_from_payload_root",
-      "source_file": null,
+      "source_file": "src/spectra/product_module.lua",
       "evidence_paths": [
         "payload_prototypes.json#0.4",
         "payload_constants.json#0.4",
@@ -1732,16 +1734,18 @@
         "unCarryMedicinesTypeList",
         "unCarryMedicinesTypeStrList"
       ],
-      "known_callers": [],
+      "known_callers": [
+        "P0.4"
+      ],
       "known_callees": [],
-      "return_contract": "not reconstructed",
+      "return_contract": "returns key and two ordered medicine-type/description lists",
       "public_symbol": "_CheckUnCarryMedicine",
       "public_symbol_is_original": true,
       "reconstructed_name": "_CheckUnCarryMedicine",
       "reconstructed_name_is_original_symbol": true,
-      "current_ownership": "payload_owned",
+      "current_ownership": "source_owned",
       "reachability": "reachable_from_payload_root",
-      "source_file": null,
+      "source_file": "src/spectra/product_module.lua",
       "evidence_paths": [
         "payload_prototypes.json#0.5",
         "payload_constants.json#0.5",

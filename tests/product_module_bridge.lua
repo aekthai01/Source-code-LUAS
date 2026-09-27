@@ -21,7 +21,7 @@ do
     local originals={}; for _,name in ipairs(Bridge.METHODS) do originals[name]=product[name] end
     truth(Bridge.install(product,{dependencies={logger=function() end,error_logger=function() end}}),"install source methods")
     local status=Bridge.status()
-    eq(status.source_owned_root_methods,4,"all four reconstructed root methods installed")
+    eq(status.source_owned_root_methods,6,"five static roots plus the conditional P0.3 method are installed")
     eq(status.root_methods_total,29,"root method inventory count")
     for _,name in ipairs(Bridge.METHODS) do truth(product[name]~=originals[name],name.." replaced") end
     product._CheckProcess=function() end -- explicit teardown must still restore saved payload code.
@@ -29,7 +29,44 @@ do
     for _,name in ipairs(Bridge.METHODS) do eq(product[name],originals[name],name.." restored") end
 end
 
--- A setter failure on the third method rolls every earlier write back.
+-- The newly overlaid P0.4/P0.5 methods execute through their public module
+-- entries and preserve the two payload P0.5 arguments and return record.
+do
+    Bridge.restore_original()
+    local product=product_fixture()
+    local added={}
+    local field={
+        GetMedicineType=function() return {"held"} end,
+        GetEquipmentCheckData=function(self,kind,medicine)
+            eq(kind,"lack"); eq(medicine,"missing")
+            return {switch=true,key=12,abnormalDesc="missing label"}
+        end,
+        AddEquipAbnormal=function(self,row) added[#added+1]=row end,
+    }
+    local environment={
+        Module={ArmedForce={Field=field,Config={
+            EAbnormalType={LackMedicine="lack"},Loc={UnableToResolveTheState="state:%s"},
+        }}},
+        EDispensingMedicineType={M="missing"},CommonConfig={Loc={Comma=","}},
+        table={
+            values=function() return {"missing"} end,
+            contains=function(list,value) for _,item in ipairs(list) do if item==value then return true end end return false end,
+            insert=table.insert,concat=table.concat,
+        },
+        ipairs=ipairs,math=math,string={format=function(_,text) return text end},
+    }
+    truth(Bridge.install(product,{environment=environment,
+        dependencies={logger=function() end,error_logger=function() end}}),"install product module methods")
+    local result=product._CheckUnCarryMedicine({"missing"},{})
+    eq(result.key,12,"public P0.5 key result")
+    eq(result.unCarryMedicinesTypeList[1],"missing","public P0.5 list result")
+    product._CheckMedicine()
+    eq(#added,1,"public P0.4 source method adds abnormal")
+    eq(added[1].key,12,"public P0.4 forwards P0.5 result")
+    Bridge.restore_original()
+end
+
+-- A setter failure on the final P0.5 write rolls every earlier write back.
 do
     Bridge.restore_original()
     local product=product_fixture()
@@ -38,7 +75,7 @@ do
     local ok=Bridge.install(product,{dependencies={logger=function() end,error_logger=function() end},
         set_method=function(target,name,value)
             writes=writes+1
-            if writes==3 then error("injected install failure") end
+            if writes==6 then error("injected install failure") end
             rawset(target,name,value)
         end})
     eq(ok,false,"partial installation fails")
@@ -65,8 +102,8 @@ do
 end
 
 -- PayloadUIBridge receives the module return captured by PayloadLoader. When
--- the original P0.3 logger captures cannot be recovered, only P0.0..P0.2 are
--- overlaid and P0.3 remains its exact payload closure.
+-- the original P0.3 logger captures cannot be recovered, P0.0..P0.2 and
+-- P0.4..P0.5 are overlaid and P0.3 remains its exact payload closure.
 do
     Bridge.restore_original()
     local product=product_fixture()
@@ -78,7 +115,7 @@ do
     S.PayloadVisualBridge={takeover_after_payload_load=function() return true end}
     assert(loadfile(root.."/src/spectra/payload_ui_bridge.lua"))(S)
     truth(S.PayloadUIBridge.after_payload_load(),"product overlay called after payload load")
-    eq(Bridge.status().source_owned_root_methods,3,"three root methods installed without P0.3 captures")
+    eq(Bridge.status().source_owned_root_methods,5,"five root methods installed without P0.3 captures")
     eq(product.GetAllEquipmentValue,p3_original,"P0.3 remains payload-owned without recovered logger captures")
     Bridge.restore_original()
 end

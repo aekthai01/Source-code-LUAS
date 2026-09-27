@@ -12,8 +12,8 @@ All prototype names without a recovered public root export are reconstructed des
 | `P0.1` | `_CheckProcess` | `source_owned` | `src/spectra/product_module.lua` |
 | `P0.2` | `_CheckEquipmentValue` | `source_owned` | `src/spectra/product_module.lua` |
 | `P0.3` | `GetAllEquipmentValue` | `partially_reconstructed` | `src/spectra/product_module.lua` |
-| `P0.4` | `_CheckMedicine` | `payload_owned` | `payload` |
-| `P0.5` | `_CheckUnCarryMedicine` | `payload_owned` | `payload` |
+| `P0.4` | `_CheckMedicine` | `source_owned` | `src/spectra/product_module.lua` |
+| `P0.5` | `_CheckUnCarryMedicine` | `source_owned` | `src/spectra/product_module.lua` |
 | `P0.6` | `_CheckContainer` | `payload_owned` | `payload` |
 | `P0.7` | `_CheckBullet` | `payload_owned` | `payload` |
 | `P0.8` | `_CheckDurabulity` | `payload_owned` | `payload` |
@@ -40,16 +40,18 @@ All prototype names without a recovered public root export are reconstructed des
 
 Exact root fields: `EquipTypeList`, `ContainerTypeList`.
 
-## P0.0..P0.3 source boundary
+## P0.0..P0.5 source boundary
 
 - `P0.0` retains the recovered `CheckMainFlowSOL` result branch, a second `GetCurrentGameFlow` call only on false, Lobby equality return, reset, `_CheckProcess`, and changed event order.
 - `P0.1` calls the ten recovered checks in bytecode order and then `SortEquipAbnormal`.
 - `P0.2` reads current equipment value and both map thresholds, uses strict `<` / `>` comparisons with zero-threshold guards and config switches, and emits the two recovered abnormal record shapes.
 - `P0.3` keeps challenge currency selection, rental and slot sum paths, two-value return, and value-changed event. Its P0.3 U0/U2 diagnostic closures are taken from the original payload closure when the runtime exposes them; otherwise that method remains payload-owned.
+- `P0.4` reads current medicine types before `table.values(EDispensingMedicineType)`, dispatches through the captured module table's current `_CheckUnCarryMedicine` field (P0.5), and adds `LackMedicine` only for a nonempty result list.
+- `P0.5` uses `ipairs` order, `GetEquipmentCheckData(LackMedicine, type)`, the exact `switch` and `table.contains(current, type)` gates, maximum key aggregation, and ordered list appends without deduplication.
 - The method bridge preserves originals and restores its writes on install failure. It rethrows source exceptions without retrying payload code because earlier operations may already have caused side effects.
 
 ## Current ownership groups
 
-Source-owned prototypes: `75`; payload-owned: `220`; partially reconstructed: `1`; unknown: `0`.
+Source-owned prototypes: `77`; payload-owned: `218`; partially reconstructed: `1`; unknown: `0`.
 
-`FULL_PAYLOAD_PROTOTYPE_INDEX.json` is the per-prototype authority. The runtime bridge remains at four methods maximum; only the first three are statically source-owned without access to stripped P0.3 logger captures.
+`FULL_PAYLOAD_PROTOTYPE_INDEX.json` is the per-prototype authority. The method-level runtime bridge owns P0.0..P0.2 and P0.4..P0.5. P0.3 remains conditional on recovered logger captures.

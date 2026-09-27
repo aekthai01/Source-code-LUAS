@@ -3,13 +3,15 @@ assert(type(S) == "table", "spectra module table required")
 local M = {}
 S.ProductModule = M
 
--- P0.0..P0.3 are reconstructed descriptions of stripped closures. Exported
+-- P0.0..P0.5 are reconstructed descriptions of stripped closures. Exported
 -- field names below are exact strings recovered from root P0 bytecode.
 M.PROTOTYPES = {
     CheckEquipmentBeforEnterGameProcess = "0.0",
     _CheckProcess = "0.1",
     _CheckEquipmentValue = "0.2",
     GetAllEquipmentValue = "0.3",
+    _CheckMedicine = "0.4",
+    _CheckUnCarryMedicine = "0.5",
 }
 M.ROOT_FIELDS = { "EquipTypeList", "ContainerTypeList" }
 
@@ -150,6 +152,63 @@ function M.GetAllEquipmentValue(module, globals, dependencies)
     emit_log(logger, "CheckEquipLogic.GetAllEquipmentValue ============================= END =============================")
     globals.Module.ArmedForce.Config.evtAllEquipmentValueChanged:Invoke(total_value, currency_type)
     return total_value, currency_type
+end
+
+-- P0.5: for each value yielded by the captured enum list, query the
+-- LackMedicine check. Keep ipairs order, table.contains argument order,
+-- switch filtering, and the lack of output deduplication from the bytecode.
+-- This is a reconstructed function name only where root P0 exports the exact
+-- public field `_CheckUnCarryMedicine`; stripped local names are not inferred.
+function M._CheckUnCarryMedicine(module, globals, medicine_type_values, carried_medicine_types)
+    globals = globals_or_default(globals)
+    local result = {
+        key = 0,
+        unCarryMedicinesTypeList = {},
+        unCarryMedicinesTypeStrList = {},
+    }
+    for _, medicine_type in globals.ipairs(medicine_type_values) do
+        local field = globals.Module.ArmedForce.Field
+        local get_check_data = field.GetEquipmentCheckData
+        local abnormal_type = globals.Module.ArmedForce.Config.EAbnormalType.LackMedicine
+        local check_data = get_check_data(field, abnormal_type, medicine_type)
+        if check_data and check_data.switch
+            and not globals.table.contains(carried_medicine_types, medicine_type) then
+            result.key = globals.math.max(result.key, check_data.key)
+            globals.table.insert(result.unCarryMedicinesTypeList, medicine_type)
+            globals.table.insert(result.unCarryMedicinesTypeStrList, check_data.abnormalDesc)
+        end
+    end
+    return result
+end
+
+-- P0.4 captures the root module table and reads its `_CheckUnCarryMedicine`
+-- field at call time. It passes (table.values(EDispensingMedicineType),
+-- Field:GetMedicineType()) in that order. The only emitted abnormal is
+-- LackMedicine, and it is gated by a nonempty result list.
+function M._CheckMedicine(module, globals)
+    globals = globals_or_default(globals)
+    local medicine_field = globals.Module.ArmedForce.Field
+    local get_medicine_types = medicine_field.GetMedicineType
+    local carried_medicine_types = get_medicine_types(medicine_field)
+    local check_missing = module._CheckUnCarryMedicine
+    local values = globals.table.values
+    local medicine_type_enum = globals.EDispensingMedicineType
+    local medicine_type_values = values(medicine_type_enum)
+    local missing = check_missing(medicine_type_values, carried_medicine_types)
+    if missing and #missing.unCarryMedicinesTypeList > 0 then
+        local concat = globals.table.concat
+        local descriptions = missing.unCarryMedicinesTypeStrList
+        local comma = globals.CommonConfig.Loc.Comma
+        local joined = concat(descriptions, comma)
+        local add_field = globals.Module.ArmedForce.Field
+        local add_abnormal = add_field.AddEquipAbnormal
+        local abnormal = { key = missing.key }
+        abnormal.abnormalType = globals.Module.ArmedForce.Config.EAbnormalType.LackMedicine
+        abnormal.loc = globals.string.format(
+            globals.Module.ArmedForce.Config.Loc.UnableToResolveTheState, joined)
+        abnormal.param = { abnormalTypeList = missing.unCarryMedicinesTypeList }
+        add_abnormal(add_field, abnormal)
+    end
 end
 
 return M

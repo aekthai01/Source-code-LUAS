@@ -124,7 +124,7 @@ single underlying array can be restored through multiple aliases.
 `P2/P3/P4/P12` call semantics. Focused tests cover self/static ordering, fallback order,
 protected calls, nil handling and duplicate side-effect risk.
 
-## Phase E1 equipment-check root path
+## Phase E3 equipment-check root path
 
 | Prototype | Exact payload export | Reconstructed source | Runtime owner |
 |---|---|---|---|
@@ -132,6 +132,20 @@ protected calls, nil handling and duplicate side-effect risk.
 | `P0.1` | `_CheckProcess` | `product_module.lua` | source |
 | `P0.2` | `_CheckEquipmentValue` | `product_module.lua` | source |
 | `P0.3` | `GetAllEquipmentValue` | `product_module.lua` | partial; needs original U0/U2 diagnostic closures |
+| `P0.4` | `_CheckMedicine` | `product_module.lua` | source |
+| `P0.5` | `_CheckUnCarryMedicine` | `product_module.lua` | source |
+
+P0.4 reads `Field:GetMedicineType()` before enumerating `EDispensingMedicineType`
+through the captured `table.values`, then passes both values through the captured module
+table's current `_CheckUnCarryMedicine` field (P0.5). It only emits
+`LackMedicine` when P0.5 returns a nonempty missing-type list; the location is formatted
+from ordered descriptions joined with `CommonConfig.Loc.Comma`.
+
+P0.5 walks the supplied enum values with `ipairs`, fetches each
+`GetEquipmentCheckData(LackMedicine, medicine_type)`, and retains a row only when it
+exists, its switch is truthy, and `table.contains(carried_types, medicine_type)` is false.
+It accumulates the maximum row key and appends medicine types/descriptions in traversal
+order. There is no deduplication instruction in the prototype.
 
 P0.2 reads both map values from `GetMapNeedValue`, requests `GetEquipmentCheckData(type, 0)`
 for each abnormal type, and only adds records when the corresponding switch is enabled,
@@ -142,7 +156,7 @@ P0.2 does so in its instruction stream.
 
 P0.3's source preserves challenge/unbound currency selection, rental preset price, the
 seven slot checks, the missing-rental-plan zero fallback, `evtAllEquipmentValueChanged`
-arguments, and the `(total_value, currency_type)` return. P0.0..P0.3 exports and all other
+arguments, and the `(total_value, currency_type)` return. P0.0..P0.5 exports and all other
 prototype ownership are machine-indexed in `FULL_PAYLOAD_PROTOTYPE_INDEX.json`.
 
 ## Runtime checkpoint

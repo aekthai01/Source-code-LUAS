@@ -40,21 +40,22 @@ helper names are reconstructed descriptions unless an exact public/global name i
 
 Exact root fields include `EquipTypeList` and `ContainerTypeList`.
 
-## Full prototype inventory / Phase E1
+## Full prototype inventory / Phase E3
 
 `FULL_PAYLOAD_PROTOTYPE_INDEX.json` contains all 296 prototype paths with parent/child
 structure, constants, upvalues, conservative direct calls, bytecode global/table references,
 current ownership, static reachability, source mapping, evidence and confidence.
 `FULL_PAYLOAD_RECONSTRUCTION_MAP.md` maps each of the exact root exports above to its
-prototype. Current root overlay coverage is 3/29 source-owned methods; P0.3 is partial
+prototype. Current root overlay coverage is 5/29 source-owned methods; P0.3 is partial
 because its original diagnostic upvalues are stripped and only installed when recovered
 from the payload closure. See `RECONSTRUCTION_COVERAGE.md` for machine-generated totals.
 
-The source for P0.0..P0.3 is in `src/spectra/product_module.lua`. P0.0-P0.2 are installed
-through a rollback-capable module overlay after payload initialization. P0.3 source tests
-cover challenge currency, rental value, slot summation and event arguments. Its bridge
-installation requires original U0/U2 logger closures; absent captures leave the payload
-method intact.
+The source for P0.0..P0.5 is in `src/spectra/product_module.lua`. P0.0-P0.2 and
+P0.4-P0.5 are installed through a rollback-capable module overlay after payload
+initialization. P0.3 source tests cover challenge currency, rental value, slot summation and
+event arguments. Its bridge installation requires original U0/U2 logger closures; absent
+captures leave the payload method intact. P0.4/P0.5 tests cover medicine enum traversal,
+carried-type filtering, config switches, key aggregation, ordered output and abnormal data.
 
 ## Exact imported/required namespaces observed at payload root
 

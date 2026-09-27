@@ -222,4 +222,145 @@ do
     eq(event[2],"unbound","missing-plan currency")
 end
 
+-- P0.5's expected vectors come from the bytecode gates at instructions 13..51:
+-- inspect each enum in ipairs order, keep only present+enabled config rows
+-- absent from the carried-type list, aggregate max(key), and append both lists.
+do
+    local calls, contains_calls = {}, {}
+    local records = {
+        A={switch=true,key=4,abnormalDesc="DescA"},
+        B={switch=true,key=99,abnormalDesc="DescB"},
+        C={switch=false,key=8,abnormalDesc="DescC"},
+    }
+    local field
+    field={GetEquipmentCheckData=function(self,kind,medicine_type)
+        eq(self,field,"P0.5 reuses the current Field as method receiver")
+        eq(kind,"lack-medicine","P0.5 check category")
+        calls[#calls+1]=medicine_type
+        return records[medicine_type]
+    end}
+    local env
+    env={
+        Module={ArmedForce={Field=field,Config={EAbnormalType={LackMedicine="lack-medicine"}}}},
+        ipairs=ipairs, math=math,
+        table={contains=function(list,value)
+            contains_calls[#contains_calls+1]=value
+            for _,entry in ipairs(list) do if entry==value then return true end end
+            return false
+        end,insert=table.insert},
+    }
+    local actual=Product._CheckUnCarryMedicine({},env,{"A","B","C","D","A"},{"B"})
+    eq(actual.key,4,"max of missing enabled medicine keys")
+    eq(table.concat(actual.unCarryMedicinesTypeList,","),"A,A","bytecode does not deduplicate repeated enum values")
+    eq(table.concat(actual.unCarryMedicinesTypeStrList,","),"DescA,DescA","description append order and duplicates")
+    eq(table.concat(calls,","),"A,B,C,D,A","P0.5 preserves ipairs traversal")
+    eq(table.concat(contains_calls,","),"A,B,A","switch and missing-record gates precede table.contains")
+
+    local env2
+    local field2
+    field2={GetEquipmentCheckData=function(self,kind,medicine_type)
+        eq(self,field2,"P0.5 re-reads Field for each enum value")
+        eq(kind,"second-type","P0.5 re-reads config type for each enum value")
+        eq(medicine_type,"second")
+        return nil
+    end}
+    local field1
+    field1={GetEquipmentCheckData=function(self,kind,medicine_type)
+        eq(self,field1); eq(kind,"first-type"); eq(medicine_type,"first")
+        env2.Module.ArmedForce.Field=field2
+        env2.Module.ArmedForce.Config.EAbnormalType.LackMedicine="second-type"
+        return {switch=false}
+    end}
+    env2={
+        Module={ArmedForce={Field=field1,Config={EAbnormalType={LackMedicine="first-type"}}}},
+        ipairs=ipairs,math=math,
+        table={contains=function() error("disabled or missing check must not query carried list") end,
+            insert=table.insert},
+    }
+    Product._CheckUnCarryMedicine({},env2,{"first","second"},{})
+end
+
+-- P0.4 explicitly reads Field:GetMedicineType before table.values, dispatches
+-- the returned values and carried list to P0.5, then builds the exact abnormal
+-- table only when the missing-type list is nonempty.
+do
+    local calls, added, format_args = {}, {}, nil
+    local values={"A","B"}
+    local field
+    field={
+        GetMedicineType=function(self)
+            eq(self,field,"medicine query receiver"); calls[#calls+1]="get-medicine-types"
+            return {"B"}
+        end,
+        GetEquipmentCheckData=function(self,kind,medicine_type)
+            calls[#calls+1]="check:"..medicine_type
+            eq(kind,"lack-enum")
+            if medicine_type=="A" then return {switch=true,key=7,abnormalDesc="Alpha"} end
+            return {switch=true,key=2,abnormalDesc="Beta"}
+        end,
+        AddEquipAbnormal=function() error("P0.4 must re-read Field after the helper returns") end,
+    }
+    local add_field
+    add_field={AddEquipAbnormal=function(self,row)
+        eq(self,add_field,"abnormal add re-reads current Field"); added[#added+1]=row
+    end}
+    local env
+    env={
+        Module={ArmedForce={Field=field,Config={
+            EAbnormalType={LackMedicine="lack-enum"},
+            Loc={UnableToResolveTheState="state-template"},
+        }}},
+        EDispensingMedicineType={First="A",Second="B"},
+        CommonConfig={Loc={Comma=" / "}},
+        ipairs=ipairs, math=math,
+        table={
+            values=function(enum)
+                eq(enum,env.EDispensingMedicineType,"enum table source")
+                calls[#calls+1]="table-values"
+                return values
+            end,
+            contains=function(list,value)
+                for _,entry in ipairs(list) do if entry==value then return true end end
+                return false
+            end,
+            insert=table.insert,
+            concat=table.concat,
+        },
+        string={format=function(template,joined)
+            format_args={template,joined}
+            return "formatted:"..joined
+        end},
+    }
+    local module={}
+    module._CheckUnCarryMedicine=function(enum_values,carried_types)
+        calls[#calls+1]="dispatch:P0.5"
+        local result=Product._CheckUnCarryMedicine(module,env,enum_values,carried_types)
+        env.Module.ArmedForce.Field=add_field
+        return result
+    end
+    local p5_before_values=module._CheckUnCarryMedicine
+    local table_values=env.table.values
+    env.table.values=function(enum)
+        local result=table_values(enum)
+        -- P0.4 fetches the public helper before executing table.values.
+        module._CheckUnCarryMedicine=function() error("P0.4 re-fetched P0.5 after table.values") end
+        return result
+    end
+    Product._CheckMedicine(module,env)
+    eq(table.concat(calls,","),"get-medicine-types,table-values,dispatch:P0.5,check:A,check:B","P0.4 call order")
+    eq(#added,1,"nonempty missing list creates one abnormal")
+    eq(added[1].key,7,"P0.4 forwards aggregate max key")
+    eq(added[1].abnormalType,"lack-enum","P0.4 abnormal enum")
+    eq(added[1].loc,"formatted:Alpha","P0.4 formats joined descriptions")
+    eq(table.concat(added[1].param.abnormalTypeList,","),"A","carried medicine is excluded")
+    eq(format_args[1],"state-template"); eq(format_args[2],"Alpha")
+
+    added={}
+    module._CheckUnCarryMedicine=p5_before_values
+    env.Module.ArmedForce.Field=field
+    env.Module.ArmedForce.Field.GetMedicineType=function() return {"A","B"} end
+    Product._CheckMedicine(module,env)
+    eq(#added,0,"empty missing list does not add an abnormal")
+end
+
 print("product-module: ok")

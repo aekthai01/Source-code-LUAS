@@ -55,7 +55,11 @@ def main():
     assert root_methods['_CheckProcess']['current_ownership']=='source_owned'
     assert root_methods['_CheckEquipmentValue']['current_ownership']=='source_owned'
     assert root_methods['GetAllEquipmentValue']['current_ownership']=='partially_reconstructed'
-    assert reported.get('root_methods_source_owned')==3 and reported.get('root_methods_total')==29
+    assert root_methods['_CheckMedicine']['current_ownership']=='source_owned'
+    assert root_methods['_CheckUnCarryMedicine']['current_ownership']=='source_owned'
+    assert prototypes['0.4']['known_callees']==['P0.5']
+    assert 'P0.4' in prototypes['0.5']['known_callers']
+    assert reported.get('root_methods_source_owned')==5 and reported.get('root_methods_total')==29
     assert inventory.get('_meta',{}).get('root_fields')==['EquipTypeList','ContainerTypeList']
     coverage_text=coverage_path.read_text()
     reconstruction_map_text=reconstruction_map_path.read_text()
@@ -108,7 +112,7 @@ def main():
     out2=run([lua,str(ROOT/'tests/smoke.lua'),str(ROOT)]); assert 'smoke: ok' in out2
     out3=run([lua,str(ROOT/'tests/protocol_fixture.lua'),str(ROOT)]); assert 'protocol-fixture: ok' in out3
     report={
-      'phase':'E1-full-payload-inventory-and-root-method-overlay',
+      'phase':'E3-root-medicine-reconstruction',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
       'reconstructed_group':{
         'ui_prototype':'0.29.105',
@@ -155,7 +159,7 @@ def main():
         'root_methods_total':reported['root_methods_total'],
         'root_public_symbols_exact':True,
         'root_fields_exact':['EquipTypeList','ContainerTypeList'],
-        'p0_source_methods':['0.0','0.1','0.2','0.3'],
+        'p0_source_methods':['0.0','0.1','0.2','0.3','0.4','0.5'],
         'product_module_overlay_bridge':True,
         'p0_3_logger_upvalues_conditionally_captured':True,
       },
