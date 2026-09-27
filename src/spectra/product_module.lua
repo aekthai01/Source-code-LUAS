@@ -527,4 +527,27 @@ function M.CheckEquipSlotValue(module, globals, slot_type, dependencies)
     return price or 0
 end
 
+-- P0.11: preserve the one explicit boolean-like gate, the open return list
+-- from GetCurrentGameFlow forwarded to CheckMainFlowSOL, the false-flow Lobby
+-- comparison, and the plain zero-argument call through the captured R3 table.
+function M.DynamicGuidPriceFinishFetch(product, globals, should_finish_fetch)
+    globals = globals_or_default(globals)
+    local manager = globals.Facade.GameFlowManager
+
+    local check_main, check_self = manager.CheckMainFlowSOL, manager
+    local get_flow, flow_self = manager.GetCurrentGameFlow, manager
+    local check_result = check_main(check_self, get_flow(flow_self))
+
+    local flow_allows_finish = check_result
+    if not check_result then
+        local current_flow = manager.GetCurrentGameFlow(manager)
+        flow_allows_finish = current_flow == globals.EGameFlowStageType.Lobby
+    end
+
+    if flow_allows_finish and should_finish_fetch then
+        local check_equipment_value = product._CheckEquipmentValue
+        check_equipment_value()
+    end
+end
+
 return M

@@ -46,7 +46,7 @@ local environment={
     },
 }
 
--- All P0.0..P0.10 public methods install from one source context. No payload
+-- All P0.0..P0.11 public methods install from one source context. No payload
 -- upvalue extraction is involved.
 do
     Bridge.restore_original()
@@ -59,13 +59,25 @@ do
     eq(report.source_only_dependency,true,"source-only dependency report")
     eq(report.payload_upvalue_introspection,false,"payload upvalue introspection disabled")
     local status=Bridge.status()
-    eq(status.source_owned_root_methods,11,"P0.0..P0.10 public methods source-owned")
+    eq(status.source_owned_root_methods,12,"P0.0..P0.11 public methods source-owned")
     eq(status.source_only_dependency,true,"status source-only dependency")
     for _,name in ipairs(Bridge.METHODS) do truth(product[name]~=originals[name],name.." replaced") end
 
     local result=table.pack(product.CheckEquipSlotEmpty("helmet"))
     eq(result.n,1,"P0.9 return arity"); eq(result[1],true,"P0.9 source result")
     eq(#payload_calls,0,"source P0.9 must not call saved payload method")
+
+    local manager={}
+    manager.CheckMainFlowSOL=function() return true end
+    manager.GetCurrentGameFlow=function() return "flow" end
+    environment.Facade={GameFlowManager=manager}
+    environment.EGameFlowStageType={Lobby="lobby"}
+    local child_calls=0
+    product._CheckEquipmentValue=function(...) eq(select("#",...),0,"P0.11 R3 child has no self"); child_calls=child_calls+1 end
+    local fetch=table.pack(product.DynamicGuidPriceFinishFetch(true))
+    eq(fetch.n,0,"P0.11 bridge return arity")
+    eq(child_calls,1,"P0.11 bridge source R3 child call")
+    eq(#payload_calls,0,"source P0.11 must not call saved payload method")
 
     Bridge.restore_original()
     for _,name in ipairs(Bridge.METHODS) do eq(product[name],originals[name],name.." restored") end

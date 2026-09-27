@@ -17,6 +17,7 @@ M.METHODS = {
     "_CheckDurabulity",
     "CheckEquipSlotEmpty",
     "CheckEquipSlotValue",
+    "DynamicGuidPriceFinishFetch",
 }
 M.ROOT_METHOD_COUNT = 29
 
@@ -57,6 +58,8 @@ local function wrap(name, target, dependencies, environment)
                 table.unpack(arguments, 1, arguments.n)))
         elseif name == "CheckEquipSlotValue" then
             result = table.pack(pcall(target, product, environment, arguments[1], dependencies))
+        elseif name == "DynamicGuidPriceFinishFetch" then
+            result = table.pack(pcall(target, product, environment, arguments[1]))
         else
             result = table.pack(pcall(target, product, environment, dependencies))
         end
@@ -122,6 +125,7 @@ function M.install(target, options)
         _CheckDurabulity = Source._CheckDurabulity,
         CheckEquipSlotEmpty = Source.CheckEquipSlotEmpty,
         CheckEquipSlotValue = Source.CheckEquipSlotValue,
+        DynamicGuidPriceFinishFetch = Source.DynamicGuidPriceFinishFetch,
     }
 
     local set_method = options.set_method or default_set_method

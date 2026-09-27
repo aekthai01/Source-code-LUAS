@@ -1,5 +1,5 @@
 {
-  "phase": "E4-root-capture-context-source-only-preparation",
+  "phase": "E5.1-root-dynamic-guid-finish-fetch-source-only",
   "baseline": {
     "size": 180034,
     "sha256": "35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536"
@@ -9,32 +9,32 @@
     "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263"
   },
   "phase_d_source": {
-    "size": 395532,
-    "sha256": "5e1df490ab524e672894ce71b6bf80353bb6dacb397dcf4780960e5fae0e4d55"
+    "size": 397037,
+    "sha256": "a2a5ea280c88f1dc99ef549e4f315f11304017a344331ad824c995663ea810cf"
   },
   "phase_d_standard": {
-    "size": 312096,
-    "sha256": "f99481c57badceac7eff888d931b48d8872ad88e313bd175eb974c58339b2ae5"
+    "size": 312755,
+    "sha256": "b9235cbb521a9d9a694927a7c74b337c6aae4bb976ef543f700c0a8f061c9538"
   },
   "phase_d_custom": {
-    "size": 312096,
-    "sha256": "be1324774c37e04b2468cd734e08175845f4e3188bfa41bb3a1b52e5e9ae0f51"
+    "size": 312755,
+    "sha256": "beb67faf252408a3ab69226511cf31543a2c720447f918afd13654a027a3fa23"
   },
   "inventory": {
     "total": 296,
     "classified": 296,
-    "source_owned": 86,
-    "payload_owned": 210,
+    "source_owned": 87,
+    "payload_owned": 209,
     "partially_reconstructed": 0,
     "unknown": 0,
-    "root_methods_source_owned": 11,
+    "root_methods_source_owned": 12,
     "root_methods_total": 29
   },
   "source_only": {
     "root_capture_map_complete": true,
     "product_context": true,
     "product_constructor": true,
-    "p0_0_through_p0_10": true,
+    "p0_0_through_p0_11": true,
     "payload_upvalue_introspection": false
   },
   "runtime_ownership": {

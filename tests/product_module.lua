@@ -1061,6 +1061,68 @@ do
         "P0.10 call and side-effect order")
 end
 
+-- P0.11 bytecode truth table: a truthy main-flow result bypasses the lobby
+-- check; a false/nil result proceeds only for the second flow == Lobby. The
+-- explicit argument is an independent truthiness gate on the captured R3 call.
+do
+    local calls={}
+    local product={_CheckEquipmentValue=function(...)
+        local args=table.pack(...)
+        eq(args.n,0,"P0.11 captured child plain-call arity")
+        calls[#calls+1]="child"
+    end}
+    local first_flow_calls=0
+    local manager
+    manager={
+        CheckMainFlowSOL=function(self,...)
+            eq(self,manager,"P0.11 flow-check receiver")
+            local args=table.pack(...)
+            eq(args.n,2,"P0.11 forwards flow open returns")
+            eq(args[1],"initial"); eq(args[2],"tail")
+            calls[#calls+1]="check"
+            return true
+        end,
+        GetCurrentGameFlow=function(self)
+            eq(self,manager,"P0.11 flow receiver")
+            first_flow_calls=first_flow_calls+1
+            calls[#calls+1]="flow:"..first_flow_calls
+            return "initial","tail"
+        end,
+    }
+    local env={Facade={GameFlowManager=manager},EGameFlowStageType={Lobby="lobby"}}
+    local result=table.pack(Product.DynamicGuidPriceFinishFetch(product,env,true))
+    eq(result.n,0,"P0.11 zero-return ABI")
+    eq(table.concat(calls,","),"flow:1,check,child","P0.11 truthy check skips second flow test")
+
+    calls={}; first_flow_calls=0
+    manager.CheckMainFlowSOL=function() calls[#calls+1]="check"; return false end
+    manager.GetCurrentGameFlow=function()
+        first_flow_calls=first_flow_calls+1
+        calls[#calls+1]="flow:"..first_flow_calls
+        return first_flow_calls==1 and "initial" or "lobby"
+    end
+    Product.DynamicGuidPriceFinishFetch(product,env,true)
+    eq(table.concat(calls,","),"flow:1,check,flow:2,child","P0.11 equal Lobby passes gate")
+
+    calls={}; first_flow_calls=0
+    manager.GetCurrentGameFlow=function()
+        first_flow_calls=first_flow_calls+1
+        calls[#calls+1]="flow:"..first_flow_calls
+        return first_flow_calls==1 and "initial" or "raid"
+    end
+    Product.DynamicGuidPriceFinishFetch(product,env,true)
+    eq(table.concat(calls,","),"flow:1,check,flow:2","P0.11 non-Lobby suppresses child")
+
+    calls={}; first_flow_calls=0
+    manager.GetCurrentGameFlow=function()
+        first_flow_calls=first_flow_calls+1
+        calls[#calls+1]="flow:"..first_flow_calls
+        return first_flow_calls==1 and "initial" or "lobby"
+    end
+    Product.DynamicGuidPriceFinishFetch(product,env,false)
+    eq(table.concat(calls,","),"flow:1,check,flow:2","P0.11 false argument suppresses child after flow gate")
+end
+
 -- The final TESTSET in P0.10 implements `price or 0` for a falsey result.
 do
     local item={name="masked-price"}

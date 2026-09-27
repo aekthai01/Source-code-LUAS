@@ -81,6 +81,26 @@ local sibling_product=S.ProductConstructor.create(sibling_context,globals)
 eq(sibling_product,sibling_context.product,"child constructor binds to its R3 capture")
 eq(sibling_product~=product,true,"fresh source context creates independent product identity")
 eq(sibling_product.GetAllEquipmentValue==product.GetAllEquipmentValue,false,"child closures bind their own product identity")
+eq(sibling_product.DynamicGuidPriceFinishFetch==product.DynamicGuidPriceFinishFetch,false,"P0.11 child closures bind their own product identity")
+local flow_calls=0
+local flow_manager={
+    CheckMainFlowSOL=function() return false end,
+    GetCurrentGameFlow=function()
+        flow_calls=flow_calls+1
+        return flow_calls==1 and "initial" or "lobby"
+    end,
+}
+globals.Facade={GameFlowManager=flow_manager}
+globals.EGameFlowStageType={Lobby="lobby"}
+local child_calls=0
+product._CheckEquipmentValue=function(...) eq(select("#",...),0,"P0.11 R3 child call has no self"); child_calls=child_calls+1 end
+local p011_true=table.pack(product.DynamicGuidPriceFinishFetch(true))
+eq(p011_true.n,0,"P0.11 source-only zero-return contract")
+eq(child_calls,1,"P0.11 true argument invokes source R3 method")
+flow_calls=0
+local p011_false=table.pack(product.DynamicGuidPriceFinishFetch(false))
+eq(p011_false.n,0,"P0.11 false gate returns no values")
+eq(child_calls,1,"P0.11 false argument suppresses child")
 local names={
     "CheckEquipmentBeforEnterGameProcess","_CheckProcess","_CheckEquipmentValue",
     "GetAllEquipmentValue","_CheckMedicine","_CheckUnCarryMedicine","_CheckContainer",

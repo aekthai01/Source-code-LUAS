@@ -9,6 +9,11 @@ function M.new_product_table()
 end
 
 local function bind(product, globals, source, dependencies, mode)
+    if mode == "one_arg" then
+        return function(a)
+            return source(product, globals, a)
+        end
+    end
     if mode == "two_args" then
         return function(a, b)
             return source(product, globals, a, b)
@@ -29,7 +34,7 @@ local function bind(product, globals, source, dependencies, mode)
     end
 end
 
--- Source-only constructor for the reconstructed P0.0..P0.10 boundary. The
+-- Source-only constructor for the reconstructed P0.0..P0.11 boundary. The
 -- context's R3 table is used directly so every root capture of the product
 -- table observes the same source identity. Later root groups extend this same
 -- table rather than swapping in a payload-created object.
@@ -60,6 +65,8 @@ function M.create(context, globals)
     product._CheckDurabulity = bind(product, globals, Product._CheckDurabulity, p8)
     product.CheckEquipSlotEmpty = bind(product, globals, Product.CheckEquipSlotEmpty, nil, "slot")
     product.CheckEquipSlotValue = bind(product, globals, Product.CheckEquipSlotValue, p10, "slot_deps")
+    product.DynamicGuidPriceFinishFetch = bind(product, globals,
+        Product.DynamicGuidPriceFinishFetch, nil, "one_arg")
 
     local slot = assert(globals.ESlotType, "ESlotType required")
     product.EquipTypeList = {

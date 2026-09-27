@@ -23,7 +23,7 @@ The current compact ownership index is `FULL_PAYLOAD_PROTOTYPE_INDEX.json`. The 
 | `P0.8` | `_CheckDurabulity` | `source_owned` | `true` | `src/spectra/product_module.lua` |
 | `P0.9` | `CheckEquipSlotEmpty` | `source_owned` | `true` | `src/spectra/product_module.lua` |
 | `P0.10` | `CheckEquipSlotValue` | `source_owned` | `true` | `src/spectra/product_module.lua` |
-| `P0.11` | `DynamicGuidPriceFinishFetch` | `payload_owned` | `false` | `payload` |
+| `P0.11` | `DynamicGuidPriceFinishFetch` | `source_owned` | `true` | `src/spectra/product_module.lua` |
 | `P0.12` | `CheckRaidBulletEnough` | `payload_owned` | `false` | `payload` |
 | `P0.13` | `GetMatchBulletNumByWeaponItem` | `payload_owned` | `false` | `payload` |
 | `P0.14` | `_CheckNightFight` | `payload_owned` | `false` | `payload` |
@@ -44,20 +44,20 @@ The current compact ownership index is `FULL_PAYLOAD_PROTOTYPE_INDEX.json`. The 
 
 Exact root fields: `EquipTypeList`, `ContainerTypeList`.
 
-## P0.0..P0.10 source-only preparation
+## P0.0..P0.11 source-only preparation
 
-- All eleven public methods P0.0..P0.10 now receive stripped root captures from `ProductContext`, not `debug.getupvalue`.
+- All twelve public methods P0.0..P0.11 receive source root captures from `ProductContext`/`ProductConstructor`, never payload closure captures or `debug.getupvalue`.
 - P0.3 uses source `info_logger` (R1) and `error_logger` (R2).
 - P0.7/P0.7.0 use source `ItemHelperTool` (R4), `debug_logger` (R0), `error_logger` (R2), and the owning product table passed by the source constructor.
 - P0.8/P0.8.0 use source `error_logger` (R2).
 - P0.10 uses source `info_logger` (R1) as the price logger.
-- `ProductModule.create(context, globals)` creates/binds P0.0..P0.10 on the same source R3 product table and emits exact `EquipTypeList` / `ContainerTypeList` order.
-- The transitional payload overlay remains restorable, but no P0.0..P0.10 installation decision depends on payload closure upvalues.
+- `ProductModule.create(context, globals)` creates/binds P0.0..P0.11 on the same source R3 product table and emits exact `EquipTypeList` / `ContainerTypeList` order.
+- The transitional payload overlay remains restorable; P0.0..P0.11 do not depend on payload closure upvalues.
 
 ## Current ownership
 
-- Source-owned: **86**
-- Payload-owned: **210**
+- Source-owned: **87**
+- Payload-owned: **209**
 - Partially reconstructed: **0**
 - Unknown: **0**
-- Root methods source-owned: **11 / 29**
+- Root methods source-owned: **12 / 29**
