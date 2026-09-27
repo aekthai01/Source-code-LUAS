@@ -20,6 +20,11 @@ local function dependency(deps, name, fallback)
     return value
 end
 
+local function report_failure(deps, err)
+    local report = deps and deps.report_failure
+    if type(report) == "function" then report(err) end
+end
+
 function M.walk_and_patch(state, deps, owner, field, value, table_name, depth, seen, row_id)
     depth = tonumber(depth) or 0
     if depth > 13 then return end
@@ -48,10 +53,14 @@ function M.walk_and_patch(state, deps, owner, field, value, table_name, depth, s
     local path = table_name .. "." .. tostring(field)
 
     if kind == "table" then
-        Mutation.iterate_table(value, function(child_owner, child_field, child_value)
+        local ok, err = Mutation.iterate_table(value, function(child_owner, child_field, child_value)
             M.walk_and_patch(state, deps, child_owner, child_field, child_value,
                 path, depth + 1, seen, row_id)
         end)
+        -- P20/P66 keep the protected traversal contract. The optional report
+        -- side channel exists only so the transactional bridge can detect an
+        -- exception that the bytecode-equivalent iterator intentionally swallows.
+        if not ok then report_failure(deps, err or "P0.29.66 table traversal failed") end
         return
     end
 

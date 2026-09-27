@@ -88,31 +88,34 @@ local function default_dependencies(overrides)
     choose("apply_feature", function(feature)
         if feature == "aim" then
             local transaction = {}
+            local function fail(err)
+                if transaction.failure == nil then
+                    transaction.failure = tostring(err or "source aim transaction failed")
+                end
+                return false
+            end
             local aim_deps = {
                 normalize_identifier = Mutation.normalize_identifier,
                 read_field = AimABI.get,
+                report_failure = fail,
                 patch_bones = function(row)
                     local ok, result = pcall(AimBones.patch_row, _G, row)
-                    if not ok then
-                        transaction.failure = tostring(result)
-                        return false
-                    end
+                    if not ok then return fail(result) end
                     return result
                 end,
                 snapshot_set = function(snapshot_feature, owner, key, value)
-                    local ok = Mutation.snapshot_set(_G, snapshot_feature, owner, key, value)
-                    if not ok then transaction.failure = "source aim field write failed" end
-                    return ok
+                    local called, ok = pcall(Mutation.snapshot_set, _G,
+                        snapshot_feature, owner, key, value)
+                    if not called then return fail(ok) end
+                    if not ok then return fail("source aim field write failed") end
+                    return true
                 end,
             }
             local handlers = {
                 aim = function(owner, key, row, table_name)
                     local ok, result = pcall(AimChain.apply_aim_row, _G, aim_deps,
                         owner, key, row, table_name)
-                    if not ok then
-                        transaction.failure = tostring(result)
-                        return false
-                    end
+                    if not ok then return fail(result) end
                     return result
                 end,
             }
