@@ -10,7 +10,8 @@ M.PROTOTYPES = { clamp = "0.29.30", speed = "0.29.31", fov = "0.29.32",
     mode = "0.29.36", speed_scale = "0.29.37", inverse_speed = "0.29.38",
     lock_delay = "0.29.39", qualify_profile_key = "0.29.40",
     profile_lookup = "0.29.41", scale_clamp = "0.29.42",
-    composite = "0.29.43", replacement = "0.29.65" }
+    composite = "0.29.43", replacement = "0.29.65",
+    walk_and_patch = "0.29.66" }
 
 function M.clamp(value, minimum, maximum, fallback)
     return math.min(maximum, math.max(minimum, tonumber(value) or fallback))
@@ -399,6 +400,43 @@ function M.profile_lookup(normalize, row_id, table_name, field)
     if type(profile) ~= "table" then return nil, nil end
     local qualified = M.qualify_profile_key(normalize, table_name, field)
     return profile[qualified], qualified
+end
+
+-- P0.29.66 / .66.0: the caller of P0.29.65. This source walker stays
+-- inactive until the remaining chain is compared and the bridge is changed.
+function M.walk_and_patch(state, deps, owner, field, value, table_name, depth, seen, row_id)
+    local mutation = assert(S.MutationRuntime, "MutationRuntime required")
+    depth = depth or 0
+    if depth > 13 then return end
+    local normalize = assert(deps.normalize_identifier)
+    local key = normalize(field)
+    if key == "conefilterbones" or key == "conefilterbonesofai" then return end
+    local replacement, should_patch = M.replacement(state, deps, owner, table_name, field, value, row_id)
+    if should_patch then
+        mutation.snapshot_set(state, "aim", owner, field, replacement)
+        return
+    end
+    value = mutation.table_extend(value)
+    local kind = type(value)
+    if kind ~= "table" and kind ~= "userdata" then return end
+    seen = seen or {}
+    if seen[value] then return end
+    seen[value] = true
+    local path = table_name .. "." .. tostring(field)
+    if kind == "table" then
+        mutation.iterate_table(value, function(child_owner, child_field, child_value)
+            M.walk_and_patch(state, deps, child_owner, child_field, child_value, path,
+                depth + 1, seen, row_id)
+        end)
+        return
+    end
+    for _, child_field in ipairs(mutation.CONVERGE_FIELDS) do
+        local child_value = mutation.safe_get(value, child_field)
+        if child_value ~= nil then
+            M.walk_and_patch(state, deps, value, child_field, child_value,
+                table_name .. "." .. child_field, depth + 1, seen, row_id)
+        end
+    end
 end
 
 return M

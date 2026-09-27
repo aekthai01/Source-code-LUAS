@@ -136,3 +136,6 @@ constants from verified bytecode. The row snapshot/write lives in `P0.29.66`,
 not inside `P0.29.65`; its source bridge is still pending. See
 `AIM_MUTATION_MAP.md` for the ordinary/Gamepad distinction, fire/ADS branches,
 and exact replacement return contract. Runtime ownership has not changed.
+
+`P0.29.66` traversal is now represented in source with snapshot/restore checks,
+while `P0.29.67/68` and the active feature bridge continue to use the payload.
