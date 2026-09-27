@@ -1,0 +1,22 @@
+name: Phase D reconstruction
+on:
+  push:
+    branches: [work/phase-d-aim-reconstruction]
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Lua 5.3 toolchain
+        run: sudo apt-get update && sudo apt-get install -y lua5.3
+      - name: Build and run focused regressions
+        run: |
+          python3 tools/build_phase_d.py
+          python3 tools/validate_phase_d.py
+          git diff --exit-code -- validation_phase_d.json
+      - name: Verify deterministic compiler output
+        run: |
+          sha256sum spectra_wrapper_phase_d.custom.luac > /tmp/phase-d.sha
+          python3 tools/build_phase_d.py
+          sha256sum --check /tmp/phase-d.sha

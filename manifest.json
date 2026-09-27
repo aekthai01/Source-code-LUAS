@@ -1,0 +1,104 @@
+{
+  "baseline": {
+    "size": 180034,
+    "sha256": "35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536",
+    "lua_header": {
+      "signature_hex": "1b4c7561",
+      "version_hex": "0x53",
+      "format": 0,
+      "luac_data_hex": "19930d0a1a0a",
+      "sizes": [
+        4,
+        4,
+        4,
+        8,
+        8
+      ],
+      "luac_int": 22136,
+      "luac_num": 370.5,
+      "main_nup": 1
+    },
+    "prototype_count": 83,
+    "instruction_count": 4907,
+    "constant_count": 1876,
+    "upvalue_count": 258,
+    "lineinfo_count": 0,
+    "locvar_count": 0
+  },
+  "embedded_payload": {
+    "base64_root_constant_range": [
+      35,
+      835
+    ],
+    "base64_fragment_count": 801,
+    "base64_length": 144712,
+    "decoded_size": 108533,
+    "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263",
+    "source_name": "穷途陌路        _全新寫法.lua",
+    "prototype_count": 296,
+    "instruction_count": 13494,
+    "constant_count": 2919,
+    "upvalue_count": 978,
+    "lineinfo_count": 0,
+    "locvar_count": 0
+  },
+  "verified_protocol": {
+    "app_id": "71438",
+    "request_sign_secret": "f052b3414cc670a954ab10a",
+    "rc4_key": "gddbf544aa9a227c85f",
+    "base_url": "https://zxx.spwz.online/connect/kmlogon",
+    "success_code": 73913,
+    "freshness_seconds": 30,
+    "storage_key": "SPECTRA_WY_71438_CARD",
+    "request_sign_source": "kami=<key>&markcode=<device>&t=<timestamp>&<request_sign_secret>",
+    "request_plaintext": "kami=<key>&markcode=<device>&t=<timestamp>&sign=<md5(sign_source)>&value=<challenge>",
+    "wire_query": "id=kmlogon&app=<uppercase_hex(app_id_bytes)>&data=<lowercase_hex(RC4(request_plaintext, rc4_key))>",
+    "response_check": "md5(tostring(response_time) .. request_sign_secret .. request_value)",
+    "rc4_test": {
+      "plaintext": "Plaintext",
+      "key": "Key",
+      "hex": "bbf316e8d940af0ad3"
+    },
+    "md5_test": {
+      "input": "abc",
+      "hex": "900150983cd24fb0d6963f7d28e17f72"
+    },
+    "wire_app_value": "3731343338",
+    "url_encode_behavior": "Misnamed url_encode: each byte -> uppercase %02X, with no percent sign"
+  },
+  "rebuild_checkpoint": {
+    "source": {
+      "size": 199103,
+      "sha256": "7d55f64d93c450c53684203b67ed8ca4f0bc22e589f87af6649c61f923232997"
+    },
+    "standard": {
+      "size": 180467,
+      "sha256": "7c5d69b2bfec29c4f4bccce7a2544a8860cafabf6a3bb7acb56f8a74cb72004b"
+    },
+    "custom": {
+      "size": 180467,
+      "sha256": "44a7705e2593daea5903f89671c58266ffaa455e1533ddbbbfb8ed4bf4b072d1"
+    },
+    "validation_checks": {
+      "baseline_identity": true,
+      "payload_identity": true,
+      "payload_b64_decodes_exact": true,
+      "payload_embed_801_fragments_exact": true,
+      "baseline_opcode_roundtrip_exact": true,
+      "payload_opcode_roundtrip_exact": true,
+      "custom_standard_roundtrip_exact": true,
+      "lua53_chunk_structure": true,
+      "smoke_tests": "passed",
+      "protocol_fixture": "passed",
+      "crypto_rc4_vector": "bbf316e8d940af0ad3",
+      "crypto_md5_vector": "900150983cd24fb0d6963f7d28e17f72",
+      "game_runtime_test": false
+    },
+    "opcode_direct_count": 44,
+    "opcode_inferred_only": [
+      8,
+      36,
+      46
+    ]
+  }
+}

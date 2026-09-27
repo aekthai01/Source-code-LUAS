@@ -1,0 +1,26 @@
+=== PROTO 0.29.36 off=45668..45881 params=0 stack=4 code=24 consts=8 up=2 children=0 source='穷途陌路        _全新寫法.lua' ===
+0000 LOADNIL   A=3 B=0 C=0
+0001 LOADBOOL  A=3 B=1 C=0
+0002 LOADNIL   A=3 B=0 C=0
+0003 GETTABUP  R0, U0, K0='custom_dongdong_toggle_state'
+0004 GETTABUP  R1, U1, K1='type'
+0005 MOVE      R2, R0
+0006 CALL      A=1 B=2 C=2
+0007 EQ        A=1 R1, K2='table'
+0008 JMP       A=0 sBx=2 -> 11
+0009 LOADNIL   A=1 B=0 C=0
+0010 RETURN    A=1 B=2 C=0
+0011 GETTABLE  R1, R0, K3='aim'
+0012 EQ        A=0 R1, K4=True
+0013 JMP       A=0 sBx=2 -> 16
+0014 LOADK     R1, K5='fire'
+0015 RETURN    A=1 B=2 C=0
+0016 GETTABLE  R1, R0, K6='anti_shake'
+0017 EQ        A=0 R1, K4=True
+0018 JMP       A=0 sBx=2 -> 21
+0019 LOADK     R1, K7='ads'
+0020 RETURN    A=1 B=2 C=0
+0021 LOADNIL   A=1 B=0 C=0
+0022 RETURN    A=1 B=2 C=0
+0023 RETURN    A=0 B=1 C=0
+

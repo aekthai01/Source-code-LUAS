@@ -1,0 +1,57 @@
+=== PROTO 0.29.76 off=68114..68625 params=0 stack=11 code=55 consts=11 up=4 children=1 source='穷途陌路        _全新寫法.lua' ===
+0000 LOADNIL   A=10 B=0 C=0
+0001 LOADBOOL  A=10 B=1 C=0
+0002 LOADNIL   A=10 B=0 C=0
+0003 GETTABUP  R0, U0, K0='pcall'
+0004 GETTABUP  R1, U0, K1='require'
+0005 LOADK     R2, K2='DFM.Business.Module.RangeModule.Logic.RangeEquipLogic'
+0006 CALL      A=0 B=3 C=3
+0007 TEST      R0 C=0
+0008 JMP       A=0 sBx=5 -> 14
+0009 GETTABUP  R2, U0, K3='type'
+0010 MOVE      R3, R1
+0011 CALL      A=2 B=2 C=2
+0012 EQ        A=1 R2, K4='table'
+0013 JMP       A=0 sBx=2 -> 16
+0014 LOADBOOL  A=2 B=0 C=0
+0015 RETURN    A=2 B=2 C=0
+0016 GETUPVAL  R2, U1
+0017 MOVE      R3, R1
+0018 LOADK     R4, K5='GetCurrentPlayerWeaponItem'
+0019 LOADBOOL  A=5 B=1 C=0
+0020 CALL      A=2 B=4 C=3
+0021 TEST      R2 C=0
+0022 JMP       A=0 sBx=2 -> 25
+0023 EQ        A=0 R3, K6=None
+0024 JMP       A=0 sBx=2 -> 27
+0025 LOADBOOL  A=4 B=0 C=0
+0026 RETURN    A=4 B=2 C=0
+0027 GETUPVAL  R4, U2
+0028 MOVE      R5, R3
+0029 LOADK     R6, K7='InSlot'
+0030 CALL      A=4 B=3 C=2
+0031 GETUPVAL  R5, U2
+0032 MOVE      R6, R4
+0033 LOADK     R7, K8='SlotType'
+0034 CALL      A=5 B=3 C=2
+0035 EQ        A=0 R5, K6=None
+0036 JMP       A=0 sBx=2 -> 39
+0037 LOADBOOL  A=6 B=0 C=0
+0038 RETURN    A=6 B=2 C=0
+0039 GETUPVAL  R6, U1
+0040 MOVE      R7, R1
+0041 LOADK     R8, K9='InitWeapon'
+0042 MOVE      R9, R5
+0043 CALL      A=6 B=4 C=2
+0044 TEST      R6 C=1
+0045 JMP       A=0 sBx=2 -> 48
+0046 LOADBOOL  A=7 B=0 C=0
+0047 RETURN    A=7 B=2 C=0
+0048 GETUPVAL  R7, U3
+0049 LOADK     R8, K10=0.28
+0050 CLOSURE   R9, P0
+0051 CALL      A=7 B=3 C=1
+0052 LOADBOOL  A=7 B=1 C=0
+0053 RETURN    A=7 B=2 C=0
+0054 RETURN    A=0 B=1 C=0
+

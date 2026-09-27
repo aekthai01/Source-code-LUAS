@@ -127,13 +127,13 @@ When documentation conflicts with machine artifacts, verify against the baseline
 
 ## New pre-bridge aim checkpoint (continuation)
 
-After extracting the updated snapshot, inspect `AIM_MUTATION_MAP.md` and
+From a Git checkout, inspect `AIM_MUTATION_MAP.md` and
 `AIM_PROTOTYPE_INDEX.json`. `src/spectra/aim_mutation.lua` implements tested
 `P0.29.65` field decisions and exact `R52` profile literals but is not called
 by the active bridge. `aim`/`anti_shake` remain payload-owned until the recursive
 walker, bone and refresh paths are reconstructed and checked end to end. Re-run
 `python3 tools/build_phase_d.py && python3 tools/validate_phase_d.py` in the
-extracted snapshot. The regenerated hashes are in `validation_phase_d.json`.
+Git checkout. The regenerated hashes are in `validation_phase_d.json`.
 
 Validated static artifact for this continuation:
 
@@ -147,3 +147,17 @@ but its outer `P0.29.67/68`, bone and refresh paths are not yet source-owned.
 `aim_bones.lua` now materializes and tests the `P0.29.45/61..64` chain.
 `P0.29.74..76` weapon refresh is materialized in `aim_refresh.lua`.
 Bytecode behavior comparison and transactional bridge migration remain outstanding.
+
+## Direct-checkout checkpoint
+
+The tracked Git tree now includes `src/spectra/mutation_runtime.lua`, baseline and
+embedded payload, build/validation tools, focused tests, and bytecode evidence.
+`P0.29.68` is source materialized as `MutationRuntime.apply_feature`, with
+instruction-derived traversal and raw identity dedupe tests. `P0.29.74..76` reuse
+reconstructed `P2/P3/P4/P12` call helpers, including fallback after a failed
+first call. `P0.29.65`'s final parameter is `row_id`.
+
+The previous source/custom hashes above describe the earlier handoff, not the
+current checkout. Read `validation_phase_d.json` for current hashes. The full
+`P67` and transactional dual-global bridge gates remain open, so `aim` and
+`anti_shake` are payload-owned and `game_runtime_test=false`.

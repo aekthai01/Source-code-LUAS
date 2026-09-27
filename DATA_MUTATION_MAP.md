@@ -138,7 +138,11 @@ not inside `P0.29.65`; its source bridge is still pending. See
 and exact replacement return contract. Runtime ownership has not changed.
 
 `P0.29.66` traversal is now represented in source with snapshot/restore checks,
-while `P0.29.67/68` and the active feature bridge continue to use the payload.
+while the complete `P0.29.67` chain and active feature bridge continue to use the
+payload. The 38-instruction `P0.29.68` dispatch is represented by
+`MutationRuntime.apply_feature`: `ipairs` configured names, `P13` table lookup,
+raw resolved-object identity dedupe, then `P67` dispatch. No internal `pcall` or
+active-mode check occurs at this layer; focused tests cover both facts.
 
 The aim-only `P0.29.67` row branch now resolves bytecode profile row IDs in
 source, and requires explicit bone handling before it can be used by the bridge.
@@ -148,4 +152,6 @@ source, and requires explicit bone handling before it can be used by the bridge.
 snapshot restoration before rescanning the aim-assistor table.
 
 The weapon refresh dependency `P0.29.74..76` is source materialized in
-`aim_refresh.lua` but is not yet bound to the active aim bridge.
+`aim_refresh.lua` but is not yet bound to the active aim bridge. Its call ABI now
+uses reconstructed `P2/P3/P4/P12` helpers and tests first-call side effects,
+fallback order, and return values.

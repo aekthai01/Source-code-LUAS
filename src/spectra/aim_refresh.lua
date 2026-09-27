@@ -5,24 +5,11 @@ S.AimRefresh = M
 M.PROTOTYPES = { collect_targets = "0.29.74", refresh_methods = "0.29.75",
     init_current_weapon = "0.29.76" }
 -- Descriptive source names; method strings and order are from the payload.
-local function safe_get(owner, key)
-    if owner == nil then return nil end
-    local ok, value = pcall(function() return owner[key] end)
-    if ok then return value end
-end
-
+local ABI = assert(S.AimABI, "P0.29.2/3/4/12 ABI helpers required")
+local safe_get = ABI.get
 local function invoke(owner, key, self_first, ...)
-    local fn = safe_get(owner, key)
-    if type(fn) ~= "function" then return false, nil end
-    local ok, result
-    if self_first then
-        ok, result = pcall(fn, owner, ...)
-        if ok then return true, result end
-        return pcall(fn, ...)
-    end
-    ok, result = pcall(fn, ...)
-    if ok then return true, result end
-    return pcall(fn, owner, ...)
+    if self_first then return ABI.self_first(owner, key, ...) end
+    return ABI.static_first(owner, key, ...)
 end
 
 function M.collect_targets()
@@ -52,8 +39,7 @@ function M.collect_targets()
         local finder = safe_get(helper, "FindComponentByClass")
         local ok, found = false, nil
         if type(finder) == "function" then
-            ok, found = pcall(finder, helper, character, cls)
-            if not ok then ok, found = pcall(finder, character, cls) end
+            ok, found = ABI.call_optional_self(finder, helper, character, cls)
         end
         if ok then manager = found end
     end

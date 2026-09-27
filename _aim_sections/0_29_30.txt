@@ -1,0 +1,20 @@
+=== PROTO 0.29.30 off=44876..45000 params=4 stack=7 code=18 consts=1 up=1 children=0 source='穷途陌路        _全新寫法.lua' ===
+0000 LOADNIL   A=6 B=0 C=0
+0001 LOADBOOL  A=6 B=1 C=0
+0002 LOADNIL   A=6 B=0 C=0
+0003 GETTABUP  R4, U0, K0='tonumber'
+0004 MOVE      R5, R0
+0005 CALL      A=4 B=2 C=2
+0006 TESTSET   R0, R4 C=1
+0007 JMP       A=0 sBx=1 -> 9
+0008 MOVE      R0, R3
+0009 LT        A=0 R0, R1
+0010 JMP       A=0 sBx=2 -> 13
+0011 MOVE      R0, R1
+0012 JMP       A=0 sBx=3 -> 16
+0013 LT        A=0 R2, R0
+0014 JMP       A=0 sBx=1 -> 16
+0015 MOVE      R0, R2
+0016 RETURN    A=0 B=2 C=0
+0017 RETURN    A=0 B=1 C=0
+

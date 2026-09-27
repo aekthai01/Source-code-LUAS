@@ -2017,10 +2017,12 @@
     ],
     "call_edges_note": "Conservative GETUPVAL-to-CALL scan. Dynamic/global/alias calls can be unresolved.",
     "engine_side_effects": "Undetermined by static extraction; inspect CALL sites before runtime takeover.",
-    "reconstructed_name": "P0_29_68_descriptive_pending",
+    "reconstructed_name": "apply_feature",
     "name_is_original_symbol": false,
-    "confidence": "structural metadata verified; dynamic behavior requires per-branch review",
-    "callers_resolved": []
+    "confidence": "38 instructions compared: R27 feature list, ipairs, P13 raw table identity dedupe, P67 dispatch, boolean return; no pcall",
+    "callers_resolved": [],
+    "source": "src/spectra/mutation_runtime.lua",
+    "implementation_status": "source reconstructed; runtime bridge remains payload-owned"
   },
   "0.29.74": {
     "evidence": "_aim_sections/0_29_74.txt",

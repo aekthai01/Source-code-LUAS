@@ -1,0 +1,13 @@
+=== PROTO 0.29.31 off=45000..45133 params=0 stack=6 code=11 consts=4 up=2 children=0 source='穷途陌路        _全新寫法.lua' ===
+0000 LOADNIL   A=5 B=0 C=0
+0001 LOADBOOL  A=5 B=1 C=0
+0002 LOADNIL   A=5 B=0 C=0
+0003 GETUPVAL  R0, U0
+0004 GETTABUP  R1, U1, K0='custom_aim_speed'
+0005 LOADK     R2, K1=1
+0006 LOADK     R3, K2=100
+0007 LOADK     R4, K3=50
+0008 TAILCALL  A=0 B=5 C=0
+0009 RETURN    A=0 B=0 C=0
+0010 RETURN    A=0 B=1 C=0
+

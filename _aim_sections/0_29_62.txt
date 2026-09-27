@@ -1,0 +1,160 @@
+=== PROTO 0.29.62 off=54176..55153 params=2 stack=21 code=158 consts=18 up=7 children=1 source='穷途陌路        _全新寫法.lua' ===
+0000 LOADNIL   A=20 B=0 C=0
+0001 LOADBOOL  A=20 B=1 C=0
+0002 LOADNIL   A=20 B=0 C=0
+0003 GETTABUP  R2, U0, K0='type'
+0004 MOVE      R3, R0
+0005 CALL      A=2 B=2 C=2
+0006 EQ        A=1 R2, K1='table'
+0007 JMP       A=0 sBx=4 -> 12
+0008 EQ        A=1 R2, K2='userdata'
+0009 JMP       A=0 sBx=2 -> 12
+0010 LOADBOOL  A=3 B=0 C=0
+0011 RETURN    A=3 B=2 C=0
+0012 GETUPVAL  R3, U1
+0013 MOVE      R4, R0
+0014 CALL      A=3 B=2 C=2
+0015 LE        A=0 R3, K3=0
+0016 JMP       A=0 sBx=2 -> 19
+0017 LOADBOOL  A=4 B=0 C=0
+0018 RETURN    A=4 B=2 C=0
+0019 LOADBOOL  A=4 B=0 C=0
+0020 LOADK     R5, K3=0
+0021 LOADK     R6, K3=0
+0022 SUB       R7, R3, K4=1
+0023 LOADK     R8, K4=1
+0024 FORPREP   A=6 sBx=120 -> 145
+0025 GETUPVAL  R10, U2
+0026 MOVE      R11, R0
+0027 MOVE      R12, R9
+0028 CALL      A=10 B=3 C=2
+0029 GETTABUP  R11, U0, K0='type'
+0030 MOVE      R12, R10
+0031 CALL      A=11 B=2 C=2
+0032 EQ        A=1 R11, K1='table'
+0033 JMP       A=0 sBx=2 -> 36
+0034 EQ        A=0 R11, K2='userdata'
+0035 JMP       A=0 sBx=109 -> 145
+0036 LOADBOOL  A=12 B=0 C=0
+0037 GETUPVAL  R13, U3
+0038 MOVE      R14, R10
+0039 LOADK     R15, K5='_Dat'
+0040 CALL      A=13 B=3 C=2
+0041 GETUPVAL  R14, U3
+0042 MOVE      R15, R10
+0043 LOADK     R16, K6='ConeFilterBones'
+0044 CALL      A=14 B=3 C=2
+0045 GETTABUP  R15, U0, K0='type'
+0046 MOVE      R16, R14
+0047 CALL      A=15 B=2 C=2
+0048 EQ        A=1 R15, K1='table'
+0049 JMP       A=0 sBx=5 -> 55
+0050 GETTABUP  R15, U0, K0='type'
+0051 MOVE      R16, R14
+0052 CALL      A=15 B=2 C=2
+0053 EQ        A=0 R15, K2='userdata'
+0054 JMP       A=0 sBx=27 -> 82
+0055 NEWTABLE  A=15 B=0 C=7
+0056 SETTABLE  R15, K7='owner', R10
+0057 SETTABLE  R15, K8='key', K6='ConeFilterBones'
+0058 SETTABLE  R15, K9='parent_array', R0
+0059 SETTABLE  R15, K10='parent_index', R9
+0060 SETTABLE  R15, K11='parent_value', R10
+0061 TEST      R1 C=0
+0062 JMP       A=0 sBx=3 -> 66
+0063 GETTABLE  R16, R1, K7='owner'
+0064 TEST      R16 C=1
+0065 JMP       A=0 sBx=1 -> 67
+0066 LOADNIL   A=16 B=0 C=0
+0067 SETTABLE  R15, K12='parent_owner', R16
+0068 TEST      R1 C=0
+0069 JMP       A=0 sBx=3 -> 73
+0070 GETTABLE  R16, R1, K8='key'
+0071 TEST      R16 C=1
+0072 JMP       A=0 sBx=1 -> 74
+0073 LOADNIL   A=16 B=0 C=0
+0074 SETTABLE  R15, K13='parent_key', R16
+0075 GETUPVAL  R16, U4
+0076 MOVE      R17, R14
+0077 MOVE      R18, R15
+0078 CALL      A=16 B=3 C=2
+0079 TEST      R16 C=0
+0080 JMP       A=0 sBx=1 -> 82
+0081 LOADBOOL  A=12 B=1 C=0
+0082 EQ        A=1 R13, K14=None
+0083 JMP       A=0 sBx=41 -> 125
+0084 GETUPVAL  R15, U3
+0085 MOVE      R16, R13
+0086 LOADK     R17, K6='ConeFilterBones'
+0087 CALL      A=15 B=3 C=2
+0088 GETTABUP  R16, U0, K0='type'
+0089 MOVE      R17, R15
+0090 CALL      A=16 B=2 C=2
+0091 EQ        A=1 R16, K1='table'
+0092 JMP       A=0 sBx=5 -> 98
+0093 GETTABUP  R16, U0, K0='type'
+0094 MOVE      R17, R15
+0095 CALL      A=16 B=2 C=2
+0096 EQ        A=0 R16, K2='userdata'
+0097 JMP       A=0 sBx=27 -> 125
+0098 NEWTABLE  A=16 B=0 C=7
+0099 SETTABLE  R16, K7='owner', R13
+0100 SETTABLE  R16, K8='key', K6='ConeFilterBones'
+0101 SETTABLE  R16, K9='parent_array', R0
+0102 SETTABLE  R16, K10='parent_index', R9
+0103 SETTABLE  R16, K11='parent_value', R10
+0104 TEST      R1 C=0
+0105 JMP       A=0 sBx=3 -> 109
+0106 GETTABLE  R17, R1, K7='owner'
+0107 TEST      R17 C=1
+0108 JMP       A=0 sBx=1 -> 110
+0109 LOADNIL   A=17 B=0 C=0
+0110 SETTABLE  R16, K12='parent_owner', R17
+0111 TEST      R1 C=0
+0112 JMP       A=0 sBx=3 -> 116
+0113 GETTABLE  R17, R1, K8='key'
+0114 TEST      R17 C=1
+0115 JMP       A=0 sBx=1 -> 117
+0116 LOADNIL   A=17 B=0 C=0
+0117 SETTABLE  R16, K13='parent_key', R17
+0118 GETUPVAL  R17, U4
+0119 MOVE      R18, R15
+0120 MOVE      R19, R16
+0121 CALL      A=17 B=3 C=2
+0122 TEST      R17 C=0
+0123 JMP       A=0 sBx=1 -> 125
+0124 LOADBOOL  A=12 B=1 C=0
+0125 TEST      R12 C=0
+0126 JMP       A=0 sBx=18 -> 145
+0127 GETUPVAL  R15, U5
+0128 MOVE      R16, R0
+0129 MOVE      R17, R9
+0130 MOVE      R18, R10
+0131 CALL      A=15 B=4 C=1
+0132 TEST      R1 C=0
+0133 JMP       A=0 sBx=9 -> 143
+0134 GETTABLE  R15, R1, K7='owner'
+0135 EQ        A=1 R15, K14=None
+0136 JMP       A=0 sBx=6 -> 143
+0137 GETTABLE  R15, R1, K8='key'
+0138 EQ        A=1 R15, K14=None
+0139 JMP       A=0 sBx=3 -> 143
+0140 GETTABUP  R15, U0, K15='pcall'
+0141 CLOSURE   R16, P0
+0142 CALL      A=15 B=2 C=1
+0143 LOADBOOL  A=4 B=1 C=0
+0144 ADD       R5, R5, K4=1
+0145 FORLOOP   A=6 sBx=-121 -> 25
+0146 LT        A=0 K3=0, R5
+0147 JMP       A=0 sBx=8 -> 156
+0148 GETTABUP  R6, U0, K17='tonumber'
+0149 GETTABUP  R7, U6, K16='custom_dongdong_aim_ai_bone_group_count'
+0150 CALL      A=6 B=2 C=2
+0151 TEST      R6 C=1
+0152 JMP       A=0 sBx=1 -> 154
+0153 LOADK     R6, K3=0
+0154 ADD       R6, R6, R5
+0155 SETTABUP  U6, K16='custom_dongdong_aim_ai_bone_group_count', R6
+0156 RETURN    A=4 B=2 C=0
+0157 RETURN    A=0 B=1 C=0
+

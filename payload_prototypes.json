@@ -1,0 +1,9534 @@
+[
+  {
+    "path": "0",
+    "start_offset": 34,
+    "end_offset": 108533,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 0,
+    "lastlinedefined": 0,
+    "numparams": 0,
+    "is_vararg": 1,
+    "maxstacksize": 21,
+    "instruction_count": 127,
+    "constant_count": 58,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 30,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.0",
+    "start_offset": 1992,
+    "end_offset": 2374,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 11,
+    "lastlinedefined": 17,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 35,
+    "constant_count": 14,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.1",
+    "start_offset": 2374,
+    "end_offset": 2792,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 18,
+    "lastlinedefined": 30,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 29,
+    "constant_count": 14,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.2",
+    "start_offset": 2792,
+    "end_offset": 3490,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 31,
+    "lastlinedefined": 52,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 10,
+    "instruction_count": 90,
+    "constant_count": 22,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.3",
+    "start_offset": 3490,
+    "end_offset": 4876,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 53,
+    "lastlinedefined": 86,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 101,
+    "constant_count": 37,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.4",
+    "start_offset": 4876,
+    "end_offset": 5498,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 87,
+    "lastlinedefined": 101,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 10,
+    "instruction_count": 57,
+    "constant_count": 27,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.5",
+    "start_offset": 5498,
+    "end_offset": 5986,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 102,
+    "lastlinedefined": 117,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 13,
+    "instruction_count": 56,
+    "constant_count": 19,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.6",
+    "start_offset": 5986,
+    "end_offset": 7719,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 118,
+    "lastlinedefined": 172,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 15,
+    "instruction_count": 202,
+    "constant_count": 43,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.6.0",
+    "start_offset": 7403,
+    "end_offset": 7707,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 119,
+    "lastlinedefined": 130,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 32,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.7",
+    "start_offset": 7719,
+    "end_offset": 9532,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 173,
+    "lastlinedefined": 250,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 23,
+    "instruction_count": 149,
+    "constant_count": 28,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.7.0",
+    "start_offset": 8657,
+    "end_offset": 9520,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 176,
+    "lastlinedefined": 208,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 14,
+    "instruction_count": 89,
+    "constant_count": 32,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.8",
+    "start_offset": 9532,
+    "end_offset": 11076,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 251,
+    "lastlinedefined": 306,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 15,
+    "instruction_count": 82,
+    "constant_count": 26,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.8.0",
+    "start_offset": 10178,
+    "end_offset": 11064,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 254,
+    "lastlinedefined": 281,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 13,
+    "instruction_count": 97,
+    "constant_count": 33,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.9",
+    "start_offset": 11076,
+    "end_offset": 11299,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 307,
+    "lastlinedefined": 316,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 24,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.10",
+    "start_offset": 11299,
+    "end_offset": 11873,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 317,
+    "lastlinedefined": 329,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 12,
+    "instruction_count": 48,
+    "constant_count": 14,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.11",
+    "start_offset": 11873,
+    "end_offset": 12133,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 330,
+    "lastlinedefined": 334,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 26,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.12",
+    "start_offset": 12133,
+    "end_offset": 13743,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 335,
+    "lastlinedefined": 379,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 14,
+    "instruction_count": 44,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.12.0",
+    "start_offset": 12604,
+    "end_offset": 13731,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 348,
+    "lastlinedefined": 373,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 16,
+    "instruction_count": 87,
+    "constant_count": 25,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.13",
+    "start_offset": 13743,
+    "end_offset": 14359,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 380,
+    "lastlinedefined": 405,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 16,
+    "instruction_count": 38,
+    "constant_count": 11,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 11
+      },
+      {
+        "instack": 1,
+        "idx": 6
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.13.0",
+    "start_offset": 14081,
+    "end_offset": 14347,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 383,
+    "lastlinedefined": 391,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 14,
+    "instruction_count": 33,
+    "constant_count": 9,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.14",
+    "start_offset": 14359,
+    "end_offset": 15028,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 406,
+    "lastlinedefined": 429,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 15,
+    "instruction_count": 72,
+    "constant_count": 26,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 8
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.15",
+    "start_offset": 15028,
+    "end_offset": 15569,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 445,
+    "lastlinedefined": 470,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 18,
+    "instruction_count": 76,
+    "constant_count": 13,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 8
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.16",
+    "start_offset": 15569,
+    "end_offset": 16037,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 471,
+    "lastlinedefined": 483,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 48,
+    "constant_count": 19,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.17",
+    "start_offset": 16037,
+    "end_offset": 16507,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 484,
+    "lastlinedefined": 496,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 48,
+    "constant_count": 19,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.18",
+    "start_offset": 16507,
+    "end_offset": 17303,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 497,
+    "lastlinedefined": 537,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 18,
+    "instruction_count": 106,
+    "constant_count": 27,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 9
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.19",
+    "start_offset": 17303,
+    "end_offset": 18319,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 538,
+    "lastlinedefined": 589,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 20,
+    "instruction_count": 87,
+    "constant_count": 14,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 6
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.19.0",
+    "start_offset": 17913,
+    "end_offset": 18307,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 546,
+    "lastlinedefined": 564,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 14,
+    "instruction_count": 57,
+    "constant_count": 11,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.20",
+    "start_offset": 18319,
+    "end_offset": 18421,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 590,
+    "lastlinedefined": 592,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.21",
+    "start_offset": 18421,
+    "end_offset": 18523,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 593,
+    "lastlinedefined": 595,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.22",
+    "start_offset": 18523,
+    "end_offset": 20337,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 596,
+    "lastlinedefined": 665,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 20,
+    "instruction_count": 103,
+    "constant_count": 25,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 5
+      },
+      {
+        "instack": 1,
+        "idx": 6
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 3,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.22.0",
+    "start_offset": 19377,
+    "end_offset": 19453,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 604,
+    "lastlinedefined": 606,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 9,
+    "constant_count": 0,
+    "upvalues": [],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.22.1",
+    "start_offset": 19453,
+    "end_offset": 19529,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 606,
+    "lastlinedefined": 608,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 9,
+    "constant_count": 0,
+    "upvalues": [],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.22.2",
+    "start_offset": 19529,
+    "end_offset": 20325,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 609,
+    "lastlinedefined": 640,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 19,
+    "instruction_count": 131,
+    "constant_count": 19,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.23",
+    "start_offset": 20337,
+    "end_offset": 20863,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 666,
+    "lastlinedefined": 682,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 51,
+    "constant_count": 19,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.24",
+    "start_offset": 20863,
+    "end_offset": 21190,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 684,
+    "lastlinedefined": 693,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 9,
+    "instruction_count": 25,
+    "constant_count": 5,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 12
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.25",
+    "start_offset": 21190,
+    "end_offset": 22033,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 694,
+    "lastlinedefined": 750,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 31,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.25.0",
+    "start_offset": 21437,
+    "end_offset": 22021,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 699,
+    "lastlinedefined": 737,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 13,
+    "instruction_count": 91,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.26",
+    "start_offset": 22033,
+    "end_offset": 22367,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 752,
+    "lastlinedefined": 760,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 27,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 13
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.27",
+    "start_offset": 22367,
+    "end_offset": 22643,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 761,
+    "lastlinedefined": 767,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 15,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.28",
+    "start_offset": 22643,
+    "end_offset": 23672,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 768,
+    "lastlinedefined": 809,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 59,
+    "constant_count": 17,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.28.0",
+    "start_offset": 23282,
+    "end_offset": 23660,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 780,
+    "lastlinedefined": 799,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 12,
+    "instruction_count": 48,
+    "constant_count": 10,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 5
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29",
+    "start_offset": 23672,
+    "end_offset": 108521,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 811,
+    "lastlinedefined": 4205,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 145,
+    "instruction_count": 1198,
+    "constant_count": 353,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 109,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.0",
+    "start_offset": 35637,
+    "end_offset": 35744,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 829,
+    "lastlinedefined": 831,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 10,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.1",
+    "start_offset": 35744,
+    "end_offset": 35852,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 868,
+    "lastlinedefined": 870,
+    "numparams": 0,
+    "is_vararg": 1,
+    "maxstacksize": 5,
+    "instruction_count": 13,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.2",
+    "start_offset": 35852,
+    "end_offset": 36042,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 872,
+    "lastlinedefined": 876,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 17,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.2.0",
+    "start_offset": 35958,
+    "end_offset": 36030,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 874,
+    "lastlinedefined": 874,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.3",
+    "start_offset": 36042,
+    "end_offset": 36281,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 878,
+    "lastlinedefined": 886,
+    "numparams": 2,
+    "is_vararg": 1,
+    "maxstacksize": 10,
+    "instruction_count": 43,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.4",
+    "start_offset": 36281,
+    "end_offset": 36520,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 888,
+    "lastlinedefined": 896,
+    "numparams": 2,
+    "is_vararg": 1,
+    "maxstacksize": 11,
+    "instruction_count": 43,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.5",
+    "start_offset": 36520,
+    "end_offset": 36640,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 898,
+    "lastlinedefined": 900,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 15,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.6",
+    "start_offset": 36640,
+    "end_offset": 36859,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 902,
+    "lastlinedefined": 909,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 33,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 20
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.7",
+    "start_offset": 36859,
+    "end_offset": 37061,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 911,
+    "lastlinedefined": 920,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 29,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.8",
+    "start_offset": 37061,
+    "end_offset": 37290,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 922,
+    "lastlinedefined": 931,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 33,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.9",
+    "start_offset": 37290,
+    "end_offset": 37499,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 933,
+    "lastlinedefined": 939,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 30,
+    "constant_count": 8,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.10",
+    "start_offset": 37499,
+    "end_offset": 37649,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1046,
+    "lastlinedefined": 1048,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 17,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.11",
+    "start_offset": 37649,
+    "end_offset": 37803,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1050,
+    "lastlinedefined": 1053,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 19,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.12",
+    "start_offset": 37803,
+    "end_offset": 37992,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1055,
+    "lastlinedefined": 1061,
+    "numparams": 2,
+    "is_vararg": 1,
+    "maxstacksize": 8,
+    "instruction_count": 31,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.13",
+    "start_offset": 37992,
+    "end_offset": 38128,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1063,
+    "lastlinedefined": 1069,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 20,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 31
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 32
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.14",
+    "start_offset": 38128,
+    "end_offset": 38343,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1071,
+    "lastlinedefined": 1083,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 27,
+    "constant_count": 5,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.15",
+    "start_offset": 38343,
+    "end_offset": 38722,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1085,
+    "lastlinedefined": 1100,
+    "numparams": 4,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 48,
+    "constant_count": 11,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 34
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.15.0",
+    "start_offset": 38636,
+    "end_offset": 38710,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1099,
+    "lastlinedefined": 1099,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.16",
+    "start_offset": 38722,
+    "end_offset": 38859,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1102,
+    "lastlinedefined": 1105,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 11,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.17",
+    "start_offset": 38859,
+    "end_offset": 39313,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1107,
+    "lastlinedefined": 1127,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 12,
+    "instruction_count": 55,
+    "constant_count": 10,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.17.0",
+    "start_offset": 39207,
+    "end_offset": 39301,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1119,
+    "lastlinedefined": 1121,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 8
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.18",
+    "start_offset": 39313,
+    "end_offset": 39570,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1129,
+    "lastlinedefined": 1137,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 40,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.19",
+    "start_offset": 39570,
+    "end_offset": 39929,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1139,
+    "lastlinedefined": 1153,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 52,
+    "constant_count": 5,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 38
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.19.0",
+    "start_offset": 39843,
+    "end_offset": 39917,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1145,
+    "lastlinedefined": 1145,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.20",
+    "start_offset": 39929,
+    "end_offset": 40174,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1155,
+    "lastlinedefined": 1161,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 17,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.20.0",
+    "start_offset": 40049,
+    "end_offset": 40162,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1158,
+    "lastlinedefined": 1160,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 10,
+    "instruction_count": 15,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.21",
+    "start_offset": 40174,
+    "end_offset": 40396,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1163,
+    "lastlinedefined": 1174,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 10,
+    "instruction_count": 36,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 35
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.22",
+    "start_offset": 40396,
+    "end_offset": 40988,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1176,
+    "lastlinedefined": 1198,
+    "numparams": 4,
+    "is_vararg": 0,
+    "maxstacksize": 9,
+    "instruction_count": 32,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 40
+      },
+      {
+        "instack": 1,
+        "idx": 35
+      },
+      {
+        "instack": 1,
+        "idx": 42
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.22.0",
+    "start_offset": 40597,
+    "end_offset": 40976,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1184,
+    "lastlinedefined": 1196,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 10,
+    "instruction_count": 49,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.22.0.0",
+    "start_offset": 40890,
+    "end_offset": 40964,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1192,
+    "lastlinedefined": 1192,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.23",
+    "start_offset": 40988,
+    "end_offset": 41334,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1200,
+    "lastlinedefined": 1213,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 29,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 1,
+        "idx": 41
+      },
+      {
+        "instack": 1,
+        "idx": 39
+      },
+      {
+        "instack": 1,
+        "idx": 40
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.23.0",
+    "start_offset": 41175,
+    "end_offset": 41322,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1206,
+    "lastlinedefined": 1212,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 20,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.24",
+    "start_offset": 41334,
+    "end_offset": 41797,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1215,
+    "lastlinedefined": 1231,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 12,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 1,
+        "idx": 40
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 35
+      },
+      {
+        "instack": 1,
+        "idx": 43
+      },
+      {
+        "instack": 1,
+        "idx": 41
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.24.0",
+    "start_offset": 41422,
+    "end_offset": 41785,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1217,
+    "lastlinedefined": 1230,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 9,
+    "instruction_count": 54,
+    "constant_count": 9,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 5
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.25",
+    "start_offset": 41797,
+    "end_offset": 42262,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1233,
+    "lastlinedefined": 1244,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 63,
+    "constant_count": 9,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 1,
+        "idx": 43
+      },
+      {
+        "instack": 1,
+        "idx": 39
+      },
+      {
+        "instack": 1,
+        "idx": 44
+      },
+      {
+        "instack": 1,
+        "idx": 41
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.26",
+    "start_offset": 42262,
+    "end_offset": 42876,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1246,
+    "lastlinedefined": 1265,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 12,
+    "instruction_count": 72,
+    "constant_count": 15,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 45
+      },
+      {
+        "instack": 1,
+        "idx": 39
+      },
+      {
+        "instack": 1,
+        "idx": 41
+      },
+      {
+        "instack": 1,
+        "idx": 44
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.27",
+    "start_offset": 42876,
+    "end_offset": 43593,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1295,
+    "lastlinedefined": 1339,
+    "numparams": 5,
+    "is_vararg": 0,
+    "maxstacksize": 21,
+    "instruction_count": 76,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 30
+      },
+      {
+        "instack": 1,
+        "idx": 47
+      },
+      {
+        "instack": 1,
+        "idx": 35
+      },
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 1,
+        "idx": 40
+      },
+      {
+        "instack": 1,
+        "idx": 49
+      },
+      {
+        "instack": 1,
+        "idx": 48
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.27.0",
+    "start_offset": 43316,
+    "end_offset": 43581,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1312,
+    "lastlinedefined": 1330,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 12,
+    "instruction_count": 39,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 6
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.28",
+    "start_offset": 43593,
+    "end_offset": 44117,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1341,
+    "lastlinedefined": 1370,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 15,
+    "instruction_count": 86,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 1,
+        "idx": 39
+      },
+      {
+        "instack": 1,
+        "idx": 41
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 28
+      },
+      {
+        "instack": 1,
+        "idx": 29
+      },
+      {
+        "instack": 1,
+        "idx": 30
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 35
+      },
+      {
+        "instack": 1,
+        "idx": 49
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.29",
+    "start_offset": 44117,
+    "end_offset": 44876,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1372,
+    "lastlinedefined": 1419,
+    "numparams": 6,
+    "is_vararg": 0,
+    "maxstacksize": 24,
+    "instruction_count": 114,
+    "constant_count": 18,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 30
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 35
+      },
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 1,
+        "idx": 40
+      },
+      {
+        "instack": 1,
+        "idx": 51
+      },
+      {
+        "instack": 1,
+        "idx": 29
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.29.0",
+    "start_offset": 44755,
+    "end_offset": 44864,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1394,
+    "lastlinedefined": 1403,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 13,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 5
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 8
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.30",
+    "start_offset": 44876,
+    "end_offset": 45000,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1612,
+    "lastlinedefined": 1616,
+    "numparams": 4,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 18,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.31",
+    "start_offset": 45000,
+    "end_offset": 45133,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1618,
+    "lastlinedefined": 1620,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 11,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 53
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.32",
+    "start_offset": 45133,
+    "end_offset": 45266,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1622,
+    "lastlinedefined": 1624,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 11,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 53
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.33",
+    "start_offset": 45266,
+    "end_offset": 45404,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1626,
+    "lastlinedefined": 1630,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 15,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 55
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.34",
+    "start_offset": 45404,
+    "end_offset": 45540,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1632,
+    "lastlinedefined": 1634,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 11,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 53
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.35",
+    "start_offset": 45540,
+    "end_offset": 45668,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1636,
+    "lastlinedefined": 1638,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 11,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 53
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.36",
+    "start_offset": 45668,
+    "end_offset": 45881,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1640,
+    "lastlinedefined": 1646,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 24,
+    "constant_count": 8,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.37",
+    "start_offset": 45881,
+    "end_offset": 45964,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1648,
+    "lastlinedefined": 1650,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 54
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.38",
+    "start_offset": 45964,
+    "end_offset": 46106,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1652,
+    "lastlinedefined": 1656,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 16,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 54
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.39",
+    "start_offset": 46106,
+    "end_offset": 46292,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1658,
+    "lastlinedefined": 1664,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 22,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 54
+      },
+      {
+        "instack": 1,
+        "idx": 58
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.40",
+    "start_offset": 46292,
+    "end_offset": 46692,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1667,
+    "lastlinedefined": 1688,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 15,
+    "instruction_count": 53,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 30
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.41",
+    "start_offset": 46692,
+    "end_offset": 46849,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1690,
+    "lastlinedefined": 1695,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 22,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 52
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 63
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.42",
+    "start_offset": 46849,
+    "end_offset": 46999,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1697,
+    "lastlinedefined": 1702,
+    "numparams": 4,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 22,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.43",
+    "start_offset": 46999,
+    "end_offset": 47199,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1704,
+    "lastlinedefined": 1711,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 26,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 55
+      },
+      {
+        "instack": 1,
+        "idx": 57
+      },
+      {
+        "instack": 1,
+        "idx": 56
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.44",
+    "start_offset": 47199,
+    "end_offset": 47824,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1737,
+    "lastlinedefined": 1757,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 13,
+    "instruction_count": 100,
+    "constant_count": 24,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 30
+      },
+      {
+        "instack": 1,
+        "idx": 68
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 32
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.45",
+    "start_offset": 47824,
+    "end_offset": 48029,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1759,
+    "lastlinedefined": 1766,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 26,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 67
+      },
+      {
+        "instack": 1,
+        "idx": 69
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.46",
+    "start_offset": 48029,
+    "end_offset": 48350,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1768,
+    "lastlinedefined": 1778,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 12,
+    "instruction_count": 41,
+    "constant_count": 13,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.47",
+    "start_offset": 48350,
+    "end_offset": 48691,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1780,
+    "lastlinedefined": 1789,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 16,
+    "instruction_count": 52,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 69
+      },
+      {
+        "instack": 1,
+        "idx": 35
+      },
+      {
+        "instack": 1,
+        "idx": 71
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.48",
+    "start_offset": 48691,
+    "end_offset": 49200,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1791,
+    "lastlinedefined": 1805,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 12,
+    "instruction_count": 88,
+    "constant_count": 14,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 32
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.49",
+    "start_offset": 49200,
+    "end_offset": 49614,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1807,
+    "lastlinedefined": 1822,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 14,
+    "instruction_count": 71,
+    "constant_count": 11,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 32
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.50",
+    "start_offset": 49614,
+    "end_offset": 49759,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1824,
+    "lastlinedefined": 1831,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 14,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.51",
+    "start_offset": 49759,
+    "end_offset": 49997,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1833,
+    "lastlinedefined": 1842,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 32,
+    "constant_count": 5,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.52",
+    "start_offset": 49997,
+    "end_offset": 50285,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1844,
+    "lastlinedefined": 1850,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 36,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.53",
+    "start_offset": 50285,
+    "end_offset": 50594,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1852,
+    "lastlinedefined": 1861,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 51,
+    "constant_count": 9,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 77
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.54",
+    "start_offset": 50594,
+    "end_offset": 51067,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1863,
+    "lastlinedefined": 1886,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 15,
+    "instruction_count": 79,
+    "constant_count": 13,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 76
+      },
+      {
+        "instack": 1,
+        "idx": 78
+      },
+      {
+        "instack": 1,
+        "idx": 73
+      },
+      {
+        "instack": 1,
+        "idx": 75
+      },
+      {
+        "instack": 1,
+        "idx": 74
+      },
+      {
+        "instack": 1,
+        "idx": 69
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.55",
+    "start_offset": 51067,
+    "end_offset": 51186,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1888,
+    "lastlinedefined": 1893,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 18,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 75
+      },
+      {
+        "instack": 1,
+        "idx": 30
+      },
+      {
+        "instack": 1,
+        "idx": 71
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.56",
+    "start_offset": 51186,
+    "end_offset": 51883,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1895,
+    "lastlinedefined": 1921,
+    "numparams": 4,
+    "is_vararg": 0,
+    "maxstacksize": 17,
+    "instruction_count": 101,
+    "constant_count": 11,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 80
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 32
+      },
+      {
+        "instack": 1,
+        "idx": 74
+      },
+      {
+        "instack": 1,
+        "idx": 69
+      },
+      {
+        "instack": 1,
+        "idx": 30
+      }
+    ],
+    "child_count": 2,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.56.0",
+    "start_offset": 51723,
+    "end_offset": 51797,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1900,
+    "lastlinedefined": 1900,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 6
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.56.1",
+    "start_offset": 51797,
+    "end_offset": 51871,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1915,
+    "lastlinedefined": 1915,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 6
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.57",
+    "start_offset": 51883,
+    "end_offset": 52488,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1923,
+    "lastlinedefined": 1942,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 15,
+    "instruction_count": 80,
+    "constant_count": 11,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 32
+      }
+    ],
+    "child_count": 2,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.57.0",
+    "start_offset": 52328,
+    "end_offset": 52402,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1926,
+    "lastlinedefined": 1926,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.57.1",
+    "start_offset": 52402,
+    "end_offset": 52476,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1941,
+    "lastlinedefined": 1941,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.58",
+    "start_offset": 52488,
+    "end_offset": 53035,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1944,
+    "lastlinedefined": 1958,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 50,
+    "constant_count": 11,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 82
+      }
+    ],
+    "child_count": 2,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.58.0",
+    "start_offset": 52821,
+    "end_offset": 52909,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1946,
+    "lastlinedefined": 1946,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.58.1",
+    "start_offset": 52909,
+    "end_offset": 53023,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1952,
+    "lastlinedefined": 1952,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.59",
+    "start_offset": 53035,
+    "end_offset": 53241,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1960,
+    "lastlinedefined": 1967,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 31,
+    "constant_count": 5,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 83
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.60",
+    "start_offset": 53241,
+    "end_offset": 53806,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1969,
+    "lastlinedefined": 1989,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 20,
+    "instruction_count": 89,
+    "constant_count": 13,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 69
+      },
+      {
+        "instack": 1,
+        "idx": 81
+      },
+      {
+        "instack": 1,
+        "idx": 84
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.61",
+    "start_offset": 53806,
+    "end_offset": 54176,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 1991,
+    "lastlinedefined": 2010,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 17,
+    "instruction_count": 55,
+    "constant_count": 9,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 79
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 70
+      },
+      {
+        "instack": 1,
+        "idx": 81
+      },
+      {
+        "instack": 1,
+        "idx": 84
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.62",
+    "start_offset": 54176,
+    "end_offset": 55153,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2012,
+    "lastlinedefined": 2068,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 21,
+    "instruction_count": 158,
+    "constant_count": 18,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 73
+      },
+      {
+        "instack": 1,
+        "idx": 74
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 86
+      },
+      {
+        "instack": 1,
+        "idx": 82
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.62.0",
+    "start_offset": 55053,
+    "end_offset": 55141,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2056,
+    "lastlinedefined": 2056,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.63",
+    "start_offset": 55153,
+    "end_offset": 55841,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2070,
+    "lastlinedefined": 2106,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 10,
+    "instruction_count": 123,
+    "constant_count": 13,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 86
+      },
+      {
+        "instack": 1,
+        "idx": 87
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.64",
+    "start_offset": 55841,
+    "end_offset": 56239,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2108,
+    "lastlinedefined": 2121,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 38,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 85
+      },
+      {
+        "instack": 1,
+        "idx": 33
+      },
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 40
+      },
+      {
+        "instack": 1,
+        "idx": 88
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.64.0",
+    "start_offset": 56121,
+    "end_offset": 56227,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2116,
+    "lastlinedefined": 2119,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 15,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 6
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.65",
+    "start_offset": 56239,
+    "end_offset": 61785,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2123,
+    "lastlinedefined": 2361,
+    "numparams": 5,
+    "is_vararg": 0,
+    "maxstacksize": 38,
+    "instruction_count": 842,
+    "constant_count": 136,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 30
+      },
+      {
+        "instack": 1,
+        "idx": 59
+      },
+      {
+        "instack": 1,
+        "idx": 54
+      },
+      {
+        "instack": 1,
+        "idx": 55
+      },
+      {
+        "instack": 1,
+        "idx": 56
+      },
+      {
+        "instack": 1,
+        "idx": 57
+      },
+      {
+        "instack": 1,
+        "idx": 66
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 62
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 64
+      },
+      {
+        "instack": 1,
+        "idx": 65
+      },
+      {
+        "instack": 1,
+        "idx": 58
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.66",
+    "start_offset": 61785,
+    "end_offset": 62415,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2363,
+    "lastlinedefined": 2407,
+    "numparams": 7,
+    "is_vararg": 0,
+    "maxstacksize": 27,
+    "instruction_count": 81,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 30
+      },
+      {
+        "instack": 1,
+        "idx": 90
+      },
+      {
+        "instack": 1,
+        "idx": 35
+      },
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 40
+      },
+      {
+        "instack": 1,
+        "idx": 91
+      },
+      {
+        "instack": 1,
+        "idx": 29
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.66.0",
+    "start_offset": 62253,
+    "end_offset": 62403,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2380,
+    "lastlinedefined": 2390,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 12,
+    "instruction_count": 19,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 6
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 5
+      },
+      {
+        "instack": 1,
+        "idx": 6
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.67",
+    "start_offset": 62415,
+    "end_offset": 63369,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2409,
+    "lastlinedefined": 2448,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 21,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 40
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 46
+      },
+      {
+        "instack": 1,
+        "idx": 50
+      },
+      {
+        "instack": 1,
+        "idx": 51
+      },
+      {
+        "instack": 1,
+        "idx": 88
+      },
+      {
+        "instack": 1,
+        "idx": 91
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.67.0",
+    "start_offset": 62558,
+    "end_offset": 63357,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2413,
+    "lastlinedefined": 2446,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 13,
+    "instruction_count": 108,
+    "constant_count": 27,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 5
+      },
+      {
+        "instack": 0,
+        "idx": 6
+      },
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 0,
+        "idx": 8
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.67.0.0",
+    "start_offset": 63271,
+    "end_offset": 63345,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2416,
+    "lastlinedefined": 2416,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.68",
+    "start_offset": 63369,
+    "end_offset": 63593,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2450,
+    "lastlinedefined": 2463,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 15,
+    "instruction_count": 38,
+    "constant_count": 5,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 27
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 33
+      },
+      {
+        "instack": 1,
+        "idx": 92
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.69",
+    "start_offset": 63593,
+    "end_offset": 63897,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2465,
+    "lastlinedefined": 2481,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 49,
+    "constant_count": 5,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 37
+      },
+      {
+        "instack": 1,
+        "idx": 93
+      },
+      {
+        "instack": 1,
+        "idx": 85
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.70",
+    "start_offset": 63897,
+    "end_offset": 64141,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2483,
+    "lastlinedefined": 2489,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 32,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 37
+      },
+      {
+        "instack": 1,
+        "idx": 94
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.71",
+    "start_offset": 64141,
+    "end_offset": 64878,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2492,
+    "lastlinedefined": 2517,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 18,
+    "instruction_count": 108,
+    "constant_count": 18,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 32
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.71.0",
+    "start_offset": 64780,
+    "end_offset": 64866,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2512,
+    "lastlinedefined": 2512,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 6,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 10
+      },
+      {
+        "instack": 1,
+        "idx": 11
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.72",
+    "start_offset": 64878,
+    "end_offset": 65568,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2519,
+    "lastlinedefined": 2546,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 22,
+    "constant_count": 5,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 25
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.72.0",
+    "start_offset": 65100,
+    "end_offset": 65556,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2523,
+    "lastlinedefined": 2541,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 13,
+    "instruction_count": 76,
+    "constant_count": 10,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.73",
+    "start_offset": 65568,
+    "end_offset": 66031,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2548,
+    "lastlinedefined": 2575,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 81,
+    "constant_count": 9,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 85
+      },
+      {
+        "instack": 1,
+        "idx": 37
+      },
+      {
+        "instack": 1,
+        "idx": 93
+      },
+      {
+        "instack": 1,
+        "idx": 96
+      },
+      {
+        "instack": 1,
+        "idx": 97
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.74",
+    "start_offset": 66031,
+    "end_offset": 67463,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2579,
+    "lastlinedefined": 2639,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 23,
+    "instruction_count": 157,
+    "constant_count": 32,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 32
+      },
+      {
+        "instack": 1,
+        "idx": 21
+      },
+      {
+        "instack": 1,
+        "idx": 20
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.74.0",
+    "start_offset": 67274,
+    "end_offset": 67451,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2581,
+    "lastlinedefined": 2588,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 24,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.75",
+    "start_offset": 67463,
+    "end_offset": 68114,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2641,
+    "lastlinedefined": 2660,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 21,
+    "instruction_count": 54,
+    "constant_count": 21,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 99
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 20
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.76",
+    "start_offset": 68114,
+    "end_offset": 68625,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2662,
+    "lastlinedefined": 2676,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 55,
+    "constant_count": 11,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 21
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 25
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.76.0",
+    "start_offset": 68522,
+    "end_offset": 68613,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2672,
+    "lastlinedefined": 2674,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 9,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.77",
+    "start_offset": 68625,
+    "end_offset": 69730,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2678,
+    "lastlinedefined": 2714,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 19,
+    "constant_count": 5,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 25
+      },
+      {
+        "instack": 1,
+        "idx": 98
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 101
+      },
+      {
+        "instack": 1,
+        "idx": 100
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.77.0",
+    "start_offset": 68815,
+    "end_offset": 69718,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2682,
+    "lastlinedefined": 2712,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 38,
+    "constant_count": 10,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 5
+      },
+      {
+        "instack": 0,
+        "idx": 6
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.77.0.0",
+    "start_offset": 69210,
+    "end_offset": 69706,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2696,
+    "lastlinedefined": 2711,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 12,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 5
+      },
+      {
+        "instack": 0,
+        "idx": 6
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.77.0.0.0",
+    "start_offset": 69309,
+    "end_offset": 69694,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2698,
+    "lastlinedefined": 2710,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 19,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 5
+      },
+      {
+        "instack": 0,
+        "idx": 6
+      },
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.77.0.0.0.0",
+    "start_offset": 69471,
+    "end_offset": 69682,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2702,
+    "lastlinedefined": 2709,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 29,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 5
+      },
+      {
+        "instack": 0,
+        "idx": 6
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.78",
+    "start_offset": 69730,
+    "end_offset": 70291,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2719,
+    "lastlinedefined": 2743,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 18,
+    "instruction_count": 74,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 20
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.78.0",
+    "start_offset": 70132,
+    "end_offset": 70279,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2723,
+    "lastlinedefined": 2729,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 9,
+    "instruction_count": 22,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.79",
+    "start_offset": 70291,
+    "end_offset": 70460,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2745,
+    "lastlinedefined": 2752,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 23,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.80",
+    "start_offset": 70460,
+    "end_offset": 70659,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2754,
+    "lastlinedefined": 2760,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 16,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 103
+      },
+      {
+        "instack": 1,
+        "idx": 104
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.80.0",
+    "start_offset": 70565,
+    "end_offset": 70647,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2755,
+    "lastlinedefined": 2757,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 9,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.81",
+    "start_offset": 70659,
+    "end_offset": 70873,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2762,
+    "lastlinedefined": 2766,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 30,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 26
+      },
+      {
+        "instack": 1,
+        "idx": 22
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.82",
+    "start_offset": 70873,
+    "end_offset": 70994,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2768,
+    "lastlinedefined": 2772,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 17,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 106
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.83",
+    "start_offset": 70994,
+    "end_offset": 71492,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2774,
+    "lastlinedefined": 2797,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 9,
+    "instruction_count": 34,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 103
+      },
+      {
+        "instack": 1,
+        "idx": 106
+      },
+      {
+        "instack": 1,
+        "idx": 107
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 2,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.83.0",
+    "start_offset": 71205,
+    "end_offset": 71319,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2777,
+    "lastlinedefined": 2782,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 16,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.83.1",
+    "start_offset": 71319,
+    "end_offset": 71480,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2787,
+    "lastlinedefined": 2793,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 10,
+    "instruction_count": 21,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.84",
+    "start_offset": 71492,
+    "end_offset": 75624,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2799,
+    "lastlinedefined": 2912,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 44,
+    "instruction_count": 341,
+    "constant_count": 123,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 103
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 20
+      },
+      {
+        "instack": 1,
+        "idx": 107
+      },
+      {
+        "instack": 1,
+        "idx": 108
+      },
+      {
+        "instack": 1,
+        "idx": 24
+      }
+    ],
+    "child_count": 2,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.84.0",
+    "start_offset": 75035,
+    "end_offset": 75212,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2802,
+    "lastlinedefined": 2809,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 24,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.84.1",
+    "start_offset": 75212,
+    "end_offset": 75612,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2810,
+    "lastlinedefined": 2823,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 24,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 5
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 2,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.84.1.0",
+    "start_offset": 75381,
+    "end_offset": 75451,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2812,
+    "lastlinedefined": 2812,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 7,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.84.1.1",
+    "start_offset": 75451,
+    "end_offset": 75600,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2815,
+    "lastlinedefined": 2821,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 19,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.85",
+    "start_offset": 75624,
+    "end_offset": 76462,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2914,
+    "lastlinedefined": 2936,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 20,
+    "instruction_count": 110,
+    "constant_count": 33,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 23
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 20
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.86",
+    "start_offset": 76462,
+    "end_offset": 77011,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2941,
+    "lastlinedefined": 2965,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 19,
+    "instruction_count": 63,
+    "constant_count": 13,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 112
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 24
+      },
+      {
+        "instack": 1,
+        "idx": 20
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.86.0",
+    "start_offset": 76883,
+    "end_offset": 76999,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2947,
+    "lastlinedefined": 2951,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 15,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 6
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.87",
+    "start_offset": 77011,
+    "end_offset": 78193,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2967,
+    "lastlinedefined": 3009,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 25,
+    "instruction_count": 99,
+    "constant_count": 15,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 20
+      },
+      {
+        "instack": 1,
+        "idx": 111
+      },
+      {
+        "instack": 1,
+        "idx": 24
+      },
+      {
+        "instack": 1,
+        "idx": 23
+      },
+      {
+        "instack": 1,
+        "idx": 106
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 113
+      },
+      {
+        "instack": 1,
+        "idx": 103
+      }
+    ],
+    "child_count": 2,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.87.0",
+    "start_offset": 77588,
+    "end_offset": 78099,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 2980,
+    "lastlinedefined": 2993,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 10,
+    "instruction_count": 84,
+    "constant_count": 16,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 5
+      },
+      {
+        "instack": 0,
+        "idx": 6
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.87.1",
+    "start_offset": 78099,
+    "end_offset": 78181,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3003,
+    "lastlinedefined": 3003,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 6
+      },
+      {
+        "instack": 1,
+        "idx": 11
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.88",
+    "start_offset": 78193,
+    "end_offset": 78566,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3011,
+    "lastlinedefined": 3021,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 15,
+    "instruction_count": 49,
+    "constant_count": 19,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 7
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.89",
+    "start_offset": 78566,
+    "end_offset": 78881,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3024,
+    "lastlinedefined": 3039,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 12,
+    "instruction_count": 41,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 116
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.90",
+    "start_offset": 78881,
+    "end_offset": 79042,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3041,
+    "lastlinedefined": 3045,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 10,
+    "instruction_count": 23,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 21
+      },
+      {
+        "instack": 1,
+        "idx": 117
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.91",
+    "start_offset": 79042,
+    "end_offset": 79696,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3047,
+    "lastlinedefined": 3081,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 15,
+    "instruction_count": 107,
+    "constant_count": 17,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 26
+      },
+      {
+        "instack": 1,
+        "idx": 9
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.92",
+    "start_offset": 79696,
+    "end_offset": 80050,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3083,
+    "lastlinedefined": 3093,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 13,
+    "instruction_count": 46,
+    "constant_count": 11,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 20
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.93",
+    "start_offset": 80050,
+    "end_offset": 81058,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3095,
+    "lastlinedefined": 3143,
+    "numparams": 4,
+    "is_vararg": 0,
+    "maxstacksize": 25,
+    "instruction_count": 163,
+    "constant_count": 24,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 26
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 14
+      },
+      {
+        "instack": 1,
+        "idx": 119
+      },
+      {
+        "instack": 1,
+        "idx": 20
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.94",
+    "start_offset": 81058,
+    "end_offset": 82082,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3145,
+    "lastlinedefined": 3184,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 26,
+    "instruction_count": 150,
+    "constant_count": 23,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 26
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 20
+      },
+      {
+        "instack": 1,
+        "idx": 15
+      },
+      {
+        "instack": 1,
+        "idx": 115
+      },
+      {
+        "instack": 1,
+        "idx": 22
+      },
+      {
+        "instack": 1,
+        "idx": 10
+      },
+      {
+        "instack": 1,
+        "idx": 117
+      },
+      {
+        "instack": 1,
+        "idx": 118
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.95",
+    "start_offset": 82082,
+    "end_offset": 82285,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3186,
+    "lastlinedefined": 3194,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 24,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 120
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.96",
+    "start_offset": 82285,
+    "end_offset": 82546,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3198,
+    "lastlinedefined": 3203,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 8,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.97",
+    "start_offset": 82546,
+    "end_offset": 83177,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3205,
+    "lastlinedefined": 3219,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 10,
+    "instruction_count": 34,
+    "constant_count": 11,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 6
+      },
+      {
+        "instack": 1,
+        "idx": 125
+      },
+      {
+        "instack": 1,
+        "idx": 25
+      },
+      {
+        "instack": 1,
+        "idx": 124
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.97.0",
+    "start_offset": 82873,
+    "end_offset": 83165,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3212,
+    "lastlinedefined": 3217,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 18,
+    "constant_count": 8,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 5
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.98",
+    "start_offset": 83177,
+    "end_offset": 84547,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3221,
+    "lastlinedefined": 3275,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 31,
+    "instruction_count": 199,
+    "constant_count": 37,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 20
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 12
+      },
+      {
+        "instack": 1,
+        "idx": 114
+      },
+      {
+        "instack": 1,
+        "idx": 16
+      },
+      {
+        "instack": 1,
+        "idx": 26
+      },
+      {
+        "instack": 1,
+        "idx": 23
+      },
+      {
+        "instack": 1,
+        "idx": 110
+      },
+      {
+        "instack": 1,
+        "idx": 13
+      },
+      {
+        "instack": 1,
+        "idx": 109
+      },
+      {
+        "instack": 1,
+        "idx": 121
+      },
+      {
+        "instack": 1,
+        "idx": 122
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.99",
+    "start_offset": 84547,
+    "end_offset": 84643,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3277,
+    "lastlinedefined": 3279,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 11,
+    "constant_count": 2,
+    "upvalues": [],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.100",
+    "start_offset": 84643,
+    "end_offset": 84770,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3281,
+    "lastlinedefined": 3284,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 16,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 127
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.101",
+    "start_offset": 84770,
+    "end_offset": 84990,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3286,
+    "lastlinedefined": 3293,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 23,
+    "constant_count": 5,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 128
+      },
+      {
+        "instack": 1,
+        "idx": 123
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 8
+      },
+      {
+        "instack": 1,
+        "idx": 126
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.102",
+    "start_offset": 84990,
+    "end_offset": 85137,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3295,
+    "lastlinedefined": 3300,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 13,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 127
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 8
+      },
+      {
+        "instack": 1,
+        "idx": 126
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.103",
+    "start_offset": 85137,
+    "end_offset": 85365,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3304,
+    "lastlinedefined": 3313,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 10,
+    "instruction_count": 27,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 120
+      },
+      {
+        "instack": 1,
+        "idx": 6
+      },
+      {
+        "instack": 1,
+        "idx": 126
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.104",
+    "start_offset": 85365,
+    "end_offset": 86007,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3322,
+    "lastlinedefined": 3348,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 12,
+    "instruction_count": 84,
+    "constant_count": 16,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 20
+      },
+      {
+        "instack": 1,
+        "idx": 24
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 126
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.104.0",
+    "start_offset": 85929,
+    "end_offset": 85995,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3335,
+    "lastlinedefined": 3337,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 6,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 5
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105",
+    "start_offset": 86007,
+    "end_offset": 107229,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3351,
+    "lastlinedefined": 4156,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 54,
+    "instruction_count": 302,
+    "constant_count": 57,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 1,
+        "idx": 25
+      },
+      {
+        "instack": 1,
+        "idx": 128
+      },
+      {
+        "instack": 1,
+        "idx": 127
+      },
+      {
+        "instack": 1,
+        "idx": 129
+      },
+      {
+        "instack": 1,
+        "idx": 130
+      },
+      {
+        "instack": 1,
+        "idx": 18
+      },
+      {
+        "instack": 1,
+        "idx": 17
+      }
+    ],
+    "child_count": 33,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.0",
+    "start_offset": 88123,
+    "end_offset": 88425,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3378,
+    "lastlinedefined": 3393,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 23,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 11
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 8
+      },
+      {
+        "instack": 1,
+        "idx": 9
+      },
+      {
+        "instack": 1,
+        "idx": 10
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.0.0",
+    "start_offset": 88274,
+    "end_offset": 88413,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3384,
+    "lastlinedefined": 3389,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 18,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.1",
+    "start_offset": 88425,
+    "end_offset": 88655,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3424,
+    "lastlinedefined": 3433,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 34,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.2",
+    "start_offset": 88655,
+    "end_offset": 88838,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3435,
+    "lastlinedefined": 3442,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 23,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.3",
+    "start_offset": 88838,
+    "end_offset": 89141,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3444,
+    "lastlinedefined": 3457,
+    "numparams": 4,
+    "is_vararg": 0,
+    "maxstacksize": 12,
+    "instruction_count": 45,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 6
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.4",
+    "start_offset": 89141,
+    "end_offset": 89335,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3462,
+    "lastlinedefined": 3470,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 31,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 26
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 23
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.5",
+    "start_offset": 89335,
+    "end_offset": 89551,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3472,
+    "lastlinedefined": 3484,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 9,
+    "instruction_count": 25,
+    "constant_count": 8,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.6",
+    "start_offset": 89551,
+    "end_offset": 90474,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3486,
+    "lastlinedefined": 3524,
+    "numparams": 4,
+    "is_vararg": 0,
+    "maxstacksize": 12,
+    "instruction_count": 49,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 31
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      }
+    ],
+    "child_count": 7,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.6.0",
+    "start_offset": 89801,
+    "end_offset": 89893,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3492,
+    "lastlinedefined": 3494,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 6,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.6.1",
+    "start_offset": 89893,
+    "end_offset": 89985,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3495,
+    "lastlinedefined": 3497,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 9,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.6.2",
+    "start_offset": 89985,
+    "end_offset": 90073,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3501,
+    "lastlinedefined": 3503,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 6,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.6.3",
+    "start_offset": 90073,
+    "end_offset": 90192,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3505,
+    "lastlinedefined": 3507,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 9,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.6.4",
+    "start_offset": 90192,
+    "end_offset": 90277,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3510,
+    "lastlinedefined": 3512,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.6.5",
+    "start_offset": 90277,
+    "end_offset": 90369,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3515,
+    "lastlinedefined": 3517,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.6.6",
+    "start_offset": 90369,
+    "end_offset": 90462,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3520,
+    "lastlinedefined": 3522,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.7",
+    "start_offset": 90474,
+    "end_offset": 90757,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3526,
+    "lastlinedefined": 3533,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 20,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.7.0",
+    "start_offset": 90621,
+    "end_offset": 90745,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3530,
+    "lastlinedefined": 3532,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 9,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.8",
+    "start_offset": 90757,
+    "end_offset": 90973,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3535,
+    "lastlinedefined": 3548,
+    "numparams": 6,
+    "is_vararg": 0,
+    "maxstacksize": 15,
+    "instruction_count": 37,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 26
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 21
+      },
+      {
+        "instack": 1,
+        "idx": 32
+      },
+      {
+        "instack": 1,
+        "idx": 33
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.9",
+    "start_offset": 90973,
+    "end_offset": 91174,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3550,
+    "lastlinedefined": 3558,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 24,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.10",
+    "start_offset": 91174,
+    "end_offset": 91757,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3560,
+    "lastlinedefined": 3597,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 12,
+    "instruction_count": 73,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 35
+      },
+      {
+        "instack": 1,
+        "idx": 29
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.10.0",
+    "start_offset": 91626,
+    "end_offset": 91745,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3578,
+    "lastlinedefined": 3584,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 15,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 5
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.11",
+    "start_offset": 91757,
+    "end_offset": 92305,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3599,
+    "lastlinedefined": 3616,
+    "numparams": 6,
+    "is_vararg": 0,
+    "maxstacksize": 14,
+    "instruction_count": 28,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 26
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 30
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.11.0",
+    "start_offset": 91927,
+    "end_offset": 92293,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3606,
+    "lastlinedefined": 3613,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 36,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 8
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 5
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.12",
+    "start_offset": 92305,
+    "end_offset": 92888,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3618,
+    "lastlinedefined": 3633,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 30,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      }
+    ],
+    "child_count": 3,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.12.0",
+    "start_offset": 92597,
+    "end_offset": 92700,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3622,
+    "lastlinedefined": 3622,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 9,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.12.1",
+    "start_offset": 92700,
+    "end_offset": 92788,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3623,
+    "lastlinedefined": 3623,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.12.2",
+    "start_offset": 92788,
+    "end_offset": 92876,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3626,
+    "lastlinedefined": 3626,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.13",
+    "start_offset": 92888,
+    "end_offset": 93730,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3635,
+    "lastlinedefined": 3657,
+    "numparams": 10,
+    "is_vararg": 0,
+    "maxstacksize": 19,
+    "instruction_count": 72,
+    "constant_count": 15,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 8
+      },
+      {
+        "instack": 1,
+        "idx": 27
+      },
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 30
+      },
+      {
+        "instack": 1,
+        "idx": 28
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.13.0",
+    "start_offset": 93366,
+    "end_offset": 93718,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3646,
+    "lastlinedefined": 3653,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 33,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 12
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 6
+      },
+      {
+        "instack": 1,
+        "idx": 13
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.14",
+    "start_offset": 93730,
+    "end_offset": 94293,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3659,
+    "lastlinedefined": 3674,
+    "numparams": 4,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 31,
+    "constant_count": 5,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 30
+      },
+      {
+        "instack": 1,
+        "idx": 28
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.14.0",
+    "start_offset": 93922,
+    "end_offset": 94281,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3664,
+    "lastlinedefined": 3671,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 33,
+    "constant_count": 13,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 5
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.15",
+    "start_offset": 94293,
+    "end_offset": 94992,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3676,
+    "lastlinedefined": 3696,
+    "numparams": 9,
+    "is_vararg": 0,
+    "maxstacksize": 20,
+    "instruction_count": 84,
+    "constant_count": 23,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 9
+      },
+      {
+        "instack": 1,
+        "idx": 27
+      },
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 40
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.15.0",
+    "start_offset": 94895,
+    "end_offset": 94980,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3682,
+    "lastlinedefined": 3682,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 11
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.16",
+    "start_offset": 94992,
+    "end_offset": 96048,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3698,
+    "lastlinedefined": 3727,
+    "numparams": 9,
+    "is_vararg": 0,
+    "maxstacksize": 23,
+    "instruction_count": 65,
+    "constant_count": 16,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 10
+      },
+      {
+        "instack": 1,
+        "idx": 27
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 40
+      }
+    ],
+    "child_count": 3,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.16.0",
+    "start_offset": 95435,
+    "end_offset": 95512,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3702,
+    "lastlinedefined": 3702,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 6,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 10
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.16.1",
+    "start_offset": 95512,
+    "end_offset": 95884,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3704,
+    "lastlinedefined": 3710,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 9,
+    "instruction_count": 33,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 5
+      },
+      {
+        "instack": 1,
+        "idx": 11
+      },
+      {
+        "instack": 1,
+        "idx": 10
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 8
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.16.1.0",
+    "start_offset": 95735,
+    "end_offset": 95872,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3708,
+    "lastlinedefined": 3708,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 13,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 5
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.16.2",
+    "start_offset": 95884,
+    "end_offset": 96036,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3720,
+    "lastlinedefined": 3723,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 15,
+    "constant_count": 5,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 10
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 6
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17",
+    "start_offset": 96048,
+    "end_offset": 103951,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3729,
+    "lastlinedefined": 4011,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 27,
+    "instruction_count": 333,
+    "constant_count": 77,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 1,
+        "idx": 26
+      },
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 19
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 15
+      },
+      {
+        "instack": 1,
+        "idx": 17
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 43
+      },
+      {
+        "instack": 1,
+        "idx": 39
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 5
+      },
+      {
+        "instack": 0,
+        "idx": 6
+      },
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 41
+      },
+      {
+        "instack": 1,
+        "idx": 42
+      },
+      {
+        "instack": 1,
+        "idx": 36
+      },
+      {
+        "instack": 1,
+        "idx": 34
+      },
+      {
+        "instack": 1,
+        "idx": 37
+      },
+      {
+        "instack": 1,
+        "idx": 28
+      }
+    ],
+    "child_count": 38,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.0",
+    "start_offset": 98381,
+    "end_offset": 98526,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3737,
+    "lastlinedefined": 3739,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 9,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.1",
+    "start_offset": 98526,
+    "end_offset": 98659,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3740,
+    "lastlinedefined": 3742,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 9,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.2",
+    "start_offset": 98659,
+    "end_offset": 98759,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3743,
+    "lastlinedefined": 3745,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.3",
+    "start_offset": 98759,
+    "end_offset": 98899,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3749,
+    "lastlinedefined": 3752,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 14,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.4",
+    "start_offset": 98899,
+    "end_offset": 98991,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3754,
+    "lastlinedefined": 3756,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 9,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.5",
+    "start_offset": 98991,
+    "end_offset": 99204,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3758,
+    "lastlinedefined": 3761,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 14,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.6",
+    "start_offset": 99204,
+    "end_offset": 99602,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3778,
+    "lastlinedefined": 3796,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 39,
+    "constant_count": 8,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 6
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 0,
+        "idx": 8
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 9
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.6.0",
+    "start_offset": 99477,
+    "end_offset": 99590,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3792,
+    "lastlinedefined": 3794,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 11,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 5
+      },
+      {
+        "instack": 0,
+        "idx": 6
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.7",
+    "start_offset": 99602,
+    "end_offset": 99687,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3799,
+    "lastlinedefined": 3799,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 7
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.8",
+    "start_offset": 99687,
+    "end_offset": 99772,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3800,
+    "lastlinedefined": 3800,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 7
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.9",
+    "start_offset": 99772,
+    "end_offset": 99856,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3802,
+    "lastlinedefined": 3802,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 7
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.10",
+    "start_offset": 99856,
+    "end_offset": 99940,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3803,
+    "lastlinedefined": 3803,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 7
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.11",
+    "start_offset": 99940,
+    "end_offset": 100019,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3805,
+    "lastlinedefined": 3805,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 7
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.12",
+    "start_offset": 100019,
+    "end_offset": 100098,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3806,
+    "lastlinedefined": 3806,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 7
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.13",
+    "start_offset": 100098,
+    "end_offset": 100184,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3808,
+    "lastlinedefined": 3808,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 7
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.14",
+    "start_offset": 100184,
+    "end_offset": 100270,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3809,
+    "lastlinedefined": 3809,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 8,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 7
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.15",
+    "start_offset": 100270,
+    "end_offset": 100413,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3819,
+    "lastlinedefined": 3822,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 16,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 12
+      },
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 10
+      },
+      {
+        "instack": 0,
+        "idx": 13
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.16",
+    "start_offset": 100413,
+    "end_offset": 100489,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3823,
+    "lastlinedefined": 3823,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 13
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.17",
+    "start_offset": 100489,
+    "end_offset": 100645,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3825,
+    "lastlinedefined": 3828,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 13,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 0,
+        "idx": 11
+      },
+      {
+        "instack": 0,
+        "idx": 13
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.18",
+    "start_offset": 100645,
+    "end_offset": 100803,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3829,
+    "lastlinedefined": 3832,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 13,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 0,
+        "idx": 11
+      },
+      {
+        "instack": 0,
+        "idx": 13
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.19",
+    "start_offset": 100803,
+    "end_offset": 100878,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3834,
+    "lastlinedefined": 3834,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 14
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.20",
+    "start_offset": 100878,
+    "end_offset": 100955,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3835,
+    "lastlinedefined": 3835,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 14
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.21",
+    "start_offset": 100955,
+    "end_offset": 101083,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3838,
+    "lastlinedefined": 3840,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 12,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 7
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.22",
+    "start_offset": 101083,
+    "end_offset": 101211,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3841,
+    "lastlinedefined": 3843,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 12,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 7
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.23",
+    "start_offset": 101211,
+    "end_offset": 101421,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3852,
+    "lastlinedefined": 3859,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 25,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 6
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.24",
+    "start_offset": 101421,
+    "end_offset": 101562,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3861,
+    "lastlinedefined": 3867,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 14,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 12
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.25",
+    "start_offset": 101562,
+    "end_offset": 101891,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3869,
+    "lastlinedefined": 3877,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 17,
+    "constant_count": 5,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 8
+      },
+      {
+        "instack": 1,
+        "idx": 12
+      },
+      {
+        "instack": 1,
+        "idx": 13
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.25.0",
+    "start_offset": 101742,
+    "end_offset": 101879,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3873,
+    "lastlinedefined": 3876,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 13,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.26",
+    "start_offset": 101891,
+    "end_offset": 101993,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3894,
+    "lastlinedefined": 3897,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 13
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.27",
+    "start_offset": 101993,
+    "end_offset": 102096,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3898,
+    "lastlinedefined": 3901,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 13
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.28",
+    "start_offset": 102096,
+    "end_offset": 102197,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3902,
+    "lastlinedefined": 3905,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 13
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.29",
+    "start_offset": 102197,
+    "end_offset": 102299,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3906,
+    "lastlinedefined": 3909,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 13
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.30",
+    "start_offset": 102299,
+    "end_offset": 102389,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3920,
+    "lastlinedefined": 3923,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 14
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.31",
+    "start_offset": 102389,
+    "end_offset": 102479,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3934,
+    "lastlinedefined": 3937,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 14
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.32",
+    "start_offset": 102479,
+    "end_offset": 102572,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3948,
+    "lastlinedefined": 3951,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 14
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.33",
+    "start_offset": 102572,
+    "end_offset": 102666,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3962,
+    "lastlinedefined": 3965,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 7
+      },
+      {
+        "instack": 1,
+        "idx": 14
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.34",
+    "start_offset": 102666,
+    "end_offset": 103660,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 3968,
+    "lastlinedefined": 4005,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 17,
+    "instruction_count": 130,
+    "constant_count": 26,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 3
+      },
+      {
+        "instack": 1,
+        "idx": 5
+      },
+      {
+        "instack": 0,
+        "idx": 18
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 19
+      },
+      {
+        "instack": 0,
+        "idx": 20
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.34.0",
+    "start_offset": 103547,
+    "end_offset": 103648,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4004,
+    "lastlinedefined": 4004,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.35",
+    "start_offset": 103660,
+    "end_offset": 103754,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4007,
+    "lastlinedefined": 4007,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.36",
+    "start_offset": 103754,
+    "end_offset": 103854,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4008,
+    "lastlinedefined": 4008,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.17.37",
+    "start_offset": 103854,
+    "end_offset": 103939,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4009,
+    "lastlinedefined": 4009,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 7,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.18",
+    "start_offset": 103951,
+    "end_offset": 104258,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4013,
+    "lastlinedefined": 4026,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 12,
+    "instruction_count": 49,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 24
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.19",
+    "start_offset": 104258,
+    "end_offset": 104756,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4028,
+    "lastlinedefined": 4041,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 11,
+    "instruction_count": 59,
+    "constant_count": 11,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 44
+      },
+      {
+        "instack": 1,
+        "idx": 25
+      },
+      {
+        "instack": 1,
+        "idx": 24
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.19.0",
+    "start_offset": 104646,
+    "end_offset": 104744,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4039,
+    "lastlinedefined": 4039,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 9,
+    "constant_count": 1,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 6
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.20",
+    "start_offset": 104756,
+    "end_offset": 105088,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4043,
+    "lastlinedefined": 4050,
+    "numparams": 2,
+    "is_vararg": 0,
+    "maxstacksize": 9,
+    "instruction_count": 48,
+    "constant_count": 9,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 24
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.21",
+    "start_offset": 105088,
+    "end_offset": 105815,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4052,
+    "lastlinedefined": 4072,
+    "numparams": 3,
+    "is_vararg": 0,
+    "maxstacksize": 10,
+    "instruction_count": 45,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 13
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 8
+      },
+      {
+        "instack": 0,
+        "idx": 9
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.21.0",
+    "start_offset": 105360,
+    "end_offset": 105803,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4058,
+    "lastlinedefined": 4068,
+    "numparams": 0,
+    "is_vararg": 1,
+    "maxstacksize": 9,
+    "instruction_count": 46,
+    "constant_count": 8,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 5
+      },
+      {
+        "instack": 0,
+        "idx": 5
+      },
+      {
+        "instack": 1,
+        "idx": 2
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.21.0.0",
+    "start_offset": 105644,
+    "end_offset": 105791,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4062,
+    "lastlinedefined": 4064,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 7,
+    "instruction_count": 17,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.22",
+    "start_offset": 105815,
+    "end_offset": 105889,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4076,
+    "lastlinedefined": 4078,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 8,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 45
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.23",
+    "start_offset": 105889,
+    "end_offset": 105963,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4080,
+    "lastlinedefined": 4082,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 8,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 45
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.24",
+    "start_offset": 105963,
+    "end_offset": 106037,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4082,
+    "lastlinedefined": 4084,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 8,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 45
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.25",
+    "start_offset": 106037,
+    "end_offset": 106116,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4086,
+    "lastlinedefined": 4088,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 5,
+    "constant_count": 2,
+    "upvalues": [],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.26",
+    "start_offset": 106116,
+    "end_offset": 106213,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4090,
+    "lastlinedefined": 4093,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 9,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 45
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.27",
+    "start_offset": 106213,
+    "end_offset": 106310,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4093,
+    "lastlinedefined": 4096,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 9,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 45
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.28",
+    "start_offset": 106310,
+    "end_offset": 106384,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4098,
+    "lastlinedefined": 4100,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 8,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 45
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.29",
+    "start_offset": 106384,
+    "end_offset": 106741,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4107,
+    "lastlinedefined": 4116,
+    "numparams": 2,
+    "is_vararg": 1,
+    "maxstacksize": 7,
+    "instruction_count": 34,
+    "constant_count": 6,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 46
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 43
+      },
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 1,
+        "idx": 51
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.29.0",
+    "start_offset": 106615,
+    "end_offset": 106729,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4110,
+    "lastlinedefined": 4110,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 9,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.30",
+    "start_offset": 106741,
+    "end_offset": 107077,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4128,
+    "lastlinedefined": 4136,
+    "numparams": 1,
+    "is_vararg": 1,
+    "maxstacksize": 6,
+    "instruction_count": 31,
+    "constant_count": 5,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 46
+      },
+      {
+        "instack": 0,
+        "idx": 1
+      },
+      {
+        "instack": 1,
+        "idx": 4
+      },
+      {
+        "instack": 1,
+        "idx": 43
+      },
+      {
+        "instack": 1,
+        "idx": 38
+      },
+      {
+        "instack": 1,
+        "idx": 51
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.30.0",
+    "start_offset": 106951,
+    "end_offset": 107065,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4130,
+    "lastlinedefined": 4130,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 9,
+    "constant_count": 2,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.31",
+    "start_offset": 107077,
+    "end_offset": 107147,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4143,
+    "lastlinedefined": 4145,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 7,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 38
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.105.32",
+    "start_offset": 107147,
+    "end_offset": 107217,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4147,
+    "lastlinedefined": 4149,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 4,
+    "instruction_count": 7,
+    "constant_count": 0,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 38
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.106",
+    "start_offset": 107229,
+    "end_offset": 107734,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4166,
+    "lastlinedefined": 4172,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 5,
+    "instruction_count": 20,
+    "constant_count": 11,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 124
+      },
+      {
+        "instack": 1,
+        "idx": 25
+      },
+      {
+        "instack": 1,
+        "idx": 11
+      },
+      {
+        "instack": 1,
+        "idx": 133
+      },
+      {
+        "instack": 1,
+        "idx": 126
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.106.0",
+    "start_offset": 107595,
+    "end_offset": 107722,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4169,
+    "lastlinedefined": 4171,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 14,
+    "constant_count": 3,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 5
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.107",
+    "start_offset": 107734,
+    "end_offset": 108369,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4174,
+    "lastlinedefined": 4191,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 8,
+    "instruction_count": 45,
+    "constant_count": 12,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 20
+      },
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 11
+      },
+      {
+        "instack": 1,
+        "idx": 124
+      }
+    ],
+    "child_count": 1,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.107.0",
+    "start_offset": 108069,
+    "end_offset": 108357,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4179,
+    "lastlinedefined": 4187,
+    "numparams": 1,
+    "is_vararg": 0,
+    "maxstacksize": 6,
+    "instruction_count": 32,
+    "constant_count": 7,
+    "upvalues": [
+      {
+        "instack": 0,
+        "idx": 2
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 3
+      },
+      {
+        "instack": 0,
+        "idx": 4
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  },
+  {
+    "path": "0.29.108",
+    "start_offset": 108369,
+    "end_offset": 108509,
+    "source": "穷途陌路        _全新寫法.lua",
+    "linedefined": 4196,
+    "lastlinedefined": 4200,
+    "numparams": 0,
+    "is_vararg": 0,
+    "maxstacksize": 3,
+    "instruction_count": 11,
+    "constant_count": 4,
+    "upvalues": [
+      {
+        "instack": 1,
+        "idx": 0
+      },
+      {
+        "instack": 0,
+        "idx": 0
+      },
+      {
+        "instack": 1,
+        "idx": 132
+      }
+    ],
+    "child_count": 0,
+    "lineinfo_count": 0,
+    "locvar_count": 0,
+    "upvalue_name_count": 0
+  }
+]

@@ -52,7 +52,7 @@ end
 -- The R52 profile matrix and P0.29.40/41 are below.
 -- The remaining dependencies must retain their original contracts when an
 -- active row walker is wired to this function.
-function M.replacement(state, deps, row, table_name, field, original, path)
+function M.replacement(state, deps, row, table_name, field, original, row_id)
     assert(type(state) == "table" and type(deps) == "table", "state/dependencies required")
     local normalize = assert(deps.normalize_identifier)
     local name, key = normalize(table_name), normalize(field)
@@ -146,7 +146,7 @@ function M.replacement(state, deps, row, table_name, field, original, path)
         return nil, false
     end
 
-    local value, qualified = M.profile_lookup(normalize, path, table_name, key)
+    local value, qualified = M.profile_lookup(normalize, row_id, table_name, key)
     if value ~= nil then
         local scale_clamp = M.scale_clamp
         if qualified == "lockontime" then return scale_clamp(value, cfg.lock, 0.001, 1), true end

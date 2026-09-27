@@ -1,0 +1,28 @@
+=== PROTO 0.29.45 off=47824..48029 params=1 stack=6 code=26 consts=6 up=4 children=0 source='穷途陌路        _全新寫法.lua' ===
+0000 LOADNIL   A=5 B=0 C=0
+0001 LOADBOOL  A=5 B=1 C=0
+0002 LOADNIL   A=5 B=0 C=0
+0003 GETTABUP  R1, U0, K0='tostring'
+0004 GETTABUP  R2, U1, K1='custom_aim_target_part'
+0005 TEST      R2 C=1
+0006 JMP       A=0 sBx=1 -> 8
+0007 LOADK     R2, K2='head'
+0008 CALL      A=1 B=2 C=2
+0009 EQ        A=0 R1, K3='miss'
+0010 JMP       A=0 sBx=1 -> 12
+0011 LOADK     R1, K4='free'
+0012 GETTABUP  R2, U2, R1
+0013 TEST      R2 C=1
+0014 JMP       A=0 sBx=1 -> 16
+0015 GETTABUP  R2, U2, K2='head'
+0016 GETUPVAL  R3, U3
+0017 MOVE      R4, R0
+0018 CALL      A=3 B=2 C=2
+0019 EQ        A=0 R3, K5=None
+0020 JMP       A=0 sBx=2 -> 23
+0021 LOADNIL   A=4 B=0 C=0
+0022 RETURN    A=4 B=2 C=0
+0023 GETTABLE  R4, R2, R3
+0024 RETURN    A=4 B=2 C=0
+0025 RETURN    A=0 B=1 C=0
+
