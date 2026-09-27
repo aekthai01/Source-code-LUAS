@@ -15,6 +15,7 @@ M.METHODS = {
     "_CheckBullet",
     "_CheckDurabulity",
     "CheckEquipSlotEmpty",
+    "CheckEquipSlotValue",
 }
 M.ROOT_METHOD_COUNT = 29
 
@@ -77,6 +78,20 @@ local function get_bullet_dependencies(fn, target, overrides)
     }
 end
 
+local function get_slot_value_dependencies(fn, overrides)
+    overrides = type(overrides) == "table" and overrides or {}
+    local price_logger = overrides.price_logger
+    if price_logger == nil then
+        local debug_lib = rawget(_G, "debug")
+        if type(debug_lib) ~= "table" or type(debug_lib.getupvalue) ~= "function" then return nil end
+        local ok, _, value = pcall(debug_lib.getupvalue, fn, 2) -- P0.10 U1
+        if not ok then return nil end
+        price_logger = value
+    end
+    if type(price_logger) ~= "function" then return nil end
+    return { price_logger = price_logger }
+end
+
 local function get_durability_dependencies(fn, overrides)
     overrides = type(overrides) == "table" and overrides or {}
     local error_logger = overrides.error_logger
@@ -104,6 +119,9 @@ local function wrap(name, target, dependencies, environment)
             -- arguments after inserting the source module/environment context.
             result = table.pack(pcall(target, product, environment,
                 table.unpack(arguments, 1, arguments.n)))
+        elseif name == "CheckEquipSlotValue" then
+            -- P0.10 has one fixed public argument and one captured logger.
+            result = table.pack(pcall(target, product, environment, arguments[1], dependencies))
         else
             result = table.pack(pcall(target, product, environment, dependencies))
         end
@@ -152,6 +170,9 @@ function M.install(target, options)
     local durability_dependencies = get_durability_dependencies(
         rawget(target, "_CheckDurabulity"), options.durability_dependencies)
     if durability_dependencies then source_targets._CheckDurabulity = Source._CheckDurabulity end
+    local slot_value_dependencies = get_slot_value_dependencies(
+        rawget(target, "CheckEquipSlotValue"), options.price_dependencies)
+    if slot_value_dependencies then source_targets.CheckEquipSlotValue = Source.CheckEquipSlotValue end
 
     local set_method = options.set_method or default_set_method
     local pending_originals, pending_wrappers = {}, {}
@@ -161,7 +182,8 @@ function M.install(target, options)
             pending_originals[name] = rawget(target, name)
             local dependencies = name == "GetAllEquipmentValue" and p3_dependencies
                 or (name == "_CheckBullet" and bullet_dependencies
-                or (name == "_CheckDurabulity" and durability_dependencies or nil))
+                or (name == "_CheckDurabulity" and durability_dependencies
+                or (name == "CheckEquipSlotValue" and slot_value_dependencies or nil)))
             pending_wrappers[name] = wrap(name, source_target, dependencies, environment)
         end
     end
@@ -191,6 +213,7 @@ function M.install(target, options)
         p3_logger_captures = p3_dependencies ~= nil,
         p7_captures = bullet_dependencies ~= nil,
         p8_error_logger_capture = durability_dependencies ~= nil,
+        p10_price_logger_capture = slot_value_dependencies ~= nil,
     }
 end
 

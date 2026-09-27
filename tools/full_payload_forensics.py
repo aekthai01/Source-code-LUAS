@@ -118,6 +118,7 @@ def build():
     source_map["0.7.0"] = ("partially_reconstructed", "src/spectra/product_module.lua", "inspect_bullet_slot")
     source_map["0.8"] = ("partially_reconstructed", "src/spectra/product_module.lua", "_CheckDurabulity")
     source_map["0.8.0"] = ("partially_reconstructed", "src/spectra/product_module.lua", "check_durability_slot")
+    source_map["0.10"] = ("partially_reconstructed", "src/spectra/product_module.lua", "CheckEquipSlotValue")
     for path in ("0.29.17", "0.29.26", "0.29.29"):
         source_map[path] = ("source_owned", "src/spectra/mutation_runtime.lua", None)
     for number in range(78, 99):
@@ -161,6 +162,7 @@ def build():
             return parent is not None and resolves_environment(parent, capture.get("idx", -1), seen)
         return False
 
+    descriptive_upvalues = {"0.10": {1: "captured_price_logger"}}
     index_entries = []
     for path, meta in sorted(meta_by_path.items(), key=lambda pair: [int(part) for part in pair[0].split(".")]):
         body = disassembly[path]
@@ -212,7 +214,7 @@ def build():
             "constants": constants.get(path, []),
             "upvalues": [
                 {"index": i, "instack": capture.get("instack"), "idx": capture.get("idx"),
-                 "name": None, "descriptive_name": f"captured_value_{i}"}
+                 "name": None, "descriptive_name": descriptive_upvalues.get(path, {}).get(i, f"captured_value_{i}")}
                 for i, capture in enumerate(meta["upvalues"])
             ],
             "globals": sorted(globals_used),
@@ -227,7 +229,8 @@ def build():
                 "0.7.0": "returns true for no-failure paths; returns false, subtype, matched-minus-required, and formatted location when deficient",
                 "0.8": "no explicit return",
                 "0.8.0": "returns true for no-failure paths; returns false and a formatted location when normalized durability is at or below the configured threshold",
-                "0.9": "returns true when the requested slot has no item; returns false and the item when occupied"}.get(path, "not reconstructed"),
+                "0.9": "returns true when the requested slot has no item; returns false and the item when occupied",
+                "0.10": "returns 0 when the slot has no item; otherwise returns the dynamic guide price or 0 when the price is falsey"}.get(path, "not reconstructed"),
             "public_symbol": public,
             "public_symbol_is_original": public is not None,
             "reconstructed_name": name,
@@ -267,7 +270,7 @@ def build():
                         if entry["prototype_id"] == f"P0.{i}")]["current_ownership"],
                     "source_file": index_entries[next(j for j, entry in enumerate(index_entries)
                         if entry["prototype_id"] == f"P0.{i}")]["source_file"],
-                    "runtime_takeover": "conditional" if i in (3, 7, 8) else ("source" if i < 3 or i in (4, 5, 6, 9) else "payload"),
+                    "runtime_takeover": "conditional" if i in (3, 7, 8, 10) else ("source" if i < 3 or i in (4, 5, 6, 9) else "payload"),
                 } for i, name in enumerate(ROOT_METHODS)
             },
             "ownership_enum": sorted(OWNERSHIP),
@@ -300,7 +303,7 @@ def build():
         map_lines.append(f"| `P0.{i}` | `{name}` | `{entry['current_ownership']}` | `{entry['source_file'] or 'payload'}` |")
     map_lines += [
         "", "Exact root fields: `EquipTypeList`, `ContainerTypeList`.",
-        "", "## P0.0..P0.7 source boundary", "",
+        "", "## P0.0..P0.10 source boundary", "",
         "- `P0.0` retains the recovered `CheckMainFlowSOL` result branch, a second `GetCurrentGameFlow` call only on false, Lobby equality return, reset, `_CheckProcess`, and changed event order.",
         "- `P0.1` calls the ten recovered checks in bytecode order and then `SortEquipAbnormal`.",
         "- `P0.2` reads current equipment value and both map thresholds, uses strict `<` / `>` comparisons with zero-threshold guards and config switches, and emits the two recovered abnormal record shapes.",
@@ -311,10 +314,11 @@ def build():
         "- `P0.7` and nested `P0.7.0` reconstruct left weapon, right weapon, then pistol checks; preserve captured helper/logger calls, strict insufficient-ammo comparison, negative check-value logging, maximum abnormal key, equal-subtype slot handling, and location order. The method bridge installs P0.7 only when the original closure's ItemHelperTool, both loggers, and identical product table are available; otherwise it leaves the payload method in place.",
         "- `P0.8` and nested `P0.8.0` reconstruct Helmet then BreastPlate durability checks; preserve equipment-feature type gates, `InsufficientDurability` lookup, negative-value logger behavior, open-return forwarding from `GetDurabilityPercent`, two-decimal normalization, inclusive `current <= threshold` comparison, rounding/slot-name formatting, ordered abnormal fields, and maximum key. The bridge requires original P0.8 U1 error-logger capture; absent capture leaves the payload method.",
         "- `P0.9` resolves the current slot-group ID, calls `InventoryServer:GetSlot(slot_type, group_id)`, and returns exactly `true` for an empty slot or `false, item` for an occupied slot.",
+        "- `P0.10` resolves the current slot group, reads the requested slot/item, calls `ShopServer:GetShopSingleDynamicGuidePriceByItem(item, nil, false)` only for occupied slots, logs the bytecode format string through captured U1, and returns the price or numeric zero. Runtime overlay is conditional on recovering that exact captured function.",
         "- The method bridge preserves originals and restores its writes on install failure. It rethrows source exceptions without retrying payload code because earlier operations may already have caused side effects.",
         "", "## Current ownership groups", "",
         f"Source-owned prototypes: `{counts['source_owned']}`; payload-owned: `{counts['payload_owned']}`; partially reconstructed: `{counts['partially_reconstructed']}`; unknown: `{counts['unknown']}`.",
-        "", "`FULL_PAYLOAD_PROTOTYPE_INDEX.json` is the per-prototype authority. The method-level runtime bridge owns P0.0..P0.2, P0.4..P0.6, and P0.9. P0.3, P0.7, and P0.8 remain conditional on recovered closure captures.",
+        "", "`FULL_PAYLOAD_PROTOTYPE_INDEX.json` is the per-prototype authority. The method-level runtime bridge owns P0.0..P0.2, P0.4..P0.6, and P0.9. P0.3, P0.7, P0.8 and P0.10 remain partial/conditional on recovered closure captures.",
         "",
     ]
     (ROOT / "FULL_PAYLOAD_RECONSTRUCTION_MAP.md").write_text("\n".join(map_lines), encoding="utf-8")
@@ -331,7 +335,7 @@ def build():
         f"- Unknown: **{counts['unknown']}**",
         f"- Root methods source-owned: **{root_source_owned} / 29**",
         "", "The inventory is structurally complete, not a claim that all payload behavior has been reconstructed. Unmapped prototypes remain payload-owned. Dead/unreachable is used only with positive reachability evidence; no prototype is marked dead by absence of references.",
-        "P0.3 source logic and tests exist, but its two stripped diagnostic upvalues are only installed when captured from the original function; its default static ownership classification is partial. P0.4..P0.6 and nested P0.6.0 have source implementations and method-level overlays backed by the bytecode-derived call graph. P0.7/P0.7.0 source and regression vectors are materialized but stay partial until the original helper, both loggers, and module identity pass the install gate. P0.8/P0.8.0 source and regression vectors are materialized but stay partial until the original error-logger upvalue passes the install gate. P0.9 is source-owned and its public argument/return contract is covered by the product-method bridge tests.",
+        "P0.3 source logic and tests exist, but its two stripped diagnostic upvalues are only installed when captured from the original function; its default static ownership classification is partial. P0.4..P0.6 and nested P0.6.0 have source implementations and method-level overlays backed by the bytecode-derived call graph. P0.7/P0.7.0 source and regression vectors are materialized but stay partial until the original helper, both loggers, and module identity pass the install gate. P0.8/P0.8.0 source and regression vectors are materialized but stay partial until the original error-logger upvalue passes the install gate. P0.9 is source-owned and its public argument/return contract is covered by the product-method bridge tests. P0.10 source and bytecode-order tests are materialized; runtime installation stays conditional on recovering P0.10 U1 as a function.",
         "", "Generated by `python3 tools/full_payload_forensics.py` from `payload_prototypes.json`, `payload_constants.json`, `payload_disassembly.txt`, and the verified payload hash.", "",
     ]
     (ROOT / "RECONSTRUCTION_COVERAGE.md").write_text("\n".join(coverage_lines), encoding="utf-8")

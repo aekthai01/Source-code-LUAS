@@ -86,7 +86,12 @@ logger captures are available. P0.7/P0.8 are partial pending their captured depe
 P0.9 preserves the exact `CheckEquipSlotEmpty(slot_type)` public argument and two return
 contracts: `(true)` for empty and `(false, item)` for occupied. The wrapper forwards its
 public arguments and preserves the open return count.
-Current full-payload coverage: 296 classified; 80 source-owned, 211 payload-owned, 5
+P0.10 `CheckEquipSlotValue` is reconstructed from the bytecode: it looks up the current
+slot group, resolves the slot/item, calls `GetShopSingleDynamicGuidePriceByItem(item, nil,
+false)` only when occupied, formats/logs the original constants through captured U1, and
+returns the price or 0. Its bridge remains gated on recovering the original upvalue at debug
+index 2, so P0.10 remains partially reconstructed.
+Current full-payload coverage: 296 classified; 80 source-owned, 210 payload-owned, 6
 partially reconstructed, 0 dead/unreachable verified, 0 unknown. These are inventory
 statuses, not a claim that all payload behavior has been reconstructed. Static closure
 reachability does not assert that every callback runs in a live game session.
@@ -208,6 +213,7 @@ Focused validation includes:
 | `anti_shake` | reconstructed source |
 | root `P0.0..P0.2`, `P0.4..P0.6` methods | reconstructed source, module overlay |
 | root `P0.9` method | reconstructed source, module overlay |
+| root `P0.10` method | source materialized; bridge conditional on captured U1 |
 | root `P0.3` method | partially reconstructed; source bridge requires original logger captures |
 | root `P0.7` bullet check | partially reconstructed; source overlay gated on captured helpers, loggers, and module identity |
 | root `P0.8` durability check | partially reconstructed; source overlay gated on captured error logger |

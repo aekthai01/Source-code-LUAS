@@ -67,9 +67,9 @@
       },
       "CheckEquipSlotValue": {
         "prototype_id": "P0.10",
-        "current_ownership": "payload_owned",
-        "source_file": null,
-        "runtime_takeover": "payload"
+        "current_ownership": "partially_reconstructed",
+        "source_file": "src/spectra/product_module.lua",
+        "runtime_takeover": "conditional"
       },
       "DynamicGuidPriceFinishFetch": {
         "prototype_id": "P0.11",
@@ -200,8 +200,8 @@
     "classified": 296,
     "reachable": 296,
     "source_owned": 80,
-    "payload_owned": 211,
-    "partially_reconstructed": 5,
+    "payload_owned": 210,
+    "partially_reconstructed": 6,
     "dead_or_unreachable_verified": 0,
     "unknown": 0,
     "root_methods_source_owned": 7,
@@ -3351,7 +3351,7 @@
           "instack": 1,
           "idx": 1,
           "name": null,
-          "descriptive_name": "captured_value_1"
+          "descriptive_name": "captured_price_logger"
         }
       ],
       "globals": [
@@ -3375,14 +3375,14 @@
         "P0.3"
       ],
       "known_callees": [],
-      "return_contract": "not reconstructed",
+      "return_contract": "returns 0 when the slot has no item; otherwise returns the dynamic guide price or 0 when the price is falsey",
       "public_symbol": "CheckEquipSlotValue",
       "public_symbol_is_original": true,
       "reconstructed_name": "CheckEquipSlotValue",
       "reconstructed_name_is_original_symbol": true,
-      "current_ownership": "payload_owned",
+      "current_ownership": "partially_reconstructed",
       "reachability": "reachable_from_payload_root",
-      "source_file": null,
+      "source_file": "src/spectra/product_module.lua",
       "evidence_paths": [
         "payload_prototypes.json#0.10",
         "payload_constants.json#0.10",

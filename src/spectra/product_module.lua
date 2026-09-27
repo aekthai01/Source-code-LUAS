@@ -3,7 +3,7 @@ assert(type(S) == "table", "spectra module table required")
 local M = {}
 S.ProductModule = M
 
--- P0.0..P0.7 are reconstructed descriptions of stripped closures. Exported
+-- P0.0..P0.10 are reconstructed descriptions of stripped closures. Exported
 -- field names below are exact strings recovered from root P0 bytecode.
 M.PROTOTYPES = {
     CheckEquipmentBeforEnterGameProcess = "0.0",
@@ -16,6 +16,7 @@ M.PROTOTYPES = {
     _CheckBullet = "0.7",
     _CheckDurabulity = "0.8",
     CheckEquipSlotEmpty = "0.9",
+    CheckEquipSlotValue = "0.10",
 }
 M.ROOT_FIELDS = { "EquipTypeList", "ContainerTypeList" }
 
@@ -496,6 +497,34 @@ function M.CheckEquipSlotEmpty(module, globals, slot_type)
     local item = slot:GetEquipItem()
     if not item then return true end
     return false, item
+end
+
+-- P0.10 computes the selected slot's dynamic guide price. `price_logger` is
+-- the captured U1 value from the payload closure; the descriptive label does
+-- not claim to recover its stripped debug name. Both formatted calls remain
+-- the final logger argument so open returns from string.format are forwarded.
+function M.CheckEquipSlotValue(module, globals, slot_type, dependencies)
+    globals = globals_or_default(globals)
+    dependencies = assert(dependencies, "P0.10 captured dependencies required")
+    local price_logger = assert(dependencies.price_logger,
+        "P0.10 captured price logger missing")
+
+    local slot_group_id = globals.Server.ArmedForceServer:GetCurSlotGroupId()
+    local slot = globals.Server.InventoryServer:GetSlot(slot_type, slot_group_id)
+    local item = slot:GetEquipItem()
+    if not item then
+        price_logger(globals.string.format(
+            "CheckEquipLogic.GetAllEquipmentValue Equip ==> slot = %s, equipName = nil, price = 0",
+            slot_type))
+        return 0
+    end
+
+    local price = globals.Server.ShopServer:GetShopSingleDynamicGuidePriceByItem(
+        item, nil, false)
+    price_logger(globals.string.format(
+        "CheckEquipLogic.GetAllEquipmentValue Equip ==> slot = %s, equipName = %s, price = %s",
+        slot_type, item.name, price))
+    return price or 0
 end
 
 return M

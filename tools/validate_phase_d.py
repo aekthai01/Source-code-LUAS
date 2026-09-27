@@ -59,6 +59,7 @@ def main():
     assert root_methods['_CheckUnCarryMedicine']['current_ownership']=='source_owned'
     assert root_methods['_CheckContainer']['current_ownership']=='source_owned'
     assert root_methods['CheckEquipSlotEmpty']['current_ownership']=='source_owned'
+    assert root_methods['CheckEquipSlotValue']['current_ownership']=='partially_reconstructed'
     assert root_methods['_CheckBullet']['current_ownership']=='partially_reconstructed'
     assert root_methods['_CheckDurabulity']['current_ownership']=='partially_reconstructed'
     assert prototypes['0.4']['known_callees']==['P0.5']
@@ -74,6 +75,10 @@ def main():
     assert prototypes['0.8']['current_ownership']=='partially_reconstructed'
     assert prototypes['0.8.0']['current_ownership']=='partially_reconstructed'
     assert prototypes['0.9']['return_contract']=='returns true when the requested slot has no item; returns false and the item when occupied'
+    assert prototypes['0.10']['return_contract']=='returns 0 when the slot has no item; otherwise returns the dynamic guide price or 0 when the price is falsey'
+    assert prototypes['0.10']['known_callers']==['P0.3']
+    assert prototypes['0.10']['upvalues'][1]['descriptive_name']=='captured_price_logger'
+    assert reported.get('partially_reconstructed')==6 and reported.get('payload_owned')==210
     assert reported.get('root_methods_source_owned')==7 and reported.get('root_methods_total')==29
     assert inventory.get('_meta',{}).get('root_fields')==['EquipTypeList','ContainerTypeList']
     coverage_text=coverage_path.read_text()
@@ -174,12 +179,13 @@ def main():
         'root_methods_total':reported['root_methods_total'],
         'root_public_symbols_exact':True,
         'root_fields_exact':['EquipTypeList','ContainerTypeList'],
-        'p0_source_methods':['0.0','0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9'],
+        'p0_source_methods':['0.0','0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9','0.10'],
         'product_module_overlay_bridge':True,
         'p0_3_logger_upvalues_conditionally_captured':True,
         'p0_7_item_helper_loggers_and_module_identity_conditionally_captured':True,
         'p0_8_error_logger_conditionally_captured':True,
         'p0_9_empty_slot_argument_and_return_contract_verified':True,
+        'p0_10_price_logger_capture_conditional':True,
       },
       'checks':{
         'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,

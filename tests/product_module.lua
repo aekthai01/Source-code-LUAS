@@ -998,4 +998,85 @@ do
         "each call reads group before slot and then item")
 end
 
+-- P0.10 bytecode call-order fixture: resolve the current group, get the
+-- requested slot/item, query the shop price only for occupied slots, log the
+-- matching format string, and preserve the one-value return contract.
+do
+    local calls, item, log_rows, format_rows = {}, nil, {}, {}
+    local std_format = string.format
+    local env = {
+        Server = {
+            ArmedForceServer = {GetCurSlotGroupId=function(self)
+                calls[#calls+1] = "group"
+                return "group-10"
+            end},
+            InventoryServer = {GetSlot=function(self, slot_type, group)
+                calls[#calls+1] = "slot:" .. slot_type .. ":" .. group
+                return {GetEquipItem=function()
+                    calls[#calls+1] = "item"
+                    return item
+                end}
+            end},
+            ShopServer = {GetShopSingleDynamicGuidePriceByItem=function(self, current_item, filter, include_special)
+                calls[#calls+1] = "price"
+                local args = table.pack(current_item, filter, include_special)
+                eq(args.n, 3, "P0.10 shop arg count")
+                eq(args[1], item, "P0.10 shop item")
+                eq(args[2], nil, "P0.10 shop nil selector")
+                eq(args[3], false, "P0.10 shop false selector")
+                return 725
+            end},
+        },
+        string={format=function(format_string, ...)
+            calls[#calls+1] = "format"
+            format_rows[#format_rows+1] = {format_string, ...}
+            return std_format(format_string, ...), "second-format-result"
+        end},
+    }
+    local dependencies={price_logger=function(...)
+        calls[#calls+1] = "log"
+        log_rows[#log_rows+1] = table.pack(...)
+    end}
+    local empty = table.pack(Product.CheckEquipSlotValue({}, env, "empty-slot", dependencies))
+    eq(empty.n, 1, "P0.10 empty slot return arity")
+    eq(empty[1], 0, "P0.10 empty slot returns numeric zero")
+    eq(log_rows[1].n, 2, "P0.10 logger receives all open format results")
+    eq(log_rows[1][1], "CheckEquipLogic.GetAllEquipmentValue Equip ==> slot = empty-slot, equipName = nil, price = 0")
+    eq(log_rows[1][2], "second-format-result")
+    eq(format_rows[1][1], "CheckEquipLogic.GetAllEquipmentValue Equip ==> slot = %s, equipName = nil, price = 0")
+    eq(format_rows[1][2], "empty-slot")
+
+    item = {name="Helmet"}
+    local occupied = table.pack(Product.CheckEquipSlotValue({}, env, "helmet-slot", dependencies))
+    eq(occupied.n, 1, "P0.10 occupied slot return arity")
+    eq(occupied[1], 725, "P0.10 returns shop dynamic guide price")
+    eq(log_rows[2].n, 2, "P0.10 occupied logger also receives open format results")
+    eq(log_rows[2][1], "CheckEquipLogic.GetAllEquipmentValue Equip ==> slot = helmet-slot, equipName = Helmet, price = 725")
+    eq(format_rows[2][1], "CheckEquipLogic.GetAllEquipmentValue Equip ==> slot = %s, equipName = %s, price = %s")
+    eq(format_rows[2][2], "helmet-slot")
+    eq(format_rows[2][3], "Helmet")
+    eq(format_rows[2][4], 725)
+    eq(table.concat(calls, ","),
+        "group,slot:empty-slot:group-10,item,format,log,group,slot:helmet-slot:group-10,item,price,format,log",
+        "P0.10 call and side-effect order")
+end
+
+-- The final TESTSET in P0.10 implements `price or 0` for a falsey result.
+do
+    local item={name="masked-price"}
+    local env={
+        Server={
+            ArmedForceServer={GetCurSlotGroupId=function() return "g" end},
+            InventoryServer={GetSlot=function() return {GetEquipItem=function() return item end} end},
+            ShopServer={GetShopSingleDynamicGuidePriceByItem=function() return false end},
+        },
+        string={format=function() return "formatted" end},
+    }
+    local result=table.pack(Product.CheckEquipSlotValue({},env,"slot",{
+        price_logger=function(message) eq(message,"formatted") end,
+    }))
+    eq(result.n,1,"P0.10 falsey price return arity")
+    eq(result[1],0,"P0.10 falsey price returns zero")
+end
+
 print("product-module: ok")

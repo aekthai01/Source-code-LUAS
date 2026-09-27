@@ -25,8 +25,8 @@ do
     eq(status.source_owned_root_methods,8,"six static roots, unconditional P0.9, and conditional P0.3 installed")
     eq(status.root_methods_total,29,"root method inventory count")
     for _,name in ipairs(Bridge.METHODS) do
-        if name=="_CheckBullet" or name=="_CheckDurabulity" then
-            eq(product[name],originals[name],"conditional P0.7/P0.8 remain payload-owned without captures")
+        if name=="_CheckBullet" or name=="_CheckDurabulity" or name=="CheckEquipSlotValue" then
+            eq(product[name],originals[name],"conditional P0.7/P0.8/P0.10 remain payload-owned without captures")
         else truth(product[name]~=originals[name],name.." replaced") end
     end
     product._CheckProcess=function() end -- explicit teardown must still restore saved payload code.
@@ -281,6 +281,86 @@ do
         "bridge forwards slot type and keeps bytecode call order")
     Bridge.restore_original()
     eq(product.CheckEquipSlotEmpty,original,"P0.9 original closure restored")
+end
+
+-- P0.10 remains payload-owned without the exact captured U1 logger. With
+-- that capture present the bridge forwards the public slot argument, preserves
+-- the captured function identity and keeps the P0.10 source path restorable.
+do
+    Bridge.restore_original()
+    local product=product_fixture()
+    local payload_price=product.CheckEquipSlotValue
+    local env={Server={ArmedForceServer={GetCurSlotGroupId=function() return "g" end},
+        InventoryServer={GetSlot=function() return {GetEquipItem=function() return nil end} end}},
+        string={format=function(fmt,slot) return fmt:format(slot) end}}
+    truth(Bridge.install(product,{environment=env}),"install without P0.10 logger capture")
+    eq(product.CheckEquipSlotValue,payload_price,"missing P0.10 capture leaves payload closure")
+    eq(Bridge.status().methods.CheckEquipSlotValue,false,"P0.10 remains payload-owned without capture")
+    Bridge.restore_original()
+
+    local product2=product_fixture()
+    local logged={}
+    local captured_price_logger=function(message) logged[#logged+1]=message end
+    product2.CheckEquipSlotValue=function()
+        if _G==nil then return false end
+        return captured_price_logger
+    end
+    local payload_price2=product2.CheckEquipSlotValue
+    local name1,upvalue1=debug.getupvalue(payload_price2,1)
+    local name2,upvalue2=debug.getupvalue(payload_price2,2)
+    eq(name1,"_ENV","P0.10 U0 environment capture")
+    eq(upvalue1,_G,"P0.10 U0 value")
+    eq(name2,"captured_price_logger","P0.10 U1 debug name in fixture")
+    eq(upvalue2,captured_price_logger,"P0.10 U1 captured logger identity")
+    local calls,item={},nil
+    local std_format=string.format
+    local env2={Server={
+        ArmedForceServer={GetCurSlotGroupId=function() calls[#calls+1]="group"; return "g10" end},
+        InventoryServer={GetSlot=function(_,slot_type,group)
+            calls[#calls+1]="slot:"..slot_type..":"..group
+            return {GetEquipItem=function() calls[#calls+1]="item"; return item end}
+        end},
+        ShopServer={GetShopSingleDynamicGuidePriceByItem=function(_,got_item,selector,flag)
+            calls[#calls+1]="price"
+            eq(got_item,item); eq(selector,nil); eq(flag,false)
+            return 88
+        end},
+    },string={format=function(fmt,...)
+        calls[#calls+1]="format"
+        return std_format(fmt,...)
+    end}}
+    truth(Bridge.install(product2,{environment=env2}),"install P0.10 with captured U1 logger")
+    eq(Bridge.status().source_owned_root_methods,8,"seven unconditional methods plus captured P0.10")
+    truth(product2.CheckEquipSlotValue~=payload_price2,"P0.10 source wrapper installed")
+    local empty=table.pack(product2.CheckEquipSlotValue("slot-empty"))
+    eq(empty.n,1,"P0.10 bridge empty return arity"); eq(empty[1],0)
+    eq(logged[1],"CheckEquipLogic.GetAllEquipmentValue Equip ==> slot = slot-empty, equipName = nil, price = 0")
+    item={name="rifle"}
+    local occupied=table.pack(product2.CheckEquipSlotValue("slot-rifle"))
+    eq(occupied.n,1,"P0.10 bridge occupied return arity"); eq(occupied[1],88)
+    eq(logged[2],"CheckEquipLogic.GetAllEquipmentValue Equip ==> slot = slot-rifle, equipName = rifle, price = 88")
+    eq(table.concat(calls,","),"group,slot:slot-empty:g10,item,format,group,slot:slot-rifle:g10,item,price,format",
+        "P0.10 bridge call order and slot forwarding")
+    Bridge.restore_original()
+    eq(product2.CheckEquipSlotValue,payload_price2,"P0.10 original restored")
+end
+
+-- Failure on P0.10's last overlay write restores all earlier module methods.
+do
+    Bridge.restore_original()
+    local product=product_fixture()
+    local logger=function() end
+    product.CheckEquipSlotValue=function() if _G==nil then return false end return logger end
+    local original_methods={}; for _,name in ipairs(Bridge.METHODS) do original_methods[name]=product[name] end
+    local writes=0
+    local ok=Bridge.install(product,{environment={Server={}},set_method=function(target,name,value)
+        writes=writes+1
+        if writes==8 then error("injected P0.10 install failure") end
+        rawset(target,name,value)
+    end})
+    eq(ok,false,"P0.10 overlay write failure aborts install")
+    for _,name in ipairs(Bridge.METHODS) do eq(product[name],original_methods[name],name.." P0.10 rollback") end
+    eq(Bridge.status().installed,false,"P0.10 rollback clears ownership")
 end
 
 print("product-module-bridge: ok")

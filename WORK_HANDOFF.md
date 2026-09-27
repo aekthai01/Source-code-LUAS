@@ -63,6 +63,7 @@ Source-owned after the byte-identical payload initializes:
 - `anti_shake`
 - root P0.0..P0.2 and P0.4..P0.6 method overlay
 - root P0.9 `CheckEquipSlotEmpty` argument/return bridge
+- root P0.10 `CheckEquipSlotValue` source with conditional captured-U1 bridge
 - P0.3 source logic with conditional runtime ownership when original logger captures are available
 - source `set_dongdong_feature_config` (`P0.29.73`)
 - source `set_dongdong_aim_part` (`P0.29.77`)
@@ -156,26 +157,31 @@ complete restore. Game runtime execution remains unverified.
 
 `FULL_PAYLOAD_PROTOTYPE_INDEX.json` is generated from the verified payload prototype,
 constant and disassembly artifacts. It contains exactly 296 prototype paths. Generated
-coverage is 80 source-owned, 211 payload-owned, 5 partially reconstructed, 0 verified
+coverage is 80 source-owned, 210 payload-owned, 6 partially reconstructed, 0 verified
 dead and 0 unknown. Static closure reachability does not assert runtime invocation.
 
 `FULL_PAYLOAD_RECONSTRUCTION_MAP.md` records exact P0.0..P0.28 exports and the
 `EquipTypeList` / `ContainerTypeList` fields. `src/spectra/product_module.lua` materializes
-P0.0..P0.9 plus nested callbacks P0.6.0, P0.7.0 and P0.8.0; tests cover flow branches, process call order,
+P0.0..P0.10 plus nested callbacks P0.6.0, P0.7.0 and P0.8.0; tests cover flow branches, process call order,
 threshold boundaries, rental and currency paths, medicine traversal/filtering/aggregation,
 container capacity and safe-box branches, bullet slot ordering, negative/rounded bullet
 requirements, subtype combination, armor eligibility, durability threshold/formatting,
-empty-slot public arguments and return arity, abnormal construction and event arguments.
+empty-slot public arguments and return arity, P0.10 dynamic shop pricing/logging, abnormal
+construction and event arguments.
 `product_module_bridge.lua` receives `state.product` after payload execution, preserves
 originals and rolls back partial installation. P0.0..P0.2, P0.4..P0.6 and P0.9 are installed by
-default (7/29 root methods). P0.3 is source tested but runtime installation
+default (7/29 root methods). P0.10 is installed only when its original U1 logger capture
+can be recovered at debug index 2; absent that function, the payload closure remains in place. P0.3 is source tested but runtime installation
 requires the original U0/U2 logger closures; without those it stays payload-owned. Source
 exceptions propagate without retrying possibly non-reversible effects. P0.7 remains partial:
 the bridge checks closure upvalues 2..5 for `ItemHelperTool`, debug logger, the identical
 product table and error logger; if any capture is missing or mismatched the payload method
 stays installed. Direct bridge tests verify both the capture indices and rollback at the P0.7
 write. P0.8 conditionally captures its single error logger at debug upvalue 2; source takeover
-requires that exact capture and rolls back the full method set if its write fails.
+requires that exact capture and rolls back the full method set if its write fails. P0.10
+uses exact shop arguments `(item, nil, false)`, logs through its captured U1 function, and is
+covered for empty/occupied branches, open-result logger forwarding, fallback return and
+transactional install failure. Its static ownership remains partial until capture is verified.
 
 CI regenerates the full inventory, asserts exactly 296 entries, runs Phase D and Phase E
 tests, checks ownership consistency and repeats the custom build for determinism. The

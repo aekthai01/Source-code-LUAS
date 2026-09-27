@@ -141,6 +141,7 @@ protected calls, nil handling and duplicate side-effect risk.
 | `P0.8` | `_CheckDurabulity` | `product_module.lua` | partially reconstructed; captured logger gate |
 | `P0.8.0` | `check_durability_slot` (reconstructed descriptive name) | `product_module.lua` | partially reconstructed with P0.8 |
 | `P0.9` | `CheckEquipSlotEmpty` | `product_module.lua` | source |
+| `P0.10` | `CheckEquipSlotValue` | `product_module.lua` | partially reconstructed; captured U1 gate |
 
 P0.4 reads `Field:GetMedicineType()` before enumerating `EDispensingMedicineType`
 through the captured `table.values`, then passes both values through the captured module
@@ -198,6 +199,15 @@ P0.9 takes the public slot-type argument, reads the current slot-group ID, calls
 exactly `(true)` when the slot has no item and `(false, item)` when occupied. The bridge
 passes the public argument through and preserves the one-value/two-value return arity.
 
+P0.10 is reconstructed from its 48 instructions and 14 constants. It reads the current
+slot group, gets the requested slot and item, and only for an occupied item calls
+`Server.ShopServer:GetShopSingleDynamicGuidePriceByItem(item, nil, false)`. It formats
+and emits the exact empty/occupied log template through captured U1 before returning the
+shop price or numeric zero. The bridge installs this method only if debug upvalue 2 of
+the original public closure is a function; otherwise the payload method remains active.
+Tests assert shop argument positions, logging argument expansion, call order, zero fallback,
+and capture/rollback behavior.
+
 P0.2 reads both map values from `GetMapNeedValue`, requests `GetEquipmentCheckData(type, 0)`
 for each abnormal type, and only adds records when the corresponding switch is enabled,
 the threshold is nonzero, and the strict bytecode comparison passes (`current < minimum`,
@@ -207,7 +217,7 @@ P0.2 does so in its instruction stream.
 
 P0.3's source preserves challenge/unbound currency selection, rental preset price, the
 seven slot checks, the missing-rental-plan zero fallback, `evtAllEquipmentValueChanged`
-arguments, and the `(total_value, currency_type)` return. P0.0..P0.9 exports and all other
+arguments, and the `(total_value, currency_type)` return. P0.0..P0.10 exports and all other
 prototype ownership are machine-indexed in `FULL_PAYLOAD_PROTOTYPE_INDEX.json`.
 
 ## Runtime checkpoint
