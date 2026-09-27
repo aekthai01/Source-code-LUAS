@@ -58,12 +58,19 @@ method and ownership maps.
 
 ## Phase E3 root equipment-check methods
 
-`src/spectra/product_module.lua` reconstructs P0.0..P0.6 and nested P0.6.0 from their instruction streams.
+`src/spectra/product_module.lua` reconstructs P0.0..P0.7 and nested P0.6.0/P0.7.0 from their instruction streams.
 Tests preserve the P0.0 flow branch and repeated flow lookup, P0.1 call order, P0.2
 strict threshold/config behavior, P0.3 challenge/rental/slot/event return contract, and
 P0.4/P0.5 medicine traversal, filtering, aggregation, abnormal construction and call order.
 P0.6 tests cover per-slot capacity epsilon, strict ratio/safe-box thresholds, group selection,
 and the P0.6.0 medicine-feature scan.
+P0.7 vectors cover left/right/pistol traversal, captured helper calls, missing/disabled checks,
+negative requirements, rounded thresholds, equal and different subtype handling, maximum key,
+and exact abnormal type/location order. The bridge extracts original P0.7 upvalues 2..5 and
+requires the captured module table to be the same product table before installing its source
+wrapper; missing captures leave `_CheckBullet` payload-owned. P0.7/P0.7.0 remain partially
+reconstructed in static ownership until that runtime gate can be confirmed against the live
+payload closure.
 `product_module_bridge.lua` receives the returned payload module after initialization,
 preserves its original closures, installs P0.0..P0.2 and P0.4..P0.6 transactionally,
 and installs P0.3 only when its stripped U0/U2 logger closures can be captured or explicitly supplied.
@@ -71,7 +78,7 @@ Source errors propagate without retrying payload code, avoiding duplicate non-re
 side effects. Static ownership is therefore 6/29 root methods; P0.3 is partial until its
 logger captures are available.
 
-Current full-payload coverage: 296 classified; 79 source-owned, 216 payload-owned, 1
+Current full-payload coverage: 296 classified; 79 source-owned, 214 payload-owned, 3
 partially reconstructed, 0 dead/unreachable verified, 0 unknown. These are inventory
 statuses, not a claim that all payload behavior has been reconstructed. Static closure
 reachability does not assert that every callback runs in a live game session.
@@ -193,6 +200,7 @@ Focused validation includes:
 | `anti_shake` | reconstructed source |
 | root `P0.0..P0.2`, `P0.4..P0.6` methods | reconstructed source, module overlay |
 | root `P0.3` method | partially reconstructed; source bridge requires original logger captures |
+| root `P0.7` bullet check | partially reconstructed; source overlay gated on captured helpers, loggers, and module identity |
 | public visual entries | reconstructed source |
 | visual scan/fashion/tick path | reconstructed source |
 | remaining unreconstructed business/equipment payload behavior | embedded payload |

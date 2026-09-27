@@ -40,14 +40,14 @@ GitHub Actions runs the same validation path and a second deterministic build.
 
 ## Current Phase D / Phase E artifact
 
-Phase: `E1-full-payload-inventory-and-root-method-overlay`
+Phase: `E3-root-bullet-check-reconstruction`
 
-- source size `367368`
-- source SHA-256 `6f24a418885b30f6659d180f510a5bfe1fc191e9e4e545faeabbca0e4525227b`
-- standard chunk size `298119`
-- standard SHA-256 `eb50a2aa5855476cf05aeb6228e68881d939f40cf727c17467096d8cdb1fa7b5`
-- custom chunk size `298119`
-- custom SHA-256 `55e80c120edb8c4e53ebfeaa4826794e9e3255100f8e97e30fb2e7d7cfb012d9`
+- source size `382810`
+- source SHA-256 `c3218057337f71eb73ed07d368f17578292d96626c05816fc3efa0a6c3bf1405`
+- standard chunk size `304485`
+- standard SHA-256 `8ce8a7e17555920eabaef89a909534d19b3a445c510e937f50ee9b0ccb8dbb0c`
+- custom chunk size `304485`
+- custom SHA-256 `700cfcb0a84ef902def7177c6bc7072afa1ca7ffe9d874d5b6e11134e4ec5521`
 
 `validation_phase_d.json` is the machine-readable checkpoint.
 
@@ -72,6 +72,7 @@ Source-owned after the byte-identical payload initializes:
 Still payload-owned:
 
 - root P0.3 when original diagnostic U0/U2 closures are unavailable
+- root P0.7 bullet check when captured helper/logger/module identity is unavailable; its source and tests exist but the prototype remains partially reconstructed
 - remaining unreconstructed business/equipment behavior outside the migrated Phase D
   feature/visual surfaces
 - saved payload feature/aim functions retained only as transactional fallback
@@ -153,19 +154,24 @@ complete restore. Game runtime execution remains unverified.
 
 `FULL_PAYLOAD_PROTOTYPE_INDEX.json` is generated from the verified payload prototype,
 constant and disassembly artifacts. It contains exactly 296 prototype paths. Generated
-coverage is 79 source-owned, 216 payload-owned, 1 partially reconstructed, 0 verified
+coverage is 79 source-owned, 214 payload-owned, 3 partially reconstructed, 0 verified
 dead and 0 unknown. Static closure reachability does not assert runtime invocation.
 
 `FULL_PAYLOAD_RECONSTRUCTION_MAP.md` records exact P0.0..P0.28 exports and the
 `EquipTypeList` / `ContainerTypeList` fields. `src/spectra/product_module.lua` materializes
-P0.0..P0.6 plus nested callback P0.6.0; tests cover flow branches, process call order,
+P0.0..P0.7 plus nested callbacks P0.6.0 and P0.7.0; tests cover flow branches, process call order,
 threshold boundaries, rental and currency paths, medicine traversal/filtering/aggregation,
-container capacity and safe-box branches, abnormal construction and event arguments.
+container capacity and safe-box branches, bullet slot ordering, negative/rounded bullet
+requirements, subtype combination, abnormal construction and event arguments.
 `product_module_bridge.lua` receives `state.product` after payload execution, preserves
 originals and rolls back partial installation. P0.0..P0.2 and P0.4..P0.6 are installed by
 default (6/29 root methods). P0.3 is source tested but runtime installation
 requires the original U0/U2 logger closures; without those it stays payload-owned. Source
-exceptions propagate without retrying possibly non-reversible effects.
+exceptions propagate without retrying possibly non-reversible effects. P0.7 remains partial:
+the bridge checks closure upvalues 2..5 for `ItemHelperTool`, debug logger, the identical
+product table and error logger; if any capture is missing or mismatched the payload method
+stays installed. Direct bridge tests verify both the capture indices and rollback at the P0.7
+write.
 
 CI regenerates the full inventory, asserts exactly 296 entries, runs Phase D and Phase E
 tests, checks ownership consistency and repeats the custom build for determinism. The

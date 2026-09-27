@@ -11,6 +11,7 @@ local function product_fixture()
     for _,name in ipairs(Bridge.METHODS) do
         p[name]=function() calls[#calls+1]="payload:"..name end
     end
+    p.GetMatchBulletNumByWeaponItem=function() return 0 end -- exact P0.13 dependency shape
     return p,calls
 end
 
@@ -23,7 +24,10 @@ do
     local status=Bridge.status()
     eq(status.source_owned_root_methods,7,"six static roots plus the conditional P0.3 method are installed")
     eq(status.root_methods_total,29,"root method inventory count")
-    for _,name in ipairs(Bridge.METHODS) do truth(product[name]~=originals[name],name.." replaced") end
+    for _,name in ipairs(Bridge.METHODS) do
+        if name=="_CheckBullet" then eq(product[name],originals[name],"conditional P0.7 remains payload-owned")
+        else truth(product[name]~=originals[name],name.." replaced") end
+    end
     product._CheckProcess=function() end -- explicit teardown must still restore saved payload code.
     Bridge.restore_original()
     for _,name in ipairs(Bridge.METHODS) do eq(product[name],originals[name],name.." restored") end
@@ -81,6 +85,83 @@ do
     eq(ok,false,"partial installation fails")
     for _,name in ipairs(Bridge.METHODS) do eq(product[name],originals[name],name.." transaction rollback") end
     eq(Bridge.status().installed,false,"failed install leaves no ownership")
+end
+
+-- P0.7 is overlaid only when its exact captured helper/logger/module values
+-- are supplied. Missing captures or a different captured module retain the
+-- payload method. A valid capture set installs one coherent source method.
+do
+    Bridge.restore_original()
+    local product=product_fixture()
+    local payload_bullet=product._CheckBullet
+    local bullet_environment={
+        Server={
+            ArmedForceServer={GetCurSlotGroupId=function() return "group" end},
+            InventoryServer={GetSlot=function(_,slot_type,group)
+                eq(group,"group"); return {GetEquipItem=function() return nil end}
+            end},
+        },
+        ESlotType={MainWeaponLeft="left",MainWeaponRight="right",Pistrol="pistol"},
+        table={insert=table.insert,concat=table.concat,isempty=function(value) return next(value)==nil end},
+        tostring=tostring,
+    }
+    local p3={logger=function() end,error_logger=function() end}
+    truth(Bridge.install(product,{environment=bullet_environment,dependencies=p3}),"install base methods without P0.7 captures")
+    eq(product._CheckBullet,payload_bullet,"missing P0.7 captures leave payload method intact")
+    eq(Bridge.status().source_owned_root_methods,7,"P0.7 is not counted without captures")
+    Bridge.restore_original()
+
+    local product2=product_fixture()
+    local payload_bullet2=product2._CheckBullet
+    local bullet_dependencies={item_helper={GetSubTypeById=function() end},
+        debug_logger=function() end,error_logger=function() end,captured_module={}}
+    truth(Bridge.install(product2,{environment=bullet_environment,dependencies=p3,
+        bullet_dependencies=bullet_dependencies}),"ordinary overlay installs with an invalid P0.7 capture identity")
+    eq(product2._CheckBullet,payload_bullet2,"foreign captured module prevents P0.7 takeover")
+    Bridge.restore_original()
+
+    local product3=product_fixture()
+    local captured_item_helper={GetSubTypeById=function() end}
+    local captured_debug_logger=function() end
+    local captured_error_logger=function() end
+    local captured_product=product3
+    product3._CheckBullet=function()
+        if _G==nil then return false end -- establishes the P0.7 `_ENV` capture at index 1
+        return captured_item_helper,captured_debug_logger,captured_product,captured_error_logger
+    end
+    local payload_bullet3=product3._CheckBullet
+    local expected_captures={_G,captured_item_helper,captured_debug_logger,product3,captured_error_logger}
+    for index=1,5 do
+        local _,value=debug.getupvalue(product3._CheckBullet,index)
+        eq(value,expected_captures[index],"P0.7 debug upvalue index "..index)
+    end
+    truth(Bridge.install(product3,{environment=bullet_environment,dependencies=p3}),
+        "install overlay after extracting original P0.7 captures by index")
+    eq(Bridge.status().source_owned_root_methods,8,"P0.7 source wrapper installed with all captures")
+    truth(product3._CheckBullet~=payload_bullet3,"captured P0.7 method replaced")
+    product3._CheckBullet()
+    Bridge.restore_original()
+    eq(product3._CheckBullet,payload_bullet3,"P0.7 original restored")
+end
+
+-- If the transactional writer fails after replacing the final conditional
+-- P0.7 method, all earlier wrappers and P0.7 are restored together.
+do
+    Bridge.restore_original()
+    local product=product_fixture()
+    local originals={}; for _,name in ipairs(Bridge.METHODS) do originals[name]=product[name] end
+    local deps={item_helper={GetSubTypeById=function() end},debug_logger=function() end,
+        error_logger=function() end,captured_module=product}
+    local writes=0
+    local ok=Bridge.install(product,{dependencies={logger=function() end,error_logger=function() end},
+        bullet_dependencies=deps,set_method=function(target,name,value)
+            writes=writes+1
+            if writes==8 then error("injected P0.7 install failure") end
+            rawset(target,name,value)
+        end})
+    eq(ok,false,"transaction aborts after the final P0.7 write fails")
+    for _,name in ipairs(Bridge.METHODS) do eq(product[name],originals[name],name.." P0.7 rollback") end
+    eq(Bridge.status().installed,false,"P0.7 failed transaction leaves no ownership")
 end
 
 -- A source exception is propagated once. The preserved payload closure is

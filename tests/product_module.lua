@@ -565,4 +565,165 @@ do
     eq(#rounded_negative,0,"negative safe-box check skips rounding")
 end
 
+local function bullet_fixture(spec)
+    spec = spec or {}
+    local calls, abnormalities, debug_calls, error_calls = {}, {}, {}, {}
+    local item_by_slot = spec.items or {}
+    local check_by_subtype = spec.checks or {}
+    local count_by_item = spec.counts or {}
+    local slot_group = spec.slot_group or "group-9"
+    local field
+    field = {
+        GetEquipmentCheckData = function(self, abnormal_type, subtype)
+            eq(self, field, "P0.7 check-data receiver")
+            eq(abnormal_type, "lack-bullet", "P0.7 abnormal category")
+            calls[#calls + 1] = "check:" .. tostring(subtype)
+            return check_by_subtype[subtype]
+        end,
+        AddEquipAbnormal = function(self, record)
+            eq(self, field, "P0.7 abnormal receiver")
+            calls[#calls + 1] = "add"
+            abnormalities[#abnormalities + 1] = record
+        end,
+    }
+    local inventory = {}
+    function inventory:GetSlot(slot_type, group)
+        eq(self, inventory, "P0.7 inventory receiver")
+        eq(group, slot_group, "P0.7 captured slot group")
+        calls[#calls + 1] = "slot:" .. tostring(slot_type)
+        local slot = {}
+        function slot:GetEquipItem()
+            eq(self, slot, "P0.7 slot receiver")
+            calls[#calls + 1] = "item:" .. tostring(slot_type)
+            return item_by_slot[slot_type]
+        end
+        return slot
+    end
+    local server
+    server = {GetCurSlotGroupId=function(self)
+        eq(self, server, "P0.7 armed force server receiver")
+        calls[#calls + 1] = "group"
+        return slot_group
+    end}
+    local environment = {
+        Server={ArmedForceServer=server,InventoryServer=inventory},
+        ESlotType={MainWeaponLeft="left",MainWeaponRight="right",Pistrol="pistol"},
+        Module={ArmedForce={Field=field,Config={EAbnormalType={LackBullet="lack-bullet"}}}},
+        MathUtil={GetRoundingNum=function(value)
+            calls[#calls + 1] = "round:" .. tostring(value)
+            if spec.round then return spec.round(value) end
+            return value
+        end},
+        ItemConfig={MapWeaponItemType2Name=spec.names or {rifle="Rifle ammo",pistol="Pistol ammo"}},
+        StringUtil={PluralTextFormat=function(description, args)
+            calls[#calls + 1] = "format:" .. tostring(description)
+            return description .. " " .. tostring(args.BulletName) .. " x" .. tostring(args.BulletNum)
+        end},
+        CommonConfig={Loc={Comma=" | "}},
+        table={insert=table.insert,concat=table.concat,isempty=function(value) return next(value)==nil end},
+        tostring=tostring,math=math,
+    }
+    local module={GetMatchBulletNumByWeaponItem=function(...)
+        local args=table.pack(...)
+        eq(args.n,2,"P0.7 match helper is a plain two-argument call")
+        local item,group=args[1],args[2]
+        eq(group,slot_group,"P0.7 passes the one captured group to match helper")
+        calls[#calls + 1] = "match:" .. tostring(item.id)
+        return count_by_item[item.id] or 0
+    end}
+    local dependencies={
+        item_helper={GetSubTypeById=function(...)
+            local args=table.pack(...)
+            eq(args.n,1,"P0.7 subtype helper is static")
+            local item_id=args[1]
+            calls[#calls + 1] = "subtype:" .. tostring(item_id)
+            return spec.subtypes and spec.subtypes[item_id] or item_id
+        end},
+        debug_logger=function(...)
+            debug_calls[#debug_calls + 1] = table.pack(...)
+            calls[#calls + 1] = "debug"
+        end,
+        error_logger=function(...)
+            error_calls[#error_calls + 1] = table.pack(...)
+            calls[#calls + 1] = "error"
+        end,
+    }
+    return module,environment,dependencies,calls,abnormalities,debug_calls,error_calls
+end
+
+-- P0.7/P0.7.0 vectors follow the nested closure's slot/config/match gates and
+-- the root's left/right deduplication, location order, and max-key reduction.
+do
+    local module,env,deps,calls,abnormalities,debug_calls,error_calls=bullet_fixture()
+    Product._CheckBullet(module,env,deps)
+    eq(calls[1],"group","slot group is captured once before slot traversal")
+    eq(calls[2],"slot:left"); eq(calls[4],"slot:right"); eq(calls[6],"slot:pistol")
+    eq(#abnormalities,0,"empty slots produce no abnormal")
+
+    module,env,deps,calls,abnormalities=bullet_fixture({items={left={id="rifle"}},checks={}})
+    Product._CheckBullet(module,env,deps)
+    eq(#abnormalities,0,"missing check data skips this weapon")
+    truth(not table.concat(calls,","):find("round:",1,true),"missing check data does not round")
+
+    module,env,deps,calls,abnormalities=bullet_fixture({items={left={id="rifle"}},checks={rifle={switch=false,checkValue=5}}})
+    Product._CheckBullet(module,env,deps)
+    eq(#abnormalities,0,"disabled check data skips this weapon")
+    truth(not table.concat(calls,","):find("match:",1,true),"disabled check does not query matched bullets")
+
+    module,env,deps,calls,abnormalities,debug_calls,error_calls=bullet_fixture({
+        items={left={id="rifle"}},checks={rifle={switch=true,checkValue=-1,key=2,abnormalDesc="negative"}},
+    })
+    Product._CheckBullet(module,env,deps)
+    eq(#abnormalities,0,"negative rounded requirement does not add abnormal")
+    eq(#error_calls,1,"negative requirement calls the captured error logger")
+    eq(error_calls[1][1],"CheckEquipLogic._CheckBullet checkValue 小于0！！！")
+    eq(error_calls[1][2],"rifle")
+    eq(#debug_calls,0,"negative requirement skips debug and match calls")
+
+    module,env,deps,calls,abnormalities,debug_calls=bullet_fixture({
+        items={left={id="rifle"}},
+        checks={rifle={switch=true,checkValue=9.6,key=11,abnormalDesc="short"}},
+        counts={rifle=10},round=function(value) eq(value,9.6); return 10 end,
+    })
+    Product._CheckBullet(module,env,deps)
+    eq(#abnormalities,0,"matched count equal to rounded requirement passes")
+    eq(#debug_calls,1,"enabled nonnegative check logs before the matched count call")
+    eq(debug_calls[1].n,4,"debug logger receives four bytecode arguments")
+    eq(debug_calls[1][1],"[Debug] Get Value = "); eq(debug_calls[1][2],10)
+    eq(debug_calls[1][3],"checkValue = "); eq(debug_calls[1][4],9.6)
+
+    module,env,deps,calls,abnormalities=bullet_fixture({
+        items={left={id="left-rifle"},right={id="right-rifle"}},
+        subtypes={ ["left-rifle"]="rifle",["right-rifle"]="rifle" },
+        checks={rifle={switch=true,checkValue=10,key=32,abnormalDesc="short"}},
+        counts={["left-rifle"]=6,["right-rifle"]=4},
+    })
+    Product._CheckBullet(module,env,deps)
+    eq(#abnormalities,1,"two deficient weapons emit one abnormal")
+    local abnormal=abnormalities[1]
+    eq(abnormal.key,32,"failed slot key initializes the shared maximum")
+    eq(abnormal.abnormalType,"lack-bullet")
+    eq(table.concat(abnormal.param.abnormalTypeList,","),"left,right","both same-subtype weapon slots are included")
+    eq(abnormal.loc,"short Rifle ammo x10","same-subtype pair uses only the left slot's description")
+
+    module,env,deps,calls,abnormalities=bullet_fixture({
+        items={left={id="left-rifle"},right={id="right-rifle"},pistol={id="sidearm"}},
+        subtypes={ ["left-rifle"]="rifle",["right-rifle"]="rifle2",sidearm="pistol" },
+        checks={
+            rifle={switch=true,checkValue=10,key=5,abnormalDesc="left short"},
+            rifle2={switch=true,checkValue=8,key=19,abnormalDesc="right short"},
+            pistol={switch=true,checkValue=6,key=41,abnormalDesc="pistol short"},
+        },
+        counts={["left-rifle"]=1,["right-rifle"]=2,sidearm=0},
+        names={rifle="Rifle A",rifle2="Rifle B",pistol="Pistol"},
+    })
+    Product._CheckBullet(module,env,deps)
+    eq(#abnormalities,1,"distinct rifles and pistol are combined in one abnormal")
+    abnormal=abnormalities[1]
+    eq(abnormal.key,41,"key is maximum over all deficient slots")
+    eq(table.concat(abnormal.param.abnormalTypeList,","),"left,right,pistol","slot types keep left/right/pistol order")
+    eq(abnormal.loc,"left short Rifle A x10 | right short Rifle B x8 | pistol short Pistol x6",
+        "distinct descriptions preserve root append order")
+end
+
 print("product-module: ok")

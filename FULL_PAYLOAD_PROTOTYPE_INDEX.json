@@ -49,9 +49,9 @@
       },
       "_CheckBullet": {
         "prototype_id": "P0.7",
-        "current_ownership": "payload_owned",
-        "source_file": null,
-        "runtime_takeover": "payload"
+        "current_ownership": "partially_reconstructed",
+        "source_file": "src/spectra/product_module.lua",
+        "runtime_takeover": "conditional"
       },
       "_CheckDurabulity": {
         "prototype_id": "P0.8",
@@ -200,8 +200,8 @@
     "classified": 296,
     "reachable": 296,
     "source_owned": 79,
-    "payload_owned": 216,
-    "partially_reconstructed": 1,
+    "payload_owned": 214,
+    "partially_reconstructed": 3,
     "dead_or_unreachable_verified": 0,
     "unknown": 0,
     "root_methods_source_owned": 6,
@@ -2407,15 +2407,17 @@
       "known_callers": [
         "P0.1"
       ],
-      "known_callees": [],
-      "return_contract": "not reconstructed",
+      "known_callees": [
+        "P0.7.0"
+      ],
+      "return_contract": "no explicit return",
       "public_symbol": "_CheckBullet",
       "public_symbol_is_original": true,
       "reconstructed_name": "_CheckBullet",
       "reconstructed_name_is_original_symbol": true,
-      "current_ownership": "payload_owned",
+      "current_ownership": "partially_reconstructed",
       "reachability": "reachable_from_payload_root",
-      "source_file": null,
+      "source_file": "src/spectra/product_module.lua",
       "evidence_paths": [
         "payload_prototypes.json#0.7",
         "payload_constants.json#0.7",
@@ -2682,23 +2684,25 @@
         "max",
         "switch"
       ],
-      "known_callers": [],
+      "known_callers": [
+        "P0.7"
+      ],
       "known_callees": [],
-      "return_contract": "not reconstructed",
+      "return_contract": "returns true for no-failure paths; returns false, subtype, matched-minus-required, and formatted location when deficient",
       "public_symbol": null,
       "public_symbol_is_original": false,
-      "reconstructed_name": "reconstructed_prototype_0_7_0",
+      "reconstructed_name": "inspect_bullet_slot",
       "reconstructed_name_is_original_symbol": false,
-      "current_ownership": "payload_owned",
+      "current_ownership": "partially_reconstructed",
       "reachability": "reachable_from_payload_root",
-      "source_file": null,
+      "source_file": "src/spectra/product_module.lua",
       "evidence_paths": [
         "payload_prototypes.json#0.7.0",
         "payload_constants.json#0.7.0",
         "payload_disassembly.txt#PROTO 0.7.0"
       ],
-      "confidence": "medium",
-      "semantic_confidence": "low",
+      "confidence": "high",
+      "semantic_confidence": "medium",
       "metadata_confidence": "high"
     },
     "0.8": {

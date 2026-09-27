@@ -12,6 +12,7 @@ M.METHODS = {
     "_CheckMedicine",
     "_CheckUnCarryMedicine",
     "_CheckContainer",
+    "_CheckBullet",
 }
 M.ROOT_METHOD_COUNT = 29
 
@@ -35,6 +36,43 @@ local function get_logger_dependencies(fn, overrides)
         return { logger = captured_logger, error_logger = captured_error_logger }
     end
     return nil
+end
+
+local function get_bullet_dependencies(fn, target, overrides)
+    overrides = type(overrides) == "table" and overrides or {}
+    local item_helper, debug_logger, captured_module, error_logger =
+        overrides.item_helper, overrides.debug_logger, overrides.captured_module, overrides.error_logger
+    if item_helper == nil or debug_logger == nil or captured_module == nil or error_logger == nil then
+        local debug_lib = rawget(_G, "debug")
+        if type(debug_lib) ~= "table" or type(debug_lib.getupvalue) ~= "function" then return nil end
+        local values = {}
+        for index = 2, 5 do
+            local ok, _, value = pcall(debug_lib.getupvalue, fn, index)
+            if not ok then return nil end
+            values[index] = value
+        end
+        item_helper = item_helper or values[2]
+        debug_logger = debug_logger or values[3]
+        captured_module = captured_module or values[4]
+        error_logger = error_logger or values[5]
+    end
+
+    -- P0.7 captures these values rather than looking them up in a global
+    -- namespace. Require the captured module identity to match the product
+    -- table whose method will be replaced; otherwise delayed/dynamic calls
+    -- could cross payload and source ownership.
+    if type(item_helper) ~= "table" or type(item_helper.GetSubTypeById) ~= "function"
+        or type(debug_logger) ~= "function" or captured_module ~= target
+        or type(target.GetMatchBulletNumByWeaponItem) ~= "function"
+        or type(error_logger) ~= "function" then
+        return nil
+    end
+    return {
+        item_helper = item_helper,
+        debug_logger = debug_logger,
+        captured_module = captured_module,
+        error_logger = error_logger,
+    }
 end
 
 local function wrap(name, target, dependencies, environment)
@@ -86,6 +124,9 @@ function M.install(target, options)
     }
     local p3_dependencies = get_logger_dependencies(rawget(target, "GetAllEquipmentValue"), options.dependencies)
     if p3_dependencies then source_targets.GetAllEquipmentValue = Source.GetAllEquipmentValue end
+    local bullet_dependencies = get_bullet_dependencies(
+        rawget(target, "_CheckBullet"), target, options.bullet_dependencies)
+    if bullet_dependencies then source_targets._CheckBullet = Source._CheckBullet end
 
     local set_method = options.set_method or default_set_method
     local pending_originals, pending_wrappers = {}, {}
@@ -93,7 +134,9 @@ function M.install(target, options)
         local source_target = source_targets[name]
         if source_target then
             pending_originals[name] = rawget(target, name)
-            pending_wrappers[name] = wrap(name, source_target, p3_dependencies, environment)
+            local dependencies = name == "GetAllEquipmentValue" and p3_dependencies
+                or (name == "_CheckBullet" and bullet_dependencies or nil)
+            pending_wrappers[name] = wrap(name, source_target, dependencies, environment)
         end
     end
 
@@ -117,7 +160,11 @@ function M.install(target, options)
     originals, installed = pending_originals, pending_wrappers
     product = target
     last_error = nil
-    return true, { methods = M.owned_methods(), p3_logger_captures = p3_dependencies ~= nil }
+    return true, {
+        methods = M.owned_methods(),
+        p3_logger_captures = p3_dependencies ~= nil,
+        p7_captures = bullet_dependencies ~= nil,
+    }
 end
 
 function M.after_payload_load(target, options)

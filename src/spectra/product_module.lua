@@ -3,7 +3,7 @@ assert(type(S) == "table", "spectra module table required")
 local M = {}
 S.ProductModule = M
 
--- P0.0..P0.6 are reconstructed descriptions of stripped closures. Exported
+-- P0.0..P0.7 are reconstructed descriptions of stripped closures. Exported
 -- field names below are exact strings recovered from root P0 bytecode.
 M.PROTOTYPES = {
     CheckEquipmentBeforEnterGameProcess = "0.0",
@@ -13,6 +13,7 @@ M.PROTOTYPES = {
     _CheckMedicine = "0.4",
     _CheckUnCarryMedicine = "0.5",
     _CheckContainer = "0.6",
+    _CheckBullet = "0.7",
 }
 M.ROOT_FIELDS = { "EquipTypeList", "ContainerTypeList" }
 
@@ -309,6 +310,99 @@ function M._CheckContainer(module, globals)
     end
 
     add_medicine_types_from_items(safe_box:GetItems())
+end
+
+-- P0.7 and nested P0.7.0 reconstruct the bullet check. The nested prototype
+-- name is descriptive because its original debug symbol is stripped. Captured
+-- helpers remain explicit inputs so the bridge can install this method only
+-- when it has recovered the original closure values.
+function M._CheckBullet(module, globals, dependencies)
+    globals = globals_or_default(globals)
+    dependencies = assert(dependencies, "P0.7 captured dependencies required")
+    local item_helper = assert(dependencies.item_helper, "P0.7 ItemHelperTool capture missing")
+    local debug_logger = assert(dependencies.debug_logger, "P0.7 debug logger capture missing")
+    local error_logger = assert(dependencies.error_logger, "P0.7 error logger capture missing")
+
+    local abnormal_key = 0
+    local slot_group_id = globals.Server.ArmedForceServer:GetCurSlotGroupId()
+
+    -- Reconstructed descriptive name for P0.7.0. Its four-result failure
+    -- contract and one-result success contract match the bytecode's CALL C=5.
+    local function inspect_bullet_slot(slot_type)
+        local slot = globals.Server.InventoryServer:GetSlot(slot_type, slot_group_id)
+        local item = slot:GetEquipItem()
+        if not item then return true end
+
+        local subtype = item_helper.GetSubTypeById(item.id)
+        local field = globals.Module.ArmedForce.Field
+        local check_data = field:GetEquipmentCheckData(
+            globals.Module.ArmedForce.Config.EAbnormalType.LackBullet, subtype)
+        if not check_data or not check_data.switch then return true end
+
+        local required_bullets = globals.MathUtil.GetRoundingNum(check_data.checkValue)
+        if required_bullets < 0 then
+            error_logger("CheckEquipLogic._CheckBullet checkValue 小于0！！！", subtype)
+            return true
+        end
+
+        debug_logger("[Debug] Get Value = ", required_bullets,
+            "checkValue = ", check_data.checkValue)
+        local matched_bullets = module.GetMatchBulletNumByWeaponItem(item, slot_group_id)
+        if matched_bullets < required_bullets then
+            local format_args = {
+                BulletName = globals.ItemConfig.MapWeaponItemType2Name[subtype],
+                BulletNum = required_bullets,
+            }
+            local location = globals.StringUtil.PluralTextFormat(check_data.abnormalDesc, format_args)
+            abnormal_key = globals.math.max(abnormal_key, check_data.key)
+            return false, subtype, matched_bullets - required_bullets, location
+        end
+        return true
+    end
+
+    local left_ok, left_subtype, _, left_location = inspect_bullet_slot(
+        globals.ESlotType.MainWeaponLeft)
+    local right_ok, right_subtype, _, right_location = inspect_bullet_slot(
+        globals.ESlotType.MainWeaponRight)
+    local pistol_ok, _, _, pistol_location = inspect_bullet_slot(globals.ESlotType.Pistrol)
+
+    local abnormal_types, locations = {}, {}
+    if not left_ok and not right_ok then
+        globals.table.insert(abnormal_types, globals.ESlotType.MainWeaponLeft)
+        globals.table.insert(abnormal_types, globals.ESlotType.MainWeaponRight)
+        if left_subtype == right_subtype then
+            globals.table.insert(locations, globals.tostring(left_location))
+        else
+            globals.table.insert(locations, globals.tostring(left_location))
+            globals.table.insert(locations, globals.tostring(right_location))
+        end
+    elseif not left_ok then
+        globals.table.insert(abnormal_types, globals.ESlotType.MainWeaponLeft)
+        globals.table.insert(locations, globals.tostring(left_location))
+    elseif not right_ok then
+        globals.table.insert(abnormal_types, globals.ESlotType.MainWeaponRight)
+        globals.table.insert(locations, globals.tostring(right_location))
+    end
+
+    if not pistol_ok then
+        globals.table.insert(abnormal_types, globals.ESlotType.Pistrol)
+        globals.table.insert(locations, globals.tostring(pistol_location))
+    end
+
+    local location
+    if not globals.table.isempty(abnormal_types) then
+        location = globals.table.concat(locations, globals.CommonConfig.Loc.Comma)
+    end
+    if location then
+        local field = globals.Module.ArmedForce.Field
+        local abnormal = {
+            key = abnormal_key,
+            abnormalType = globals.Module.ArmedForce.Config.EAbnormalType.LackBullet,
+            loc = location,
+            param = { abnormalTypeList = abnormal_types },
+        }
+        field:AddEquipAbnormal(abnormal)
+    end
 end
 
 return M

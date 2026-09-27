@@ -136,6 +136,8 @@ protected calls, nil handling and duplicate side-effect risk.
 | `P0.5` | `_CheckUnCarryMedicine` | `product_module.lua` | source |
 | `P0.6` | `_CheckContainer` | `product_module.lua` | source |
 | `P0.6.0` | `add_medicine_types_from_items` (reconstructed descriptive name) | `product_module.lua` | source |
+| `P0.7` | `_CheckBullet` | `product_module.lua` | partially reconstructed; captured dependency gate |
+| `P0.7.0` | `inspect_bullet_slot` (reconstructed descriptive name) | `product_module.lua` | partially reconstructed with P0.7 |
 
 P0.4 reads `Field:GetMedicineType()` before enumerating `EDispensingMedicineType`
 through the captured `table.values`, then passes both values through the captured module
@@ -161,6 +163,19 @@ Both config branches proceed for nonnegative `checkValue` and skip negative valu
 zero storage threshold still invokes both decimal helpers before the strict comparison;
 a zero safe-box threshold can add an abnormal when used capacity is positive.
 
+P0.7 captures the current slot-group ID once, then inspects `MainWeaponLeft`,
+`MainWeaponRight`, and `Pistrol` in that order. Nested P0.7.0 fetches each slot's item,
+converts its ID through the captured `ItemHelperTool.GetSubTypeById`, and looks up
+`GetEquipmentCheckData(LackBullet, subtype)`. Missing/disabled rows pass; rounded negative
+requirements call the captured error logger and pass; otherwise the captured debug logger runs
+before `GetMatchBulletNumByWeaponItem(item, slot_group_id)`. Only a strict `matched < rounded`
+comparison fails and contributes `key`, subtype, deficit, and formatted location. Root P0.7
+combines failed slot enums in left/right/pistol order, deduplicates equal-subtype left/right
+descriptions by keeping the left description, keeps both when subtypes differ, and uses the
+maximum failing row key. Tests cover those branch and ordering rules. The runtime bridge installs
+P0.7 only when it recovers the original closure's ItemHelperTool, both loggers, and the exact
+module table identity; otherwise the payload closure remains active.
+
 P0.2 reads both map values from `GetMapNeedValue`, requests `GetEquipmentCheckData(type, 0)`
 for each abnormal type, and only adds records when the corresponding switch is enabled,
 the threshold is nonzero, and the strict bytecode comparison passes (`current < minimum`,
@@ -170,7 +185,7 @@ P0.2 does so in its instruction stream.
 
 P0.3's source preserves challenge/unbound currency selection, rental preset price, the
 seven slot checks, the missing-rental-plan zero fallback, `evtAllEquipmentValueChanged`
-arguments, and the `(total_value, currency_type)` return. P0.0..P0.6 exports and all other
+arguments, and the `(total_value, currency_type)` return. P0.0..P0.7 exports and all other
 prototype ownership are machine-indexed in `FULL_PAYLOAD_PROTOTYPE_INDEX.json`.
 
 ## Runtime checkpoint
