@@ -48,6 +48,8 @@ local real_get_data_table = Mutation.get_data_table
 local real_snapshot_set = Mutation.snapshot_set
 local real_restore_feature = Mutation.restore_feature_snapshot
 local real_restore_bones = Mutation.restore_bone_array_snapshots
+local real_array_set_verified = Mutation.array_set_verified
+local real_restore_binding = Mutation.restore_binding
 local real_replacement = AimMutation.replacement
 local real_patch_bones = AimBones.patch_row
 
@@ -116,18 +118,103 @@ do
     Mutation.restore_feature_snapshot=real_restore_feature
 end
 
--- An unsuccessful bone rollback with pending records cannot delegate to payload.
+local function begin_bone_rollback(row)
+    expose("WeaponAimAssistorTableForGamepad", row)
+    Mutation.snapshot_set=function(state, feature, owner, key, value)
+        real_snapshot_set(state, feature, owner, key, value)
+        if feature=="aim" and key=="ConeHeightBase" then return false end
+        return true
+    end
+    truth(Bridge.takeover_after_payload_load({force_aim_takeover=true}), "install bone rollback fixture")
+end
+
+local function assert_bone_rollback_blocked(row, label)
+    eq(_G.set_dongdong_feature_config("aim",true), false, label .. " result")
+    eq(fallback_calls,0,label .. " must block payload fallback")
+    local snapshots=_G.custom_dongdong_bone_array_snapshots
+    truth(type(snapshots)=="table" and #snapshots.records==2,label .. " retains both bone records")
+    truth(type(_G.custom_dongdong_bone_name_pool)=="table",label .. " retains bone-name pool")
+    truth(Bridge.status().last_error:find("bone rollback incomplete",1,true)~=nil,
+        label .. " reports incomplete rollback")
+end
+
+-- Two real snapshots are produced (the row array and _Dat array). The first
+-- restores while the second remains changed; the original restorer still
+-- reports aggregate success because at least one record restored.
 do
-    reset(); local row={ConeFilterBones={"Neck"}, ConeHeightBase=0}; expose("WeaponAimAssistorTableForGamepad", row)
-    Mutation.snapshot_set=function(...) real_snapshot_set(...); return false end
-    Mutation.restore_bone_array_snapshots=function() return false end
-    truth(Bridge.takeover_after_payload_load({force_aim_takeover=true}), "install failed-bone-restore fixture")
-    eq(_G.set_dongdong_feature_config("aim",true), false, "unsafe bone fallback blocked")
-    eq(fallback_calls,0,"no payload call with un-restored bones")
-    truth(type(_G.custom_dongdong_bone_array_snapshots)=="table"
-        and #_G.custom_dongdong_bone_array_snapshots.records>0, "retain failed bone records")
+    reset()
+    local row={ConeFilterBones={"Neck","Head"}, _Dat={ConeFilterBones={"Spine2"}}, ConeHeightBase=0}
+    begin_bone_rollback(row)
+    local direct=row.ConeFilterBones
+    Mutation.array_set_verified=function(state,array,index0,exemplar,desired)
+        if array==direct and index0==0 and desired=="neck" then return false end
+        return real_array_set_verified(state,array,index0,exemplar,desired)
+    end
+    assert_bone_rollback_blocked(row,"second bone record failure")
+    eq(row._Dat.ConeFilterBones[1],"Spine2","first bone record restored")
+    truth(row.ConeFilterBones[1]~="Neck","second bone record remains changed for recovery")
+    Mutation.array_set_verified=real_array_set_verified
     Mutation.snapshot_set=real_snapshot_set
-    Mutation.restore_bone_array_snapshots=real_restore_bones
+end
+
+-- Array values can restore while a replaced owner binding cannot. The bridge
+-- must verify object identity of every captured binding before fallback.
+do
+    reset()
+    local row={ConeFilterBones={"Neck"}, _Dat={ConeFilterBones={"Spine2"}}, ConeHeightBase=0}
+    begin_bone_rollback(row)
+    local direct=row.ConeFilterBones
+    Mutation.snapshot_set=function(state,feature,owner,key,value)
+        real_snapshot_set(state,feature,owner,key,value)
+        if feature=="aim" and key=="ConeHeightBase" then
+            row.ConeFilterBones={"detached"}
+            return false
+        end
+        return true
+    end
+    Mutation.restore_binding=function(binding,array)
+        if binding.owner==row and binding.key=="ConeFilterBones" then return false end
+        return real_restore_binding(binding,array)
+    end
+    assert_bone_rollback_blocked(row,"bone binding failure")
+    eq(direct[1],"Neck","original direct array values restored")
+    truth(row.ConeFilterBones~=direct,"failed direct binding remains detectable")
+    Mutation.restore_binding=real_restore_binding
+    Mutation.snapshot_set=real_snapshot_set
+end
+
+-- A correct binding does not make an array safe if one captured index failed
+-- to restore. This fixture leaves index zero wrong and lets index one restore.
+do
+    reset()
+    local row={ConeFilterBones={"Neck","Head"}, _Dat={ConeFilterBones={"Spine2"}}, ConeHeightBase=0}
+    begin_bone_rollback(row)
+    local direct=row.ConeFilterBones
+    Mutation.array_set_verified=function(state,array,index0,exemplar,desired)
+        if array==direct and index0==0 and desired=="neck" then return false end
+        return real_array_set_verified(state,array,index0,exemplar,desired)
+    end
+    assert_bone_rollback_blocked(row,"bone index failure")
+    eq(row.ConeFilterBones,direct,"binding remains attached to captured array")
+    truth(row.ConeFilterBones[1]~="Neck","failed index remains detectable")
+    eq(row.ConeFilterBones[2],"Head","other index restored")
+    Mutation.array_set_verified=real_array_set_verified
+    Mutation.snapshot_set=real_snapshot_set
+end
+
+-- When every captured array and binding verifies, a safe payload fallback is
+-- allowed and the bone snapshot/name pool may be cleared.
+do
+    reset()
+    local row={ConeFilterBones={"Neck"}, _Dat={ConeFilterBones={"Spine2"}}, ConeHeightBase=0}
+    begin_bone_rollback(row)
+    eq(_G.set_dongdong_feature_config("aim",true),"payload:aim:true","complete rollback fallback")
+    eq(fallback_calls,1,"complete rollback delegates once")
+    eq(row.ConeFilterBones[1],"Neck","complete rollback restores row array")
+    eq(row._Dat.ConeFilterBones[1],"Spine2","complete rollback restores _Dat array")
+    eq(_G.custom_dongdong_bone_array_snapshots,nil,"complete rollback clears bone snapshot")
+    eq(_G.custom_dongdong_bone_name_pool,nil,"complete rollback clears name pool")
+    Mutation.snapshot_set=real_snapshot_set
 end
 
 -- Snapshot exception is contained at the transaction boundary and delegates cleanly.

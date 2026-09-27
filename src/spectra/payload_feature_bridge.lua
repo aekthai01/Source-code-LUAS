@@ -53,6 +53,53 @@ local function restore_toggles(snapshot)
     for _, key in ipairs(OWNED_TOGGLE_KEYS) do toggles[key] = snapshot[key] end
 end
 
+local function verify_bone_records(Mutation, snapshot)
+    if type(snapshot) ~= "table" or type(snapshot.records) ~= "table" then return false end
+    for _, record in ipairs(snapshot.records) do
+        if type(record) ~= "table" or record.array == nil or type(record.values) ~= "table" then
+            return false
+        end
+        local count_ok, count = pcall(Mutation.array_len, record.array)
+        local expected_count = tonumber(record.count)
+        if not count_ok or expected_count == nil or count ~= expected_count then return false end
+        for index0 = 0, expected_count - 1 do
+            local read_ok, current = pcall(Mutation.array_get, record.array, index0)
+            if not read_ok then return false end
+            local original = record.values[index0 + 1]
+            local canonical_ok, expected = pcall(Mutation.canonical_bone_name, original)
+            local current_ok, actual = pcall(Mutation.canonical_bone_name, current)
+            if not canonical_ok or not current_ok then return false end
+            if expected ~= nil then
+                if actual ~= expected then return false end
+            elseif current ~= original then
+                return false
+            end
+        end
+        if type(record.bindings) ~= "table" or #record.bindings == 0 then return false end
+        for _, binding in ipairs(record.bindings) do
+            if type(binding) ~= "table" or binding.owner == nil or binding.key == nil then
+                return false
+            end
+            local owner_ok, bound_array = pcall(function() return binding.owner[binding.key] end)
+            if not owner_ok or bound_array ~= record.array then return false end
+            if binding.parent_array ~= nil or binding.parent_index ~= nil then
+                if binding.parent_array == nil or binding.parent_index == nil then return false end
+                local parent_ok, parent_value = pcall(Mutation.array_get,
+                    binding.parent_array, binding.parent_index)
+                if not parent_ok or parent_value ~= binding.parent_value then return false end
+            end
+            if binding.parent_owner ~= nil or binding.parent_key ~= nil then
+                if binding.parent_owner == nil or binding.parent_key == nil then return false end
+                local parent_owner_ok, parent_array = pcall(function()
+                    return binding.parent_owner[binding.parent_key]
+                end)
+                if not parent_owner_ok or parent_array ~= binding.parent_array then return false end
+            end
+        end
+    end
+    return true
+end
+
 local function rollback_feature(feature)
     local Mutation = S.MutationRuntime
     if type(Mutation) ~= "table" then return false end
@@ -95,12 +142,14 @@ local function rollback_feature(feature)
         local pending_bones = type(bone) == "table" and type(bone.records) == "table"
             and #bone.records > 0
         local bone_fn = Mutation.restore_bone_array_snapshots
-        local called, restored = false, false
+        local called = false
         if type(bone_fn) == "function" then
-            called, restored = pcall(bone_fn, _G)
+            called = pcall(bone_fn, _G)
         end
-        if not called or (pending_bones and restored ~= true) then
+        local bones_verified = pending_bones and verify_bone_records(Mutation, bone)
+        if not called or (pending_bones and not bones_verified) then
             ok = false
+            last_error = "bone rollback incomplete"
         else
             rawset(_G, "custom_dongdong_bone_array_snapshots", nil)
             rawset(_G, "custom_dongdong_bone_name_pool", nil)
