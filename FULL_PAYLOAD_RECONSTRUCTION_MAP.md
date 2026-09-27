@@ -1,62 +1,63 @@
 # Full Payload Reconstruction Map
 
-Evidence payload SHA-256: `a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263`. Prototype count verified from all three machine artifacts: `296`.
+Evidence payload SHA-256: `a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263`. Prototype count: **296**.
 
-All prototype names without a recovered public root export are reconstructed descriptions. The index omits unresolved/dynamic call edges rather than guessing.
+The current compact ownership index is `FULL_PAYLOAD_PROTOTYPE_INDEX.json`. The prior verbose structural index is retained as `FULL_PAYLOAD_PROTOTYPE_INDEX_LEGACY_DETAILED.json`; bytecode constants/upvalues remain independently reproducible from the payload metadata files.
+
+## Root capture/context layer
+
+`ROOT_CAPTURE_MAP.json` derives P0 R0..R11 from root bytecode. `src/spectra/product_context.lua` recreates the three loggers, six required tools, AmmoDataManager import/Get result, and a fresh source product table without inspecting payload closures.
 
 ## Root public API P0.0..P0.28
 
-| Prototype | Exact exported name | Ownership | Source |
-|---|---|---|---|
-| `P0.0` | `CheckEquipmentBeforEnterGameProcess` | `source_owned` | `src/spectra/product_module.lua` |
-| `P0.1` | `_CheckProcess` | `source_owned` | `src/spectra/product_module.lua` |
-| `P0.2` | `_CheckEquipmentValue` | `source_owned` | `src/spectra/product_module.lua` |
-| `P0.3` | `GetAllEquipmentValue` | `partially_reconstructed` | `src/spectra/product_module.lua` |
-| `P0.4` | `_CheckMedicine` | `source_owned` | `src/spectra/product_module.lua` |
-| `P0.5` | `_CheckUnCarryMedicine` | `source_owned` | `src/spectra/product_module.lua` |
-| `P0.6` | `_CheckContainer` | `source_owned` | `src/spectra/product_module.lua` |
-| `P0.7` | `_CheckBullet` | `partially_reconstructed` | `src/spectra/product_module.lua` |
-| `P0.8` | `_CheckDurabulity` | `partially_reconstructed` | `src/spectra/product_module.lua` |
-| `P0.9` | `CheckEquipSlotEmpty` | `source_owned` | `src/spectra/product_module.lua` |
-| `P0.10` | `CheckEquipSlotValue` | `partially_reconstructed` | `src/spectra/product_module.lua` |
-| `P0.11` | `DynamicGuidPriceFinishFetch` | `payload_owned` | `payload` |
-| `P0.12` | `CheckRaidBulletEnough` | `payload_owned` | `payload` |
-| `P0.13` | `GetMatchBulletNumByWeaponItem` | `payload_owned` | `payload` |
-| `P0.14` | `_CheckNightFight` | `payload_owned` | `payload` |
-| `P0.15` | `_CheckPlayerSuppliesForNightSpeicalType` | `payload_owned` | `payload` |
-| `P0.16` | `_CheckSafeBoxExpiredStatus` | `payload_owned` | `payload` |
-| `P0.17` | `_CheckKeyChainExpiredStatus` | `payload_owned` | `payload` |
-| `P0.18` | `_CheckPropExpiredStatus` | `payload_owned` | `payload` |
-| `P0.19` | `CheckPlayerBodyItemsByList` | `payload_owned` | `payload` |
-| `P0.20` | `CheckNightVisionLimitByList` | `payload_owned` | `payload` |
-| `P0.21` | `CheckThermalImagingLimitByList` | `payload_owned` | `payload` |
-| `P0.22` | `CheckPlayerBodyItemsEntryQuality` | `payload_owned` | `payload` |
-| `P0.23` | `CheckRentalConsumableID` | `payload_owned` | `payload` |
-| `P0.24` | `_CheckPropinfoDownloadWithLog` | `payload_owned` | `payload` |
-| `P0.25` | `_CheckItemWithCompsDownloaded` | `payload_owned` | `payload` |
-| `P0.26` | `_CheckItemIdDownloaded` | `payload_owned` | `payload` |
-| `P0.27` | `_CheckAllWeaponPartDownloaded` | `payload_owned` | `payload` |
-| `P0.28` | `GetNeedDownloadCategaryKey` | `payload_owned` | `payload` |
+| Prototype | Exact exported name | Ownership | Source-only dependency | Source |
+|---|---|---|---|---|
+| `P0.0` | `CheckEquipmentBeforEnterGameProcess` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.1` | `_CheckProcess` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.2` | `_CheckEquipmentValue` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.3` | `GetAllEquipmentValue` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.4` | `_CheckMedicine` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.5` | `_CheckUnCarryMedicine` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.6` | `_CheckContainer` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.7` | `_CheckBullet` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.8` | `_CheckDurabulity` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.9` | `CheckEquipSlotEmpty` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.10` | `CheckEquipSlotValue` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.11` | `DynamicGuidPriceFinishFetch` | `payload_owned` | `false` | `payload` |
+| `P0.12` | `CheckRaidBulletEnough` | `payload_owned` | `false` | `payload` |
+| `P0.13` | `GetMatchBulletNumByWeaponItem` | `payload_owned` | `false` | `payload` |
+| `P0.14` | `_CheckNightFight` | `payload_owned` | `false` | `payload` |
+| `P0.15` | `_CheckPlayerSuppliesForNightSpeicalType` | `payload_owned` | `false` | `payload` |
+| `P0.16` | `_CheckSafeBoxExpiredStatus` | `payload_owned` | `false` | `payload` |
+| `P0.17` | `_CheckKeyChainExpiredStatus` | `payload_owned` | `false` | `payload` |
+| `P0.18` | `_CheckPropExpiredStatus` | `payload_owned` | `false` | `payload` |
+| `P0.19` | `CheckPlayerBodyItemsByList` | `payload_owned` | `false` | `payload` |
+| `P0.20` | `CheckNightVisionLimitByList` | `payload_owned` | `false` | `payload` |
+| `P0.21` | `CheckThermalImagingLimitByList` | `payload_owned` | `false` | `payload` |
+| `P0.22` | `CheckPlayerBodyItemsEntryQuality` | `payload_owned` | `false` | `payload` |
+| `P0.23` | `CheckRentalConsumableID` | `payload_owned` | `false` | `payload` |
+| `P0.24` | `_CheckPropinfoDownloadWithLog` | `payload_owned` | `false` | `payload` |
+| `P0.25` | `_CheckItemWithCompsDownloaded` | `payload_owned` | `false` | `payload` |
+| `P0.26` | `_CheckItemIdDownloaded` | `payload_owned` | `false` | `payload` |
+| `P0.27` | `_CheckAllWeaponPartDownloaded` | `payload_owned` | `false` | `payload` |
+| `P0.28` | `GetNeedDownloadCategaryKey` | `payload_owned` | `false` | `payload` |
 
 Exact root fields: `EquipTypeList`, `ContainerTypeList`.
 
-## P0.0..P0.10 source boundary
+## P0.0..P0.10 source-only preparation
 
-- `P0.0` retains the recovered `CheckMainFlowSOL` result branch, a second `GetCurrentGameFlow` call only on false, Lobby equality return, reset, `_CheckProcess`, and changed event order.
-- `P0.1` calls the ten recovered checks in bytecode order and then `SortEquipAbnormal`.
-- `P0.2` reads current equipment value and both map thresholds, uses strict `<` / `>` comparisons with zero-threshold guards and config switches, and emits the two recovered abnormal record shapes.
-- `P0.3` keeps challenge currency selection, rental and slot sum paths, two-value return, and value-changed event. Its P0.3 U0/U2 diagnostic closures are taken from the original payload closure when the runtime exposes them; otherwise that method remains payload-owned.
-- `P0.4` reads current medicine types before `table.values(EDispensingMedicineType)`, dispatches through the captured module table's current `_CheckUnCarryMedicine` field (P0.5), and adds `LackMedicine` only for a nonempty result list.
-- `P0.5` uses `ipairs` order, `GetEquipmentCheckData(LackMedicine, type)`, the exact `switch` and `table.contains(current, type)` gates, maximum key aggregation, and ordered list appends without deduplication.
-- `P0.6` collects `ChestHangingContainer`, `BagContainer`, and `Pocket` capacities in bytecode order, adds `1e-6` to each total/free value, applies the strict rounded-ratio comparison, selects the challenge/player safe-box group, and walks item collections through nested `P0.6.0`.
-- `P0.7` and nested `P0.7.0` reconstruct left weapon, right weapon, then pistol checks; preserve captured helper/logger calls, strict insufficient-ammo comparison, negative check-value logging, maximum abnormal key, equal-subtype slot handling, and location order. The method bridge installs P0.7 only when the original closure's ItemHelperTool, both loggers, and identical product table are available; otherwise it leaves the payload method in place.
-- `P0.8` and nested `P0.8.0` reconstruct Helmet then BreastPlate durability checks; preserve equipment-feature type gates, `InsufficientDurability` lookup, negative-value logger behavior, open-return forwarding from `GetDurabilityPercent`, two-decimal normalization, inclusive `current <= threshold` comparison, rounding/slot-name formatting, ordered abnormal fields, and maximum key. The bridge requires original P0.8 U1 error-logger capture; absent capture leaves the payload method.
-- `P0.9` resolves the current slot-group ID, calls `InventoryServer:GetSlot(slot_type, group_id)`, and returns exactly `true` for an empty slot or `false, item` for an occupied slot.
-- `P0.10` resolves the current slot group, reads the requested slot/item, calls `ShopServer:GetShopSingleDynamicGuidePriceByItem(item, nil, false)` only for occupied slots, logs the bytecode format string through captured U1, and returns the price or numeric zero. Runtime overlay is conditional on recovering that exact captured function.
-- The method bridge preserves originals and restores its writes on install failure. It rethrows source exceptions without retrying payload code because earlier operations may already have caused side effects.
+- All eleven public methods P0.0..P0.10 now receive stripped root captures from `ProductContext`, not `debug.getupvalue`.
+- P0.3 uses source `info_logger` (R1) and `error_logger` (R2).
+- P0.7/P0.7.0 use source `ItemHelperTool` (R4), `debug_logger` (R0), `error_logger` (R2), and the owning product table passed by the source constructor.
+- P0.8/P0.8.0 use source `error_logger` (R2).
+- P0.10 uses source `info_logger` (R1) as the price logger.
+- `ProductModule.create(context, globals)` creates/binds P0.0..P0.10 on the same source R3 product table and emits exact `EquipTypeList` / `ContainerTypeList` order.
+- The transitional payload overlay remains restorable, but no P0.0..P0.10 installation decision depends on payload closure upvalues.
 
-## Current ownership groups
+## Current ownership
 
-Source-owned prototypes: `80`; payload-owned: `210`; partially reconstructed: `6`; unknown: `0`.
-
-`FULL_PAYLOAD_PROTOTYPE_INDEX.json` is the per-prototype authority. The method-level runtime bridge owns P0.0..P0.2, P0.4..P0.6, and P0.9. P0.3, P0.7, P0.8 and P0.10 remain partial/conditional on recovered closure captures.
+- Source-owned: **86**
+- Payload-owned: **210**
+- Partially reconstructed: **0**
+- Unknown: **0**
+- Root methods source-owned: **11 / 29**

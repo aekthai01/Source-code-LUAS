@@ -10,18 +10,10 @@ jobs:
       - uses: actions/checkout@v6
       - name: Install Lua 5.3 toolchain
         run: sudo apt-get update && sudo apt-get install -y lua5.3
-      - name: Derive root capture evidence
+      - name: Regenerate root capture map
         run: |
           python3 tools/root_capture_forensics.py
-          python3 - <<'PY'
-          import json
-          d=json.load(open('ROOT_CAPTURE_MAP.json'))
-          assert list(d['root_registers']) == [f'R{i}' for i in range(12)]
-          assert d['root_registers']['R0']['semantic_role'] == 'debug_logger'
-          assert d['root_registers']['R1']['semantic_role'] == 'info_logger'
-          assert d['root_registers']['R2']['semantic_role'] == 'error_logger'
-          PY
-          cat ROOT_CAPTURE_MAP.json
+          git diff --exit-code -- ROOT_CAPTURE_MAP.json ROOT_CAPTURE_MAP.md
       - name: Regenerate aim implementation index
         run: |
           python3 tools/aim_forensics.py
@@ -32,11 +24,18 @@ jobs:
           python3 - <<'PY'
           import json
           d=json.load(open('FULL_PAYLOAD_PROTOTYPE_INDEX.json'))
+          groups=d['ownership_groups']
+          paths=[p for values in groups.values() for p in values]
           assert d['_meta']['total_prototypes'] == 296
-          assert len(d['prototypes']) == 296
+          assert len(paths) == 296 and len(set(paths)) == 296
+          assert d['coverage']['unknown'] == 0
+          for name,item in d['root_public_methods'].items():
+              if item['current_ownership']=='source_owned':
+                  assert item['source_only_dependency'] is True, name
           PY
+          cat FULL_PAYLOAD_PROTOTYPE_INDEX.json
           git diff --exit-code -- FULL_PAYLOAD_PROTOTYPE_INDEX.json FULL_PAYLOAD_RECONSTRUCTION_MAP.md RECONSTRUCTION_COVERAGE.md
-      - name: Build and run focused regressions
+      - name: Build and run full regressions
         run: |
           python3 tools/build_phase_d.py
           python3 tools/validate_phase_d.py

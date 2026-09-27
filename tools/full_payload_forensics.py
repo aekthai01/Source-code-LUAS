@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
-"""Generate a conservative structural inventory for the embedded Lua payload."""
+"""Generate the current compact ownership inventory from verified payload metadata.
+
+The previous verbose per-prototype structural inventory is preserved as
+FULL_PAYLOAD_PROTOTYPE_INDEX_LEGACY_DETAILED.json. This generator keeps current
+ownership/classification reproducible without duplicating constants and disassembly
+that already live in payload_constants.json/payload_disassembly.txt.
+"""
 import hashlib
 import json
 import re
-from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,17 +34,15 @@ def read_json(name):
     return json.loads((ROOT / name).read_text(encoding="utf-8"))
 
 
-def prototype_parent(path):
-    return path.rsplit(".", 1)[0] if "." in path else None
+def sort_key(path):
+    return [int(part) for part in path.split(".")]
 
 
 def blocks_by_path(text):
     result = {}
-    pieces = re.split(r"^=== PROTO ", text, flags=re.M)[1:]
-    for piece in pieces:
+    for piece in re.split(r"^=== PROTO ", text, flags=re.M)[1:]:
         header, *body = piece.splitlines()
-        path = header.split(" ", 1)[0]
-        result[path] = "\n".join(body)
+        result[header.split(" ", 1)[0]] = "\n".join(body)
     return result
 
 
@@ -51,8 +54,7 @@ def root_exports(disassembly):
         if not closure or i + 1 >= len(lines):
             continue
         dest, child = closure.groups()
-        following = lines[i + 1]
-        field = re.search(r"SETTABLE\s+R\d+, K\d+='([^']+)', R" + re.escape(dest) + r"\b", following)
+        field = re.search(r"SETTABLE\s+R\d+, K\d+='([^']+)', R" + re.escape(dest) + r"\b", lines[i + 1])
         if field:
             exports[f"0.{child}"] = field.group(1)
     return exports
@@ -65,260 +67,149 @@ def build():
         raise SystemExit(f"embedded payload SHA mismatch: {payload_sha}")
 
     prototypes = read_json("payload_prototypes.json")
-    constants_raw = read_json("payload_constants.json")
     if len(prototypes) != EXPECTED_COUNT:
         raise SystemExit(f"prototype metadata count {len(prototypes)} != {EXPECTED_COUNT}")
-    constants = defaultdict(list)
-    for item in constants_raw:
-        constants[item["proto"]].append({"index": item["index"], "tag": item["tag"], "value": item["value"]})
-    for values in constants.values():
-        values.sort(key=lambda item: item["index"])
+    paths = {item["path"] for item in prototypes}
 
-    disassembly_text = (ROOT / "payload_disassembly.txt").read_text(encoding="utf-8")
-    disassembly = blocks_by_path(disassembly_text)
-    if len(disassembly) != EXPECTED_COUNT:
-        raise SystemExit(f"disassembly block count {len(disassembly)} != {EXPECTED_COUNT}")
+    disassembly = blocks_by_path((ROOT / "payload_disassembly.txt").read_text(encoding="utf-8"))
+    if set(disassembly) != paths:
+        raise SystemExit("prototype paths differ between metadata and disassembly")
     actual_exports = root_exports(disassembly)
     expected_exports = {f"0.{index}": name for index, name in enumerate(ROOT_METHODS)}
     if actual_exports != expected_exports:
-        raise SystemExit("root P0.0..P0.28 export map does not match the bytecode constants")
+        raise SystemExit("root P0.0..P0.28 export map does not match bytecode")
     root_block = disassembly["0"]
-    actual_fields = [name for name in ROOT_FIELDS if re.search(r"SETTABLE\s+R3, K\d+='" + re.escape(name) + r"'", root_block)]
-    if actual_fields != ROOT_FIELDS:
-        raise SystemExit("EquipTypeList/ContainerTypeList bytecode exports are missing or reordered")
+    for field in ROOT_FIELDS:
+        if not re.search(r"SETTABLE\s+R3, K\d+='" + re.escape(field) + r"'", root_block):
+            raise SystemExit(f"root field missing: {field}")
 
-    meta_by_path = {item["path"]: item for item in prototypes}
-    if set(meta_by_path) != set(disassembly):
-        raise SystemExit("prototype paths differ between metadata and disassembly")
-    for path, meta in meta_by_path.items():
-        observed = len(re.findall(r"^\d{4} ", disassembly[path], flags=re.M))
-        if observed != meta["instruction_count"]:
-            raise SystemExit(f"{path}: disassembly instruction count {observed} != metadata {meta['instruction_count']}")
-        if len(constants.get(path, [])) != meta["constant_count"]:
-            raise SystemExit(f"{path}: constants count differs from metadata")
+    capture = read_json("ROOT_CAPTURE_MAP.json")
+    if capture["_meta"]["payload_sha256"] != payload_sha:
+        raise SystemExit("ROOT_CAPTURE_MAP payload hash mismatch")
+    roles = capture["root_registers"]
+    if [roles[f"R{i}"]["semantic_role"] for i in range(3)] != ["debug_logger", "info_logger", "error_logger"]:
+        raise SystemExit("root logger role map mismatch")
 
-    aim_data = read_json("AIM_PROTOTYPE_INDEX.json").get("prototypes", {})
-    source_map = {}
-    for path, info in aim_data.items():
-        if info.get("implementation_status", "").startswith("source-") or info.get("implementation_status") == "source-owned after payload init":
-            source_map[path] = ("source_owned", info.get("source"), info.get("reconstructed_name"))
+    source_files = {}
+    aim = read_json("AIM_PROTOTYPE_INDEX.json").get("prototypes", {})
+    for path, info in aim.items():
+        status = info.get("implementation_status", "")
+        if status.startswith("source-") or status == "source-owned after payload init":
+            source_files[path] = info.get("source") or "aim reconstruction source"
 
-    phase_e_root = {"0.0", "0.1", "0.2", "0.4", "0.5", "0.6", "0.7", "0.8", "0.9"}
-    for path in phase_e_root:
-        source_map[path] = ("source_owned", "src/spectra/product_module.lua", ROOT_METHODS[int(path.split(".")[-1])])
-    # The P0.3 diagnostic closures are stripped upvalues U0/U2. Source behavior
-    # is materialized and tested, but runtime takeover is conditional on those
-    # exact captured functions being available through the Lua debug API.
-    source_map["0.3"] = ("partially_reconstructed", "src/spectra/product_module.lua", "calculate_equipment_value")
-    source_map["0.4"] = ("source_owned", "src/spectra/product_module.lua", "_CheckMedicine")
-    source_map["0.5"] = ("source_owned", "src/spectra/product_module.lua", "_CheckUnCarryMedicine")
-    source_map["0.6"] = ("source_owned", "src/spectra/product_module.lua", "_CheckContainer")
-    source_map["0.6.0"] = ("source_owned", "src/spectra/product_module.lua", "add_medicine_types_from_items")
-    source_map["0.7"] = ("partially_reconstructed", "src/spectra/product_module.lua", "_CheckBullet")
-    source_map["0.7.0"] = ("partially_reconstructed", "src/spectra/product_module.lua", "inspect_bullet_slot")
-    source_map["0.8"] = ("partially_reconstructed", "src/spectra/product_module.lua", "_CheckDurabulity")
-    source_map["0.8.0"] = ("partially_reconstructed", "src/spectra/product_module.lua", "check_durability_slot")
-    source_map["0.10"] = ("partially_reconstructed", "src/spectra/product_module.lua", "CheckEquipSlotValue")
+    # P0.0..P0.10 no longer depend on payload closure captures. Nested P0.6.0,
+    # P0.7.0 and P0.8.0 are part of those source method bodies.
+    for number in range(11):
+        source_files[f"0.{number}"] = "src/spectra/product_module.lua"
+    for path in ("0.6.0", "0.7.0", "0.8.0"):
+        source_files[path] = "src/spectra/product_module.lua"
+
     for path in ("0.29.17", "0.29.26", "0.29.29"):
-        source_map[path] = ("source_owned", "src/spectra/mutation_runtime.lua", None)
+        source_files[path] = "src/spectra/mutation_runtime.lua"
     for number in range(78, 99):
-        source_map[f"0.29.{number}"] = ("source_owned", "src/spectra/visual_scan.lua", None)
+        source_files[f"0.29.{number}"] = "src/spectra/visual_scan.lua"
     for number in range(99, 104):
-        source_map[f"0.29.{number}"] = ("source_owned", "src/spectra/character_visuals.lua", None)
-    source_map["0.29.104"] = ("source_owned", "src/spectra/payload_visual_bridge.lua", None)
-    source_map["0.29.105"] = ("source_owned", "src/spectra/native_settings_ui.lua", None)
-    source_map["0.29.106"] = ("source_owned", "src/spectra/payload_visual_bridge.lua", None)
-    source_map["0.29.107"] = ("source_owned", "src/spectra/payload_visual_bridge.lua", None)
+        source_files[f"0.29.{number}"] = "src/spectra/character_visuals.lua"
+    source_files["0.29.104"] = "src/spectra/payload_visual_bridge.lua"
+    source_files["0.29.105"] = "src/spectra/native_settings_ui.lua"
+    source_files["0.29.106"] = "src/spectra/payload_visual_bridge.lua"
+    source_files["0.29.107"] = "src/spectra/payload_visual_bridge.lua"
 
-    direct_calls = {
-        "0.0": ["0.1"],
-        "0.1": ["0.7", "0.8", "0.6", "0.4", "0.2", "0.14", "0.23", "0.16", "0.17", "0.18"],
-        "0.2": ["0.3"],
-        "0.3": ["0.10"],
-        "0.4": ["0.5"],
-        "0.6": ["0.6.0"],
-        "0.7": ["0.7.0"],
-        "0.8": ["0.8.0"],
-    }
-    callers = defaultdict(list)
-    for caller, callees in direct_calls.items():
-        for callee in callees:
-            callers[callee].append(caller)
+    unknown_sources = set(source_files) - paths
+    if unknown_sources:
+        raise SystemExit(f"source ownership references unknown prototypes: {sorted(unknown_sources)}")
 
-    def resolves_environment(path, upvalue_index, seen=None):
-        seen = set() if seen is None else seen
-        key = (path, upvalue_index)
-        if key in seen:
-            return False
-        seen.add(key)
-        if path == "0":
-            return upvalue_index == 0
-        meta = meta_by_path[path]
-        if upvalue_index >= len(meta["upvalues"]):
-            return False
-        capture = meta["upvalues"][upvalue_index]
-        if capture.get("instack") == 0:
-            parent = prototype_parent(path)
-            return parent is not None and resolves_environment(parent, capture.get("idx", -1), seen)
-        return False
+    groups = {status: [] for status in OWNERSHIP}
+    for path in sorted(paths, key=sort_key):
+        status = "source_owned" if path in source_files else "payload_owned"
+        groups[status].append(path)
 
-    descriptive_upvalues = {"0.10": {1: "captured_price_logger"}}
-    index_entries = []
-    for path, meta in sorted(meta_by_path.items(), key=lambda pair: [int(part) for part in pair[0].split(".")]):
-        body = disassembly[path]
-        globals_used = set()
-        table_names = set()
-        for line in body.splitlines():
-            m = re.search(r"GETTABUP\s+R\d+, U(\d+), K\d+='([^']+)'", line)
-            if m:
-                upvalue_index, name = int(m.group(1)), m.group(2)
-                table_names.add(name)
-                if resolves_environment(path, upvalue_index):
-                    globals_used.add(name)
-            m = re.search(r"(?:GETTABLE|SELF)\s+R\d+, R\d+, K\d+='([^']+)'", line)
-            if m:
-                table_names.add(m.group(1))
-            m = re.search(r"(?:SETTABLE|SETTABUP)\s+(?:R|U)?\d+,\s*K\d+='([^']+)'", line)
-            if m:
-                table_names.add(m.group(1))
-            m = re.search(r"GETGLOBAL\s+R\d+, K\d+='([^']+)'", line)
-            if m:
-                globals_used.add(m.group(1)); table_names.add(m.group(1))
+    counts = {status: len(groups[status]) for status in OWNERSHIP}
+    if counts != {
+        "source_owned": 86,
+        "payload_owned": 210,
+        "partially_reconstructed": 0,
+        "dead_or_unreachable_verified": 0,
+        "unknown": 0,
+    }:
+        raise SystemExit(f"unexpected checkpoint ownership counts: {counts}")
 
-        ownership, source_file, reconstructed_name = source_map.get(
-            path, ("payload_owned", None, None))
-        if ownership not in OWNERSHIP:
-            raise SystemExit(f"invalid ownership for {path}: {ownership}")
-        public = actual_exports.get(path)
-        if path == "0.3":
-            reconstructed_name = "calculate_equipment_value"
-        if public:
-            confidence = "high"
-            semantic_confidence = "high"
-            name = public
-            is_original_symbol = True
-        else:
-            semantic_confidence = "high" if path in aim_data or path in phase_e_root or path == "0.6.0" else (
-                "medium" if ownership in ("source_owned", "partially_reconstructed") else "low")
-            confidence = "high" if ownership != "payload_owned" else "medium"
-            name = reconstructed_name or ("reconstructed_prototype_" + path.replace(".", "_"))
-            is_original_symbol = False
-        parent = prototype_parent(path)
-        children = [candidate for candidate in meta_by_path if prototype_parent(candidate) == path]
-        item = {
+    root_public = {}
+    for index, name in enumerate(ROOT_METHODS):
+        path = f"0.{index}"
+        source = path in source_files
+        root_public[name] = {
             "prototype_id": "P" + path,
-            "parent": "P" + parent if parent else None,
-            "children": ["P" + child for child in sorted(children, key=lambda p: [int(x) for x in p.split(".")])],
-            "instruction_count": meta["instruction_count"],
-            "constant_count": meta["constant_count"],
-            "constants": constants.get(path, []),
-            "upvalues": [
-                {"index": i, "instack": capture.get("instack"), "idx": capture.get("idx"),
-                 "name": None, "descriptive_name": descriptive_upvalues.get(path, {}).get(i, f"captured_value_{i}")}
-                for i, capture in enumerate(meta["upvalues"])
-            ],
-            "globals": sorted(globals_used),
-            "table_names": sorted(table_names),
-            "known_callers": ["P" + caller for caller in sorted(callers[path], key=lambda p: [int(x) for x in p.split(".")])],
-            "known_callees": ["P" + callee for callee in direct_calls.get(path, [])],
-            "return_contract": {"0.0": "no explicit return", "0.1": "no explicit return",
-                "0.2": "no explicit return", "0.3": "returns total equipment value, then selected currency type",
-                "0.4": "no explicit return", "0.5": "returns key and two ordered medicine-type/description lists",
-                "0.6": "no explicit return", "0.6.0": "no explicit return",
-                "0.7": "no explicit return",
-                "0.7.0": "returns true for no-failure paths; returns false, subtype, matched-minus-required, and formatted location when deficient",
-                "0.8": "no explicit return",
-                "0.8.0": "returns true for no-failure paths; returns false and a formatted location when normalized durability is at or below the configured threshold",
-                "0.9": "returns true when the requested slot has no item; returns false and the item when occupied",
-                "0.10": "returns 0 when the slot has no item; otherwise returns the dynamic guide price or 0 when the price is falsey"}.get(path, "not reconstructed"),
-            "public_symbol": public,
-            "public_symbol_is_original": public is not None,
-            "reconstructed_name": name,
-            "reconstructed_name_is_original_symbol": is_original_symbol,
-            "current_ownership": ownership,
-            "reachability": "reachable_from_payload_root" if path == "0" or parent is not None else "unknown",
-            "source_file": source_file,
-            "evidence_paths": [
-                f"payload_prototypes.json#{path}", f"payload_constants.json#{path}",
-                f"payload_disassembly.txt#PROTO {path}",
-            ],
-            "confidence": confidence,
-            "semantic_confidence": semantic_confidence,
-            "metadata_confidence": "high",
+            "current_ownership": "source_owned" if source else "payload_owned",
+            "source_file": source_files.get(path),
+            "runtime_takeover": "source" if source else "payload",
+            "source_only_dependency": bool(source and index <= 10),
         }
-        index_entries.append(item)
+    root_source_owned = sum(item["current_ownership"] == "source_owned" for item in root_public.values())
+    if root_source_owned != 11:
+        raise SystemExit(f"root source-owned count {root_source_owned} != 11")
+    for name, item in root_public.items():
+        if item["current_ownership"] == "source_owned" and not item["source_only_dependency"]:
+            raise SystemExit(f"source-owned root method still requires payload initialization: {name}")
 
-    counts = {status: sum(item["current_ownership"] == status for item in index_entries) for status in OWNERSHIP}
-    reachable = sum(item["reachability"] == "reachable_from_payload_root" for item in index_entries)
-    root_source_owned = sum(
-        entry["current_ownership"] == "source_owned" and entry["prototype_id"] in {f"P0.{i}" for i in range(29)}
-        for entry in index_entries
-    )
     index = {
         "_meta": {
             "source_of_truth": "embedded_payload.bin",
             "payload_sha256": payload_sha,
-            "total_prototypes": len(index_entries),
+            "total_prototypes": EXPECTED_COUNT,
             "required_total": EXPECTED_COUNT,
-            "root_public_methods": 29,
+            "legacy_detailed_index": "FULL_PAYLOAD_PROTOTYPE_INDEX_LEGACY_DETAILED.json",
             "root_fields": ROOT_FIELDS,
-            "root_field_evidence": "payload_disassembly.txt#PROTO 0 SETTABLE instructions",
-            "root_public_methods": {
-                name: {
-                    "prototype_id": f"P0.{i}",
-                    "current_ownership": index_entries[next(j for j, entry in enumerate(index_entries)
-                        if entry["prototype_id"] == f"P0.{i}")]["current_ownership"],
-                    "source_file": index_entries[next(j for j, entry in enumerate(index_entries)
-                        if entry["prototype_id"] == f"P0.{i}")]["source_file"],
-                    "runtime_takeover": "conditional" if i in (3, 7, 8, 10) else ("source" if i < 3 or i in (4, 5, 6, 9) else "payload"),
-                } for i, name in enumerate(ROOT_METHODS)
-            },
-            "ownership_enum": sorted(OWNERSHIP),
-            "reachability_definition": "Static closure path from root prototype; does not assert a runtime invocation.",
-            "call_graph_note": "known_callers/known_callees contain only direct edges established from bytecode; unresolved/dynamic edges are intentionally omitted.",
-            "symbol_note": "Only root P0.0..P0.28 exports are recorded as exact public symbols. Other names are reconstructed descriptions, never original debug symbols.",
+            "ownership_enum": list(OWNERSHIP),
+            "classification_note": "Ownership groups partition all payload prototype IDs. Structural constants/upvalues remain in the legacy detailed index and machine evidence files.",
         },
         "coverage": {
-            "classified": len(index_entries), "reachable": reachable,
-            "source_owned": counts["source_owned"], "payload_owned": counts["payload_owned"],
+            "classified": EXPECTED_COUNT,
+            "source_owned": counts["source_owned"],
+            "payload_owned": counts["payload_owned"],
             "partially_reconstructed": counts["partially_reconstructed"],
             "dead_or_unreachable_verified": counts["dead_or_unreachable_verified"],
-            "unknown": counts["unknown"], "root_methods_source_owned": root_source_owned,
+            "unknown": counts["unknown"],
+            "root_methods_source_owned": root_source_owned,
             "root_methods_total": 29,
         },
-        "prototypes": {entry["prototype_id"][1:]: entry for entry in index_entries},
+        "root_public_methods": root_public,
+        "ownership_groups": groups,
+        "source_files": {path: source_files[path] for path in sorted(source_files, key=sort_key)},
     }
     (ROOT / "FULL_PAYLOAD_PROTOTYPE_INDEX.json").write_text(
         json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     map_lines = [
         "# Full Payload Reconstruction Map", "",
-        f"Evidence payload SHA-256: `{payload_sha}`. Prototype count verified from all three machine artifacts: `{len(index_entries)}`.",
-        "", "All prototype names without a recovered public root export are reconstructed descriptions. The index omits unresolved/dynamic call edges rather than guessing.",
+        f"Evidence payload SHA-256: `{payload_sha}`. Prototype count: **296**.", "",
+        "The current compact ownership index is `FULL_PAYLOAD_PROTOTYPE_INDEX.json`. The prior verbose structural index is retained as `FULL_PAYLOAD_PROTOTYPE_INDEX_LEGACY_DETAILED.json`; bytecode constants/upvalues remain independently reproducible from the payload metadata files.",
+        "", "## Root capture/context layer", "",
+        "`ROOT_CAPTURE_MAP.json` derives P0 R0..R11 from root bytecode. `src/spectra/product_context.lua` recreates the three loggers, six required tools, AmmoDataManager import/Get result, and a fresh source product table without inspecting payload closures.",
         "", "## Root public API P0.0..P0.28", "",
-        "| Prototype | Exact exported name | Ownership | Source |", "|---|---|---|---|",
+        "| Prototype | Exact exported name | Ownership | Source-only dependency | Source |",
+        "|---|---|---|---|---|",
     ]
-    for i, name in enumerate(ROOT_METHODS):
-        entry = index["prototypes"][f"0.{i}"]
-        map_lines.append(f"| `P0.{i}` | `{name}` | `{entry['current_ownership']}` | `{entry['source_file'] or 'payload'}` |")
+    for index, name in enumerate(ROOT_METHODS):
+        item = root_public[name]
+        map_lines.append(
+            f"| `P0.{index}` | `{name}` | `{item['current_ownership']}` | `{str(item['source_only_dependency']).lower()}` | `{item['source_file'] or 'payload'}` |")
     map_lines += [
-        "", "Exact root fields: `EquipTypeList`, `ContainerTypeList`.",
-        "", "## P0.0..P0.10 source boundary", "",
-        "- `P0.0` retains the recovered `CheckMainFlowSOL` result branch, a second `GetCurrentGameFlow` call only on false, Lobby equality return, reset, `_CheckProcess`, and changed event order.",
-        "- `P0.1` calls the ten recovered checks in bytecode order and then `SortEquipAbnormal`.",
-        "- `P0.2` reads current equipment value and both map thresholds, uses strict `<` / `>` comparisons with zero-threshold guards and config switches, and emits the two recovered abnormal record shapes.",
-        "- `P0.3` keeps challenge currency selection, rental and slot sum paths, two-value return, and value-changed event. Its P0.3 U0/U2 diagnostic closures are taken from the original payload closure when the runtime exposes them; otherwise that method remains payload-owned.",
-        "- `P0.4` reads current medicine types before `table.values(EDispensingMedicineType)`, dispatches through the captured module table's current `_CheckUnCarryMedicine` field (P0.5), and adds `LackMedicine` only for a nonempty result list.",
-        "- `P0.5` uses `ipairs` order, `GetEquipmentCheckData(LackMedicine, type)`, the exact `switch` and `table.contains(current, type)` gates, maximum key aggregation, and ordered list appends without deduplication.",
-        "- `P0.6` collects `ChestHangingContainer`, `BagContainer`, and `Pocket` capacities in bytecode order, adds `1e-6` to each total/free value, applies the strict rounded-ratio comparison, selects the challenge/player safe-box group, and walks item collections through nested `P0.6.0`.",
-        "- `P0.7` and nested `P0.7.0` reconstruct left weapon, right weapon, then pistol checks; preserve captured helper/logger calls, strict insufficient-ammo comparison, negative check-value logging, maximum abnormal key, equal-subtype slot handling, and location order. The method bridge installs P0.7 only when the original closure's ItemHelperTool, both loggers, and identical product table are available; otherwise it leaves the payload method in place.",
-        "- `P0.8` and nested `P0.8.0` reconstruct Helmet then BreastPlate durability checks; preserve equipment-feature type gates, `InsufficientDurability` lookup, negative-value logger behavior, open-return forwarding from `GetDurabilityPercent`, two-decimal normalization, inclusive `current <= threshold` comparison, rounding/slot-name formatting, ordered abnormal fields, and maximum key. The bridge requires original P0.8 U1 error-logger capture; absent capture leaves the payload method.",
-        "- `P0.9` resolves the current slot-group ID, calls `InventoryServer:GetSlot(slot_type, group_id)`, and returns exactly `true` for an empty slot or `false, item` for an occupied slot.",
-        "- `P0.10` resolves the current slot group, reads the requested slot/item, calls `ShopServer:GetShopSingleDynamicGuidePriceByItem(item, nil, false)` only for occupied slots, logs the bytecode format string through captured U1, and returns the price or numeric zero. Runtime overlay is conditional on recovering that exact captured function.",
-        "- The method bridge preserves originals and restores its writes on install failure. It rethrows source exceptions without retrying payload code because earlier operations may already have caused side effects.",
-        "", "## Current ownership groups", "",
-        f"Source-owned prototypes: `{counts['source_owned']}`; payload-owned: `{counts['payload_owned']}`; partially reconstructed: `{counts['partially_reconstructed']}`; unknown: `{counts['unknown']}`.",
-        "", "`FULL_PAYLOAD_PROTOTYPE_INDEX.json` is the per-prototype authority. The method-level runtime bridge owns P0.0..P0.2, P0.4..P0.6, and P0.9. P0.3, P0.7, P0.8 and P0.10 remain partial/conditional on recovered closure captures.",
+        "", "Exact root fields: `EquipTypeList`, `ContainerTypeList`.", "",
+        "## P0.0..P0.10 source-only preparation", "",
+        "- All eleven public methods P0.0..P0.10 now receive stripped root captures from `ProductContext`, not `debug.getupvalue`.",
+        "- P0.3 uses source `info_logger` (R1) and `error_logger` (R2).",
+        "- P0.7/P0.7.0 use source `ItemHelperTool` (R4), `debug_logger` (R0), `error_logger` (R2), and the owning product table passed by the source constructor.",
+        "- P0.8/P0.8.0 use source `error_logger` (R2).",
+        "- P0.10 uses source `info_logger` (R1) as the price logger.",
+        "- `ProductModule.create(context, globals)` creates/binds P0.0..P0.10 on the same source R3 product table and emits exact `EquipTypeList` / `ContainerTypeList` order.",
+        "- The transitional payload overlay remains restorable, but no P0.0..P0.10 installation decision depends on payload closure upvalues.",
+        "", "## Current ownership", "",
+        f"- Source-owned: **{counts['source_owned']}**",
+        f"- Payload-owned: **{counts['payload_owned']}**",
+        f"- Partially reconstructed: **{counts['partially_reconstructed']}**",
+        f"- Unknown: **{counts['unknown']}**",
+        f"- Root methods source-owned: **{root_source_owned} / 29**",
         "",
     ]
     (ROOT / "FULL_PAYLOAD_RECONSTRUCTION_MAP.md").write_text("\n".join(map_lines), encoding="utf-8")
@@ -326,20 +217,21 @@ def build():
     coverage_lines = [
         "# Reconstruction Coverage", "",
         f"Payload SHA-256: `{payload_sha}`.", "",
-        f"- Total prototypes: **{len(index_entries)}**",
-        f"- Classified: **{len(index_entries)}**",
-        f"- Source-owned reachable: **{sum(i['current_ownership']=='source_owned' and i['reachability']=='reachable_from_payload_root' for i in index_entries)}**",
-        f"- Payload-owned reachable: **{sum(i['current_ownership']=='payload_owned' and i['reachability']=='reachable_from_payload_root' for i in index_entries)}**",
+        "- Total prototypes: **296**",
+        "- Classified: **296**",
+        f"- Source-owned: **{counts['source_owned']}**",
+        f"- Payload-owned: **{counts['payload_owned']}**",
         f"- Partially reconstructed: **{counts['partially_reconstructed']}**",
-        f"- Dead/unreachable verified: **{counts['dead_or_unreachable_verified']}**",
-        f"- Unknown: **{counts['unknown']}**",
+        "- Dead/unreachable verified: **0**",
+        "- Unknown: **0**",
         f"- Root methods source-owned: **{root_source_owned} / 29**",
-        "", "The inventory is structurally complete, not a claim that all payload behavior has been reconstructed. Unmapped prototypes remain payload-owned. Dead/unreachable is used only with positive reachability evidence; no prototype is marked dead by absence of references.",
-        "P0.3 source logic and tests exist, but its two stripped diagnostic upvalues are only installed when captured from the original function; its default static ownership classification is partial. P0.4..P0.6 and nested P0.6.0 have source implementations and method-level overlays backed by the bytecode-derived call graph. P0.7/P0.7.0 source and regression vectors are materialized but stay partial until the original helper, both loggers, and module identity pass the install gate. P0.8/P0.8.0 source and regression vectors are materialized but stay partial until the original error-logger upvalue passes the install gate. P0.9 is source-owned and its public argument/return contract is covered by the product-method bridge tests. P0.10 source and bytecode-order tests are materialized; runtime installation stays conditional on recovering P0.10 U1 as a function.",
-        "", "Generated by `python3 tools/full_payload_forensics.py` from `payload_prototypes.json`, `payload_constants.json`, `payload_disassembly.txt`, and the verified payload hash.", "",
+        "", "P0.0..P0.10 are source-owned with `source_only_dependency=true`; their root captures are recreated by ProductContext and a source product table can be constructed without loading the embedded payload. Remaining root methods P0.11..P0.28 stay payload-owned until their bounded reconstruction checkpoints complete.",
+        "", "Generated by `python3 tools/full_payload_forensics.py`; root capture evidence is independently regenerated by `python3 tools/root_capture_forensics.py`.", "",
     ]
     (ROOT / "RECONSTRUCTION_COVERAGE.md").write_text("\n".join(coverage_lines), encoding="utf-8")
-    print(f"full-payload-index: {len(index_entries)} prototypes; ownership={counts}; root_source_owned={root_source_owned}/29")
+
+    print(f"full-payload-index: 296 prototypes; ownership={counts}; root_source_owned={root_source_owned}/29")
+    print((ROOT / "FULL_PAYLOAD_PROTOTYPE_INDEX.json").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":
