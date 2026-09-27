@@ -15,10 +15,8 @@ def runner():
         p=shutil.which(n)
         if p:
             q=subprocess.run([p,'-v'],text=True,capture_output=True)
-            # texlua -v is TeX info, so probe _VERSION instead below
             t=subprocess.run([p,'-e','print(_VERSION)'],text=True,capture_output=True)
             if t.returncode==0 and 'Lua 5.3' in (t.stdout+t.stderr): return p
-    # texlua does not reliably accept -e; validate.py already has a file-probe helper.
     import importlib.util
     spec=importlib.util.spec_from_file_location('v',ROOT/'tools'/'validate.py'); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
     return m.find_lua_runner()[0]
@@ -43,7 +41,7 @@ def main():
     assert Scanner(cus).scan()['version']==0x53 and Scanner(cus).scan()['sizet_size']==4
     text=(ROOT/'src/spectra/native_settings_ui.lua').read_text()
     assert 'M.PAGE_TITLE = "@DrkZeref"' in text
-    assert '@starrmods' not in text  # old title must not exist in editable runtime UI source
+    assert '@starrmods' not in text
     for method in ['_InitDynamicBtns','SetSelectedModePanel','OnInitExtraData','OnShowBegin','OnActivate','_FetchSettingSystemByTab','_UpdateSysetemSettingPanel','OnHideBegin','OnClose']:
         assert method in text
     lua=runner()
@@ -52,21 +50,22 @@ def main():
     out_cv=run([lua,str(ROOT/'tests/character_visuals.lua'),str(ROOT)]); assert 'character-visuals: ok' in out_cv
     out_ar=run([lua,str(ROOT/'tests/aim_runtime.lua'),str(ROOT)]); assert 'aim-runtime: ok' in out_ar
     out_am=run([lua,str(ROOT/'tests/aim_mutation.lua'),str(ROOT)]); assert 'aim-mutation: ok' in out_am
+    out_diff=run([lua,str(ROOT/'tests/aim_differential.lua'),str(ROOT)]); assert 'aim-differential: ok' in out_diff
     out_ab=run([lua,str(ROOT/'tests/aim_bones.lua'),str(ROOT)]); assert 'aim-bones: ok' in out_ab
     out_rf=run([lua,str(ROOT/'tests/aim_refresh.lua'),str(ROOT)]); assert 'aim-refresh: ok' in out_rf
     out_abi=run([lua,str(ROOT/'tests/aim_abi.lua'),str(ROOT)]); assert 'aim-abi: ok' in out_abi
     out_dispatch=run([lua,str(ROOT/'tests/aim_dispatch.lua'),str(ROOT)]); assert 'aim-dispatch: ok' in out_dispatch
     out_chain=run([lua,str(ROOT/'tests/aim_chain.lua'),str(ROOT)]); assert 'aim-chain: ok' in out_chain
+    out_chain_fidelity=run([lua,str(ROOT/'tests/aim_chain_fidelity.lua'),str(ROOT)]); assert 'aim-chain-fidelity: ok' in out_chain_fidelity
     out_vr=run([lua,str(ROOT/'tests/visual_runtime.lua'),str(ROOT)]); assert 'visual-runtime: ok' in out_vr
     out_mr=run([lua,str(ROOT/'tests/mutation_runtime.lua'),str(ROOT)]); assert 'mutation-runtime: ok' in out_mr
     out_fb=run([lua,str(ROOT/'tests/payload_feature_bridge.lua'),str(ROOT)]); assert 'payload-feature-bridge: ok' in out_fb
     out_vs=run([lua,str(ROOT/'tests/visual_scan.lua'),str(ROOT)]); assert 'visual-scan: ok' in out_vs
     out_vb=run([lua,str(ROOT/'tests/payload_visual_bridge.lua'),str(ROOT)]); assert 'payload-visual-bridge: ok' in out_vb
-    # Existing wrapper regressions must remain green.
     out2=run([lua,str(ROOT/'tests/smoke.lua'),str(ROOT)]); assert 'smoke: ok' in out2
     out3=run([lua,str(ROOT/'tests/protocol_fixture.lua'),str(ROOT)]); assert 'protocol-fixture: ok' in out3
     report={
-      'phase':'D4-recovery-public-visual-runtime-takeover',
+      'phase':'D4-aim-transactional-bridge-gated',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
       'reconstructed_group':{
         'ui_prototype':'0.29.105',
@@ -75,16 +74,20 @@ def main():
           'helper_prototypes':[f'0.29.{i}' for i in range(30,44)],
           'field_replacement_prototype':'0.29.65',
           'recursive_walker_prototype':'0.29.66',
-          'outer_aim_row_branch':'0.29.67 (requires explicit P0.29.63 bone updater; inactive)',
-          'feature_table_dispatch':'0.29.68 (source reconstructed; aim bridge inactive)',
+          'outer_aim_row_branch':'0.29.67 source chain complete via aim_chain.lua',
+          'feature_table_dispatch':'0.29.68 source reconstructed from 38 instructions',
           'refresh_abi_helpers':['0.29.2','0.29.3','0.29.4','0.29.12'],
-        'bone_source_prototypes':['0.29.45','0.29.61','0.29.62','0.29.63','0.29.64'],
+          'bone_source_prototypes':['0.29.45','0.29.61','0.29.62','0.29.63','0.29.64'],
           'weapon_refresh_source_prototypes':['0.29.74','0.29.75','0.29.76'],
           'profile_ids':[1,1001,1002,1003,11001,1004],
           'source_present':True,
+          'source_chain_complete':True,
+          'refresh_helper_abi_verified':True,
+          'transactional_dual_global_bridge':True,
           'active_runtime_bridge':False,
           'gamepad_aim_chain_fixture':True,
-          'walker_and_refresh_complete':False
+          'differential_p65_fixtures':True,
+          'walker_and_refresh_complete':True
         },
         'visual_entry_prototypes':['0.29.99','0.29.100','0.29.101','0.29.102','0.29.103'],
         'visual_scan_prototypes':[f'0.29.{i}' for i in range(78,99)],
@@ -101,13 +104,13 @@ def main():
         'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,
         'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,
         'native_settings_ui_smoke':'passed','feature_control_unit':'passed','character_visuals_unit':'passed',
-        'aim_runtime_unit':'passed','aim_mutation_unit':'passed','aim_bones_unit':'passed','aim_refresh_unit':'passed','aim_abi_unit':'passed','aim_dispatch_unit':'passed','aim_chain_unit':'passed','visual_runtime_unit':'passed','mutation_runtime_unit':'passed',
+        'aim_runtime_unit':'passed','aim_mutation_unit':'passed','aim_differential_unit':'passed','aim_bones_unit':'passed','aim_refresh_unit':'passed','aim_abi_unit':'passed','aim_dispatch_unit':'passed','aim_chain_unit':'passed','aim_chain_fidelity_unit':'passed','visual_runtime_unit':'passed','mutation_runtime_unit':'passed',
         'payload_feature_bridge_unit':'passed','visual_scan_unit':'passed','visual_background_unit':'passed','payload_visual_bridge_unit':'passed',
         'wrapper_smoke':'passed','protocol_fixture':'passed','game_runtime_test':False
       },
       'correction':{
         'previous_unmaterialized_d4_claim_retracted':True,
-        'note':'The prior D4 aim-takeover report referenced source files that were not present in the delivered workspace. This validation describes only materialized/tested artifacts.'
+        'note':'Aim source chain and transactional dual-global bridge are materialized and tested, but the runtime ownership gate remains disabled until this checkpoint passes reproducible CI.'
       }
     }
     (ROOT/'validation_phase_d.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')

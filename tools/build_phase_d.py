@@ -14,7 +14,7 @@ REMAP = ROOT / "tools" / "remap_lua53.py"
 
 MODULES = [
     "runtime.lua", "crypto.lua", "storage.lua", "transport.lua", "payload_embed.lua",
-    "aim_runtime.lua", "visual_runtime.lua", "visual_scan.lua", "mutation_runtime.lua", "aim_mutation.lua", "aim_bones.lua", "aim_abi.lua", "aim_refresh.lua", "feature_control.lua", "character_visuals.lua", "native_settings_ui.lua", "payload_feature_bridge.lua", "payload_visual_bridge.lua", "payload_ui_bridge.lua", "payload_loader.lua",
+    "aim_runtime.lua", "visual_runtime.lua", "visual_scan.lua", "mutation_runtime.lua", "aim_mutation.lua", "aim_bones.lua", "aim_abi.lua", "aim_chain.lua", "aim_refresh.lua", "feature_control.lua", "character_visuals.lua", "native_settings_ui.lua", "payload_feature_bridge.lua", "payload_visual_bridge.lua", "payload_ui_bridge.lua", "payload_loader.lua",
     "auth.lua", "login_ui.lua", "bootstrap.lua",
 ]
 
