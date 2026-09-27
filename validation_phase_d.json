@@ -1,5 +1,5 @@
 {
-  "phase": "E3-root-medicine-reconstruction",
+  "phase": "E3-root-medicine-and-container-reconstruction",
   "baseline": {
     "size": 180034,
     "sha256": "35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536"
@@ -9,16 +9,16 @@
     "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263"
   },
   "phase_d_source": {
-    "size": 371123,
-    "sha256": "44331d4924b028a56f7cba44c5c3607a5bc290ae3bbffcf6a25edd083c4c79e7"
+    "size": 376086,
+    "sha256": "292cbae328cb31a0bbb88a0d6518d72ffe834b458e898eb78de8c0c0f07ef5a1"
   },
   "phase_d_standard": {
-    "size": 299630,
-    "sha256": "e34cee97a09a20b9f1c0c5864f8cd5dea942e42f0488b32d554bc75b8e9df04c"
+    "size": 301574,
+    "sha256": "a6df0dea2526e1ba08bad041b2c52b467db3f3b051baec5b25f7be962bdff152"
   },
   "phase_d_custom": {
-    "size": 299630,
-    "sha256": "34cd67c3d42cbab25c5ad2dcd2e496a6a21da8423be4404faefa542e4cba91f8"
+    "size": 301574,
+    "sha256": "20b65e981e40d46acb662b83bbb6948964631cb9a1908df4e9a9c440ee14b934"
   },
   "reconstructed_group": {
     "ui_prototype": "0.29.105",
@@ -139,12 +139,12 @@
   "phase_e": {
     "prototype_index_count": 296,
     "classified_prototypes": 296,
-    "source_owned_reachable": 77,
-    "payload_owned_reachable": 218,
+    "source_owned_reachable": 79,
+    "payload_owned_reachable": 216,
     "partially_reconstructed": 1,
     "dead_or_unreachable_verified": 0,
     "unknown": 0,
-    "root_methods_source_owned": 5,
+    "root_methods_source_owned": 6,
     "root_methods_total": 29,
     "root_public_symbols_exact": true,
     "root_fields_exact": [
@@ -157,7 +157,8 @@
       "0.2",
       "0.3",
       "0.4",
-      "0.5"
+      "0.5",
+      "0.6"
     ],
     "product_module_overlay_bridge": true,
     "p0_3_logger_upvalues_conditionally_captured": true

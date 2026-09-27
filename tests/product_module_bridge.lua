@@ -21,7 +21,7 @@ do
     local originals={}; for _,name in ipairs(Bridge.METHODS) do originals[name]=product[name] end
     truth(Bridge.install(product,{dependencies={logger=function() end,error_logger=function() end}}),"install source methods")
     local status=Bridge.status()
-    eq(status.source_owned_root_methods,6,"five static roots plus the conditional P0.3 method are installed")
+    eq(status.source_owned_root_methods,7,"six static roots plus the conditional P0.3 method are installed")
     eq(status.root_methods_total,29,"root method inventory count")
     for _,name in ipairs(Bridge.METHODS) do truth(product[name]~=originals[name],name.." replaced") end
     product._CheckProcess=function() end -- explicit teardown must still restore saved payload code.
@@ -66,7 +66,7 @@ do
     Bridge.restore_original()
 end
 
--- A setter failure on the final P0.5 write rolls every earlier write back.
+-- A setter failure on the final P0.6 write rolls every earlier write back.
 do
     Bridge.restore_original()
     local product=product_fixture()
@@ -75,7 +75,7 @@ do
     local ok=Bridge.install(product,{dependencies={logger=function() end,error_logger=function() end},
         set_method=function(target,name,value)
             writes=writes+1
-            if writes==6 then error("injected install failure") end
+            if writes==7 then error("injected install failure") end
             rawset(target,name,value)
         end})
     eq(ok,false,"partial installation fails")
@@ -103,7 +103,7 @@ end
 
 -- PayloadUIBridge receives the module return captured by PayloadLoader. When
 -- the original P0.3 logger captures cannot be recovered, P0.0..P0.2 and
--- P0.4..P0.5 are overlaid and P0.3 remains its exact payload closure.
+-- P0.4..P0.6 are overlaid and P0.3 remains its exact payload closure.
 do
     Bridge.restore_original()
     local product=product_fixture()
@@ -115,7 +115,7 @@ do
     S.PayloadVisualBridge={takeover_after_payload_load=function() return true end}
     assert(loadfile(root.."/src/spectra/payload_ui_bridge.lua"))(S)
     truth(S.PayloadUIBridge.after_payload_load(),"product overlay called after payload load")
-    eq(Bridge.status().source_owned_root_methods,5,"five root methods installed without P0.3 captures")
+    eq(Bridge.status().source_owned_root_methods,6,"six root methods installed without P0.3 captures")
     eq(product.GetAllEquipmentValue,p3_original,"P0.3 remains payload-owned without recovered logger captures")
     Bridge.restore_original()
 end

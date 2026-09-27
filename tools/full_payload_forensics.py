@@ -103,7 +103,7 @@ def build():
         if info.get("implementation_status", "").startswith("source-") or info.get("implementation_status") == "source-owned after payload init":
             source_map[path] = ("source_owned", info.get("source"), info.get("reconstructed_name"))
 
-    phase_e_root = {"0.0", "0.1", "0.2", "0.4", "0.5"}
+    phase_e_root = {"0.0", "0.1", "0.2", "0.4", "0.5", "0.6"}
     for path in phase_e_root:
         source_map[path] = ("source_owned", "src/spectra/product_module.lua", ROOT_METHODS[int(path.split(".")[-1])])
     # The P0.3 diagnostic closures are stripped upvalues U0/U2. Source behavior
@@ -112,6 +112,8 @@ def build():
     source_map["0.3"] = ("partially_reconstructed", "src/spectra/product_module.lua", "calculate_equipment_value")
     source_map["0.4"] = ("source_owned", "src/spectra/product_module.lua", "_CheckMedicine")
     source_map["0.5"] = ("source_owned", "src/spectra/product_module.lua", "_CheckUnCarryMedicine")
+    source_map["0.6"] = ("source_owned", "src/spectra/product_module.lua", "_CheckContainer")
+    source_map["0.6.0"] = ("source_owned", "src/spectra/product_module.lua", "add_medicine_types_from_items")
     for path in ("0.29.17", "0.29.26", "0.29.29"):
         source_map[path] = ("source_owned", "src/spectra/mutation_runtime.lua", None)
     for number in range(78, 99):
@@ -129,6 +131,7 @@ def build():
         "0.2": ["0.3"],
         "0.3": ["0.10"],
         "0.4": ["0.5"],
+        "0.6": ["0.6.0"],
     }
     callers = defaultdict(list)
     for caller, callees in direct_calls.items():
@@ -187,7 +190,7 @@ def build():
             name = public
             is_original_symbol = True
         else:
-            semantic_confidence = "high" if path in aim_data or path in phase_e_root else (
+            semantic_confidence = "high" if path in aim_data or path in phase_e_root or path == "0.6.0" else (
                 "medium" if ownership in ("source_owned", "partially_reconstructed") else "low")
             confidence = "high" if ownership != "payload_owned" else "medium"
             name = reconstructed_name or ("reconstructed_prototype_" + path.replace(".", "_"))
@@ -212,7 +215,8 @@ def build():
             "known_callees": ["P" + callee for callee in direct_calls.get(path, [])],
             "return_contract": {"0.0": "no explicit return", "0.1": "no explicit return",
                 "0.2": "no explicit return", "0.3": "returns total equipment value, then selected currency type",
-                "0.4": "no explicit return", "0.5": "returns key and two ordered medicine-type/description lists"}.get(path, "not reconstructed"),
+                "0.4": "no explicit return", "0.5": "returns key and two ordered medicine-type/description lists",
+                "0.6": "no explicit return", "0.6.0": "no explicit return"}.get(path, "not reconstructed"),
             "public_symbol": public,
             "public_symbol_is_original": public is not None,
             "reconstructed_name": name,
@@ -252,7 +256,7 @@ def build():
                         if entry["prototype_id"] == f"P0.{i}")]["current_ownership"],
                     "source_file": index_entries[next(j for j, entry in enumerate(index_entries)
                         if entry["prototype_id"] == f"P0.{i}")]["source_file"],
-                    "runtime_takeover": "conditional" if i == 3 else ("source" if i < 3 or i in (4, 5) else "payload"),
+                    "runtime_takeover": "conditional" if i == 3 else ("source" if i < 3 or i in (4, 5, 6) else "payload"),
                 } for i, name in enumerate(ROOT_METHODS)
             },
             "ownership_enum": sorted(OWNERSHIP),
@@ -285,17 +289,18 @@ def build():
         map_lines.append(f"| `P0.{i}` | `{name}` | `{entry['current_ownership']}` | `{entry['source_file'] or 'payload'}` |")
     map_lines += [
         "", "Exact root fields: `EquipTypeList`, `ContainerTypeList`.",
-        "", "## P0.0..P0.5 source boundary", "",
+        "", "## P0.0..P0.6 source boundary", "",
         "- `P0.0` retains the recovered `CheckMainFlowSOL` result branch, a second `GetCurrentGameFlow` call only on false, Lobby equality return, reset, `_CheckProcess`, and changed event order.",
         "- `P0.1` calls the ten recovered checks in bytecode order and then `SortEquipAbnormal`.",
         "- `P0.2` reads current equipment value and both map thresholds, uses strict `<` / `>` comparisons with zero-threshold guards and config switches, and emits the two recovered abnormal record shapes.",
         "- `P0.3` keeps challenge currency selection, rental and slot sum paths, two-value return, and value-changed event. Its P0.3 U0/U2 diagnostic closures are taken from the original payload closure when the runtime exposes them; otherwise that method remains payload-owned.",
         "- `P0.4` reads current medicine types before `table.values(EDispensingMedicineType)`, dispatches through the captured module table's current `_CheckUnCarryMedicine` field (P0.5), and adds `LackMedicine` only for a nonempty result list.",
         "- `P0.5` uses `ipairs` order, `GetEquipmentCheckData(LackMedicine, type)`, the exact `switch` and `table.contains(current, type)` gates, maximum key aggregation, and ordered list appends without deduplication.",
+        "- `P0.6` collects `ChestHangingContainer`, `BagContainer`, and `Pocket` capacities in bytecode order, adds `1e-6` to each total/free value, applies the strict rounded-ratio comparison, selects the challenge/player safe-box group, and walks item collections through nested `P0.6.0`.",
         "- The method bridge preserves originals and restores its writes on install failure. It rethrows source exceptions without retrying payload code because earlier operations may already have caused side effects.",
         "", "## Current ownership groups", "",
         f"Source-owned prototypes: `{counts['source_owned']}`; payload-owned: `{counts['payload_owned']}`; partially reconstructed: `{counts['partially_reconstructed']}`; unknown: `{counts['unknown']}`.",
-        "", "`FULL_PAYLOAD_PROTOTYPE_INDEX.json` is the per-prototype authority. The method-level runtime bridge owns P0.0..P0.2 and P0.4..P0.5. P0.3 remains conditional on recovered logger captures.",
+        "", "`FULL_PAYLOAD_PROTOTYPE_INDEX.json` is the per-prototype authority. The method-level runtime bridge owns P0.0..P0.2 and P0.4..P0.6. P0.3 remains conditional on recovered logger captures.",
         "",
     ]
     (ROOT / "FULL_PAYLOAD_RECONSTRUCTION_MAP.md").write_text("\n".join(map_lines), encoding="utf-8")
@@ -312,7 +317,7 @@ def build():
         f"- Unknown: **{counts['unknown']}**",
         f"- Root methods source-owned: **{root_source_owned} / 29**",
         "", "The inventory is structurally complete, not a claim that all payload behavior has been reconstructed. Unmapped prototypes remain payload-owned. Dead/unreachable is used only with positive reachability evidence; no prototype is marked dead by absence of references.",
-        "P0.3 source logic and tests exist, but its two stripped diagnostic upvalues are only installed when captured from the original function; its default static ownership classification is partial. P0.4/P0.5 have source implementations and method-level overlays backed by the bytecode-derived call graph.",
+        "P0.3 source logic and tests exist, but its two stripped diagnostic upvalues are only installed when captured from the original function; its default static ownership classification is partial. P0.4..P0.6 and nested P0.6.0 have source implementations and method-level overlays backed by the bytecode-derived call graph.",
         "", "Generated by `python3 tools/full_payload_forensics.py` from `payload_prototypes.json`, `payload_constants.json`, `payload_disassembly.txt`, and the verified payload hash.", "",
     ]
     (ROOT / "RECONSTRUCTION_COVERAGE.md").write_text("\n".join(coverage_lines), encoding="utf-8")

@@ -3,7 +3,7 @@ assert(type(S) == "table", "spectra module table required")
 local M = {}
 S.ProductModule = M
 
--- P0.0..P0.5 are reconstructed descriptions of stripped closures. Exported
+-- P0.0..P0.6 are reconstructed descriptions of stripped closures. Exported
 -- field names below are exact strings recovered from root P0 bytecode.
 M.PROTOTYPES = {
     CheckEquipmentBeforEnterGameProcess = "0.0",
@@ -12,6 +12,7 @@ M.PROTOTYPES = {
     GetAllEquipmentValue = "0.3",
     _CheckMedicine = "0.4",
     _CheckUnCarryMedicine = "0.5",
+    _CheckContainer = "0.6",
 }
 M.ROOT_FIELDS = { "EquipTypeList", "ContainerTypeList" }
 
@@ -209,6 +210,105 @@ function M._CheckMedicine(module, globals)
         abnormal.param = { abnormalTypeList = missing.unCarryMedicinesTypeList }
         add_abnormal(add_field, abnormal)
     end
+end
+
+-- P0.6 `_CheckContainer`: sum free/total capacity for the three recovered
+-- slots, optionally add the storage-space abnormal, then inspect the selected
+-- safe-box group and add medicine types from each slot's items. Method names,
+-- constants, tolerances and comparison directions come directly from P0.6.
+function M._CheckContainer(module, globals)
+    globals = globals_or_default(globals)
+
+    -- Reconstructed descriptive name for nested prototype P0.6.0, created at
+    -- P0.6 entry and capturing this invocation's runtime environment.
+    local function add_medicine_types_from_items(items)
+        if not items then return end
+        for _, item in globals.pairs(items) do
+            if item.itemMainType == globals.EItemType.Medicine then
+                local health_feature = item:GetFeature(globals.EFeatureType.Health)
+                if health_feature and health_feature.medicineType then
+                    local field = globals.Module.ArmedForce.Field
+                    local add_medicine_type = field.AddMedicineType
+                    add_medicine_type(field, health_feature.medicineType)
+                end
+            end
+        end
+    end
+
+    local initial_field = globals.Module.ArmedForce.Field
+    local get_check_data = initial_field.GetEquipmentCheckData
+    local storage_type = globals.Module.ArmedForce.Config.EAbnormalType.StorageSpaceIsTight
+    local storage_data = get_check_data(initial_field, storage_type, 0)
+
+    local total_capacity, remaining_capacity = 0, 0
+    local slot_group_id = globals.Server.ArmedForceServer:GetCurSlotGroupId()
+    local function inspect_slot(slot_name)
+        local slot = globals.Server.InventoryServer:GetSlot(
+            globals.ESlotType[slot_name], slot_group_id)
+        local capacity = slot:GetTotalCapacity()
+        capacity = capacity + 1e-6
+        total_capacity = total_capacity + capacity
+        local remaining = slot:GetRemainingSpaceSize()
+        remaining = remaining + 1e-6
+        remaining_capacity = remaining_capacity + remaining
+        add_medicine_types_from_items(slot:GetItems())
+    end
+
+    inspect_slot("ChestHangingContainer")
+    inspect_slot("BagContainer")
+    inspect_slot("Pocket")
+
+    if storage_data and storage_data.switch and storage_data.checkValue > 0 then
+        local math_util = globals.MathUtil
+        local remaining_ratio = math_util.GetTheSecondDecimal(remaining_capacity / total_capacity)
+        local configured_ratio = globals.MathUtil.GetTheSecondDecimal(storage_data.checkValue)
+        if remaining_ratio < configured_ratio then
+            local field = globals.Module.ArmedForce.Field
+            local add_abnormal = field.AddEquipAbnormal
+            local abnormal = { key = storage_data.key }
+            abnormal.abnormalType = globals.Module.ArmedForce.Config.EAbnormalType.StorageSpaceIsTight
+            local format = globals.string.format
+            local description = storage_data.abnormalDesc
+            local get_rounded_number = globals.MathUtil.GetRoundingNum
+            local rounded_values = globals.table.pack(
+                get_rounded_number(storage_data.checkValue * 100))
+            abnormal.loc = format(description,
+                globals.table.unpack(rounded_values, 1, rounded_values.n))
+            abnormal.param = {}
+            add_abnormal(field, abnormal)
+        end
+    end
+
+    local challenge_mode = globals.Module.LobbySOLChallenge:CheckInSOLChallengeMode()
+    local safe_box_group
+    if challenge_mode then
+        safe_box_group = globals.ESlotGroup.SOLChallenge
+    end
+    if not safe_box_group then
+        safe_box_group = globals.ESlotGroup.Player
+    end
+    local safe_box = globals.Server.InventoryServer:GetSlot(
+        globals.ESlotType.SafeBoxContainer, safe_box_group)
+    local used_capacity = safe_box:GetUsedCapacity()
+
+    local current_field = globals.Module.ArmedForce.Field
+    local get_safe_box_data = current_field.GetEquipmentCheckData
+    local unnecessary_type = globals.Module.ArmedForce.Config.EAbnormalType.HasUnnecessaryItems
+    local unnecessary_data = get_safe_box_data(current_field, unnecessary_type, 0)
+    if unnecessary_data and unnecessary_data.switch and unnecessary_data.checkValue > 0 then
+        local rounded_threshold = globals.MathUtil.GetRoundingNum(unnecessary_data.checkValue)
+        if rounded_threshold < used_capacity then
+            local field = globals.Module.ArmedForce.Field
+            local add_abnormal = field.AddEquipAbnormal
+            local abnormal = { key = unnecessary_data.key }
+            abnormal.abnormalType = globals.Module.ArmedForce.Config.EAbnormalType.HasUnnecessaryItems
+            abnormal.loc = unnecessary_data.abnormalDesc
+            abnormal.param = {}
+            add_abnormal(field, abnormal)
+        end
+    end
+
+    add_medicine_types_from_items(safe_box:GetItems())
 end
 
 return M

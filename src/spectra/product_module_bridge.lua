@@ -11,6 +11,7 @@ M.METHODS = {
     "GetAllEquipmentValue",
     "_CheckMedicine",
     "_CheckUnCarryMedicine",
+    "_CheckContainer",
 }
 M.ROOT_METHOD_COUNT = 29
 
@@ -81,6 +82,7 @@ function M.install(target, options)
         _CheckEquipmentValue = Source._CheckEquipmentValue,
         _CheckMedicine = Source._CheckMedicine,
         _CheckUnCarryMedicine = Source._CheckUnCarryMedicine,
+        _CheckContainer = Source._CheckContainer,
     }
     local p3_dependencies = get_logger_dependencies(rawget(target, "GetAllEquipmentValue"), options.dependencies)
     if p3_dependencies then source_targets.GetAllEquipmentValue = Source.GetAllEquipmentValue end

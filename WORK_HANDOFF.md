@@ -61,7 +61,7 @@ Source-owned after the byte-identical payload initializes:
 - `converge`
 - `aim`
 - `anti_shake`
-- root P0.0..P0.2 and P0.4..P0.5 method overlay
+- root P0.0..P0.2 and P0.4..P0.6 method overlay
 - P0.3 source logic with conditional runtime ownership when original logger captures are available
 - source `set_dongdong_feature_config` (`P0.29.73`)
 - source `set_dongdong_aim_part` (`P0.29.77`)
@@ -149,20 +149,21 @@ snapshots and the bone-name pool and returns false without entering payload. Foc
 create two actual bone records and cover partial value, binding and index failures plus
 complete restore. Game runtime execution remains unverified.
 
-## Phase E3 full inventory and root medicine methods
+## Phase E3 full inventory and root equipment-check methods
 
 `FULL_PAYLOAD_PROTOTYPE_INDEX.json` is generated from the verified payload prototype,
 constant and disassembly artifacts. It contains exactly 296 prototype paths. Generated
-coverage is 77 source-owned, 218 payload-owned, 1 partially reconstructed, 0 verified
+coverage is 79 source-owned, 216 payload-owned, 1 partially reconstructed, 0 verified
 dead and 0 unknown. Static closure reachability does not assert runtime invocation.
 
 `FULL_PAYLOAD_RECONSTRUCTION_MAP.md` records exact P0.0..P0.28 exports and the
 `EquipTypeList` / `ContainerTypeList` fields. `src/spectra/product_module.lua` materializes
-P0.0..P0.5; tests cover flow branches, process call order, threshold boundaries, rental and
-currency paths, medicine traversal/filtering/aggregation, abnormal construction and event
-arguments. `product_module_bridge.lua` receives `state.product` after payload execution,
-preserves originals and rolls back partial installation. P0.0..P0.2 and P0.4..P0.5 are
-installed by default (5/29 root methods). P0.3 is source tested but runtime installation
+P0.0..P0.6 plus nested callback P0.6.0; tests cover flow branches, process call order,
+threshold boundaries, rental and currency paths, medicine traversal/filtering/aggregation,
+container capacity and safe-box branches, abnormal construction and event arguments.
+`product_module_bridge.lua` receives `state.product` after payload execution, preserves
+originals and rolls back partial installation. P0.0..P0.2 and P0.4..P0.6 are installed by
+default (6/29 root methods). P0.3 is source tested but runtime installation
 requires the original U0/U2 logger closures; without those it stays payload-owned. Source
 exceptions propagate without retrying possibly non-reversible effects.
 

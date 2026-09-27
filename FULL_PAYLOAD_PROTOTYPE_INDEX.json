@@ -43,9 +43,9 @@
       },
       "_CheckContainer": {
         "prototype_id": "P0.6",
-        "current_ownership": "payload_owned",
-        "source_file": null,
-        "runtime_takeover": "payload"
+        "current_ownership": "source_owned",
+        "source_file": "src/spectra/product_module.lua",
+        "runtime_takeover": "source"
       },
       "_CheckBullet": {
         "prototype_id": "P0.7",
@@ -199,12 +199,12 @@
   "coverage": {
     "classified": 296,
     "reachable": 296,
-    "source_owned": 77,
-    "payload_owned": 218,
+    "source_owned": 79,
+    "payload_owned": 216,
     "partially_reconstructed": 1,
     "dead_or_unreachable_verified": 0,
     "unknown": 0,
-    "root_methods_source_owned": 5,
+    "root_methods_source_owned": 6,
     "root_methods_total": 29
   },
   "prototypes": {
@@ -2042,15 +2042,17 @@
       "known_callers": [
         "P0.1"
       ],
-      "known_callees": [],
-      "return_contract": "not reconstructed",
+      "known_callees": [
+        "P0.6.0"
+      ],
+      "return_contract": "no explicit return",
       "public_symbol": "_CheckContainer",
       "public_symbol_is_original": true,
       "reconstructed_name": "_CheckContainer",
       "reconstructed_name_is_original_symbol": true,
-      "current_ownership": "payload_owned",
+      "current_ownership": "source_owned",
       "reachability": "reachable_from_payload_root",
-      "source_file": null,
+      "source_file": "src/spectra/product_module.lua",
       "evidence_paths": [
         "payload_prototypes.json#0.6",
         "payload_constants.json#0.6",
@@ -2157,23 +2159,25 @@
         "medicineType",
         "pairs"
       ],
-      "known_callers": [],
+      "known_callers": [
+        "P0.6"
+      ],
       "known_callees": [],
-      "return_contract": "not reconstructed",
+      "return_contract": "no explicit return",
       "public_symbol": null,
       "public_symbol_is_original": false,
-      "reconstructed_name": "reconstructed_prototype_0_6_0",
+      "reconstructed_name": "add_medicine_types_from_items",
       "reconstructed_name_is_original_symbol": false,
-      "current_ownership": "payload_owned",
+      "current_ownership": "source_owned",
       "reachability": "reachable_from_payload_root",
-      "source_file": null,
+      "source_file": "src/spectra/product_module.lua",
       "evidence_paths": [
         "payload_prototypes.json#0.6.0",
         "payload_constants.json#0.6.0",
         "payload_disassembly.txt#PROTO 0.6.0"
       ],
-      "confidence": "medium",
-      "semantic_confidence": "low",
+      "confidence": "high",
+      "semantic_confidence": "high",
       "metadata_confidence": "high"
     },
     "0.7": {

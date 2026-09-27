@@ -363,4 +363,180 @@ do
     eq(#added,0,"empty missing list does not add an abnormal")
 end
 
+local function container_fixture(options)
+    options=options or {}
+    local calls, abnormalities, medicine_types, format_calls, decimal_inputs, rounded_inputs = {}, {}, {}, {}, {}, {}
+    local check_data=options.check_data or {
+        storage={switch=true,checkValue=0.40,key=31,abnormalDesc="storage-desc"},
+        unnecessary={switch=true,checkValue=74,key=42,abnormalDesc="safe-box-desc"},
+    }
+    local field
+    field={
+        GetEquipmentCheckData=function(self,kind,zero)
+            eq(self,field,"container check-data receiver"); eq(zero,0,"container check-data key")
+            calls[#calls+1]="check:"..kind
+            return check_data[kind]
+        end,
+        AddEquipAbnormal=function(self,row)
+            eq(self,field,"container abnormal receiver")
+            calls[#calls+1]="add:"..row.abnormalType
+            abnormalities[#abnormalities+1]=row
+        end,
+        AddMedicineType=function(self,medicine_type)
+            eq(self,field,"medicine-type receiver")
+            calls[#calls+1]="medicine:"..medicine_type
+            medicine_types[#medicine_types+1]=medicine_type
+        end,
+    }
+    local function item(main_type, feature)
+        return {itemMainType=main_type,GetFeature=function(self,feature_type)
+            eq(feature_type,"health-feature","P0.6.0 requests Health feature")
+            return feature
+        end}
+    end
+    local slots
+    local function slot(name,capacity,remaining,used)
+        return {
+            GetTotalCapacity=function(self) eq(self,slots[name]); calls[#calls+1]="capacity:"..name; return capacity end,
+            GetRemainingSpaceSize=function(self) eq(self,slots[name]); calls[#calls+1]="remaining:"..name; return remaining end,
+            GetUsedCapacity=function(self) eq(self,slots[name]); calls[#calls+1]="used:"..name; return used end,
+            GetItems=function(self) eq(self,slots[name]); calls[#calls+1]="items:"..name; return self.items end,
+        }
+    end
+    slots={
+        ChestHangingContainer=slot("ChestHangingContainer",4,1),
+        BagContainer=slot("BagContainer",5,2),
+        Pocket=slot("Pocket",3,1),
+        SafeBoxContainer=slot("SafeBoxContainer",0,0,options.used_capacity or 75),
+    }
+    for name,s in pairs(slots) do
+        if name~="SafeBoxContainer" or options.safe_items~=false then
+            s.items={
+                item("medicine",{medicineType="med:"..name}),
+                item("other",{medicineType="ignored:"..name}),
+                item("medicine",nil),
+                item("medicine",{}),
+            }
+            s.items[#s.items].GetFeature=function() return {medicineType=nil} end
+        else
+            s.items={}
+        end
+    end
+    local group_id="inventory-group"
+    local inventory_server
+    inventory_server={GetSlot=function(self,slot_type,group)
+        eq(self,inventory_server,"InventoryServer receiver")
+        local name=({[1]="ChestHangingContainer",[2]="BagContainer",[3]="Pocket",[4]="SafeBoxContainer"})[slot_type]
+        truth(name,"known bytecode slot type")
+        calls[#calls+1]="slot:"..name
+        if name=="SafeBoxContainer" then
+            eq(group,options.challenge and "challenge-group" or "player-group","safe-box group selection")
+        else
+            eq(group,group_id,"current slot group id")
+        end
+        return slots[name]
+    end}
+    local armed_force_server
+    armed_force_server={GetCurSlotGroupId=function(self)
+        eq(self,armed_force_server,"ArmedForceServer receiver"); calls[#calls+1]="slot-group"; return group_id
+    end}
+    local challenge_module
+    challenge_module={CheckInSOLChallengeMode=function(self)
+        eq(self,challenge_module,"challenge receiver"); calls[#calls+1]="challenge"; return options.challenge
+    end}
+    local slot_groups={Player="player-group"}
+    if options.challenge then
+        slot_groups.SOLChallenge="challenge-group"
+    else
+        setmetatable(slot_groups,{__index=function(_,key)
+            if key=="SOLChallenge" then error("P0.6 does not read SOLChallenge for non-challenge mode") end
+        end})
+    end
+    local environment={
+        Module={
+            ArmedForce={Field=field,Config={EAbnormalType={
+                StorageSpaceIsTight="storage",HasUnnecessaryItems="unnecessary",
+            }}},
+            LobbySOLChallenge=challenge_module,
+        },
+        Server={ArmedForceServer=armed_force_server,InventoryServer=inventory_server},
+        ESlotType={ChestHangingContainer=1,BagContainer=2,Pocket=3,SafeBoxContainer=4},
+        ESlotGroup=slot_groups,
+        EItemType={Medicine="medicine"},EFeatureType={Health="health-feature"},
+        pairs=pairs,table=table,
+        MathUtil={
+            GetTheSecondDecimal=function(value)
+                decimal_inputs[#decimal_inputs+1]=value; return value
+            end,
+            GetRoundingNum=function(value)
+                rounded_inputs[#rounded_inputs+1]=value
+                if value==40 then return value,"rounding-tail" end
+                return value
+            end,
+        },
+        string={format=function(description,...)
+            format_calls[#format_calls+1]={description,table.pack(...)}
+            return "formatted-storage-location"
+        end},
+    }
+    local function run()
+        Product._CheckContainer({},environment)
+    end
+    return run,calls,abnormalities,medicine_types,format_calls,decimal_inputs,rounded_inputs
+end
+
+-- P0.6 vectors exercise bytecode slot order, per-slot epsilon, strict ratio
+-- comparisons, two independent abnormal branches, challenge/player safe-box
+-- selection, and nested P0.6.0 filtering over pairs-based item collections.
+do
+    local run,calls,abnormalities,medicine_types,format_calls,decimal_inputs,rounded_inputs=
+        container_fixture({challenge=true})
+    run()
+    eq(calls[1],"check:storage","storage config is read before inventory traversal")
+    eq(calls[2],"slot-group","current group is queried after storage config")
+    local positions={}
+    for i,name in ipairs(calls) do positions[name]=i end
+    truth(positions["items:ChestHangingContainer"] < positions["slot:BagContainer"],"left container items are scanned before bag lookup")
+    truth(positions["items:BagContainer"] < positions["slot:Pocket"],"bag items are scanned before pocket lookup")
+    truth(positions["items:Pocket"] < positions["add:storage"],"storage abnormal follows the three slot scans")
+    truth(positions["add:storage"] < positions.challenge,"storage abnormal precedes safe-box mode query")
+    truth(positions.challenge < positions["slot:SafeBoxContainer"],"challenge mode selects safe-box group before lookup")
+    truth(positions["used:SafeBoxContainer"] < positions["check:unnecessary"],"safe-box capacity precedes config query")
+    truth(positions["check:unnecessary"] < positions["add:unnecessary"],"safe-box abnormal follows configured threshold")
+    truth(positions["add:unnecessary"] < positions["items:SafeBoxContainer"],"safe-box item scan follows abnormal check")
+    eq(#abnormalities,2,"storage and unnecessary-item abnormalities both emitted")
+    eq(abnormalities[1].key,31); eq(abnormalities[1].abnormalType,"storage")
+    eq(abnormalities[1].loc,"formatted-storage-location"); truth(next(abnormalities[1].param)==nil,"storage param is empty")
+    eq(abnormalities[2].key,42); eq(abnormalities[2].abnormalType,"unnecessary")
+    eq(abnormalities[2].loc,"safe-box-desc"); truth(next(abnormalities[2].param)==nil,"safe-box param is empty")
+    eq(#format_calls,1,"storage location is formatted once")
+    eq(format_calls[1][1],"storage-desc"); eq(format_calls[1][2].n,2,"open P0.6 rounding call forwards all returned values")
+    eq(format_calls[1][2][1],40); eq(format_calls[1][2][2],"rounding-tail")
+    eq(#decimal_inputs,2,"remaining and configured ratios are both normalized")
+    local epsilon=1e-6
+    eq(decimal_inputs[1],((1+epsilon)+(2+epsilon)+(1+epsilon))/((4+epsilon)+(5+epsilon)+(3+epsilon)),"free-space ratio includes per-slot epsilon")
+    eq(decimal_inputs[2],0.40,"configured free-space ratio")
+    eq(rounded_inputs[1],40,"storage threshold is scaled by 100 before rounding")
+    eq(rounded_inputs[2],74,"safe-box threshold is rounded without scaling")
+    eq(#medicine_types,4,"nested callback accepts one valid medicine feature per slot")
+    local observed={}; for _,v in ipairs(medicine_types) do observed[v]=true end
+    for _,name in ipairs({"ChestHangingContainer","BagContainer","Pocket","SafeBoxContainer"}) do
+        truth(observed["med:"..name],"medicine type extracted from "..name)
+    end
+
+    local ratio=((1+epsilon)+(2+epsilon)+(1+epsilon))/((4+epsilon)+(5+epsilon)+(3+epsilon))
+    run,calls,abnormalities=container_fixture({challenge=false,check_data={
+        storage={switch=true,checkValue=ratio,key=1,abnormalDesc="equal"},
+        unnecessary={switch=true,checkValue=75,key=2,abnormalDesc="equal"},
+    }})
+    run()
+    eq(#abnormalities,0,"equal rounded thresholds do not trigger strict comparisons")
+    truth(calls[1]=="check:storage","normal-mode path reads storage config")
+
+    local run2,calls2,abnormalities2=container_fixture({challenge=false,check_data={storage=nil,unnecessary={switch=false,checkValue=1}}})
+    run2()
+    eq(#abnormalities2,0,"missing storage record and disabled safe-box switch add no abnormalities")
+    truth(calls2[1]=="check:storage","storage config lookup still occurs when data is missing")
+end
+
 print("product-module: ok")

@@ -134,6 +134,8 @@ protected calls, nil handling and duplicate side-effect risk.
 | `P0.3` | `GetAllEquipmentValue` | `product_module.lua` | partial; needs original U0/U2 diagnostic closures |
 | `P0.4` | `_CheckMedicine` | `product_module.lua` | source |
 | `P0.5` | `_CheckUnCarryMedicine` | `product_module.lua` | source |
+| `P0.6` | `_CheckContainer` | `product_module.lua` | source |
+| `P0.6.0` | `add_medicine_types_from_items` (reconstructed descriptive name) | `product_module.lua` | source |
 
 P0.4 reads `Field:GetMedicineType()` before enumerating `EDispensingMedicineType`
 through the captured `table.values`, then passes both values through the captured module
@@ -147,6 +149,15 @@ exists, its switch is truthy, and `table.contains(carried_types, medicine_type)`
 It accumulates the maximum row key and appends medicine types/descriptions in traversal
 order. There is no deduplication instruction in the prototype.
 
+P0.6 reads the storage-space record before scanning `ChestHangingContainer`,
+`BagContainer`, and `Pocket` in that order. Each capacity and remaining-space value gets
+`1e-6` before summation. It adds the storage abnormal only when the normalized free-space
+ratio is strictly below the normalized setting. The safe-box path chooses
+`ESlotGroup.SOLChallenge` only when challenge mode and that enum value are truthy, otherwise
+`ESlotGroup.Player`; its `HasUnnecessaryItems` comparison is also strict. Nested P0.6.0
+walks item collections with `pairs`, selecting `EItemType.Medicine` items whose Health
+feature and `medicineType` are both truthy, and calls `Field:AddMedicineType`.
+
 P0.2 reads both map values from `GetMapNeedValue`, requests `GetEquipmentCheckData(type, 0)`
 for each abnormal type, and only adds records when the corresponding switch is enabled,
 the threshold is nonzero, and the strict bytecode comparison passes (`current < minimum`,
@@ -156,7 +167,7 @@ P0.2 does so in its instruction stream.
 
 P0.3's source preserves challenge/unbound currency selection, rental preset price, the
 seven slot checks, the missing-rental-plan zero fallback, `evtAllEquipmentValueChanged`
-arguments, and the `(total_value, currency_type)` return. P0.0..P0.5 exports and all other
+arguments, and the `(total_value, currency_type)` return. P0.0..P0.6 exports and all other
 prototype ownership are machine-indexed in `FULL_PAYLOAD_PROTOTYPE_INDEX.json`.
 
 ## Runtime checkpoint
