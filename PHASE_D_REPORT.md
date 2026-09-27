@@ -30,9 +30,9 @@ Embedded payload:
 
 Current rebuilt artifacts:
 
-- source: size `350606`, SHA-256 `5e2ecdc0d98dfbb3c3226dce5e41c0ec0b29e26a944e8aca801dc012417c0774`
-- standard Lua 5.3 chunk: size `289167`, SHA-256 `cba43702e0bac29d4baaaef2dab91e578c97e43b7d36f90838f1ead5e945efb5`
-- custom Lua 5.3 chunk: size `289167`, SHA-256 `184caf21530481d4668a619415ebdf02ff7697719b84019ffab97b22b6e21df7`
+- source: size `352444`, SHA-256 `3af199cf24137cd83fa2fc90f2238603051d3e9b719bfb7d27de804f069297f5`
+- standard Lua 5.3 chunk: size `289901`, SHA-256 `63892e328fb3c883f65eae9b8fe1edf746eb8b12811602a9d940abc9cdc13662`
+- custom Lua 5.3 chunk: size `289901`, SHA-256 `d8375155a5cae76a95cd6d72e0d1a17144771d5b9debff61c7c714e225ec00b9`
 
 The embedded payload fragment identity and custom/standard roundtrip remain exact.
 
@@ -93,6 +93,8 @@ generic safe-call equivalent. Regression coverage checks:
 - the side-effect-then-throw retry case
 
 ## Transactional aim bridge
+
+Rollback now verifies each captured field against its saved value. If field or bone restoration fails, it keeps the snapshot and blocks payload delegation. The transaction tests cover a false restore result, partial field restoration that reports success, and pending bone records.
 
 `src/spectra/payload_feature_bridge.lua` now owns `aim` and `anti_shake` after the payload
 initializes. It preserves both original payload globals.

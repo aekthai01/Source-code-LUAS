@@ -41,12 +41,12 @@ GitHub Actions runs the same validation path and a second deterministic build.
 
 Phase: `D4-aim-source-runtime-takeover`
 
-- source size `350606`
-- source SHA-256 `5e2ecdc0d98dfbb3c3226dce5e41c0ec0b29e26a944e8aca801dc012417c0774`
-- standard chunk size `289167`
-- standard SHA-256 `cba43702e0bac29d4baaaef2dab91e578c97e43b7d36f90838f1ead5e945efb5`
-- custom chunk size `289167`
-- custom SHA-256 `184caf21530481d4668a619415ebdf02ff7697719b84019ffab97b22b6e21df7`
+- source size `352444`
+- source SHA-256 `3af199cf24137cd83fa2fc90f2238603051d3e9b719bfb7d27de804f069297f5`
+- standard chunk size `289901`
+- standard SHA-256 `63892e328fb3c883f65eae9b8fe1edf746eb8b12811602a9d940abc9cdc13662`
+- custom chunk size `289901`
+- custom SHA-256 `d8375155a5cae76a95cd6d72e0d1a17144771d5b9debff61c7c714e225ec00b9`
 
 `validation_phase_d.json` is the machine-readable checkpoint.
 
@@ -135,3 +135,7 @@ identity and deterministic custom-chunk output.
 
 Do not change it until the rebuilt custom chunk is actually executed in the DFM/game
 runtime. CI/mock success is not a substitute for that engine-runtime execution.
+
+## Follow-up rollback hardening
+
+Before delegating a failed source transaction, the bridge verifies every saved field and requires bone restoration to succeed when bone records are pending. Failed restoration retains snapshots and returns false without entering payload. `tests/aim_transaction.lua` covers field, partial and bone failures. Game runtime execution remains unverified.

@@ -57,19 +57,58 @@ local function rollback_feature(feature)
     local Mutation = S.MutationRuntime
     if type(Mutation) ~= "table" then return false end
     local ok = true
-    local function attempt(fn, ...)
+    local function restore_fields(name)
+        local snapshots = rawget(_G, "custom_dongdong_feature_snapshots")
+        local saved = type(snapshots) == "table" and snapshots[name] or nil
+        local pending = type(saved) == "table" and type(saved.records) == "table"
+            and #saved.records > 0
+        local fn = Mutation.restore_feature_snapshot
         if type(fn) ~= "function" then ok = false; return end
-        local called = pcall(fn, ...)
-        if not called then ok = false end
+        local called, restored = pcall(fn, _G, name)
+        local verified = true
+        if pending then
+            for _, record in ipairs(saved.records) do
+                if type(record) ~= "table" or record.object == nil or record.key == nil then
+                    verified = false; break
+                end
+                local read_ok, value = pcall(function() return record.object[record.key] end)
+                if not read_ok or value ~= record.value then verified = false; break end
+            end
+        end
+        if not called or (pending and (restored ~= true or not verified)) then
+            ok = false
+            -- P17 clears its snapshot even when every protected restore fails.
+            -- Keep the records so a failed rollback cannot be mistaken for a
+            -- safe payload fallback or erase the only originals we have.
+            if pending then
+                snapshots = rawget(_G, "custom_dongdong_feature_snapshots")
+                if type(snapshots) ~= "table" then
+                    snapshots = {}
+                    rawset(_G, "custom_dongdong_feature_snapshots", snapshots)
+                end
+                snapshots[name] = saved
+            end
+        end
     end
     if feature == "aim" or feature == "anti_shake" then
-        attempt(Mutation.restore_bone_array_snapshots, _G)
-        attempt(Mutation.restore_feature_snapshot, _G, "anti_shake")
-        attempt(Mutation.restore_feature_snapshot, _G, "aim")
-        rawset(_G, "custom_dongdong_bone_array_snapshots", nil)
-        rawset(_G, "custom_dongdong_bone_name_pool", nil)
+        local bone = rawget(_G, "custom_dongdong_bone_array_snapshots")
+        local pending_bones = type(bone) == "table" and type(bone.records) == "table"
+            and #bone.records > 0
+        local bone_fn = Mutation.restore_bone_array_snapshots
+        local called, restored = false, false
+        if type(bone_fn) == "function" then
+            called, restored = pcall(bone_fn, _G)
+        end
+        if not called or (pending_bones and restored ~= true) then
+            ok = false
+        else
+            rawset(_G, "custom_dongdong_bone_array_snapshots", nil)
+            rawset(_G, "custom_dongdong_bone_name_pool", nil)
+        end
+        restore_fields("anti_shake")
+        restore_fields("aim")
     else
-        attempt(Mutation.restore_feature_snapshot, _G, feature)
+        restore_fields(feature)
     end
     return ok
 end

@@ -46,6 +46,8 @@ end
 
 local real_get_data_table = Mutation.get_data_table
 local real_snapshot_set = Mutation.snapshot_set
+local real_restore_feature = Mutation.restore_feature_snapshot
+local real_restore_bones = Mutation.restore_bone_array_snapshots
 local real_replacement = AimMutation.replacement
 local real_patch_bones = AimBones.patch_row
 
@@ -83,6 +85,69 @@ do
         "failed write leaves no aim snapshot")
     eq(fallback_calls,1,"write failure payload fallback once")
     Mutation.snapshot_set=real_snapshot_set
+end
+
+-- The original restorer reports success after any one record restores. A
+-- remaining modified field must still block delegation despite that result.
+do
+    reset(); local row={EnableDistanceMin=9,EnableDistanceMax=9}; expose("WeaponAssistedAimingTable", row)
+    local writes=0
+    Mutation.snapshot_set=function(...)
+        writes=writes+1
+        local ok=real_snapshot_set(...)
+        if writes==2 then return false end
+        return ok
+    end
+    Mutation.restore_feature_snapshot=function(state, feature)
+        if feature=="aim" and type(state.custom_dongdong_feature_snapshots)=="table"
+            and type(state.custom_dongdong_feature_snapshots.aim)=="table" then
+            local snapshot=state.custom_dongdong_feature_snapshots.aim
+            snapshot.records[1].object[snapshot.records[1].key]=snapshot.records[1].value
+            state.custom_dongdong_feature_snapshots.aim=nil
+            return true
+        end
+        return real_restore_feature(state, feature)
+    end
+    truth(Bridge.takeover_after_payload_load({force_aim_takeover=true}), "install partial-restore fixture")
+    eq(_G.set_dongdong_feature_config("aim",true), false, "partial restore blocks fallback")
+    eq(fallback_calls,0,"no payload call with a modified field")
+    truth(type(_G.custom_dongdong_feature_snapshots.aim)=="table", "retain partially restored records")
+    Mutation.snapshot_set=real_snapshot_set
+    Mutation.restore_feature_snapshot=real_restore_feature
+end
+
+-- An unsuccessful bone rollback with pending records cannot delegate to payload.
+do
+    reset(); local row={ConeFilterBones={"Neck"}, ConeHeightBase=0}; expose("WeaponAimAssistorTableForGamepad", row)
+    Mutation.snapshot_set=function(...) real_snapshot_set(...); return false end
+    Mutation.restore_bone_array_snapshots=function() return false end
+    truth(Bridge.takeover_after_payload_load({force_aim_takeover=true}), "install failed-bone-restore fixture")
+    eq(_G.set_dongdong_feature_config("aim",true), false, "unsafe bone fallback blocked")
+    eq(fallback_calls,0,"no payload call with un-restored bones")
+    truth(type(_G.custom_dongdong_bone_array_snapshots)=="table"
+        and #_G.custom_dongdong_bone_array_snapshots.records>0, "retain failed bone records")
+    Mutation.snapshot_set=real_snapshot_set
+    Mutation.restore_bone_array_snapshots=real_restore_bones
+end
+
+-- Snapshot exception is contained at the transaction boundary and delegates cleanly.
+-- If rollback itself fails with recorded writes, payload fallback is unsafe.
+do
+    reset(); local row={ConeHeightBase=0}; expose("WeaponAimAssistorTableForGamepad", row)
+    Mutation.snapshot_set=function(...)
+        real_snapshot_set(...)
+        return false
+    end
+    Mutation.restore_feature_snapshot=function(state, feature)
+        if feature=="aim" then return false end
+        return real_restore_feature(state, feature)
+    end
+    truth(Bridge.takeover_after_payload_load({force_aim_takeover=true}), "install failed-restore fixture")
+    eq(_G.set_dongdong_feature_config("aim",true), false, "unsafe fallback blocked")
+    eq(fallback_calls,0,"no payload call with un-restored source writes")
+    truth(type(_G.custom_dongdong_feature_snapshots.aim)=="table", "retain failed snapshot for recovery")
+    Mutation.snapshot_set=real_snapshot_set
+    Mutation.restore_feature_snapshot=real_restore_feature
 end
 
 -- Snapshot exception is contained at the transaction boundary and delegates cleanly.
