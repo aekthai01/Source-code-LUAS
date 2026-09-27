@@ -249,4 +249,7 @@ validates without unpacking the forensic snapshot. `P0.29.68` has 38 instruction
 it indexes the configured feature list, iterates with `ipairs`, resolves each name
 through `P13`, deduplicates on the raw resolved table identity, dispatches to `P67`,
 and returns whether a dispatch returned truthy. It does not catch dispatch errors
-or check the toggle itself. This source does not imply aim/anti_shake takeover.
+or check the toggle itself. A Gamepad DataTable fixture now reaches source P67,
+P63, P66, P65 and verifies bone and field restoration; ordinary AimAssistor
+fire mode's no-direct-field branch remains distinct. This source does not imply
+aim/anti_shake takeover.

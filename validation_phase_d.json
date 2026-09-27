@@ -9,16 +9,16 @@
     "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263"
   },
   "phase_d_source": {
-    "size": 336454,
-    "sha256": "0b4456d8b82ddc053aab68714757f6e3ef2a1c12804a30083ae770bb2ca91fed"
+    "size": 336774,
+    "sha256": "e52cfabe176db55a6867623644747000bf8f7a370da1dfb3da96a2af4153e9d2"
   },
   "phase_d_standard": {
-    "size": 280396,
-    "sha256": "ea9a8c887b9cf37d101fa95ca5ccd7eb8b25635d6ea703f35c75107cce48eba9"
+    "size": 280686,
+    "sha256": "64a5810c0b4af95231528e85e3c91bc8f6ec24b12eb94811515ed8d066222eda"
   },
   "phase_d_custom": {
-    "size": 280396,
-    "sha256": "f9d7f3ce5a9a717cb42c1662b7c7166f76ab5cd74be4bb12b4c9ac35981de4e7"
+    "size": 280686,
+    "sha256": "eb1a07b28e00d042526dddc5b9acbce816c751cd07aac0d48c15d58b23af0586"
   },
   "reconstructed_group": {
     "ui_prototype": "0.29.105",
@@ -75,6 +75,7 @@
       ],
       "source_present": true,
       "active_runtime_bridge": false,
+      "gamepad_aim_chain_fixture": true,
       "walker_and_refresh_complete": false
     },
     "visual_entry_prototypes": [
@@ -146,6 +147,7 @@
     "aim_refresh_unit": "passed",
     "aim_abi_unit": "passed",
     "aim_dispatch_unit": "passed",
+    "aim_chain_unit": "passed",
     "visual_runtime_unit": "passed",
     "mutation_runtime_unit": "passed",
     "payload_feature_bridge_unit": "passed",

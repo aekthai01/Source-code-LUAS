@@ -135,14 +135,15 @@ walker, bone and refresh paths are reconstructed and checked end to end. Re-run
 `python3 tools/build_phase_d.py && python3 tools/validate_phase_d.py` in the
 Git checkout. The regenerated hashes are in `validation_phase_d.json`.
 
-Validated static artifact for this continuation:
+Previous handoff artifact (historical; current hashes are in `validation_phase_d.json`):
 
 - source: 337273 bytes, SHA-256 `f9466f7719ac56d3b0b0d3b9170730b1971b3851816357debedfbf06d9b29b59`
 - custom chunk: 279500 bytes, SHA-256 `330a8c6b927ec565f6142263b52b3e4e4aae29355966351fe99c573c9096968e`
 - baseline/payload: original hashes unchanged; `game_runtime_test=false`
 
-`P0.29.66` recursive field walker is now materialized and snapshot/restore tested,
-but its outer `P0.29.67/68`, bone and refresh paths are not yet source-owned.
+`P0.29.66` recursive field walker is materialized and snapshot/restore tested.
+Its outer P68 dispatcher and aim-only P67 row branch are also materialized,
+while their active runtime caller remains payload-owned.
 
 `aim_bones.lua` now materializes and tests the `P0.29.45/61..64` chain.
 `P0.29.74..76` weapon refresh is materialized in `aim_refresh.lua`.
@@ -161,3 +162,8 @@ The previous source/custom hashes above describe the earlier handoff, not the
 current checkout. Read `validation_phase_d.json` for current hashes. The full
 `P67` and transactional dual-global bridge gates remain open, so `aim` and
 `anti_shake` are payload-owned and `game_runtime_test=false`.
+
+A focused Gamepad fixture now exercises P68 → P67 → P63 → P66 → P65, verifies
+raw alias dedupe, and restores both field and bone snapshots. P15 bytecode
+records the original before a protected field assignment; a failed write
+can therefore leave a record that must be rolled back at bridge boundaries.

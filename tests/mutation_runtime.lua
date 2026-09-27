@@ -86,6 +86,19 @@ eq(zero_tree.A,3,"recursive number restore")
 eq(zero_tree.B,true,"recursive boolean restore")
 eq(zero_tree.Nested.C,4,"recursive nested restore")
 
+-- P15 records the original before the protected assignment (instructions
+-- 32..45). A rejected write leaves a restorable record; callers must roll it
+-- back before delegating to the payload on a source migration failure.
+local rejected=setmetatable({Value=11},{__newindex=function(owner,key,value)
+    if value == 42 then error("write rejected") end
+    rawset(owner,key,value)
+end})
+local failure_state={}
+eq(M.snapshot_set(failure_state,"aim",rejected,"Blocked",42),false,"failed write result")
+eq(#failure_state.custom_dongdong_feature_snapshots.aim.records,1,"snapshot precedes failed write")
+truth(M.restore_feature_snapshot(failure_state,"aim"),"restore attempts recorded write")
+eq(failure_state.custom_dongdong_feature_snapshots.aim,nil,"failed-write snapshot cleared")
+
 -- P0.29.54/P0.29.60 bone array snapshot and restore path.
 local holder = { Bones = {"Head","Spine2"} }
 local bone_state = {}

@@ -56,6 +56,7 @@ def main():
     out_rf=run([lua,str(ROOT/'tests/aim_refresh.lua'),str(ROOT)]); assert 'aim-refresh: ok' in out_rf
     out_abi=run([lua,str(ROOT/'tests/aim_abi.lua'),str(ROOT)]); assert 'aim-abi: ok' in out_abi
     out_dispatch=run([lua,str(ROOT/'tests/aim_dispatch.lua'),str(ROOT)]); assert 'aim-dispatch: ok' in out_dispatch
+    out_chain=run([lua,str(ROOT/'tests/aim_chain.lua'),str(ROOT)]); assert 'aim-chain: ok' in out_chain
     out_vr=run([lua,str(ROOT/'tests/visual_runtime.lua'),str(ROOT)]); assert 'visual-runtime: ok' in out_vr
     out_mr=run([lua,str(ROOT/'tests/mutation_runtime.lua'),str(ROOT)]); assert 'mutation-runtime: ok' in out_mr
     out_fb=run([lua,str(ROOT/'tests/payload_feature_bridge.lua'),str(ROOT)]); assert 'payload-feature-bridge: ok' in out_fb
@@ -82,6 +83,7 @@ def main():
           'profile_ids':[1,1001,1002,1003,11001,1004],
           'source_present':True,
           'active_runtime_bridge':False,
+          'gamepad_aim_chain_fixture':True,
           'walker_and_refresh_complete':False
         },
         'visual_entry_prototypes':['0.29.99','0.29.100','0.29.101','0.29.102','0.29.103'],
@@ -99,7 +101,7 @@ def main():
         'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,
         'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,
         'native_settings_ui_smoke':'passed','feature_control_unit':'passed','character_visuals_unit':'passed',
-        'aim_runtime_unit':'passed','aim_mutation_unit':'passed','aim_bones_unit':'passed','aim_refresh_unit':'passed','aim_abi_unit':'passed','aim_dispatch_unit':'passed','visual_runtime_unit':'passed','mutation_runtime_unit':'passed',
+        'aim_runtime_unit':'passed','aim_mutation_unit':'passed','aim_bones_unit':'passed','aim_refresh_unit':'passed','aim_abi_unit':'passed','aim_dispatch_unit':'passed','aim_chain_unit':'passed','visual_runtime_unit':'passed','mutation_runtime_unit':'passed',
         'payload_feature_bridge_unit':'passed','visual_scan_unit':'passed','visual_background_unit':'passed','payload_visual_bridge_unit':'passed',
         'wrapper_smoke':'passed','protocol_fixture':'passed','game_runtime_test':False
       },

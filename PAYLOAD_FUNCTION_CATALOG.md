@@ -270,3 +270,8 @@ resolved CALL edges. Source bone remap/AI array/restore/refresh lives in
 
 `aim_refresh.lua` contains inert `P0.29.74..76` source and focused Lua tests;
 active aim/anti_shake remain payload-owned.
+
+The source aim row helper is now callable by the source P67 dispatcher, and a
+Gamepad fixture exercises P68/P67/P63/P66/P65 with field and bone restoration.
+This covers one meaningful path; the full P67 error paths and transactional
+P73/P77 dual-global bridge are still required before runtime takeover.

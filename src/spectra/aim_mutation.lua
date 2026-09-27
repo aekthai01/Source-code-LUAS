@@ -439,11 +439,29 @@ function M.walk_and_patch(state, deps, owner, field, value, table_name, depth, s
     end
 end
 
--- Aim branch of P0.29.67 / .67.0. `patch_bones` is P0.29.63, which has
--- not yet been fully reconstructed. Requiring it prevents partial execution.
-function M.apply_aim_table(state, deps, table_value, table_name)
+-- P0.29.67.0 aim branch: one already-extended row. Descriptive source name.
+function M.apply_aim_row(state, deps, owner, key, row, table_name)
     local mutation = assert(S.MutationRuntime, "MutationRuntime required")
     local patch_bones = assert(deps.patch_bones, "P0.29.63 bone updater required")
+    local raw_id = mutation.safe_get(row, "AimAssistorId")
+    local row_id = tonumber(raw_id)
+    if row_id == nil then
+        row_id = tonumber(mutation.safe_get(raw_id, "value") or mutation.safe_get(raw_id, "Value"))
+    end
+    if row_id == nil then
+        row_id = ({ Default=1, NewRow=1001, NewRow_0=1002,
+                    NewRow_1=1003, NewRow_2=11001, NewRow_3=1004 })[tostring(key)]
+    end
+    patch_bones(row)
+    M.walk_and_patch(state, deps, owner, key, row,
+        table_name .. "." .. tostring(key), 0, {}, row_id)
+end
+
+-- Aim branch of P0.29.67 / .67.0. Full feature mode dispatch remains in
+-- MutationRuntime; neither branch is installed for aim at runtime yet.
+function M.apply_aim_table(state, deps, table_value, table_name)
+    local mutation = assert(S.MutationRuntime, "MutationRuntime required")
+    assert(type(deps.patch_bones) == "function", "P0.29.63 bone updater required")
     local root = mutation.table_extend(table_value)
     if type(root) ~= "table" then return false end
     local changed = false
@@ -453,18 +471,7 @@ function M.apply_aim_table(state, deps, table_value, table_name)
         if row ~= mutation.safe_get(owner, key) then
             pcall(function() owner[key] = row end)
         end
-        local raw_id = mutation.safe_get(row, "AimAssistorId")
-        local row_id = tonumber(raw_id)
-        if row_id == nil then
-            row_id = tonumber(mutation.safe_get(raw_id, "value") or mutation.safe_get(raw_id, "Value"))
-        end
-        if row_id == nil then
-            row_id = ({ Default=1, NewRow=1001, NewRow_0=1002,
-                        NewRow_1=1003, NewRow_2=11001, NewRow_3=1004 })[tostring(key)]
-        end
-        patch_bones(row)
-        M.walk_and_patch(state, deps, owner, key, row,
-            table_name .. "." .. tostring(key), 0, {}, row_id)
+        M.apply_aim_row(state, deps, owner, key, row, table_name)
         changed = true
     end)
     return changed
