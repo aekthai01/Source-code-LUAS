@@ -1,0 +1,64 @@
+{
+  "phase": "D4-recovery-public-visual-runtime-takeover",
+  "baseline": {
+    "size": 180034,
+    "sha256": "35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536"
+  },
+  "embedded_payload": {
+    "size": 108533,
+    "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263"
+  },
+  "phase_d_source": {
+    "size": 302644,
+    "sha256": "66e728079d912dc93f45ed0e6929f126fc98e4a911d82479af9af4968f5116f1"
+  },
+  "phase_d_standard": {
+    "size": 260725,
+    "sha256": "1ee7d9a013d608761239b862a8d5ace265dc6861744d9e0c52d9f7553be5a98d"
+  },
+  "phase_d_custom": {
+    "size": 260725,
+    "sha256": "78017b01338c4a6fdaeded208350e0e31934ceff217b98e8c3fe2ce1e6235346"
+  },
+  "reconstructed_group": {
+    "ui_prototype": "0.29.105",
+    "feature_control_prototypes": ["0.29.73", "0.29.77"],
+    "visual_entry_prototypes": ["0.29.99", "0.29.100", "0.29.101", "0.29.102", "0.29.103"],
+    "visual_scan_prototypes": ["0.29.78", "0.29.79", "0.29.80", "0.29.81", "0.29.82", "0.29.83", "0.29.84", "0.29.85", "0.29.86", "0.29.87", "0.29.88", "0.29.89", "0.29.90", "0.29.91", "0.29.92", "0.29.93", "0.29.94", "0.29.95", "0.29.96", "0.29.97", "0.29.98"],
+    "hooks": 9,
+    "feature_controls": 13,
+    "title_widgets": 4,
+    "runtime_takeover": {
+      "ui": true,
+      "feature_control": {"no_recoil": true, "converge": true, "aim": false, "anti_shake": false},
+      "visual_entries": {"set_ai_color": true, "set_real_player_color": true, "set_character_xray": true},
+      "visual_background_tick": "reconstructed_source",
+      "visual_fashion_refresh_hook": "reconstructed_source"
+    },
+    "intentional_title_change": {"baseline": "@starrmods        ", "reconstructed": "@DrkZeref"}
+  },
+  "checks": {
+    "baseline_identity": true,
+    "payload_identity": true,
+    "payload_embed_801_fragments_exact": true,
+    "custom_standard_roundtrip_exact": true,
+    "lua53_chunk_structure": true,
+    "native_settings_ui_smoke": "passed",
+    "feature_control_unit": "passed",
+    "character_visuals_unit": "passed",
+    "aim_runtime_unit": "passed",
+    "visual_runtime_unit": "passed",
+    "mutation_runtime_unit": "passed",
+    "payload_feature_bridge_unit": "passed",
+    "visual_scan_unit": "passed",
+    "visual_background_unit": "passed",
+    "payload_visual_bridge_unit": "passed",
+    "wrapper_smoke": "passed",
+    "protocol_fixture": "passed",
+    "game_runtime_test": false
+  },
+  "correction": {
+    "previous_unmaterialized_d4_claim_retracted": true,
+    "note": "The prior D4 aim-takeover report referenced source files that were not present in the delivered workspace. This validation describes only materialized/tested artifacts."
+  }
+}
