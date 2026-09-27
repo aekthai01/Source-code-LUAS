@@ -80,10 +80,13 @@ unavailable. P0.8/P0.8.0 remain partially reconstructed until that gate succeeds
 preserves its original closures, installs P0.0..P0.2 and P0.4..P0.6 transactionally,
 and installs P0.3 only when its stripped U0/U2 logger closures can be captured or explicitly supplied.
 Source errors propagate without retrying payload code, avoiding duplicate non-reversible
-side effects. Static ownership is therefore 6/29 root methods; P0.3 is partial until its
+side effects. Static ownership is therefore 7/29 root methods; P0.3 is partial until its
 logger captures are available. P0.7/P0.8 are partial pending their captured dependency gates.
 
-Current full-payload coverage: 296 classified; 79 source-owned, 212 payload-owned, 5
+P0.9 preserves the exact `CheckEquipSlotEmpty(slot_type)` public argument and two return
+contracts: `(true)` for empty and `(false, item)` for occupied. The wrapper forwards its
+public arguments and preserves the open return count.
+Current full-payload coverage: 296 classified; 80 source-owned, 211 payload-owned, 5
 partially reconstructed, 0 dead/unreachable verified, 0 unknown. These are inventory
 statuses, not a claim that all payload behavior has been reconstructed. Static closure
 reachability does not assert that every callback runs in a live game session.
@@ -204,6 +207,7 @@ Focused validation includes:
 | `aim` | reconstructed source |
 | `anti_shake` | reconstructed source |
 | root `P0.0..P0.2`, `P0.4..P0.6` methods | reconstructed source, module overlay |
+| root `P0.9` method | reconstructed source, module overlay |
 | root `P0.3` method | partially reconstructed; source bridge requires original logger captures |
 | root `P0.7` bullet check | partially reconstructed; source overlay gated on captured helpers, loggers, and module identity |
 | root `P0.8` durability check | partially reconstructed; source overlay gated on captured error logger |

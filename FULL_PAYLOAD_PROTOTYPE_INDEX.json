@@ -61,9 +61,9 @@
       },
       "CheckEquipSlotEmpty": {
         "prototype_id": "P0.9",
-        "current_ownership": "payload_owned",
-        "source_file": null,
-        "runtime_takeover": "payload"
+        "current_ownership": "source_owned",
+        "source_file": "src/spectra/product_module.lua",
+        "runtime_takeover": "source"
       },
       "CheckEquipSlotValue": {
         "prototype_id": "P0.10",
@@ -199,12 +199,12 @@
   "coverage": {
     "classified": 296,
     "reachable": 296,
-    "source_owned": 79,
-    "payload_owned": 212,
+    "source_owned": 80,
+    "payload_owned": 211,
     "partially_reconstructed": 5,
     "dead_or_unreachable_verified": 0,
     "unknown": 0,
-    "root_methods_source_owned": 6,
+    "root_methods_source_owned": 7,
     "root_methods_total": 29
   },
   "prototypes": {
@@ -3243,14 +3243,14 @@
       ],
       "known_callers": [],
       "known_callees": [],
-      "return_contract": "not reconstructed",
+      "return_contract": "returns true when the requested slot has no item; returns false and the item when occupied",
       "public_symbol": "CheckEquipSlotEmpty",
       "public_symbol_is_original": true,
       "reconstructed_name": "CheckEquipSlotEmpty",
       "reconstructed_name_is_original_symbol": true,
-      "current_ownership": "payload_owned",
+      "current_ownership": "source_owned",
       "reachability": "reachable_from_payload_root",
-      "source_file": null,
+      "source_file": "src/spectra/product_module.lua",
       "evidence_paths": [
         "payload_prototypes.json#0.9",
         "payload_constants.json#0.9",

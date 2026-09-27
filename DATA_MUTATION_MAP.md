@@ -140,6 +140,7 @@ protected calls, nil handling and duplicate side-effect risk.
 | `P0.7.0` | `inspect_bullet_slot` (reconstructed descriptive name) | `product_module.lua` | partially reconstructed with P0.7 |
 | `P0.8` | `_CheckDurabulity` | `product_module.lua` | partially reconstructed; captured logger gate |
 | `P0.8.0` | `check_durability_slot` (reconstructed descriptive name) | `product_module.lua` | partially reconstructed with P0.8 |
+| `P0.9` | `CheckEquipSlotEmpty` | `product_module.lua` | source |
 
 P0.4 reads `Field:GetMedicineType()` before enumerating `EDispensingMedicineType`
 through the captured `table.values`, then passes both values through the captured module
@@ -192,6 +193,11 @@ types and locations in Helmet/BreastPlate order, uses the maximum failing row ke
 one `InsufficientDurability` abnormal. The bridge installs P0.8 only when original closure
 upvalue 2 (P0.8 U1) is a function; otherwise the payload closure stays active.
 
+P0.9 takes the public slot-type argument, reads the current slot-group ID, calls
+`InventoryServer:GetSlot(slot_type, group_id)`, and then calls `GetEquipItem`. It returns
+exactly `(true)` when the slot has no item and `(false, item)` when occupied. The bridge
+passes the public argument through and preserves the one-value/two-value return arity.
+
 P0.2 reads both map values from `GetMapNeedValue`, requests `GetEquipmentCheckData(type, 0)`
 for each abnormal type, and only adds records when the corresponding switch is enabled,
 the threshold is nonzero, and the strict bytecode comparison passes (`current < minimum`,
@@ -201,7 +207,7 @@ P0.2 does so in its instruction stream.
 
 P0.3's source preserves challenge/unbound currency selection, rental preset price, the
 seven slot checks, the missing-rental-plan zero fallback, `evtAllEquipmentValueChanged`
-arguments, and the `(total_value, currency_type)` return. P0.0..P0.8 exports and all other
+arguments, and the `(total_value, currency_type)` return. P0.0..P0.9 exports and all other
 prototype ownership are machine-indexed in `FULL_PAYLOAD_PROTOTYPE_INDEX.json`.
 
 ## Runtime checkpoint

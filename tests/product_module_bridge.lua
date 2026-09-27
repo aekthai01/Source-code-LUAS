@@ -22,7 +22,7 @@ do
     local originals={}; for _,name in ipairs(Bridge.METHODS) do originals[name]=product[name] end
     truth(Bridge.install(product,{dependencies={logger=function() end,error_logger=function() end}}),"install source methods")
     local status=Bridge.status()
-    eq(status.source_owned_root_methods,7,"six static roots plus the conditional P0.3 method are installed")
+    eq(status.source_owned_root_methods,8,"six static roots, unconditional P0.9, and conditional P0.3 installed")
     eq(status.root_methods_total,29,"root method inventory count")
     for _,name in ipairs(Bridge.METHODS) do
         if name=="_CheckBullet" or name=="_CheckDurabulity" then
@@ -109,7 +109,7 @@ do
     local p3={logger=function() end,error_logger=function() end}
     truth(Bridge.install(product,{environment=bullet_environment,dependencies=p3}),"install base methods without P0.7 captures")
     eq(product._CheckBullet,payload_bullet,"missing P0.7 captures leave payload method intact")
-    eq(Bridge.status().source_owned_root_methods,7,"P0.7 is not counted without captures")
+    eq(Bridge.status().source_owned_root_methods,8,"P0.7 is not counted without captures")
     Bridge.restore_original()
 
     local product2=product_fixture()
@@ -138,7 +138,7 @@ do
     end
     truth(Bridge.install(product3,{environment=bullet_environment,dependencies=p3}),
         "install overlay after extracting original P0.7 captures by index")
-    eq(Bridge.status().source_owned_root_methods,8,"P0.7 source wrapper installed with all captures")
+    eq(Bridge.status().source_owned_root_methods,9,"P0.7 source wrapper installed with all captures")
     truth(product3._CheckBullet~=payload_bullet3,"captured P0.7 method replaced")
     product3._CheckBullet()
     Bridge.restore_original()
@@ -180,7 +180,7 @@ do
     }
     truth(Bridge.install(product,{dependencies=p3,environment=empty_environment}),"install root overlay without P0.8 capture")
     eq(product._CheckDurabulity,payload_durability,"missing P0.8 logger keeps payload method")
-    eq(Bridge.status().source_owned_root_methods,7,"P0.8 not owned without logger capture")
+    eq(Bridge.status().source_owned_root_methods,8,"P0.8 not owned without logger capture")
     Bridge.restore_original()
 
     local product2=product_fixture()
@@ -195,7 +195,7 @@ do
     eq(upvalue1,_G,"P0.8 U0 is _ENV")
     eq(upvalue2,captured_logger,"P0.8 U1 is the captured error logger")
     truth(Bridge.install(product2,{dependencies=p3,environment=empty_environment}),"install P0.8 after exact logger capture")
-    eq(Bridge.status().source_owned_root_methods,8,"P0.8 capture condition adds its wrapper")
+    eq(Bridge.status().source_owned_root_methods,9,"P0.8 capture condition adds its wrapper")
     truth(product2._CheckDurabulity~=payload_durability2,"P0.8 source wrapper installed")
     product2._CheckDurabulity()
     Bridge.restore_original()
@@ -252,9 +252,35 @@ do
     S.PayloadVisualBridge={takeover_after_payload_load=function() return true end}
     assert(loadfile(root.."/src/spectra/payload_ui_bridge.lua"))(S)
     truth(S.PayloadUIBridge.after_payload_load(),"product overlay called after payload load")
-    eq(Bridge.status().source_owned_root_methods,6,"six root methods installed without P0.3 captures")
+    eq(Bridge.status().source_owned_root_methods,7,"six root methods plus P0.9 installed without P0.3 captures")
     eq(product.GetAllEquipmentValue,p3_original,"P0.3 remains payload-owned without recovered logger captures")
     Bridge.restore_original()
+end
+
+-- P0.9 bridge preserves its public slot-type argument and open return count.
+do
+    Bridge.restore_original()
+    local product=product_fixture()
+    local original=product.CheckEquipSlotEmpty
+    local calls,item={},nil
+    local armed={GetCurSlotGroupId=function() calls[#calls+1]="group"; return "slot-group" end}
+    local inventory={GetSlot=function(_,slot_type,group)
+        calls[#calls+1]="slot:"..slot_type..":"..group
+        return {GetEquipItem=function() calls[#calls+1]="item"; return item end}
+    end}
+    local environment={Server={ArmedForceServer=armed,InventoryServer=inventory}}
+    truth(Bridge.install(product,{environment=environment}),"install source overlay with P0.9")
+    local empty=table.pack(product.CheckEquipSlotEmpty("slot-x","ignored-extra"))
+    eq(empty.n,1,"bridge preserves empty-slot return arity")
+    eq(empty[1],true)
+    item={id="occupied"}
+    local occupied=table.pack(product.CheckEquipSlotEmpty("slot-y"))
+    eq(occupied.n,2,"bridge preserves occupied-slot return arity")
+    eq(occupied[1],false); eq(occupied[2],item)
+    eq(table.concat(calls,","),"group,slot:slot-x:slot-group,item,group,slot:slot-y:slot-group,item",
+        "bridge forwards slot type and keeps bytecode call order")
+    Bridge.restore_original()
+    eq(product.CheckEquipSlotEmpty,original,"P0.9 original closure restored")
 end
 
 print("product-module-bridge: ok")

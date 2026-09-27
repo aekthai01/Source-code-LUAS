@@ -969,4 +969,33 @@ do
     end,"InsufficientDurability","insufficient-durability")
 end
 
+-- P0.9 returns one value for an empty slot and two values for an occupied
+-- slot; its public slot-type argument is forwarded to InventoryServer.
+do
+    local calls,item={},nil
+    local armed_server={GetCurSlotGroupId=function(self)
+        calls[#calls+1]="group"
+        return "group-9"
+    end}
+    local inventory={GetSlot=function(self,slot_type,group)
+        calls[#calls+1]="slot:"..tostring(slot_type)..":"..tostring(group)
+        local slot={GetEquipItem=function()
+            calls[#calls+1]="item"
+            return item
+        end}
+        return slot
+    end}
+    local env={Server={ArmedForceServer=armed_server,InventoryServer=inventory}}
+    local module={}
+    local empty=table.pack(Product.CheckEquipSlotEmpty(module,env,"slot-a"))
+    eq(empty.n,1,"empty slot returns exactly one value")
+    eq(empty[1],true,"empty slot result")
+    item={id="equipped-item"}
+    local occupied=table.pack(Product.CheckEquipSlotEmpty(module,env,"slot-b"))
+    eq(occupied.n,2,"occupied slot returns boolean and item")
+    eq(occupied[1],false); eq(occupied[2],item)
+    eq(table.concat(calls,","),"group,slot:slot-a:group-9,item,group,slot:slot-b:group-9,item",
+        "each call reads group before slot and then item")
+end
+
 print("product-module: ok")

@@ -40,14 +40,14 @@ GitHub Actions runs the same validation path and a second deterministic build.
 
 ## Current Phase D / Phase E artifact
 
-Phase: `E3-root-durability-check-reconstruction`
+Phase: `E3-root-empty-slot-reconstruction`
 
-- source size `387518`
-- source SHA-256 `95b0b52451685292b95137a533eea618485a740e9d87515287ef5ab0c7a55770`
-- standard chunk size `306747`
-- standard SHA-256 `14b4a057ea2e4af169cc07d12f29aa720ceb86a59ce5777153eb8639af5181f4`
-- custom chunk size `306747`
-- custom SHA-256 `e7df52db4f7b768fd2312d897b6a357a586e94599897fdf21a8af3b841acf830`
+- source size `388485`
+- source SHA-256 `a433d5ddcdb473608f9e33e3bb01af41e62b5e88186903ed32b227ede1bc17bb`
+- standard chunk size `307159`
+- standard SHA-256 `e702f1d9259f6806ba7336df3c5166a2a4d2ab48f2dc8e4846597f9156ab3d7d`
+- custom chunk size `307159`
+- custom SHA-256 `0daed5c692e8e485e76788fc06d42514adcb741a738cbb349f27da4276bf698e`
 
 `validation_phase_d.json` is the machine-readable checkpoint.
 
@@ -62,6 +62,7 @@ Source-owned after the byte-identical payload initializes:
 - `aim`
 - `anti_shake`
 - root P0.0..P0.2 and P0.4..P0.6 method overlay
+- root P0.9 `CheckEquipSlotEmpty` argument/return bridge
 - P0.3 source logic with conditional runtime ownership when original logger captures are available
 - source `set_dongdong_feature_config` (`P0.29.73`)
 - source `set_dongdong_aim_part` (`P0.29.77`)
@@ -155,19 +156,19 @@ complete restore. Game runtime execution remains unverified.
 
 `FULL_PAYLOAD_PROTOTYPE_INDEX.json` is generated from the verified payload prototype,
 constant and disassembly artifacts. It contains exactly 296 prototype paths. Generated
-coverage is 79 source-owned, 212 payload-owned, 5 partially reconstructed, 0 verified
+coverage is 80 source-owned, 211 payload-owned, 5 partially reconstructed, 0 verified
 dead and 0 unknown. Static closure reachability does not assert runtime invocation.
 
 `FULL_PAYLOAD_RECONSTRUCTION_MAP.md` records exact P0.0..P0.28 exports and the
 `EquipTypeList` / `ContainerTypeList` fields. `src/spectra/product_module.lua` materializes
-P0.0..P0.8 plus nested callbacks P0.6.0, P0.7.0 and P0.8.0; tests cover flow branches, process call order,
+P0.0..P0.9 plus nested callbacks P0.6.0, P0.7.0 and P0.8.0; tests cover flow branches, process call order,
 threshold boundaries, rental and currency paths, medicine traversal/filtering/aggregation,
 container capacity and safe-box branches, bullet slot ordering, negative/rounded bullet
 requirements, subtype combination, armor eligibility, durability threshold/formatting,
-abnormal construction and event arguments.
+empty-slot public arguments and return arity, abnormal construction and event arguments.
 `product_module_bridge.lua` receives `state.product` after payload execution, preserves
-originals and rolls back partial installation. P0.0..P0.2 and P0.4..P0.6 are installed by
-default (6/29 root methods). P0.3 is source tested but runtime installation
+originals and rolls back partial installation. P0.0..P0.2, P0.4..P0.6 and P0.9 are installed by
+default (7/29 root methods). P0.3 is source tested but runtime installation
 requires the original U0/U2 logger closures; without those it stays payload-owned. Source
 exceptions propagate without retrying possibly non-reversible effects. P0.7 remains partial:
 the bridge checks closure upvalues 2..5 for `ItemHelperTool`, debug logger, the identical

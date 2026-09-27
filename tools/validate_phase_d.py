@@ -58,6 +58,7 @@ def main():
     assert root_methods['_CheckMedicine']['current_ownership']=='source_owned'
     assert root_methods['_CheckUnCarryMedicine']['current_ownership']=='source_owned'
     assert root_methods['_CheckContainer']['current_ownership']=='source_owned'
+    assert root_methods['CheckEquipSlotEmpty']['current_ownership']=='source_owned'
     assert root_methods['_CheckBullet']['current_ownership']=='partially_reconstructed'
     assert root_methods['_CheckDurabulity']['current_ownership']=='partially_reconstructed'
     assert prototypes['0.4']['known_callees']==['P0.5']
@@ -72,7 +73,8 @@ def main():
     assert 'P0.8' in prototypes['0.8.0']['known_callers']
     assert prototypes['0.8']['current_ownership']=='partially_reconstructed'
     assert prototypes['0.8.0']['current_ownership']=='partially_reconstructed'
-    assert reported.get('root_methods_source_owned')==6 and reported.get('root_methods_total')==29
+    assert prototypes['0.9']['return_contract']=='returns true when the requested slot has no item; returns false and the item when occupied'
+    assert reported.get('root_methods_source_owned')==7 and reported.get('root_methods_total')==29
     assert inventory.get('_meta',{}).get('root_fields')==['EquipTypeList','ContainerTypeList']
     coverage_text=coverage_path.read_text()
     reconstruction_map_text=reconstruction_map_path.read_text()
@@ -125,7 +127,7 @@ def main():
     out2=run([lua,str(ROOT/'tests/smoke.lua'),str(ROOT)]); assert 'smoke: ok' in out2
     out3=run([lua,str(ROOT/'tests/protocol_fixture.lua'),str(ROOT)]); assert 'protocol-fixture: ok' in out3
     report={
-      'phase':'E3-root-durability-check-reconstruction',
+      'phase':'E3-root-empty-slot-reconstruction',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
       'reconstructed_group':{
         'ui_prototype':'0.29.105',
@@ -172,11 +174,12 @@ def main():
         'root_methods_total':reported['root_methods_total'],
         'root_public_symbols_exact':True,
         'root_fields_exact':['EquipTypeList','ContainerTypeList'],
-        'p0_source_methods':['0.0','0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8'],
+        'p0_source_methods':['0.0','0.1','0.2','0.3','0.4','0.5','0.6','0.7','0.8','0.9'],
         'product_module_overlay_bridge':True,
         'p0_3_logger_upvalues_conditionally_captured':True,
         'p0_7_item_helper_loggers_and_module_identity_conditionally_captured':True,
         'p0_8_error_logger_conditionally_captured':True,
+        'p0_9_empty_slot_argument_and_return_contract_verified':True,
       },
       'checks':{
         'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,

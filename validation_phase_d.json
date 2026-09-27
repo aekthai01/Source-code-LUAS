@@ -1,5 +1,5 @@
 {
-  "phase": "E3-root-durability-check-reconstruction",
+  "phase": "E3-root-empty-slot-reconstruction",
   "baseline": {
     "size": 180034,
     "sha256": "35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536"
@@ -9,16 +9,16 @@
     "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263"
   },
   "phase_d_source": {
-    "size": 387518,
-    "sha256": "95b0b52451685292b95137a533eea618485a740e9d87515287ef5ab0c7a55770"
+    "size": 388485,
+    "sha256": "a433d5ddcdb473608f9e33e3bb01af41e62b5e88186903ed32b227ede1bc17bb"
   },
   "phase_d_standard": {
-    "size": 306747,
-    "sha256": "14b4a057ea2e4af169cc07d12f29aa720ceb86a59ce5777153eb8639af5181f4"
+    "size": 307159,
+    "sha256": "e702f1d9259f6806ba7336df3c5166a2a4d2ab48f2dc8e4846597f9156ab3d7d"
   },
   "phase_d_custom": {
-    "size": 306747,
-    "sha256": "e7df52db4f7b768fd2312d897b6a357a586e94599897fdf21a8af3b841acf830"
+    "size": 307159,
+    "sha256": "0daed5c692e8e485e76788fc06d42514adcb741a738cbb349f27da4276bf698e"
   },
   "reconstructed_group": {
     "ui_prototype": "0.29.105",
@@ -139,12 +139,12 @@
   "phase_e": {
     "prototype_index_count": 296,
     "classified_prototypes": 296,
-    "source_owned_reachable": 79,
-    "payload_owned_reachable": 212,
+    "source_owned_reachable": 80,
+    "payload_owned_reachable": 211,
     "partially_reconstructed": 5,
     "dead_or_unreachable_verified": 0,
     "unknown": 0,
-    "root_methods_source_owned": 6,
+    "root_methods_source_owned": 7,
     "root_methods_total": 29,
     "root_public_symbols_exact": true,
     "root_fields_exact": [
@@ -160,12 +160,14 @@
       "0.5",
       "0.6",
       "0.7",
-      "0.8"
+      "0.8",
+      "0.9"
     ],
     "product_module_overlay_bridge": true,
     "p0_3_logger_upvalues_conditionally_captured": true,
     "p0_7_item_helper_loggers_and_module_identity_conditionally_captured": true,
-    "p0_8_error_logger_conditionally_captured": true
+    "p0_8_error_logger_conditionally_captured": true,
+    "p0_9_empty_slot_argument_and_return_contract_verified": true
   },
   "checks": {
     "baseline_identity": true,

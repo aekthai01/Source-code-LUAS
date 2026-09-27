@@ -14,6 +14,7 @@ M.METHODS = {
     "_CheckContainer",
     "_CheckBullet",
     "_CheckDurabulity",
+    "CheckEquipSlotEmpty",
 }
 M.ROOT_METHOD_COUNT = 29
 
@@ -98,6 +99,11 @@ local function wrap(name, target, dependencies, environment)
             -- Payload P0.5 is a public two-argument helper. Preserve those
             -- arguments and adapt only the reconstructed environment context.
             result = table.pack(pcall(target, product, environment, arguments[1], arguments[2]))
+        elseif name == "CheckEquipSlotEmpty" then
+            -- P0.9's exact public input is the slot type. Preserve all caller
+            -- arguments after inserting the source module/environment context.
+            result = table.pack(pcall(target, product, environment,
+                table.unpack(arguments, 1, arguments.n)))
         else
             result = table.pack(pcall(target, product, environment, dependencies))
         end
@@ -136,6 +142,7 @@ function M.install(target, options)
         _CheckMedicine = Source._CheckMedicine,
         _CheckUnCarryMedicine = Source._CheckUnCarryMedicine,
         _CheckContainer = Source._CheckContainer,
+        CheckEquipSlotEmpty = Source.CheckEquipSlotEmpty,
     }
     local p3_dependencies = get_logger_dependencies(rawget(target, "GetAllEquipmentValue"), options.dependencies)
     if p3_dependencies then source_targets.GetAllEquipmentValue = Source.GetAllEquipmentValue end

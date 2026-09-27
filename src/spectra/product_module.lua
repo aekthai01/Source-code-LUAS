@@ -15,6 +15,7 @@ M.PROTOTYPES = {
     _CheckContainer = "0.6",
     _CheckBullet = "0.7",
     _CheckDurabulity = "0.8",
+    CheckEquipSlotEmpty = "0.9",
 }
 M.ROOT_FIELDS = { "EquipTypeList", "ContainerTypeList" }
 
@@ -484,6 +485,17 @@ function M._CheckDurabulity(module, globals, dependencies)
         abnormal.param = param
         add_abnormal(field, abnormal)
     end
+end
+
+-- P0.9 public argument is the slot type. It returns `(true)` when empty and
+-- `(false, item)` when occupied, after resolving the current slot group.
+function M.CheckEquipSlotEmpty(module, globals, slot_type)
+    globals = globals_or_default(globals)
+    local slot_group_id = globals.Server.ArmedForceServer:GetCurSlotGroupId()
+    local slot = globals.Server.InventoryServer:GetSlot(slot_type, slot_group_id)
+    local item = slot:GetEquipItem()
+    if not item then return true end
+    return false, item
 end
 
 return M

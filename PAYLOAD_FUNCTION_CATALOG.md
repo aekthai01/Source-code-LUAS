@@ -46,7 +46,7 @@ Exact root fields include `EquipTypeList` and `ContainerTypeList`.
 structure, constants, upvalues, conservative direct calls, bytecode global/table references,
 current ownership, static reachability, source mapping, evidence and confidence.
 `FULL_PAYLOAD_RECONSTRUCTION_MAP.md` maps each of the exact root exports above to its
-prototype. Current root overlay coverage is 6/29 source-owned methods; P0.3, P0.7 and P0.8
+prototype. Current root overlay coverage is 7/29 source-owned methods; P0.3, P0.7 and P0.8
 are partial because original diagnostic/helper captures must be recovered from their payload
 closures. P0.7 also requires the captured module table to match the product table. See
 `RECONSTRUCTION_COVERAGE.md` for machine-generated totals.
@@ -67,6 +67,8 @@ gating and transactional rollback.
 P0.8/P0.8.0 tests cover helmet/breastplate eligibility, negative and disabled settings,
 open-return durability forwarding, rounded inclusive thresholds, abnormal formatting/order,
 maximum key, captured logger indexing and whole-install rollback.
+P0.9 tests cover the public slot argument, current-group lookup, item lookup, and exact
+empty/occupied return arity through both source and bridge paths.
 
 ## Exact imported/required namespaces observed at payload root
 
