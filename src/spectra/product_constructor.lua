@@ -4,6 +4,10 @@ local Product = assert(S.ProductModule, "ProductModule required")
 local M = {}
 S.ProductConstructor = M
 
+function M.new_product_table()
+    return {}
+end
+
 local function bind(product, globals, source, dependencies, mode)
     if mode == "two_args" then
         return function(a, b)

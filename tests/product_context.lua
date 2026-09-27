@@ -1,7 +1,16 @@
 local root=assert(arg[1])
 local S={}
 assert(loadfile(root.."/src/spectra/product_context.lua"))(S)
+assert(loadfile(root.."/src/spectra/product_module.lua"))(S)
+assert(loadfile(root.."/src/spectra/product_constructor.lua"))(S)
 local Context=S.ProductContext
+local Constructor=S.ProductConstructor
+local table_factory=Constructor.new_product_table
+local product_tables_created=0
+Constructor.new_product_table=function()
+    product_tables_created=product_tables_created+1
+    return table_factory()
+end
 local function eq(a,b,m) if a~=b then error((m or "value")..": expected "..tostring(b)..", got "..tostring(a),2) end end
 local function truth(v,m) if not v then error(m or "expected truthy",2) end end
 
@@ -44,6 +53,8 @@ eq(context.debug_logger,debug_logger,"R0 debug logger")
 eq(context.info_logger,info_logger,"R1 info logger")
 eq(context.error_logger,error_logger,"R2 error logger")
 truth(type(context.product)=="table","R3 product table")
+eq(product_tables_created,1,"R3 allocated by source ProductConstructor")
+truth(context.product~=ammo,"R3 is not AmmoDataManager.Get() result")
 eq(context.item_helper,modules[Context.REQUIRE_PATHS[1]],"R4 ItemHelperTool")
 eq(context.item_config_tool,modules[Context.REQUIRE_PATHS[2]],"R5 ItemConfigTool")
 eq(context.weapon_assembly_tool,modules[Context.REQUIRE_PATHS[3]],"R6 WeaponAssemblyTool")

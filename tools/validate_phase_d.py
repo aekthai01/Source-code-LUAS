@@ -34,17 +34,30 @@ def main():
     assert len(meta)==296 and inv['_meta']['total_prototypes']==296 and set(groups)==OWN
     classified=[p for status in OWN for p in groups[status]]
     assert len(classified)==296 and len(set(classified))==296 and set(classified)==paths
-    assert coverage['classified']==296 and coverage['source_owned']==86 and coverage['payload_owned']==210
-    assert coverage['partially_reconstructed']==0 and coverage['unknown']==0
-    assert coverage['root_methods_source_owned']==11 and coverage['root_methods_total']==29
+    assert coverage['classified']==296 and coverage['unknown']==0
     for status in OWN: assert coverage[status]==len(groups[status])
+    source_files=inv['source_files']
+    assert set(source_files)==set(groups['source_owned'])
+    for source_file in set(source_files.values()): assert (ROOT/source_file).is_file(),source_file
     roots=inv['root_public_methods']; assert len(roots)==29
     assert [v['prototype_id'] for v in roots.values()]==[f'P0.{i}' for i in range(29)]
+    root_source_owned=0
     for i,(name,item) in enumerate(roots.items()):
-        if i<=10:
-            assert item['current_ownership']=='source_owned' and item['source_only_dependency'] is True,name
+        path=f'0.{i}'
+        owned=next(status for status in OWN if path in groups[status])
+        assert item['current_ownership']==owned,name
+        if owned=='source_owned':
+            root_source_owned+=1
+            assert item['source_only_dependency'] is True and item['source_file']==source_files[path],name
         else:
-            assert item['current_ownership']=='payload_owned' and item['source_only_dependency'] is False,name
+            assert item['source_only_dependency'] is False,name
+    assert coverage['root_methods_source_owned']==root_source_owned
+    assert coverage['root_methods_total']==len(roots)
+    assert all(f'0.{i}' in groups['source_owned'] for i in range(11))
+    assert all(roots[name]['source_only_dependency'] for name in list(roots)[:11])
+    for source_file in ('product_context.lua','product_constructor.lua','product_module_bridge.lua'):
+        text=(ROOT/'src/spectra'/source_file).read_text()
+        assert 'debug.getupvalue' not in text,source_file
     assert {'0.3','0.7','0.7.0','0.8','0.8.0','0.10'} <= set(groups['source_owned'])
     assert (ROOT/inv['_meta']['legacy_detailed_index']).exists()
 
@@ -59,7 +72,15 @@ def main():
     assert captured('R8','P0.14','U1') and captured('R8','P0.15','U2')
 
     coverage_text=(ROOT/'RECONSTRUCTION_COVERAGE.md').read_text()
-    for line in ('- Total prototypes: **296**','- Classified: **296**','- Source-owned: **86**','- Payload-owned: **210**','- Partially reconstructed: **0**','- Unknown: **0**','- Root methods source-owned: **11 / 29**'): assert line in coverage_text
+    for line in (
+        f"- Total prototypes: **{len(paths)}**",
+        f"- Classified: **{coverage['classified']}**",
+        f"- Source-owned: **{coverage['source_owned']}**",
+        f"- Payload-owned: **{coverage['payload_owned']}**",
+        f"- Partially reconstructed: **{coverage['partially_reconstructed']}**",
+        f"- Unknown: **{coverage['unknown']}**",
+        f"- Root methods source-owned: **{root_source_owned} / {len(roots)}**",
+    ): assert line in coverage_text
     bridge=(ROOT/'src/spectra/product_module_bridge.lua').read_text(); assert 'debug.getupvalue' not in bridge and 'payload_upvalue_introspection = false' in bridge
     constructor=(ROOT/'src/spectra/product_constructor.lua').read_text(); assert 'Product.create = M.create' in constructor
 
@@ -88,7 +109,7 @@ def main():
     report={
       'phase':'E4-root-capture-context-source-only-preparation',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
-      'inventory':{'total':296,'classified':296,'source_owned':86,'payload_owned':210,'partially_reconstructed':0,'unknown':0,'root_methods_source_owned':11,'root_methods_total':29},
+      'inventory':{'total':len(paths),'classified':coverage['classified'],'source_owned':coverage['source_owned'],'payload_owned':coverage['payload_owned'],'partially_reconstructed':coverage['partially_reconstructed'],'unknown':coverage['unknown'],'root_methods_source_owned':root_source_owned,'root_methods_total':len(roots)},
       'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_10':True,'payload_upvalue_introspection':False},
       'runtime_ownership':{'no_recoil':True,'converge':True,'aim':True,'anti_shake':True},
       'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}

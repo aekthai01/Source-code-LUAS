@@ -13,7 +13,11 @@ local function make_logger(kind)
     end
 end
 local debug_logger,info_logger,error_logger=make_logger("debug"),make_logger("info"),make_logger("error")
-local item_helper={GetSubTypeById=function(item_id) return item_id end}
+local subtype_calls={}
+local item_helper={GetSubTypeById=function(item_id)
+    subtype_calls[#subtype_calls+1]=item_id
+    return item_id
+end}
 local required={
     [S.ProductContext.REQUIRE_PATHS[1]]=item_helper,
     [S.ProductContext.REQUIRE_PATHS[2]]={},
@@ -72,6 +76,11 @@ local globals={
 local context=S.ProductContext.create(globals)
 local product=S.ProductModule.create(context,globals)
 eq(product,context.product,"constructor must use P0 R3 source table identity")
+local sibling_context=S.ProductContext.create(globals)
+local sibling_product=S.ProductConstructor.create(sibling_context,globals)
+eq(sibling_product,sibling_context.product,"child constructor binds to its R3 capture")
+eq(sibling_product~=product,true,"fresh source context creates independent product identity")
+eq(sibling_product.GetAllEquipmentValue==product.GetAllEquipmentValue,false,"child closures bind their own product identity")
 local names={
     "CheckEquipmentBeforEnterGameProcess","_CheckProcess","_CheckEquipmentValue",
     "GetAllEquipmentValue","_CheckMedicine","_CheckUnCarryMedicine","_CheckContainer",
@@ -89,14 +98,84 @@ eq(value,777,"source-only P0.3 rental value")
 eq(currency,"unbound","source-only P0.3 currency")
 eq(changed.calls,1,"P0.3 event")
 eq(changed.args[1],777); eq(changed.args[2],"unbound")
-truth(#logs.info>=3,"P0.3 uses source info logger")
+truth(#logs.info>=3,"P0.3 uses source R1 info logger")
 eq(#logs.error,0,"P0.3 no error on valid rental plan")
+local previous_info=#logs.info
+local previous_error=#logs.error
+local old_plan=armed_server.GetCurRentalPlan
+armed_server.GetCurRentalPlan=function() return nil end
+local empty_value,empty_currency=product.GetAllEquipmentValue()
+eq(empty_value,0,"P0.3 nil plan return"); eq(empty_currency,"unbound")
+eq(#logs.info,previous_info+2,"P0.3 R1 start and end logs")
+eq(#logs.error,previous_error+1,"P0.3 uses source R2 error logger")
+armed_server.GetCurRentalPlan=old_plan
+local old_rental_status=armed_server.CheckIsRentalStatus
+armed_server.CheckIsRentalStatus=function() return false end
+local slot_lookups=0
+local old_get_slot=globals.Server.InventoryServer.GetSlot
+globals.Server.InventoryServer.GetSlot=function(...)
+    slot_lookups=slot_lookups+1
+    return old_get_slot(...)
+end
+local slot_value,currency_value=product.GetAllEquipmentValue()
+eq(slot_value,0,"P0.3 sums source child slot values")
+eq(currency_value,"unbound"); eq(slot_lookups,7,"P0.3 dispatches seven child calls through source R3")
+armed_server.CheckIsRentalStatus=old_rental_status
+globals.Server.InventoryServer.GetSlot=old_get_slot
+local old_get_item=empty_slot.GetEquipItem
+empty_slot.GetEquipItem=function() return {id="bullet-item"} end
+globals.MathUtil={GetRoundingNum=function(value) return value end}
+globals.Module.ArmedForce.Field={GetEquipmentCheckData=function() return {switch=true,checkValue=1} end}
+globals.Module.ArmedForce.Config={EAbnormalType={LackBullet="lack-bullet"}}
+local match_calls=0
+product.GetMatchBulletNumByWeaponItem=function(...)
+    local args=table.pack(...)
+    eq(args.n,2,"P0.7 child match helper is a plain two-argument call")
+    eq(args[1].id,"bullet-item")
+    match_calls=match_calls+1
+    return 1
+end
+product._CheckBullet()
+eq(match_calls,3,"P0.7 dispatches left/right/pistol child calls through source R3")
+truth(#logs.debug>0,"P0.7 uses source R0 debug logger")
+eq(subtype_calls[#subtype_calls],"bullet-item","P0.7 uses source R4 ItemHelperTool")
+empty_slot.GetEquipItem=old_get_item
+local old_field=globals.Module.ArmedForce.Field
+local errors_before_negative_bullet=#logs.error
+empty_slot.GetEquipItem=function() return {id="negative-bullet"} end
+item_helper.GetSubTypeById=function(item_id) return item_id end
+globals.Module.ArmedForce.Field={GetEquipmentCheckData=function()
+    return {switch=true,checkValue=-1}
+end}
+product._CheckBullet()
+eq(#logs.error,errors_before_negative_bullet+3,"P0.7 source R2 logs each negative weapon slot")
+eq(logs.error[#logs.error][1],"CheckEquipLogic._CheckBullet checkValue 小于0！！！","P0.7 R2 error message")
+globals.Module.ArmedForce.Field=old_field
+empty_slot.GetEquipItem=old_get_item
 
 local empty=table.pack(product.CheckEquipSlotEmpty("helmet"))
 eq(empty.n,1,"P0.9 return arity"); eq(empty[1],true,"P0.9 empty")
+local info_before_price=#logs.info
 eq(product.CheckEquipSlotValue("helmet"),0,"P0.10 empty slot price")
+eq(#logs.info,info_before_price+1,"P0.10 uses source R1 info logger")
+eq(logs.info[#logs.info][1]:find("equipName = nil, price = 0",1,true)~=nil,true,"P0.10 exact empty-price diagnostic")
 product._CheckBullet()
+local error_before_durability=#logs.error
+globals.EFeatureType={Equipment="equipment"}
+globals.Module.ArmedForce.Config.EAbnormalType.InsufficientDurability="durability"
+local equipment_feature={IsHelmet=function() return true end,IsBreastPlate=function() return false end}
+local equipment_item={GetFeature=function(_,feature_type) eq(feature_type,"equipment"); return equipment_feature end}
+globals.Server.InventoryServer.GetSlot=function(_,slot_type,group)
+    eq(group,"group-source")
+    return {GetEquipItem=function() return slot_type=="helmet" and equipment_item or nil end}
+end
+globals.Module.ArmedForce.Field={GetEquipmentCheckData=function(_,kind)
+    eq(kind,"durability")
+    return {switch=true,checkValue=-1}
+end}
 product._CheckDurabulity()
+eq(#logs.error,error_before_durability+1,"P0.8 uses source R2 error logger")
+eq(logs.error[#logs.error][1],"CheckEquipLogic._CheckDurabulity checkValue 小于0！！！","P0.8 captured logger message")
 
 local bridge_text=assert(io.open(root.."/src/spectra/product_module_bridge.lua","rb")):read("*a")
 eq(bridge_text:find("debug.getupvalue",1,true),nil,"transitional bridge must not introspect payload closures")

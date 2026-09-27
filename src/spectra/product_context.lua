@@ -29,8 +29,13 @@ function M.create(globals)
     local category = category_table.LuaMArmedForce
     local debug_logger, info_logger, error_logger = gen_log(category)
 
-    -- P0 R3 is a new table before any exported method closure is created.
-    local product = {}
+    -- R3 is allocated by the source ProductConstructor, never borrowed from
+    -- the embedded payload. The fallback keeps this context module independently
+    -- testable when loaded without the constructor module.
+    local constructor = S.ProductConstructor
+    local product = constructor and type(constructor.new_product_table) == "function"
+        and constructor.new_product_table() or {}
+    assert(type(product) == "table", "source ProductConstructor must return a product table")
 
     -- P0 instructions 8..25: six plain require calls in this exact order.
     local require_fn = need_function(globals.require, "require")

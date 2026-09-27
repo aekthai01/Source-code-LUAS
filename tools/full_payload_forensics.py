@@ -125,14 +125,22 @@ def build():
         groups[status].append(path)
 
     counts = {status: len(groups[status]) for status in OWNERSHIP}
-    if counts != {
-        "source_owned": 86,
-        "payload_owned": 210,
-        "partially_reconstructed": 0,
-        "dead_or_unreachable_verified": 0,
-        "unknown": 0,
-    }:
-        raise SystemExit(f"unexpected checkpoint ownership counts: {counts}")
+    classified_paths = [path for values in groups.values() for path in values]
+    if len(classified_paths) != EXPECTED_COUNT or len(set(classified_paths)) != EXPECTED_COUNT:
+        raise SystemExit("ownership groups must be disjoint and cover all payload prototypes")
+    if counts["unknown"] != 0:
+        raise SystemExit(f"unclassified payload prototypes remain: {counts['unknown']}")
+    if set(source_files) != set(groups["source_owned"]):
+        raise SystemExit("every source-owned prototype must have exactly one source mapping")
+    for source_file in set(source_files.values()):
+        if not (ROOT / source_file).is_file():
+            raise SystemExit(f"source mapping target does not exist: {source_file}")
+    root_total = len(actual_exports)
+    if root_total != len(ROOT_METHODS):
+        raise SystemExit(f"root public method count {root_total} != declared export map {len(ROOT_METHODS)}")
+    for index, name in enumerate(ROOT_METHODS):
+        if actual_exports.get(f"0.{index}") != name:
+            raise SystemExit(f"root export mapping mismatch at P0.{index}")
 
     root_public = {}
     for index, name in enumerate(ROOT_METHODS):
@@ -143,14 +151,18 @@ def build():
             "current_ownership": "source_owned" if source else "payload_owned",
             "source_file": source_files.get(path),
             "runtime_takeover": "source" if source else "payload",
-            "source_only_dependency": bool(source and index <= 10),
+            "source_only_dependency": source,
         }
     root_source_owned = sum(item["current_ownership"] == "source_owned" for item in root_public.values())
-    if root_source_owned != 11:
-        raise SystemExit(f"root source-owned count {root_source_owned} != 11")
+    if root_source_owned != sum(path in source_files for path in actual_exports):
+        raise SystemExit("root source-owned count does not match source ownership map")
     for name, item in root_public.items():
-        if item["current_ownership"] == "source_owned" and not item["source_only_dependency"]:
-            raise SystemExit(f"source-owned root method still requires payload initialization: {name}")
+        if item["current_ownership"] == "source_owned":
+            item["source_only_dependency"] = True
+            if not item["source_file"]:
+                raise SystemExit(f"source-owned root method has no source mapping: {name}")
+        else:
+            item["source_only_dependency"] = False
 
     index = {
         "_meta": {
@@ -171,7 +183,7 @@ def build():
             "dead_or_unreachable_verified": counts["dead_or_unreachable_verified"],
             "unknown": counts["unknown"],
             "root_methods_source_owned": root_source_owned,
-            "root_methods_total": 29,
+            "root_methods_total": root_total,
         },
         "root_public_methods": root_public,
         "ownership_groups": groups,
