@@ -10,6 +10,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install Lua 5.3 toolchain
         run: sudo apt-get update && sudo apt-get install -y lua5.3
+      - name: Regenerate aim implementation index
+        run: |
+          python3 tools/aim_forensics.py
+          git diff --exit-code -- AIM_PROTOTYPE_INDEX.json
       - name: Build and run focused regressions
         run: |
           python3 tools/build_phase_d.py

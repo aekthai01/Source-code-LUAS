@@ -1,5 +1,5 @@
 {
-  "phase": "D4-aim-transactional-bridge-gated",
+  "phase": "D4-aim-source-runtime-takeover",
   "baseline": {
     "size": 180034,
     "sha256": "35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536"
@@ -9,16 +9,16 @@
     "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263"
   },
   "phase_d_source": {
-    "size": 350514,
-    "sha256": "1f373a8d55dabcb8e5df9a9a9e4449fd3ab40b6166463c2ae5439e673270ee69"
+    "size": 350606,
+    "sha256": "5e2ecdc0d98dfbb3c3226dce5e41c0ec0b29e26a944e8aca801dc012417c0774"
   },
   "phase_d_standard": {
     "size": 289167,
-    "sha256": "a9b67b697c13e146eff8cc123353e9867dc507c92774ae6ad41635d0b462a3c7"
+    "sha256": "cba43702e0bac29d4baaaef2dab91e578c97e43b7d36f90838f1ead5e945efb5"
   },
   "phase_d_custom": {
     "size": 289167,
-    "sha256": "ef4053bfda3c31194913489a0fbf8bb648741c2ea39ddf3da59aefdff299faf2"
+    "sha256": "184caf21530481d4668a619415ebdf02ff7697719b84019ffab97b22b6e21df7"
   },
   "reconstructed_group": {
     "ui_prototype": "0.29.105",
@@ -77,7 +77,7 @@
       "source_chain_complete": true,
       "refresh_helper_abi_verified": true,
       "transactional_dual_global_bridge": true,
-      "active_runtime_bridge": false,
+      "active_runtime_bridge": true,
       "gamepad_aim_chain_fixture": true,
       "differential_p65_fixtures": true,
       "walker_and_refresh_complete": true
@@ -120,8 +120,8 @@
       "feature_control": {
         "no_recoil": true,
         "converge": true,
-        "aim": false,
-        "anti_shake": false
+        "aim": true,
+        "anti_shake": true
       },
       "visual_entries": {
         "set_ai_color": true,
@@ -142,6 +142,7 @@
     "payload_embed_801_fragments_exact": true,
     "custom_standard_roundtrip_exact": true,
     "lua53_chunk_structure": true,
+    "runtime_ownership_gate": "passed",
     "native_settings_ui_smoke": "passed",
     "feature_control_unit": "passed",
     "character_visuals_unit": "passed",
@@ -167,6 +168,6 @@
   },
   "correction": {
     "previous_unmaterialized_d4_claim_retracted": true,
-    "note": "Aim source chain and transactional dual-global bridge are materialized and tested, but the runtime ownership gate remains disabled until this checkpoint passes reproducible CI."
+    "note": "Aim/anti_shake source ownership was enabled only after the gated source-chain, differential, ABI, rollback, deterministic-build and direct-checkout CI checkpoint passed. game_runtime_test remains false."
   }
 }

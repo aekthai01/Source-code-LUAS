@@ -1,169 +1,137 @@
 # Work handoff: SPECTRA Lua reconstruction
 
-## Source of truth
+## Authoritative branch
 
-Use `baseline_original.luac` only as the binary source of truth.
+Repository: `aekthai01/Source-code-LUAS`
 
-- baseline size: `180034`
-- baseline SHA-256: `35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536`
-- embedded payload size: `108533`
-- embedded payload SHA-256: `a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263`
+Branch: `work/phase-d-aim-reconstruction`
 
-Do not continue from older experimental lifecycle-patched binaries.
+Draft PR: `#2 Phase D aim reconstruction: bytecode field rules (draft)`
 
-## Work branch and full snapshot
+Do not merge `main` as part of this handoff.
 
-Continue on branch `work/phase-d-aim-reconstruction`.
+## Binary source of truth
 
-The repository root on `main` is a **partial readable mirror**, not a complete extraction of the project. Do not infer that a file is absent from the project merely because it is absent from the root tree.
+Baseline:
 
-The complete project snapshot is stored as:
+- size `180034`
+- SHA-256 `35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536`
 
-- `spectra_rebuild_snapshot.tar.xz`
-- original alias: `spectra_rebuild..tar.xz`
-- Git blob: `d082ce7c82c0c7904b7ca83e811e86efb39772bf`
-- GitHub-reported size: `342752` bytes
+Embedded payload:
 
-Extract the snapshot before doing cross-file work. The source workspace used to create this handoff was re-verified against `validation_phase_d.json`:
+- size `108533`
+- SHA-256 `a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263`
 
-- `spectra_wrapper_phase_d_source.lua`: `302644` bytes, SHA-256 `66e728079d912dc93f45ed0e6929f126fc98e4a911d82479af9af4968f5116f1`
-- `spectra_wrapper_phase_d.custom.luac`: `260725` bytes, SHA-256 `78017b01338c4a6fdaeded208350e0e31934ceff217b98e8c3fe2ce1e6235346`
-- `embedded_payload.bin`: `108533` bytes, SHA-256 `a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263`
+The forensic tarball may remain for archive purposes, but it is no longer required to
+reproduce Phase D validation.
 
-Readable overlay files on the Work branch may be newer/more complete than the partial mirror on `main`, but the extracted snapshot remains the complete project workspace.
+## Direct-checkout reproduction
 
-## Current materialized checkpoint
-
-Authoritative machine-readable state: `validation_phase_d.json`.
-
-Current phase: `D4-recovery-public-visual-runtime-takeover`.
-
-- phase-D source size: `302644`
-- phase-D source SHA-256: `66e728079d912dc93f45ed0e6929f126fc98e4a911d82479af9af4968f5116f1`
-- custom chunk size: `260725`
-- custom chunk SHA-256: `78017b01338c4a6fdaeded208350e0e31934ceff217b98e8c3fe2ce1e6235346`
-- game runtime validation: **not performed** (`game_runtime_test=false`)
-
-## Runtime ownership now
-
-Source-owned after the known-good embedded payload initializes:
-
-- wrapper/bootstrap/auth/storage/login UI
-- post-login `SystemSettingMainView` native settings UI
-- `no_recoil`
-- `converge`
-- `set_ai_color`
-- `set_real_player_color`
-- `set_character_xray`
-- visual actor/mesh scan `P0.29.78..98`
-- visual fashion refresh `P0.29.104`
-- visual tick/fallback `P0.29.106/107`
-
-Still payload-owned:
-
-- `aim`
-- `anti_shake`
-- the low-level aim mutation chain ending in `P0.29.65`
-- remaining payload business/equipment functionality not yet reconstructed
-
-A previous report-only claim that aim takeover had been completed was retracted because the referenced source files were not present in the delivered workspace. Do not treat that claim as completed work.
-
-## Next task
-
-Reconstruct aim/anti-shake from the actual payload bytecode and materialize it in source before takeover.
-
-Primary target group:
-
-- `P0.29.30..45`
-- `P0.29.61..66`
-- `P0.29.74..77`
-- especially `P0.29.65` (842 instructions / 136 constants)
-
-Useful extracted disassembly is already in `_aim_sections/` inside the full snapshot, and the full source evidence remains in `payload_disassembly.txt`, `payload_constants.json`, `payload_prototypes.json`, and related forensic files.
-
-Requirements for the next migration:
-
-1. Reconstruct replacement rules from bytecode rather than guessing field semantics.
-2. Preserve separation of normal `WeaponAimAssistorTable` and Gamepad-specific paths.
-3. Preserve `fire`/`ads` mode-specific logic, FOV/range/speed/lock-time behavior, bone remap, snapshot/restore, and revision/timing chain.
-4. Add source files and regression tests before changing runtime ownership.
-5. Keep unknown/unreconstructed behavior delegated to the embedded payload.
-6. Re-run `tools/validate_phase_d.py` and keep `validation_phase_d.json` authoritative.
-7. Do not claim game-runtime compatibility until the rebuilt custom chunk is actually tested in the DFM/game runtime.
-
-## Build / validation
-
-After extracting the snapshot:
+From a clean checkout:
 
 ```sh
 python3 tools/build_phase_d.py
+python3 tools/aim_forensics.py
 python3 tools/validate_phase_d.py
 ```
 
-Relevant focused tests include:
+GitHub Actions runs the same validation path and a second deterministic build.
 
-```sh
-texlua tests/mutation_runtime.lua .
-texlua tests/payload_feature_bridge.lua .
-texlua tests/visual_scan.lua .
-texlua tests/payload_visual_bridge.lua .
-texlua tests/native_settings_ui.lua .
-texlua tests/smoke.lua .
-texlua tests/protocol_fixture.lua .
-```
+## Current Phase D artifact
 
-## Key documentation
+Phase: `D4-aim-source-runtime-takeover`
 
-- `PHASE_A_REPORT.md`
-- `PHASE_D_REPORT.md`
-- `PAYLOAD_FUNCTION_CATALOG.md`
-- `PAYLOAD_UI_MAP.md`
-- `DATA_MUTATION_MAP.md`
-- `VISUAL_SCAN_MAP.md`
-- `WRAPPER_CALL_GRAPH.md`
-- `RUNTIME_TEST_CHECKLIST.md`
+- source size `350606`
+- source SHA-256 `5e2ecdc0d98dfbb3c3226dce5e41c0ec0b29e26a944e8aca801dc012417c0774`
+- standard chunk size `289167`
+- standard SHA-256 `cba43702e0bac29d4baaaef2dab91e578c97e43b7d36f90838f1ead5e945efb5`
+- custom chunk size `289167`
+- custom SHA-256 `184caf21530481d4668a619415ebdf02ff7697719b84019ffab97b22b6e21df7`
 
-When documentation conflicts with machine artifacts, verify against the baseline bytecode and `validation_phase_d.json`; do not propagate a report-only claim.
+`validation_phase_d.json` is the machine-readable checkpoint.
 
-## New pre-bridge aim checkpoint (continuation)
+## Runtime ownership
 
-From a Git checkout, inspect `AIM_MUTATION_MAP.md` and
-`AIM_PROTOTYPE_INDEX.json`. `src/spectra/aim_mutation.lua` implements tested
-`P0.29.65` field decisions and exact `R52` profile literals but is not called
-by the active bridge. `aim`/`anti_shake` remain payload-owned until the recursive
-walker, bone and refresh paths are reconstructed and checked end to end. Re-run
-`python3 tools/build_phase_d.py && python3 tools/validate_phase_d.py` in the
-Git checkout. The regenerated hashes are in `validation_phase_d.json`.
+Source-owned after the byte-identical payload initializes:
 
-Previous handoff artifact (historical; current hashes are in `validation_phase_d.json`):
+- wrapper/bootstrap/auth/storage/login UI
+- native post-login settings UI
+- `no_recoil`
+- `converge`
+- `aim`
+- `anti_shake`
+- source `set_dongdong_feature_config` (`P0.29.73`)
+- source `set_dongdong_aim_part` (`P0.29.77`)
+- aim chain `P68 -> P67 -> P63 -> P66 -> P65`
+- `P0.29.74..76` weapon/runtime refresh
+- public visual entries and reconstructed visual scan/fashion/tick path
 
-- source: 337273 bytes, SHA-256 `f9466f7719ac56d3b0b0d3b9170730b1971b3851816357debedfbf06d9b29b59`
-- custom chunk: 279500 bytes, SHA-256 `330a8c6b927ec565f6142263b52b3e4e4aae29355966351fe99c573c9096968e`
-- baseline/payload: original hashes unchanged; `game_runtime_test=false`
+Still payload-owned:
 
-`P0.29.66` recursive field walker is materialized and snapshot/restore tested.
-Its outer P68 dispatcher and aim-only P67 row branch are also materialized,
-while their active runtime caller remains payload-owned.
+- remaining unreconstructed business/equipment behavior outside the migrated Phase D
+  feature/visual surfaces
+- saved payload feature/aim functions retained only as transactional fallback
 
-`aim_bones.lua` now materializes and tests the `P0.29.45/61..64` chain.
-`P0.29.74..76` weapon refresh is materialized in `aim_refresh.lua`.
-Bytecode behavior comparison and transactional bridge migration remain outstanding.
+## Aim prototype status
 
-## Direct-checkout checkpoint
+`AIM_PROTOTYPE_INDEX.json` is the current implementation/ownership index:
+**26 primary requested prototypes plus nested callbacks, 39 indexed entries total**.
 
-The tracked Git tree now includes `src/spectra/mutation_runtime.lua`, baseline and
-embedded payload, build/validation tools, focused tests, and bytecode evidence.
-`P0.29.68` is source materialized as `MutationRuntime.apply_feature`, with
-instruction-derived traversal and raw identity dedupe tests. `P0.29.74..76` reuse
-reconstructed `P2/P3/P4/P12` call helpers, including fallback after a failed
-first call. `P0.29.65`'s final parameter is `row_id`.
+`AIM_PROTOTYPE_INDEX_LEGACY_DETAILED.json` preserves the pre-takeover detailed structural
+metadata (instruction counts, constants, captures, conservative call edges). Do not use
+legacy runtime-status wording from that archive as the current ownership source.
 
-The previous source/custom hashes above describe the earlier handoff, not the
-current checkout. Read `validation_phase_d.json` for current hashes. The full
-`P67` and transactional dual-global bridge gates remain open, so `aim` and
-`anti_shake` are payload-owned and `game_runtime_test=false`.
+Important current mappings:
 
-A focused Gamepad fixture now exercises P68 → P67 → P63 → P66 → P65, verifies
-raw alias dedupe, and restores both field and bone snapshots. P15 bytecode
-records the original before a protected field assignment; a failed write
-can therefore leave a record that must be rolled back at bridge boundaries.
+- `P0.29.65` -> `replace_aim_field` in `aim_mutation.lua`
+- `P0.29.66` -> recursive walker in `aim_chain.lua`
+- `P0.29.67` -> aim row dispatcher in `aim_chain.lua`
+- `P0.29.68` -> reconstructed `apply_feature` in `mutation_runtime.lua`
+- `P0.29.74..76` -> `aim_refresh.lua`
+- `P0.29.77` -> source `set_dongdong_aim_part` in `feature_control.lua`
+
+Names above are reconstructed descriptions unless they are exact public globals.
+
+## Transactional bridge invariants
+
+The active feature bridge must preserve both original payload globals.
+
+- dependency failure before install: no global replacement
+- failure replacing the second global: restore both payload globals
+- source execution failure: rollback source snapshots/state, then call saved payload
+- no fallback recursion through the source wrapper
+- P77 delayed callbacks stay bound to source P73 after takeover
+
+Aim and anti-shake remain mutually exclusive.
+
+## Focused regressions
+
+The validator runs:
+
+- native settings UI
+- feature control
+- character visuals
+- aim runtime
+- P65 mutation
+- differential P65 fixtures
+- bone handling
+- refresh helper ABI
+- P68 dispatch
+- P67/P68 chain
+- chain fidelity
+- transactional mutation failures
+- mutation runtime
+- payload feature bridge
+- visual runtime/scan/bridge
+- wrapper smoke
+- auth/protocol fixture
+
+CI also checks custom/standard roundtrip, Lua 5.3 chunk structure, baseline/payload
+identity and deterministic custom-chunk output.
+
+## Remaining required runtime checkpoint
+
+`game_runtime_test=false`.
+
+Do not change it until the rebuilt custom chunk is actually executed in the DFM/game
+runtime. CI/mock success is not a substitute for that engine-runtime execution.
