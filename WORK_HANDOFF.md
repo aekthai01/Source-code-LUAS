@@ -11,6 +11,27 @@ Use `baseline_original.luac` only as the binary source of truth.
 
 Do not continue from older experimental lifecycle-patched binaries.
 
+## Work branch and full snapshot
+
+Continue on branch `work/phase-d-aim-reconstruction`.
+
+The repository root on `main` is a **partial readable mirror**, not a complete extraction of the project. Do not infer that a file is absent from the project merely because it is absent from the root tree.
+
+The complete project snapshot is stored as:
+
+- `spectra_rebuild_snapshot.tar.xz`
+- original alias: `spectra_rebuild..tar.xz`
+- Git blob: `d082ce7c82c0c7904b7ca83e811e86efb39772bf`
+- GitHub-reported size: `342752` bytes
+
+Extract the snapshot before doing cross-file work. The source workspace used to create this handoff was re-verified against `validation_phase_d.json`:
+
+- `spectra_wrapper_phase_d_source.lua`: `302644` bytes, SHA-256 `66e728079d912dc93f45ed0e6929f126fc98e4a911d82479af9af4968f5116f1`
+- `spectra_wrapper_phase_d.custom.luac`: `260725` bytes, SHA-256 `78017b01338c4a6fdaeded208350e0e31934ceff217b98e8c3fe2ce1e6235346`
+- `embedded_payload.bin`: `108533` bytes, SHA-256 `a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263`
+
+Readable overlay files on the Work branch may be newer/more complete than the partial mirror on `main`, but the extracted snapshot remains the complete project workspace.
+
 ## Current materialized checkpoint
 
 Authoritative machine-readable state: `validation_phase_d.json`.
@@ -58,7 +79,7 @@ Primary target group:
 - `P0.29.74..77`
 - especially `P0.29.65` (842 instructions / 136 constants)
 
-Useful extracted disassembly is already in `_aim_sections/` and the full source evidence remains in `payload_disassembly.txt`, `payload_constants.json`, `payload_prototypes.json`, and related forensic files.
+Useful extracted disassembly is already in `_aim_sections/` inside the full snapshot, and the full source evidence remains in `payload_disassembly.txt`, `payload_constants.json`, `payload_prototypes.json`, and related forensic files.
 
 Requirements for the next migration:
 
@@ -71,6 +92,8 @@ Requirements for the next migration:
 7. Do not claim game-runtime compatibility until the rebuilt custom chunk is actually tested in the DFM/game runtime.
 
 ## Build / validation
+
+After extracting the snapshot:
 
 ```sh
 python3 tools/build_phase_d.py
