@@ -124,3 +124,19 @@ texlua tests/protocol_fixture.lua .
 - `RUNTIME_TEST_CHECKLIST.md`
 
 When documentation conflicts with machine artifacts, verify against the baseline bytecode and `validation_phase_d.json`; do not propagate a report-only claim.
+
+## New pre-bridge aim checkpoint (continuation)
+
+After extracting the updated snapshot, inspect `AIM_MUTATION_MAP.md` and
+`AIM_PROTOTYPE_INDEX.json`. `src/spectra/aim_mutation.lua` implements tested
+`P0.29.65` field decisions and exact `R52` profile literals but is not called
+by the active bridge. `aim`/`anti_shake` remain payload-owned until the recursive
+walker, bone and refresh paths are reconstructed and checked end to end. Re-run
+`python3 tools/build_phase_d.py && python3 tools/validate_phase_d.py` in the
+extracted snapshot. The regenerated hashes are in `validation_phase_d.json`.
+
+Validated static artifact for this continuation:
+
+- source: 323762 bytes, SHA-256 `d73577920be1a27db7a597bf9abf8f665c5e101fc3ac0f76980043346ee6a8d3`
+- custom chunk: 270608 bytes, SHA-256 `31db21bb6bf378f93ba99d417729237ee74aaad8e4cda0d39cbadb0e6bc20c9a`
+- baseline/payload: original hashes unchanged; `game_runtime_test=false`

@@ -9,33 +9,106 @@
     "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263"
   },
   "phase_d_source": {
-    "size": 302644,
-    "sha256": "66e728079d912dc93f45ed0e6929f126fc98e4a911d82479af9af4968f5116f1"
+    "size": 323762,
+    "sha256": "d73577920be1a27db7a597bf9abf8f665c5e101fc3ac0f76980043346ee6a8d3"
   },
   "phase_d_standard": {
-    "size": 260725,
-    "sha256": "1ee7d9a013d608761239b862a8d5ace265dc6861744d9e0c52d9f7553be5a98d"
+    "size": 270608,
+    "sha256": "a2440922127072c447de874ed74469fe8cd26ff0ab4f7ddf87c5ab7678f9b485"
   },
   "phase_d_custom": {
-    "size": 260725,
-    "sha256": "78017b01338c4a6fdaeded208350e0e31934ceff217b98e8c3fe2ce1e6235346"
+    "size": 270608,
+    "sha256": "31db21bb6bf378f93ba99d417729237ee74aaad8e4cda0d39cbadb0e6bc20c9a"
   },
   "reconstructed_group": {
     "ui_prototype": "0.29.105",
-    "feature_control_prototypes": ["0.29.73", "0.29.77"],
-    "visual_entry_prototypes": ["0.29.99", "0.29.100", "0.29.101", "0.29.102", "0.29.103"],
-    "visual_scan_prototypes": ["0.29.78", "0.29.79", "0.29.80", "0.29.81", "0.29.82", "0.29.83", "0.29.84", "0.29.85", "0.29.86", "0.29.87", "0.29.88", "0.29.89", "0.29.90", "0.29.91", "0.29.92", "0.29.93", "0.29.94", "0.29.95", "0.29.96", "0.29.97", "0.29.98"],
+    "feature_control_prototypes": [
+      "0.29.73",
+      "0.29.77"
+    ],
+    "aim_reconstruction": {
+      "helper_prototypes": [
+        "0.29.30",
+        "0.29.31",
+        "0.29.32",
+        "0.29.33",
+        "0.29.34",
+        "0.29.35",
+        "0.29.36",
+        "0.29.37",
+        "0.29.38",
+        "0.29.39",
+        "0.29.40",
+        "0.29.41",
+        "0.29.42",
+        "0.29.43"
+      ],
+      "field_replacement_prototype": "0.29.65",
+      "profile_ids": [
+        1,
+        1001,
+        1002,
+        1003,
+        11001,
+        1004
+      ],
+      "source_present": true,
+      "active_runtime_bridge": false,
+      "walker_and_refresh_complete": false
+    },
+    "visual_entry_prototypes": [
+      "0.29.99",
+      "0.29.100",
+      "0.29.101",
+      "0.29.102",
+      "0.29.103"
+    ],
+    "visual_scan_prototypes": [
+      "0.29.78",
+      "0.29.79",
+      "0.29.80",
+      "0.29.81",
+      "0.29.82",
+      "0.29.83",
+      "0.29.84",
+      "0.29.85",
+      "0.29.86",
+      "0.29.87",
+      "0.29.88",
+      "0.29.89",
+      "0.29.90",
+      "0.29.91",
+      "0.29.92",
+      "0.29.93",
+      "0.29.94",
+      "0.29.95",
+      "0.29.96",
+      "0.29.97",
+      "0.29.98"
+    ],
     "hooks": 9,
     "feature_controls": 13,
     "title_widgets": 4,
     "runtime_takeover": {
       "ui": true,
-      "feature_control": {"no_recoil": true, "converge": true, "aim": false, "anti_shake": false},
-      "visual_entries": {"set_ai_color": true, "set_real_player_color": true, "set_character_xray": true},
+      "feature_control": {
+        "no_recoil": true,
+        "converge": true,
+        "aim": false,
+        "anti_shake": false
+      },
+      "visual_entries": {
+        "set_ai_color": true,
+        "set_real_player_color": true,
+        "set_character_xray": true
+      },
       "visual_background_tick": "reconstructed_source",
       "visual_fashion_refresh_hook": "reconstructed_source"
     },
-    "intentional_title_change": {"baseline": "@starrmods        ", "reconstructed": "@DrkZeref"}
+    "intentional_title_change": {
+      "baseline": "@starrmods        ",
+      "reconstructed": "@DrkZeref"
+    }
   },
   "checks": {
     "baseline_identity": true,
@@ -47,6 +120,7 @@
     "feature_control_unit": "passed",
     "character_visuals_unit": "passed",
     "aim_runtime_unit": "passed",
+    "aim_mutation_unit": "passed",
     "visual_runtime_unit": "passed",
     "mutation_runtime_unit": "passed",
     "payload_feature_bridge_unit": "passed",

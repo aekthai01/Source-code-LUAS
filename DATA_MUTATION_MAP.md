@@ -128,3 +128,11 @@ D3 does not claim source ownership of `aim` or `anti_shake`. The aim row mutatio
 enters `0.29.65`, which is 842 instructions with 136 constants and mode/table-specific
 replacement logic. It must be reconstructed and tested before the public bridge can
 safely route those features away from the known-good payload.
+
+### Aim field replacement checkpoint
+
+`aim_mutation.lua` reconstructs `P0.29.65` decisions and the parent `R52` profile
+constants from verified bytecode. The row snapshot/write lives in `P0.29.66`,
+not inside `P0.29.65`; its source bridge is still pending. See
+`AIM_MUTATION_MAP.md` for the ordinary/Gamepad distinction, fire/ADS branches,
+and exact replacement return contract. Runtime ownership has not changed.
