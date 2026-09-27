@@ -17,6 +17,8 @@ M.PROTOTYPES = {
     _CheckDurabulity = "0.8",
     CheckEquipSlotEmpty = "0.9",
     CheckEquipSlotValue = "0.10",
+    DynamicGuidPriceFinishFetch = "0.11",
+    CheckRaidBulletEnough = "0.12",
 }
 M.ROOT_FIELDS = { "EquipTypeList", "ContainerTypeList" }
 
@@ -548,6 +550,78 @@ function M.DynamicGuidPriceFinishFetch(product, globals, should_finish_fetch)
         local check_equipment_value = product._CheckEquipmentValue
         check_equipment_value()
     end
+end
+
+-- P0.12 and nested P0.12.0. R2 error_logger, R1 info_logger, root globals
+-- and source R3 product table are explicit source dependencies. The nested
+-- match helper is resolved dynamically from R3 per occupied slot. No payload
+-- closure is inspected or called by this implementation.
+function M.CheckRaidBulletEnough(product, globals, dependencies, match_mode_id)
+    dependencies = assert(dependencies, "P0.12 source dependencies required")
+    globals = globals or dependencies.globals or _G
+    local error_logger = assert(dependencies.error_logger, "P0.12 R2 error logger missing")
+    local info_logger = assert(dependencies.info_logger, "P0.12 R1 info logger missing")
+
+    if not match_mode_id then
+        error_logger("CheckEquipLogic.CheckRaidBulletEnough matchModeID is nil")
+        return
+    end
+
+    local slots = {
+        globals.ESlotType.MainWeaponLeft,
+        globals.ESlotType.MainWeaponRight,
+        globals.ESlotType.Pistrol,
+    }
+    local enough = false
+    local abnormal_data = {}
+    local slot_group_id = globals.Server.ArmedForceServer:GetCurSlotGroupId()
+
+    local function check_slot(slot_type)
+        local slot = globals.Server.InventoryServer:GetSlot(slot_type, slot_group_id)
+        local weapon_item = slot:GetEquipItem()
+        if weapon_item then
+            local weapon_prefix_id = globals.tonumber(globals.string.sub(
+                globals.tostring(weapon_item.id), 1, 4))
+            local field = globals.Module.ArmedForce.Field
+            local configured_ammo = field:GetRaidBulletCheckNum(match_mode_id, weapon_prefix_id)
+            local get_match_bullet_num = product.GetMatchBulletNumByWeaponItem
+            local matched_bullets = get_match_bullet_num(weapon_item, slot_group_id)
+            if 0 < configured_ammo then
+                if configured_ammo < matched_bullets then
+                    enough = true
+                    info_logger(globals.string.format(
+                        "CheckEquipLogic.CheckRaidBulletEnough raid子弹检查结果 matchModeID = %s, weaponPrefixID = %s, 槽位 = %s, 子弹足够 携带num = %s",
+                        match_mode_id, weapon_prefix_id, slot_type, matched_bullets))
+                else
+                    local abnormal = {
+                        id = weapon_item.id,
+                        checkBulletNum = configured_ammo,
+                        needNum = configured_ammo - matched_bullets,
+                    }
+                    abnormal_data[slot_type] = abnormal
+                    info_logger(globals.string.format(
+                        "CheckEquipLogic.CheckRaidBulletEnough raid子弹检查结果 matchModeID = %s, weaponPrefixID = %s, 槽位 = %s, id = %s, checkBulletNum = %s, needNum = %s",
+                        match_mode_id, weapon_prefix_id, slot_type, weapon_item.id,
+                        configured_ammo, configured_ammo - matched_bullets))
+                end
+            else
+                error_logger("CheckEquipLogic.CheckRaidBulletEnough Not configured ",
+                    match_mode_id, weapon_prefix_id)
+            end
+        else
+            info_logger(globals.string.format(
+                "CheckEquipLogic.CheckRaidBulletEnough raid子弹检查结果 matchModeID = %s, weaponPrefixID = %s, 槽位 = %s, 没带武器",
+                match_mode_id, globals.weaponPrefixID, slot_type))
+        end
+    end
+
+    for _, slot_type in globals.ipairs(slots) do
+        check_slot(slot_type)
+    end
+
+    info_logger(globals.string.format(
+        "CheckEquipLogic.CheckRaidBulletEnough raid子弹检查结果 ==> bEnough = %s", enough))
+    return enough, abnormal_data
 end
 
 return M

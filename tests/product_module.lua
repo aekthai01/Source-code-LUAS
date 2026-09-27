@@ -1123,6 +1123,137 @@ do
     eq(table.concat(calls,","),"flow:1,check,flow:2","P0.11 false argument suppresses child after flow gate")
 end
 
+-- P0.12 bytecode fixtures cover nil match mode, slot/group order, prefix
+-- extraction, static R3 helper lookup, strict ammo threshold, missing ammo
+-- configuration, abnormal map records, and return arity.
+do
+    local slot_names={MainWeaponLeft="left",MainWeaponRight="right",Pistrol="pistol"}
+    local items={}
+    local ammo_config={[1234]=10,[2345]=8,[3456]=5}
+    local calls,logs,errors={}, {}, {}
+    local helper_calls={}
+    local std_format=string.format
+    local format_calls={}
+    local product={GetMatchBulletNumByWeaponItem=function(...)
+        local args=table.pack(...)
+        eq(args.n,2,"P0.12 static match helper argument arity")
+        helper_calls[#helper_calls+1]=args
+        calls[#calls+1]="match:"..tostring(args[1].id)
+        return args[1].matched or 0
+    end}
+    local field={}
+    field.GetRaidBulletCheckNum=function(self,mode,prefix)
+        eq(self,field,"P0.12 raid config receiver")
+        calls[#calls+1]="config:"..tostring(mode)..":"..tostring(prefix)
+        return ammo_config[prefix]
+    end
+    local group="raid-group"
+    local env={
+        ESlotType=slot_names,
+        Server={
+            ArmedForceServer={GetCurSlotGroupId=function(self)
+                calls[#calls+1]="group"; return group
+            end},
+            InventoryServer={GetSlot=function(self,slot_type,slot_group)
+                eq(slot_group,group,"P0.12 captured group forwarding")
+                calls[#calls+1]="slot:"..slot_type
+                return {GetEquipItem=function()
+                    calls[#calls+1]="item:"..slot_type
+                    return items[slot_type]
+                end}
+            end},
+        },
+        Module={ArmedForce={Field=field}},
+        weaponPrefixID="weapon-prefix",
+        string={sub=string.sub,format=function(...)
+            local args=table.pack(...)
+            format_calls[#format_calls+1]=args
+            return std_format(table.unpack(args,1,args.n)),"extra-format-result"
+        end},
+        tostring=tostring,tonumber=tonumber,ipairs=ipairs,
+    }
+    local deps={
+        error_logger=function(...)
+            errors[#errors+1]=table.pack(...); calls[#calls+1]="error"
+        end,
+        info_logger=function(...)
+            logs[#logs+1]=table.pack(...); calls[#calls+1]="info"
+        end,
+        globals=env,
+        product=product,
+    }
+    local nil_mode=table.pack(Product.CheckRaidBulletEnough(product,env,deps,nil))
+    eq(nil_mode.n,0,"P0.12 nil match mode has zero returns")
+    eq(#errors,1,"P0.12 nil mode logs exactly once")
+    eq(errors[1].n,1); eq(errors[1][1],"CheckEquipLogic.CheckRaidBulletEnough matchModeID is nil")
+    eq(#helper_calls,0,"P0.12 nil mode skips slots and helper")
+    eq(#logs,0,"P0.12 nil mode returns before info summary")
+
+    errors,logs,calls,helper_calls={},{},{},{}
+    items={left={id=1234001,matched=11},right={id=2345001,matched=8},pistol={id=3456001,matched=4}}
+    local result=table.pack(Product.CheckRaidBulletEnough(product,env,deps,"mode-7"))
+    eq(result.n,2,"P0.12 returns enough plus abnormal map")
+    eq(result[1],true,"P0.12 strict > enough flag")
+    eq(result[2].left,nil,"P0.12 successful left slot absent from abnormal map")
+    eq(result[2].right.needNum,0,"P0.12 equality is not enough under strict threshold")
+    eq(result[2].pistol.needNum,1,"P0.12 pistol shortage")
+    eq(result[2].pistol.checkBulletNum,5)
+    eq(result[2].pistol.id,3456001)
+    eq(#helper_calls,3,"P0.12 helper called for each occupied slot")
+    eq(helper_calls[1][1],items.left); eq(helper_calls[1][2],group)
+    eq(helper_calls[2][1],items.right); eq(helper_calls[3][1],items.pistol)
+    eq(table.concat(calls,","),
+        "group,slot:left,item:left,config:mode-7:1234,match:1234001,info,slot:right,item:right,config:mode-7:2345,match:2345001,info,slot:pistol,item:pistol,config:mode-7:3456,match:3456001,info,info",
+        "P0.12 strict left/right/pistol call order")
+    eq(logs[1].n,2,"P0.12 enough diagnostic forwards open format results")
+    eq(logs[2].n,2,"P0.12 deficit diagnostic forwards open format results")
+    eq(logs[3].n,2,"P0.12 pistol diagnostic forwards open format results")
+    eq(logs[4].n,2,"P0.12 final summary forwards open format results")
+    eq(logs[1][2],"extra-format-result")
+    eq(format_calls[1].n,5,"P0.12 enough format receives four format arguments plus template")
+    eq(format_calls[2].n,7,"P0.12 deficit format receives six format arguments plus template")
+    eq(format_calls[3].n,7,"P0.12 pistol format receives six format arguments plus template")
+    eq(format_calls[4].n,2,"P0.12 summary formatter receives its bool")
+    eq(logs[1][1],"CheckEquipLogic.CheckRaidBulletEnough raid子弹检查结果 matchModeID = mode-7, weaponPrefixID = 1234, 槽位 = left, 子弹足够 携带num = 11")
+    eq(logs[2][1],"CheckEquipLogic.CheckRaidBulletEnough raid子弹检查结果 matchModeID = mode-7, weaponPrefixID = 2345, 槽位 = right, id = 2345001, checkBulletNum = 8, needNum = 0")
+    eq(logs[4][1],"CheckEquipLogic.CheckRaidBulletEnough raid子弹检查结果 ==> bEnough = true")
+    local old_dynamic_helper=product.GetMatchBulletNumByWeaponItem
+    local late_calls=0
+    product.GetMatchBulletNumByWeaponItem=function(item,group_id)
+        eq(group_id,group,"P0.12 dynamic helper receives slot group")
+        late_calls=late_calls+1
+        return 20
+    end
+    local late_result=table.pack(Product.CheckRaidBulletEnough(product,env,deps,"mode-late"))
+    eq(late_result[1],true,"P0.12 resolves dynamically replaced R3 helper")
+    eq(late_calls,3,"P0.12 re-reads R3 helper for each occupied slot")
+    product.GetMatchBulletNumByWeaponItem=old_dynamic_helper
+
+    errors,logs,calls,helper_calls={},{},{},{}
+    items={left={id=1234001,matched=0}}
+    ammo_config={[1234]=0}
+    local not_configured=table.pack(Product.CheckRaidBulletEnough(product,env,deps,"mode-none"))
+    eq(not_configured.n,2,"P0.12 unconfigured ammo still returns pair")
+    eq(not_configured[1],false)
+    eq(next(not_configured[2]),nil,"P0.12 unconfigured ammo does not mutate abnormal map")
+    eq(errors[1].n,3,"P0.12 not-configured logger has exact ABI")
+    eq(errors[1][1],"CheckEquipLogic.CheckRaidBulletEnough Not configured ")
+    eq(errors[1][2],"mode-none"); eq(errors[1][3],1234)
+    eq(table.concat(calls,","),
+        "group,slot:left,item:left,config:mode-none:1234,match:1234001,error,slot:right,item:right,info,slot:pistol,item:pistol,info,info",
+        "P0.12 not-configured and empty-slot side effect order")
+    local no_weapon_row
+    for _,row in ipairs(format_calls) do
+        if row[1]:find("没带武器",1,true) then no_weapon_row=row; break end
+    end
+    truth(no_weapon_row,"P0.12 no-weapon format branch reached")
+    eq(no_weapon_row[2],"mode-none")
+    eq(no_weapon_row[3],"weapon-prefix")
+    eq(no_weapon_row[4],"right")
+    eq(logs[1].n,2,"P0.12 no-weapon info logger gets open format results")
+    eq(logs[1][2],"extra-format-result")
+end
+
 -- The final TESTSET in P0.10 implements `price or 0` for a falsey result.
 do
     local item={name="masked-price"}

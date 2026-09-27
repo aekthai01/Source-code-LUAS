@@ -101,10 +101,24 @@ flow_calls=0
 local p011_false=table.pack(product.DynamicGuidPriceFinishFetch(false))
 eq(p011_false.n,0,"P0.11 false gate returns no values")
 eq(child_calls,1,"P0.11 false argument suppresses child")
+local p12_errors,p12_infos={},{}
+local old_error,old_info=context.error_logger,context.info_logger
+context.error_logger=function(...) p12_errors[#p12_errors+1]=table.pack(...) end
+context.info_logger=function(...) p12_infos[#p12_infos+1]=table.pack(...) end
+local old_item=product.CheckRaidBulletEnough
+product.CheckRaidBulletEnough=S.ProductConstructor.create(context,globals).CheckRaidBulletEnough
+local p12_nil=table.pack(product.CheckRaidBulletEnough(nil))
+eq(p12_nil.n,0,"P0.12 nil match mode has zero returns")
+eq(#p12_errors,1,"P0.12 R2 error logger used")
+eq(p12_errors[1][1],"CheckEquipLogic.CheckRaidBulletEnough matchModeID is nil")
+product.CheckRaidBulletEnough=old_item
+context.error_logger,context.info_logger=old_error,old_info
+product=S.ProductConstructor.create(context,globals)
 local names={
     "CheckEquipmentBeforEnterGameProcess","_CheckProcess","_CheckEquipmentValue",
     "GetAllEquipmentValue","_CheckMedicine","_CheckUnCarryMedicine","_CheckContainer",
     "_CheckBullet","_CheckDurabulity","CheckEquipSlotEmpty","CheckEquipSlotValue",
+    "DynamicGuidPriceFinishFetch","CheckRaidBulletEnough",
 }
 for _,name in ipairs(names) do truth(type(product[name])=="function",name.." source export") end
 

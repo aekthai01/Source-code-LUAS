@@ -18,6 +18,7 @@ M.METHODS = {
     "CheckEquipSlotEmpty",
     "CheckEquipSlotValue",
     "DynamicGuidPriceFinishFetch",
+    "CheckRaidBulletEnough",
 }
 M.ROOT_METHOD_COUNT = 29
 
@@ -44,6 +45,12 @@ local function dependency_sets(context)
         CheckEquipSlotValue = {
             price_logger = context.info_logger,
         },
+        CheckRaidBulletEnough = {
+            error_logger = context.error_logger,
+            info_logger = context.info_logger,
+            globals = context.globals,
+            product = context.product,
+        },
     }
 end
 
@@ -60,6 +67,9 @@ local function wrap(name, target, dependencies, environment)
             result = table.pack(pcall(target, product, environment, arguments[1], dependencies))
         elseif name == "DynamicGuidPriceFinishFetch" then
             result = table.pack(pcall(target, product, environment, arguments[1]))
+        elseif name == "CheckRaidBulletEnough" then
+            result = table.pack(pcall(target, product, dependencies.globals or environment,
+                dependencies, arguments[1]))
         else
             result = table.pack(pcall(target, product, environment, dependencies))
         end
@@ -126,6 +136,7 @@ function M.install(target, options)
         CheckEquipSlotEmpty = Source.CheckEquipSlotEmpty,
         CheckEquipSlotValue = Source.CheckEquipSlotValue,
         DynamicGuidPriceFinishFetch = Source.DynamicGuidPriceFinishFetch,
+        CheckRaidBulletEnough = Source.CheckRaidBulletEnough,
     }
 
     local set_method = options.set_method or default_set_method

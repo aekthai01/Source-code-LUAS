@@ -46,7 +46,7 @@ local environment={
     },
 }
 
--- All P0.0..P0.11 public methods install from one source context. No payload
+-- All P0.0..P0.12 public methods install from one source context. No payload
 -- upvalue extraction is involved.
 do
     Bridge.restore_original()
@@ -59,7 +59,7 @@ do
     eq(report.source_only_dependency,true,"source-only dependency report")
     eq(report.payload_upvalue_introspection,false,"payload upvalue introspection disabled")
     local status=Bridge.status()
-    eq(status.source_owned_root_methods,12,"P0.0..P0.11 public methods source-owned")
+    eq(status.source_owned_root_methods,13,"P0.0..P0.12 public methods source-owned")
     eq(status.source_only_dependency,true,"status source-only dependency")
     for _,name in ipairs(Bridge.METHODS) do truth(product[name]~=originals[name],name.." replaced") end
 
@@ -78,6 +78,49 @@ do
     eq(fetch.n,0,"P0.11 bridge return arity")
     eq(child_calls,1,"P0.11 bridge source R3 child call")
     eq(#payload_calls,0,"source P0.11 must not call saved payload method")
+
+    Bridge.restore_original()
+
+    local source_calls={}
+    local raid_product={}
+    for _,name in ipairs(Bridge.METHODS) do
+        raid_product[name]=function() payload_calls[#payload_calls+1]=name end
+    end
+    raid_product.GetMatchBulletNumByWeaponItem=function(...)
+        local args=table.pack(...); eq(args.n,2,"P0.12 match helper ABI")
+        source_calls[#source_calls+1]="match"
+        return 4
+    end
+    local info_rows={}
+    local raid_context=context_fixture(environment); raid_context.product=raid_product
+    raid_context.error_logger=function(...) source_calls[#source_calls+1]="error" end
+    raid_context.info_logger=function(...) info_rows[#info_rows+1]=table.pack(...) end
+    local raid_field={GetRaidBulletCheckNum=function() return 3 end}
+    environment.Server={
+        ArmedForceServer={GetCurSlotGroupId=function() return "raid-g" end},
+        InventoryServer={GetSlot=function(_,slot_type,group)
+            eq(group,"raid-g"); source_calls[#source_calls+1]="slot:"..tostring(slot_type)
+            return {GetEquipItem=function() return {id=1234001} end}
+        end},
+    }
+    environment.ESlotType={MainWeaponLeft="left",MainWeaponRight="right",Pistrol="pistol"}
+    environment.Module={ArmedForce={Field=raid_field}}
+    environment.weaponPrefixID="wp"
+    environment.ipairs=ipairs
+    environment.tostring=tostring
+    environment.tonumber=tonumber
+    environment.string={sub=string.sub,format=string.format}
+    local raid_ok=Bridge.install(raid_product,{context=raid_context,environment=environment})
+    truth(raid_ok,"P0.12 bridge source install")
+    local raid_result=table.pack(raid_product.CheckRaidBulletEnough("raid-mode"))
+    eq(raid_result.n,2,"P0.12 bridge return arity")
+    eq(raid_result[1],true,"P0.12 bridge sufficient ammo result")
+    eq(next(raid_result[2]),nil,"P0.12 bridge no abnormal for strict greater")
+    eq(#info_rows,4,"P0.12 info log per weapon plus summary")
+    eq(table.concat(source_calls,","),"slot:left,match,slot:right,match,slot:pistol,match",
+        "P0.12 bridge R3 callback lookup and slot order")
+    eq(#payload_calls,0,"P0.12 bridge never calls original methods")
+    Bridge.restore_original()
 
     Bridge.restore_original()
     for _,name in ipairs(Bridge.METHODS) do eq(product[name],originals[name],name.." restored") end

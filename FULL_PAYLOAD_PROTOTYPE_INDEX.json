@@ -20,12 +20,12 @@
   },
   "coverage": {
     "classified": 296,
-    "source_owned": 87,
-    "payload_owned": 209,
+    "source_owned": 89,
+    "payload_owned": 207,
     "partially_reconstructed": 0,
     "dead_or_unreachable_verified": 0,
     "unknown": 0,
-    "root_methods_source_owned": 12,
+    "root_methods_source_owned": 13,
     "root_methods_total": 29
   },
   "root_public_methods": {
@@ -115,10 +115,10 @@
     },
     "CheckRaidBulletEnough": {
       "prototype_id": "P0.12",
-      "current_ownership": "payload_owned",
-      "source_file": null,
-      "runtime_takeover": "payload",
-      "source_only_dependency": false
+      "current_ownership": "source_owned",
+      "source_file": "src/spectra/product_module.lua",
+      "runtime_takeover": "source",
+      "source_only_dependency": true
     },
     "GetMatchBulletNumByWeaponItem": {
       "prototype_id": "P0.13",
@@ -250,6 +250,8 @@
       "0.9",
       "0.10",
       "0.11",
+      "0.12",
+      "0.12.0",
       "0.29.17",
       "0.29.26",
       "0.29.29",
@@ -325,8 +327,6 @@
     ],
     "payload_owned": [
       "0",
-      "0.12",
-      "0.12.0",
       "0.13",
       "0.13.0",
       "0.14",
@@ -554,6 +554,8 @@
     "0.9": "src/spectra/product_module.lua",
     "0.10": "src/spectra/product_module.lua",
     "0.11": "src/spectra/product_module.lua",
+    "0.12": "src/spectra/product_module.lua",
+    "0.12.0": "src/spectra/product_module.lua",
     "0.29.17": "src/spectra/mutation_runtime.lua",
     "0.29.26": "src/spectra/mutation_runtime.lua",
     "0.29.29": "src/spectra/mutation_runtime.lua",
