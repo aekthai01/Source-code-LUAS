@@ -146,3 +146,6 @@ source, and requires explicit bone handling before it can be used by the bridge.
 
 `aim_bones.lua` also materializes the `P0.29.64` table refresh, with tested
 snapshot restoration before rescanning the aim-assistor table.
+
+The weapon refresh dependency `P0.29.74..76` is source materialized in
+`aim_refresh.lua` but is not yet bound to the active aim bridge.

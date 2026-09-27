@@ -137,12 +137,13 @@ extracted snapshot. The regenerated hashes are in `validation_phase_d.json`.
 
 Validated static artifact for this continuation:
 
-- source: 332437 bytes, SHA-256 `a646bc474cf089c7bca5e4a106a74de5d0378b097e8c90f33a82475827672fe6`
-- custom chunk: 276003 bytes, SHA-256 `9c40b41541cb90ddae3b3e79ddecb9a807212e2e38b675ed0033f844a41e8f36`
+- source: 337273 bytes, SHA-256 `f9466f7719ac56d3b0b0d3b9170730b1971b3851816357debedfbf06d9b29b59`
+- custom chunk: 279500 bytes, SHA-256 `330a8c6b927ec565f6142263b52b3e4e4aae29355966351fe99c573c9096968e`
 - baseline/payload: original hashes unchanged; `game_runtime_test=false`
 
 `P0.29.66` recursive field walker is now materialized and snapshot/restore tested,
 but its outer `P0.29.67/68`, bone and refresh paths are not yet source-owned.
 
 `aim_bones.lua` now materializes and tests the `P0.29.45/61..64` chain.
-`P0.29.74..76` weapon refresh and bridge migration remain outstanding.
+`P0.29.74..76` weapon refresh is materialized in `aim_refresh.lua`.
+Bytecode behavior comparison and transactional bridge migration remain outstanding.
