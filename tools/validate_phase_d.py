@@ -39,6 +39,8 @@ def main():
     assert transform(cus,'to-standard',8)==std
     assert transform(transform(cus,'to-standard',8),'to-custom',4)==cus
     assert Scanner(cus).scan()['version']==0x53 and Scanner(cus).scan()['sizet_size']==4
+    bridge_text=(ROOT/'src/spectra/payload_feature_bridge.lua').read_text()
+    assert 'M.AIM_TAKEOVER_ENABLED = true' in bridge_text
     text=(ROOT/'src/spectra/native_settings_ui.lua').read_text()
     assert 'M.PAGE_TITLE = "@DrkZeref"' in text
     assert '@starrmods' not in text
@@ -66,7 +68,7 @@ def main():
     out2=run([lua,str(ROOT/'tests/smoke.lua'),str(ROOT)]); assert 'smoke: ok' in out2
     out3=run([lua,str(ROOT/'tests/protocol_fixture.lua'),str(ROOT)]); assert 'protocol-fixture: ok' in out3
     report={
-      'phase':'D4-aim-transactional-bridge-gated',
+      'phase':'D4-aim-source-runtime-takeover',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
       'reconstructed_group':{
         'ui_prototype':'0.29.105',
@@ -85,7 +87,7 @@ def main():
           'source_chain_complete':True,
           'refresh_helper_abi_verified':True,
           'transactional_dual_global_bridge':True,
-          'active_runtime_bridge':False,
+          'active_runtime_bridge':True,
           'gamepad_aim_chain_fixture':True,
           'differential_p65_fixtures':True,
           'walker_and_refresh_complete':True
@@ -95,7 +97,7 @@ def main():
         'hooks':9,'feature_controls':13,'title_widgets':4,
         'runtime_takeover':{
           'ui':True,
-          'feature_control':{'no_recoil':True,'converge':True,'aim':False,'anti_shake':False},
+          'feature_control':{'no_recoil':True,'converge':True,'aim':True,'anti_shake':True},
           'visual_entries':{'set_ai_color':True,'set_real_player_color':True,'set_character_xray':True},
           'visual_background_tick':'reconstructed_source','visual_fashion_refresh_hook':'reconstructed_source'
         },
@@ -103,7 +105,7 @@ def main():
       },
       'checks':{
         'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,
-        'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,
+        'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'runtime_ownership_gate':'passed',
         'native_settings_ui_smoke':'passed','feature_control_unit':'passed','character_visuals_unit':'passed',
         'aim_runtime_unit':'passed','aim_mutation_unit':'passed','aim_differential_unit':'passed','aim_bones_unit':'passed','aim_refresh_unit':'passed','aim_abi_unit':'passed','aim_dispatch_unit':'passed','aim_chain_unit':'passed','aim_chain_fidelity_unit':'passed','aim_transaction_unit':'passed','visual_runtime_unit':'passed','mutation_runtime_unit':'passed',
         'payload_feature_bridge_unit':'passed','visual_scan_unit':'passed','visual_background_unit':'passed','payload_visual_bridge_unit':'passed',
@@ -111,7 +113,7 @@ def main():
       },
       'correction':{
         'previous_unmaterialized_d4_claim_retracted':True,
-        'note':'Aim source chain and transactional dual-global bridge are materialized and tested, but the runtime ownership gate remains disabled until this checkpoint passes reproducible CI.'
+        'note':'Aim/anti_shake source ownership was enabled only after the gated source-chain, differential, ABI, rollback, deterministic-build and direct-checkout CI checkpoint passed. game_runtime_test remains false.'
       }
     }
     (ROOT/'validation_phase_d.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')

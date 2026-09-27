@@ -32,8 +32,8 @@ def find_luac():
 
 def bundle():
     parts = [
-        "-- SPECTRA Phase-D wrapper: clean auth + reconstructed UI + partial feature runtime.",
-        "-- Embedded payload remains byte-identical; D4-recovery source owns UI + no_recoil/converge + public visual entries after init.",
+        "-- SPECTRA Phase-D wrapper: clean auth + reconstructed UI/feature/visual runtime.",
+        "-- Embedded payload remains byte-identical; source owns no_recoil/converge, aim/anti_shake, and public visual entries after init with transactional fallback.",
         "local S = {}",
     ]
     for name in MODULES:

@@ -4,8 +4,9 @@ local M = {}
 S.PayloadFeatureBridge = M
 
 M.PROTOTYPE_GROUP = { "0.29.17", "0.29.26", "0.29.29", "0.29.63", "0.29.65", "0.29.66", "0.29.67", "0.29.68", "0.29.73", "0.29.77" }
--- Flip only after static/focused validation passes. Tests may force the gate.
-M.AIM_TAKEOVER_ENABLED = false
+-- Aim/anti-shake ownership is enabled only after the gated source-chain,
+-- differential, ABI, rollback and deterministic CI checkpoint passed.
+M.AIM_TAKEOVER_ENABLED = true
 
 local installed = false
 local original_feature_config

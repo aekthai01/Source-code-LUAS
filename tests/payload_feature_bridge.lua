@@ -33,9 +33,11 @@ local original_feature=function(feature,enabled)
 end
 local original_aim=function() original_aim_calls=original_aim_calls+1; return "payload-aim" end
 
+eq(Bridge.AIM_TAKEOVER_ENABLED,true,"production aim gate")
+
 -- Missing second payload entrypoint leaves both globals untouched.
 reset_globals(original_feature,nil)
-local ok=Bridge.takeover_after_payload_load({force_aim_takeover=true})
+local ok=Bridge.takeover_after_payload_load()
 eq(ok,false,"missing dependency install")
 eq(_G.set_dongdong_feature_config,original_feature,"feature global unchanged")
 eq(_G.set_dongdong_aim_part,nil,"aim global unchanged")
@@ -43,7 +45,7 @@ eq(_G.set_dongdong_aim_part,nil,"aim global unchanged")
 -- Halfway setter failure rolls the first replacement back.
 reset_globals(original_feature,original_aim)
 local writes=0
-ok=Bridge.takeover_after_payload_load({force_aim_takeover=true,set_global=function(name,value)
+ok=Bridge.takeover_after_payload_load({set_global=function(name,value)
   writes=writes+1
   if writes==2 then error("halfway") end
   rawset(_G,name,value)
@@ -52,7 +54,7 @@ eq(ok,false,"halfway install result")
 eq(_G.set_dongdong_feature_config,original_feature,"feature rollback")
 eq(_G.set_dongdong_aim_part,original_aim,"aim rollback")
 
--- Successful dual-global source ownership.
+-- Successful dual-global source ownership using the production gate.
 reset_globals(original_feature,original_aim)
 local queue, source_calls = {},{}
 local deps={
@@ -65,9 +67,12 @@ local deps={
   init_current_weapon=function() source_calls[#source_calls+1]="init"; return true end,
   refresh_aiming_runtime=function() source_calls[#source_calls+1]="refresh"; return true end,
 }
-truth(Bridge.takeover_after_payload_load({force_aim_takeover=true,deps=deps}),"dual install")
+truth(Bridge.takeover_after_payload_load({deps=deps}),"dual install")
 truth(_G.set_dongdong_feature_config~=original_feature,"feature replaced")
 truth(_G.set_dongdong_aim_part~=original_aim,"aim-part replaced")
+local status=Bridge.status()
+eq(status.partial_takeover.aim,true,"status aim owned")
+eq(status.partial_takeover.anti_shake,true,"status anti-shake owned")
 eq(_G.set_dongdong_feature_config("aim",true),true,"source aim enable")
 eq(#original_feature_calls,0,"source aim must not delegate on success")
 eq(_G.custom_dongdong_toggle_state.aim,true,"aim active")
@@ -96,7 +101,7 @@ local fail_deps={}
 for k,v in pairs(deps) do fail_deps[k]=v end
 fail_deps.delay=function(t,fn) queue[#queue+1]={t,fn}; return true end
 fail_deps.init_current_weapon=function() error("init failed") end
-truth(Bridge.takeover_after_payload_load({force_aim_takeover=true,deps=fail_deps}),"reinstall for delayed failure")
+truth(Bridge.takeover_after_payload_load({deps=fail_deps}),"reinstall for delayed failure")
 _G.custom_dongdong_toggle_state={aim=true,anti_shake=false}
 _G.set_dongdong_aim_part()
 queue[1][2](); queue[2][2](); queue[3][2]()
