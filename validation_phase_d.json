@@ -1,5 +1,5 @@
 {
-  "phase": "E5.13-p029-17-child-source-only",
+  "phase": "E5.14-p029-57-array-set-source-only",
   "baseline": {
     "size": 180034,
     "sha256": "35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536"
@@ -9,22 +9,22 @@
     "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263"
   },
   "phase_d_source": {
-    "size": 442091,
-    "sha256": "2419ad7241e1dcf769cfbb18d22652135fdfa6f9809699921321ea455fe746d2"
+    "size": 442131,
+    "sha256": "a258bff7f91744c0698c9eb12f6a158dd250775de2000a9e2b2e9b1f2901025e"
   },
   "phase_d_standard": {
-    "size": 333547,
-    "sha256": "e7aecf8fb4467ece8490490cfab9d2e8cc607fbdae39baadcfb76e161ef8c7d8"
+    "size": 333571,
+    "sha256": "9e259e6f51a77e394de45bf880647e403bee4cd81bd5f42c0eb6935fe6ed6520"
   },
   "phase_d_custom": {
-    "size": 333547,
-    "sha256": "4027a3bea7cc56ad0da2b7b7dc1a6dcb72ac4ec2e8e8e85f0bc4b044ed7f7ea5"
+    "size": 333571,
+    "sha256": "be5dc7c4856e44b329288dc38261e636f27660db81884e213b1e5152c2ac6aef"
   },
   "inventory": {
     "total": 296,
     "classified": 296,
-    "source_owned": 134,
-    "payload_owned": 162,
+    "source_owned": 137,
+    "payload_owned": 159,
     "partially_reconstructed": 0,
     "unknown": 0,
     "root_methods_source_owned": 29,
@@ -93,6 +93,7 @@
     "mutation_runtime.lua": "passed",
     "p029_runtime_helpers.lua": "passed",
     "p029_mutation_primitives.lua": "passed",
+    "p029_array_set_raw.lua": "passed",
     "payload_feature_bridge.lua": "passed",
     "visual_scan.lua": "passed",
     "payload_visual_bridge.lua": "passed",

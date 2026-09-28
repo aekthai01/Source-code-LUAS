@@ -211,6 +211,18 @@
       "reconstructed_name": "restore_feature_snapshot assignment child",
       "evidence_status": "8-instruction P17 child; captures parent R8 record; object/key/value assignment; zero-value return pinned"
     },
+    "0.29.57.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.57.1": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
     "0.29.62.0": {
       "category": "nested_callback",
       "source": "src/spectra/aim_bones.lua",
@@ -398,6 +410,12 @@
       "name_is_original_symbol": false,
       "reconstructed_name": "array_get",
       "evidence_status": "71-instruction fixed P2/P12 userdata array getter; false-vs-nil and one-value return pinned"
+    },
+    "0.29.57": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
     },
     "0.29.71": {
       "category": "aim_runtime",

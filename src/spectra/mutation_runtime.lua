@@ -503,7 +503,8 @@ function M.array_set_raw(array, index0, value)
     local helper = rawget(_G, "ULuaArrayHelper")
     fn = safe_get(helper, "Set")
     if type(fn) == "function" then
-        ok = select(1, call_optional_self(fn, helper, array, index1, value))
+        ok = pcall(fn, array, index1, value)
+        if not ok then ok = pcall(fn, helper, array, index1, value) end
         if ok then return true end
     end
     return pcall(function() array[index1] = value end)

@@ -12,3 +12,4 @@ Names are reconstructed semantic labels. Payload copies are not dynamically rebo
 | `0.29.16` | `R36` | 1 | 11 | environment only | `MutationRuntime.p029_clear_feature_snapshot` | exactly zero returns after clearing captured state snapshot entry when snapshot root is a table |
 | `0.29.18` | `R38` | 1 | 40 | R19/0.29.2 | `MutationRuntime.table_extend` | exactly one value: table extension only on successful protected call yielding table, else original input |
 | `0.29.49` | `R74` | 2 | 71 | R19/0.29.2, R32/0.29.12 | `MutationRuntime.array_get` | exactly one value: zero-based table read or protected userdata Get/helper Get with false preserved and nil fallback |
+| `0.29.57` | `R82` | 3 | 80 | R19/0.29.2, R32/0.29.12 | `MutationRuntime.array_set_raw` | table/final assignment tail-return pcall arity; wrong type one false; successful userdata Set paths one true |
