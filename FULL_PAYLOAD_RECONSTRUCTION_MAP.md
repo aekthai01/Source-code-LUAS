@@ -46,7 +46,7 @@ Exact root fields: `EquipTypeList`, `ContainerTypeList`.
 
 ## P0.0..P0.15 source-only preparation
 
-- All fourteen public methods P0.0..P0.15 receive source-owned captures and helpers; none use `debug.getupvalue`.
+- All sixteen public methods P0.0..P0.15 receive source-owned captures and helpers; none use `debug.getupvalue`.
 - P0.3 uses source `info_logger` (R1) and `error_logger` (R2).
 - P0.7/P0.7.0 use source `ItemHelperTool` (R4), `debug_logger` (R0), `error_logger` (R2), and the owning product table passed by the source constructor.
 - P0.8/P0.8.0 use source `error_logger` (R2).
