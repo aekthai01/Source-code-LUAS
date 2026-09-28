@@ -18,6 +18,7 @@ jobs:
           python3 tools/patch_p029_runtime_source.py
           python3 tools/patch_p029_runtime_evidence.py
           python3 tools/patch_p029_runtime_validator.py
+          python3 tools/patch_p029_runtime_false_snapshot_regression.py
       - name: Focused runtime helper regressions
         run: |
           lua5.3 tests/p029_runtime_helpers.lua .
@@ -45,7 +46,7 @@ jobs:
           sha256sum --check /tmp/p029-runtime.sha
       - name: Commit validated bounded checkpoint
         run: |
-          rm tools/patch_p029_runtime_source.py tools/patch_p029_runtime_evidence.py tools/patch_p029_runtime_validator.py
+          rm tools/patch_p029_runtime_source.py tools/patch_p029_runtime_evidence.py tools/patch_p029_runtime_validator.py tools/patch_p029_runtime_false_snapshot_regression.py
           rm .github/workflows/p029-runtime-bootstrap.yml
           git add -A
           git config user.name 'github-actions[bot]'
