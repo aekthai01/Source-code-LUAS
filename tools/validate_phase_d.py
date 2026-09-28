@@ -182,6 +182,81 @@ def main():
     assert re.search(r'^0107 NEWTABLE\s+A=12 B=0 C=0$',body('0'),re.M)
     assert re.search(r'^0112 NEWTABLE\s+A=13 B=0 C=0$',body('0'),re.M)
 
+    # P0.29 ABI helper checkpoint. Ownership is source reconstruction for
+    # source-owned consumers only; this does not claim captured payload helper
+    # closures were rebound for unreconstructed payload callers.
+    abi_paths={'0.29.2','0.29.2.0','0.29.3','0.29.4','0.29.12'}
+    abi_evidence=json.loads((ROOT/'P029_ABI_HELPER_MAP.json').read_text())
+    assert abi_evidence['_meta']['payload_sha256']==PAY
+    assert abi_evidence['_meta']['payload_closure_rebinding'] is False
+    assert set(abi_evidence['helpers'])==abi_paths
+    assert abi_paths <= set(groups['source_owned'])
+    assert all(source_files[path]=='src/spectra/aim_abi.lua' for path in abi_paths)
+    abi_shape={
+        '0.29.2':(2,17,1,1), '0.29.2.0':(0,7,2,0),
+        '0.29.3':(2,43,2,0), '0.29.4':(2,43,2,0),
+        '0.29.12':(2,31,1,0),
+    }
+    for path,(params,instructions,upvalues,children) in abi_shape.items():
+        item=prototypes[path]
+        assert (item['numparams'],item['instruction_count'],len(item['upvalues']),item['child_count']) == \
+            (params,instructions,upvalues,children),path
+        evidence=abi_evidence['helpers'][path]
+        assert evidence['numparams']==params and evidence['instruction_count']==instructions
+        assert len(evidence['upvalues'])==upvalues and evidence['children']==children
+        assert evidence['source_file']=='src/spectra/aim_abi.lua'
+        assert evidence['source_only_dependency'] is True
+        assert evidence['known_source_consumers'],path
+    assert prototypes['0.29.2']['upvalues']==[{'instack':0,'idx':0}]
+    assert prototypes['0.29.2.0']['upvalues']==[{'instack':1,'idx':0},{'instack':1,'idx':1}]
+    assert prototypes['0.29.3']['upvalues']==[{'instack':1,'idx':19},{'instack':0,'idx':0}]
+    assert prototypes['0.29.4']['upvalues']==[{'instack':1,'idx':19},{'instack':0,'idx':0}]
+    assert prototypes['0.29.12']['upvalues']==[{'instack':0,'idx':0}]
+    expected_abi_registers={'0.29.2':'R19','0.29.3':'R20','0.29.4':'R21','0.29.12':'R32'}
+    for path,register in expected_abi_registers.items():
+        assert abi_evidence['helpers'][path]['p029_parent_register']==register
+    assert abi_evidence['helpers']['0.29.2.0']['p029_parent_register'] is None
+    assert abi_evidence['helpers']['0.29.2.0']['parent_local_capture_registers']==['R0','R1']
+    assert re.search(r'^0138 CLOSURE\s+R19, P2$',body('0.29'),re.M)
+    assert re.search(r'^0139 CLOSURE\s+R20, P3$',body('0.29'),re.M)
+    assert re.search(r'^0140 CLOSURE\s+R21, P4$',body('0.29'),re.M)
+    assert re.search(r'^0327 CLOSURE\s+R32, P12$',body('0.29'),re.M)
+
+    p2=body('0.29.2'); p20=body('0.29.2.0')
+    assert re.search(r'^0009 CALL\s+A=2 B=2 C=3$',p2,re.M)
+    assert re.search(r'^0012 TESTSET\s+R4, R3 C=1$',p2,re.M)
+    assert re.search(r'^0015 RETURN\s+A=4 B=2 C=0$',p2,re.M)
+    assert re.search(r'^0004 GETTABUP\s+R0, U0, R0$',p20,re.M)
+    assert re.search(r'^0005 RETURN\s+A=0 B=2 C=0$',p20,re.M)
+
+    p3=body('0.29.3')
+    assert re.search(r'^0019 CALL\s+A=3 B=0 C=4$',p3,re.M)
+    assert re.search(r'^0025 RETURN\s+A=6 B=4 C=0$',p3,re.M)
+    assert re.search(r'^0029 CALL\s+A=6 B=0 C=4$',p3,re.M)
+    assert re.search(r'^0038 RETURN\s+A=6 B=4 C=0$',p3,re.M)
+    assert re.search(r'^0014 RETURN\s+A=3 B=3 C=0$',p3,re.M)
+    assert re.search(r'^0041 RETURN\s+A=6 B=3 C=0$',p3,re.M)
+
+    p4=body('0.29.4')
+    assert re.search(r'^0018 CALL\s+A=3 B=0 C=4$',p4,re.M)
+    assert re.search(r'^0024 RETURN\s+A=6 B=4 C=0$',p4,re.M)
+    assert re.search(r'^0029 CALL\s+A=6 B=0 C=4$',p4,re.M)
+    assert re.search(r'^0038 RETURN\s+A=6 B=4 C=0$',p4,re.M)
+    assert re.search(r'^0014 RETURN\s+A=3 B=3 C=0$',p4,re.M)
+    assert re.search(r'^0041 RETURN\s+A=6 B=3 C=0$',p4,re.M)
+
+    p12=body('0.29.12')
+    assert re.search(r'^0010 RETURN\s+A=2 B=3 C=0$',p12,re.M)
+    assert re.search(r'^0015 CALL\s+A=2 B=0 C=3$',p12,re.M)
+    assert re.search(r'^0020 RETURN\s+A=4 B=3 C=0$',p12,re.M)
+    assert re.search(r'^0024 CALL\s+A=4 B=0 C=3$',p12,re.M)
+    assert re.search(r'^0029 RETURN\s+A=4 B=3 C=0$',p12,re.M)
+    abi_source=(ROOT/'src/spectra/aim_abi.lua').read_text()
+    assert 'debug.getupvalue' not in abi_source
+    assert 'return pcall(fn, ...)' not in abi_source
+    assert 'local fallback_ok, fallback_value = pcall(fn, ...)' in abi_source
+    assert 'return fallback_ok, fallback_value' in abi_source
+
     coverage_text=(ROOT/'RECONSTRUCTION_COVERAGE.md').read_text()
     for line in (
         f"- Total prototypes: **{len(paths)}**",
@@ -218,12 +293,12 @@ def main():
         out=run([lua,str(ROOT/'tests'/file),str(ROOT)]); assert marker in out; passed[file]='passed'
 
     report={
-      'phase':'E5.7-root-downloads-source-only',
+      'phase':'E5.8-p029-abi-helpers-source-only',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
       'inventory':{'total':len(paths),'classified':coverage['classified'],'source_owned':coverage['source_owned'],'payload_owned':coverage['payload_owned'],'partially_reconstructed':coverage['partially_reconstructed'],'unknown':coverage['unknown'],'root_methods_source_owned':root_source_owned,'root_methods_total':len(roots)},
-      'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_28':True,'payload_upvalue_introspection':False},
+      'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_28':True,'p029_abi_helpers':True,'payload_upvalue_introspection':False},
       'runtime_ownership':{'no_recoil':True,'converge':True,'aim':True,'anti_shake':True},
-      'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','root_download_bytecode_captures':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
+      'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','root_download_bytecode_captures':'passed','p029_abi_helper_map':'passed','p029_abi_exact_return_shapes':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
     (ROOT/'validation_phase_d.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     print('phase-d-validation: ok')
 
