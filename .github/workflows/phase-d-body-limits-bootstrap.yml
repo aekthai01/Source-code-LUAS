@@ -1,0 +1,74 @@
+name: Phase D body-limits bootstrap
+on:
+  push:
+    branches: [work/phase-d-aim-reconstruction]
+permissions:
+  contents: write
+jobs:
+  reconstruct:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: work/phase-d-aim-reconstruction
+          fetch-depth: 0
+      - name: Install Lua 5.3 toolchain
+        run: sudo apt-get update && sudo apt-get install -y lua5.3
+      - name: Apply bounded source reconstruction
+        run: |
+          python3 tools/apply_body_limits_checkpoint.py
+          lua5.3 tests/product_body_limits.lua "$PWD"
+          lua5.3 tests/product_expiration.lua "$PWD"
+          lua5.3 tests/product_source_only.lua "$PWD"
+          lua5.3 tests/product_module_bridge.lua "$PWD"
+          git diff --check
+      - name: Regenerate evidence twice
+        run: |
+          python3 tools/root_capture_forensics.py
+          python3 tools/aim_forensics.py
+          python3 tools/full_payload_forensics.py
+          sha256sum ROOT_CAPTURE_MAP.json ROOT_CAPTURE_MAP.md AIM_PROTOTYPE_INDEX.json FULL_PAYLOAD_PROTOTYPE_INDEX.json FULL_PAYLOAD_RECONSTRUCTION_MAP.md RECONSTRUCTION_COVERAGE.md > /tmp/body-limits-generated.sha
+          python3 tools/root_capture_forensics.py
+          python3 tools/aim_forensics.py
+          python3 tools/full_payload_forensics.py
+          sha256sum --check /tmp/body-limits-generated.sha
+          python3 - <<'PY'
+          import json
+          d=json.load(open('FULL_PAYLOAD_PROTOTYPE_INDEX.json'))
+          c=d['coverage']
+          assert c['classified']==296
+          assert c['partially_reconstructed']==0 and c['unknown']==0
+          assert c['root_methods_source_owned']==24
+          migrated={'0.19','0.19.0','0.20','0.21','0.22','0.22.0','0.22.1','0.22.2','0.23'}
+          assert migrated <= set(d['ownership_groups']['source_owned'])
+          assert d['root_public_methods']['_CheckPropinfoDownloadWithLog']['current_ownership']=='payload_owned'
+          assert c['source_owned']==len(d['ownership_groups']['source_owned'])
+          assert c['payload_owned']==len(d['ownership_groups']['payload_owned'])
+          PY
+      - name: Full validation and deterministic rebuild
+        run: |
+          python3 tools/build_phase_d.py
+          python3 tools/validate_phase_d.py
+          sha256sum spectra_wrapper_phase_d.custom.luac > /tmp/body-limits-custom.sha
+          python3 tools/build_phase_d.py
+          sha256sum --check /tmp/body-limits-custom.sha
+          python3 - <<'PY'
+          import json
+          d=json.load(open('validation_phase_d.json'))
+          assert d['baseline']['sha256']=='35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536'
+          assert d['embedded_payload']['sha256']=='a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263'
+          assert d['inventory']['root_methods_source_owned']==24
+          assert d['checks']['product_body_limits.lua']=='passed'
+          assert d['checks']['game_runtime_test'] is False
+          PY
+          git diff --check
+      - name: Commit validated checkpoint
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -f .github/workflows/phase-d-body-limits-bootstrap.yml tools/apply_body_limits_checkpoint.py
+          git add -A
+          git diff --cached --check
+          git commit -m 'reconstruct source-only P0.19 P0.23 body limit checks'
+          git push origin HEAD:work/phase-d-aim-reconstruction
