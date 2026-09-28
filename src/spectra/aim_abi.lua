@@ -30,6 +30,7 @@ function M.call_optional_self(fn, owner, ...)
     if type(fn) ~= "function" then return false, nil end
     local ok, value = pcall(fn, owner, ...)
     if ok then return true, value end
-    return pcall(fn, ...)
+    local fallback_ok, fallback_value = pcall(fn, ...)
+    return fallback_ok, fallback_value
 end
 return M
