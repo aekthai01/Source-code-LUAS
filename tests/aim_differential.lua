@@ -1,8 +1,9 @@
 local root = assert(arg[1])
 local S = {}
+assert(loadfile(root .. "/src/spectra/aim_abi.lua"))(S)
+assert(loadfile(root .. "/src/spectra/p029_runtime_helpers.lua"))(S)
 assert(loadfile(root .. "/src/spectra/mutation_runtime.lua"))(S)
 assert(loadfile(root .. "/src/spectra/aim_mutation.lua"))(S)
-assert(loadfile(root .. "/src/spectra/aim_abi.lua"))(S)
 local M, ABI, Mutation = S.AimMutation, S.AimABI, S.MutationRuntime
 local function eq(a,b,m) if a~=b then error((m or "value")..": expected "..tostring(b)..", got "..tostring(a),2) end end
 local function near(a,b,m)

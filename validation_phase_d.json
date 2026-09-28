@@ -1,5 +1,5 @@
 {
-  "phase": "E5.8-p029-abi-helpers-source-only",
+  "phase": "E5.9-p029-runtime-helpers-source-only",
   "baseline": {
     "size": 180034,
     "sha256": "35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536"
@@ -9,22 +9,22 @@
     "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263"
   },
   "phase_d_source": {
-    "size": 437462,
-    "sha256": "7ddbd6f92ad793fcc6b563186d52e37a1dbeac259205ad1d81880f0d2a676226"
+    "size": 438733,
+    "sha256": "316d9ea442d462efa1bb05ecb23688f7d4cbe9c2bfb37c3827d2808896fb65a7"
   },
   "phase_d_standard": {
-    "size": 332146,
-    "sha256": "975a186b501e8614e5631a3cc8fdfbdf2e30ca5c7a485257ee26860976a30853"
+    "size": 332850,
+    "sha256": "13c4830974b826d0a79608c3ec116c0610d9a0c2afcf418e00c7b7a44be71f47"
   },
   "phase_d_custom": {
-    "size": 332146,
-    "sha256": "475ad6eb89afd71758a5d806aac76588c9af21e148dfb7d85d610781dd055913"
+    "size": 332850,
+    "sha256": "e4f36a4e7c2b891cb60374c48ec63f47a4a36682aa28d9d0282ec604dda6cbb3"
   },
   "inventory": {
     "total": 296,
     "classified": 296,
-    "source_owned": 117,
-    "payload_owned": 179,
+    "source_owned": 122,
+    "payload_owned": 174,
     "partially_reconstructed": 0,
     "unknown": 0,
     "root_methods_source_owned": 29,
@@ -36,6 +36,7 @@
     "product_constructor": true,
     "p0_0_through_p0_28": true,
     "p029_abi_helpers": true,
+    "p029_runtime_helpers": true,
     "payload_upvalue_introspection": false
   },
   "runtime_ownership": {
@@ -54,6 +55,8 @@
     "root_download_bytecode_captures": "passed",
     "p029_abi_helper_map": "passed",
     "p029_abi_exact_return_shapes": "passed",
+    "p029_runtime_helper_map": "passed",
+    "mutation_runtime_abi_integration": "passed",
     "source_only_product_constructor": "passed",
     "no_source_owned_root_payload_capture_dependency": "passed",
     "native_settings_ui.lua": "passed",
@@ -79,6 +82,7 @@
     "product_module_bridge.lua": "passed",
     "visual_runtime.lua": "passed",
     "mutation_runtime.lua": "passed",
+    "p029_runtime_helpers.lua": "passed",
     "payload_feature_bridge.lua": "passed",
     "visual_scan.lua": "passed",
     "payload_visual_bridge.lua": "passed",

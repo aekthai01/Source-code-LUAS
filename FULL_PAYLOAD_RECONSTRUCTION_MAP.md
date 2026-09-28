@@ -67,11 +67,12 @@ Exact root fields: `EquipTypeList`, `ContainerTypeList`.
 - `ProductModule.create(context, globals)` creates/binds P0.0..P0.28 on the same source R3 product table and emits exact `EquipTypeList` / `ContainerTypeList` order.
 - The transitional payload overlay remains restorable; P0.0..P0.28 neither inspect nor call payload closures and do not extract payload upvalues.
 - Root public API migration is complete; full payload reconstruction is NOT complete. Payload-owned prototypes (predominantly under P0.29) remain.
+- P0.29 ABI helpers 2/2.0/3/4/12 and runtime helpers 5/6/8/11/13 are source-owned for source consumers without dynamically rebinding payload-owned closure copies.
 
 ## Current ownership
 
-- Source-owned: **117**
-- Payload-owned: **179**
+- Source-owned: **122**
+- Payload-owned: **174**
 - Partially reconstructed: **0**
 - Unknown: **0**
 - Root methods source-owned: **29 / 29**

@@ -165,6 +165,7 @@ end
 local function default_dependencies(overrides)
     overrides = type(overrides) == "table" and overrides or {}
     local Runtime, _, Mutation, AimChain, AimBones, AimABI, AimRefresh, AimRuntime = source_modules()
+    local RuntimeHelpers = assert(S.P029RuntimeHelpers, "P0.29.8 delay helper required")
     local deps = {}
     local function choose(name, fn) deps[name] = overrides[name] or fn end
 
@@ -220,7 +221,7 @@ local function default_dependencies(overrides)
     choose("set_fire_assisted_aim_debug", function(enabled)
         return AimRuntime.set_fire_assisted_aim_debug(Runtime.delay, enabled)
     end)
-    choose("delay", Runtime.delay)
+    choose("delay", RuntimeHelpers.delay)
     choose("init_current_weapon", function()
         return AimRefresh.init_current_weapon(Runtime.delay)
     end)
@@ -230,8 +231,9 @@ end
 
 local function dependencies_ready(aim_enabled)
     local Runtime, FeatureControl, Mutation, AimChain, AimBones, AimABI, AimRefresh, AimRuntime = source_modules()
+    local RuntimeHelpers = S.P029RuntimeHelpers
     local required = {
-        {Runtime, "delay"}, {FeatureControl, "set_dongdong_feature_config"},
+        {Runtime, "delay"}, {RuntimeHelpers, "delay"}, {FeatureControl, "set_dongdong_feature_config"},
         {Mutation, "apply_feature"}, {Mutation, "restore_feature_snapshot"},
     }
     if aim_enabled then

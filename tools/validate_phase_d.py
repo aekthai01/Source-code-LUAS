@@ -257,6 +257,122 @@ def main():
     assert 'local fallback_ok, fallback_value = pcall(fn, ...)' in abi_source
     assert 'return fallback_ok, fallback_value' in abi_source
 
+    # Bounded P0.29.5/.6/.8/.11/.13 runtime-helper checkpoint.
+    runtime_paths={'0.29.5','0.29.6','0.29.8','0.29.11','0.29.13'}
+    runtime_evidence=json.loads((ROOT/'P029_RUNTIME_HELPER_MAP.json').read_text())
+    assert runtime_evidence['_meta']['payload_sha256']==PAY
+    assert runtime_evidence['_meta']['payload_closure_rebinding'] is False
+    assert set(runtime_evidence['helpers'])==runtime_paths
+    assert runtime_paths <= set(groups['source_owned'])
+    assert all(source_files[path]=='src/spectra/p029_runtime_helpers.lua' for path in runtime_paths)
+    runtime_shape={
+        '0.29.5':(2,15,2,0), '0.29.6':(1,33,2,0), '0.29.8':(2,33,2,0),
+        '0.29.11':(0,19,2,0), '0.29.13':(1,20,3,0),
+    }
+    expected_runtime_upvalues={
+        '0.29.5':[(0,0),(1,19)], '0.29.6':[(0,0),(1,20)],
+        '0.29.8':[(0,0),(1,19)], '0.29.11':[(0,0),(1,19)],
+        '0.29.13':[(1,31),(1,19),(1,32)],
+    }
+    expected_runtime_registers={
+        '0.29.5':'R22','0.29.6':'R23','0.29.8':'R25','0.29.11':'R31','0.29.13':'R33'}
+    expected_runtime_captures={
+        '0.29.5':{('U1','R19','0.29.2')},
+        '0.29.6':{('U1','R20','0.29.3')},
+        '0.29.8':{('U1','R19','0.29.2')},
+        '0.29.11':{('U1','R19','0.29.2')},
+        '0.29.13':{('U0','R31','0.29.11'),('U1','R19','0.29.2'),('U2','R32','0.29.12')},
+    }
+    for path,(params,instructions,upvalues,children) in runtime_shape.items():
+        item=prototypes[path]
+        assert (item['numparams'],item['instruction_count'],len(item['upvalues']),item['child_count']) == \
+            (params,instructions,upvalues,children),path
+        assert item['upvalues']==[{'instack':i,'idx':idx} for i,idx in expected_runtime_upvalues[path]],path
+        evidence=runtime_evidence['helpers'][path]
+        assert evidence['p029_parent_register']==expected_runtime_registers[path]
+        assert evidence['source_implementation_exists'] is True
+        assert evidence['current_ownership']=='source_owned'
+        assert evidence['active_source_consumer'] is True
+        assert evidence['payload_closure_rebinding'] is False
+        assert evidence['source_only_dependency'] is True
+        assert evidence['source_file']=='src/spectra/p029_runtime_helpers.lua'
+        captures={(x['upvalue'],x['register'],x['prototype']) for x in evidence['captured_helper_registers']}
+        assert captures==expected_runtime_captures[path],(path,captures)
+    for instruction,reg,child in ((141,22,5),(142,23,6),(144,25,8),(326,31,11),(328,33,13)):
+        assert re.search(rf'^{instruction:04d} CLOSURE\s+R{reg}, P{child}$',body('0.29'),re.M)
+
+    def payload_consumers(path):
+        return {x['prototype'] for x in runtime_evidence['helpers'][path]['known_payload_capture_consumers']}
+    assert '0.29.81' in payload_consumers('0.29.5')
+    assert '0.29.85' in payload_consumers('0.29.6')
+    assert '0.29.77' in payload_consumers('0.29.8')
+
+    p5=body('0.29.5')
+    assert re.search(r"^0003 GETTABUP\s+R2, U0, K0='type'$",p5,re.M)
+    assert re.search(r'^0004 GETUPVAL\s+R3, U1$',p5,re.M)
+    assert re.search(r'^0007 CALL\s+A=3 B=3 C=0$',p5,re.M)
+    assert re.search(r'^0008 CALL\s+A=2 B=0 C=2$',p5,re.M)
+    assert re.search(r"^0009 EQ\s+A=1 R2, K1='function'$",p5,re.M)
+    assert re.search(r'^0013 RETURN\s+A=2 B=2 C=0$',p5,re.M)
+
+    p6=body('0.29.6')
+    assert re.search(r'^0006 RETURN\s+A=1 B=2 C=0$',p6,re.M)
+    assert re.search(r"^0009 LOADK\s+R3, K3='GetFullName'$",p6,re.M)
+    assert re.search(r"^0010 LOADK\s+R4, K4='GetName'$",p6,re.M)
+    assert re.search(r'^0017 CALL\s+A=6 B=3 C=3$',p6,re.M)
+    assert re.search(r'^0024 TAILCALL\s+A=8 B=2 C=0$',p6,re.M)
+    assert re.search(r"^0028 GETTABUP\s+R1, U0, K5='tostring'$",p6,re.M)
+    assert re.search(r'^0030 TAILCALL\s+A=1 B=2 C=0$',p6,re.M)
+
+    p8=body('0.29.8')
+    assert re.search(r"^0005 LOADK\s+R4, K2='Timer'$",p8,re.M)
+    assert re.search(r"^0009 LOADK\s+R5, K3='DelayCall'$",p8,re.M)
+    assert re.search(r'^0017 CALL\s+A=4 B=1 C=1$',p8,re.M)
+    assert re.search(r'^0018 RETURN\s+A=0 B=1 C=0$',p8,re.M)
+    assert re.search(r'^0023 CALL\s+A=4 B=4 C=2$',p8,re.M)
+    assert re.search(r'^0031 CALL\s+A=5 B=5 C=1$',p8,re.M)
+    assert re.search(r'^0032 RETURN\s+A=0 B=1 C=0$',p8,re.M)
+
+    p11=body('0.29.11')
+    assert re.search(r"^0005 LOADK\s+R2, K2='Facade'$",p11,re.M)
+    assert re.search(r"^0009 LOADK\s+R3, K3='TableManager'$",p11,re.M)
+    assert re.search(r'^0011 TEST\s+R1 C=1$',p11,re.M)
+    assert re.search(r"^0015 LOADK\s+R3, K3='TableManager'$",p11,re.M)
+    assert re.search(r'^0017 RETURN\s+A=1 B=2 C=0$',p11,re.M)
+
+    p13=body('0.29.13')
+    assert re.search(r'^0003 GETUPVAL\s+R1, U0$',p13,re.M)
+    assert re.search(r'^0004 CALL\s+A=1 B=1 C=2$',p13,re.M)
+    assert re.search(r"^0007 LOADK\s+R4, K0='GetTable'$",p13,re.M)
+    assert re.search(r'^0008 CALL\s+A=2 B=3 C=2$',p13,re.M)
+    assert re.search(r'^0013 CALL\s+A=3 B=4 C=3$',p13,re.M)
+    assert re.search(r'^0014 TEST\s+R3 C=0$',p13,re.M)
+    assert re.search(r'^0016 RETURN\s+A=4 B=2 C=0$',p13,re.M)
+    assert re.search(r'^0018 RETURN\s+A=5 B=2 C=0$',p13,re.M)
+
+    # P0.29.15 is not migrated here, but its active source reconstruction must
+    # inherit exact P0.29.2 false->nil behavior. U0 captures R19/P2 and the
+    # original field read is the P2 call at PC0012 before snapshot recording.
+    p15=body('0.29.15')
+    assert prototypes['0.29.15']['upvalues'][0]=={'instack':1,'idx':19}
+    assert re.search(r'^0009 GETUPVAL\s+R4, U0$',p15,re.M)
+    assert re.search(r'^0012 CALL\s+A=4 B=3 C=2$',p15,re.M)
+
+    runtime_source=(ROOT/'src/spectra/p029_runtime_helpers.lua').read_text()
+    mutation_source=(ROOT/'src/spectra/mutation_runtime.lua').read_text()
+    visual_source=(ROOT/'src/spectra/visual_scan.lua').read_text()
+    bridge_source=(ROOT/'src/spectra/payload_feature_bridge.lua').read_text()
+    assert 'local ABI = assert(S.AimABI, "AimABI required")' in runtime_source
+    assert 'local function safe_get' not in mutation_source
+    assert 'local function call_optional_self' not in mutation_source
+    assert 'local safe_get = ABI.get' in mutation_source
+    assert 'local call_optional_self = ABI.call_optional_self' in mutation_source
+    assert 'M.get_table_manager = RuntimeHelpers.get_table_manager' in mutation_source
+    assert 'M.get_data_table = RuntimeHelpers.get_data_table' in mutation_source
+    assert 'local object_name = RuntimeHelpers.object_name' in visual_source
+    assert 'RuntimeHelpers.is_function_field' in visual_source
+    assert 'choose("delay", RuntimeHelpers.delay)' in bridge_source
+
     coverage_text=(ROOT/'RECONSTRUCTION_COVERAGE.md').read_text()
     for line in (
         f"- Total prototypes: **{len(paths)}**",
@@ -286,19 +402,19 @@ def main():
       'aim_refresh.lua':'aim-refresh: ok','aim_abi.lua':'aim-abi: ok','aim_dispatch.lua':'aim-dispatch: ok','aim_chain.lua':'aim-chain: ok',
       'aim_chain_fidelity.lua':'aim-chain-fidelity: ok','aim_transaction.lua':'aim-transaction: ok','product_context.lua':'product-context: ok',
       'product_module.lua':'product-module: ok','product_night.lua':'product-night: ok','product_expiration.lua':'product-expiration: ok','product_body_limits.lua':'product-body-limits: ok','product_downloads.lua':'product-downloads: ok','product_source_only.lua':'product-source-only: ok','product_module_bridge.lua':'product-module-bridge: ok',
-      'visual_runtime.lua':'visual-runtime: ok','mutation_runtime.lua':'mutation-runtime: ok','payload_feature_bridge.lua':'payload-feature-bridge: ok',
+      'visual_runtime.lua':'visual-runtime: ok','mutation_runtime.lua':'mutation-runtime: ok','p029_runtime_helpers.lua':'p029-runtime-helpers: ok','payload_feature_bridge.lua':'payload-feature-bridge: ok',
       'visual_scan.lua':'visual-scan: ok','payload_visual_bridge.lua':'payload-visual-bridge: ok','smoke.lua':'smoke: ok','protocol_fixture.lua':'protocol-fixture: ok'}
     passed={}
     for file,marker in tests.items():
         out=run([lua,str(ROOT/'tests'/file),str(ROOT)]); assert marker in out; passed[file]='passed'
 
     report={
-      'phase':'E5.8-p029-abi-helpers-source-only',
+      'phase':'E5.9-p029-runtime-helpers-source-only',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
       'inventory':{'total':len(paths),'classified':coverage['classified'],'source_owned':coverage['source_owned'],'payload_owned':coverage['payload_owned'],'partially_reconstructed':coverage['partially_reconstructed'],'unknown':coverage['unknown'],'root_methods_source_owned':root_source_owned,'root_methods_total':len(roots)},
-      'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_28':True,'p029_abi_helpers':True,'payload_upvalue_introspection':False},
+      'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_28':True,'p029_abi_helpers':True,'p029_runtime_helpers':True,'payload_upvalue_introspection':False},
       'runtime_ownership':{'no_recoil':True,'converge':True,'aim':True,'anti_shake':True},
-      'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','root_download_bytecode_captures':'passed','p029_abi_helper_map':'passed','p029_abi_exact_return_shapes':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
+      'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','root_download_bytecode_captures':'passed','p029_abi_helper_map':'passed','p029_abi_exact_return_shapes':'passed','p029_runtime_helper_map':'passed','mutation_runtime_abi_integration':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
     (ROOT/'validation_phase_d.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     print('phase-d-validation: ok')
 

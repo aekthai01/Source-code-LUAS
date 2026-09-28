@@ -21,6 +21,7 @@ The source-owned boundary is deliberately non-invasive: source-owned consumers c
 - src/spectra/aim_chain.lua: AimChain.walk_and_patch/apply_aim_row
 - src/spectra/payload_feature_bridge.lua: default_dependencies read_field injection
 - src/spectra/aim_mutation.lua: replacement consumes injected deps.read_field
+- src/spectra/mutation_runtime.lua: canonical safe_get used throughout active P0.29.68 source path
 
 ### `0.29.2.0`
 - src/spectra/aim_abi.lua: nested raw owner[key] closure inside AimABI.get
@@ -33,6 +34,7 @@ The source-owned boundary is deliberately non-invasive: source-owned consumers c
 
 ### `0.29.12`
 - src/spectra/aim_refresh.lua: collect_targets FindComponentByClass optional-self call
+- src/spectra/mutation_runtime.lua: get_data_table inherits exact P0.29.12 optional-self ABI
 
 ## Mechanically derived payload capture consumers
 

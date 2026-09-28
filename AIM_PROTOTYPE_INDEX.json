@@ -6,7 +6,8 @@
     "outer_dispatch_prototypes": 2,
     "nested_callbacks": 11,
     "abi_helpers": 5,
-    "indexed_entries_total": 44,
+    "runtime_helpers": 5,
+    "indexed_entries_total": 49,
     "detailed_legacy_index": "AIM_PROTOTYPE_INDEX_LEGACY_DETAILED.json",
     "runtime_ownership": {
       "aim": true,
@@ -299,6 +300,46 @@
       "name_is_original_symbol": false,
       "reconstructed_name": "AimABI.call_optional_self",
       "evidence_status": "exact return arity, retry order, root register/capture and source-consumer evidence pinned"
+    },
+    "0.29.5": {
+      "category": "runtime_helper",
+      "source": "src/spectra/p029_runtime_helpers.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "P029RuntimeHelpers.is_function_field",
+      "evidence_status": "exact bytecode shape, root register/captures, source integration and return contract pinned"
+    },
+    "0.29.6": {
+      "category": "runtime_helper",
+      "source": "src/spectra/p029_runtime_helpers.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "P029RuntimeHelpers.object_name",
+      "evidence_status": "exact bytecode shape, root register/captures, source integration and return contract pinned"
+    },
+    "0.29.8": {
+      "category": "runtime_helper",
+      "source": "src/spectra/p029_runtime_helpers.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "P029RuntimeHelpers.delay",
+      "evidence_status": "exact bytecode shape, root register/captures, source integration and return contract pinned"
+    },
+    "0.29.11": {
+      "category": "runtime_helper",
+      "source": "src/spectra/p029_runtime_helpers.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "P029RuntimeHelpers.get_table_manager",
+      "evidence_status": "exact bytecode shape, root register/captures, source integration and return contract pinned"
+    },
+    "0.29.13": {
+      "category": "runtime_helper",
+      "source": "src/spectra/p029_runtime_helpers.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "P029RuntimeHelpers.get_data_table",
+      "evidence_status": "exact bytecode shape, root register/captures, source integration and return contract pinned"
     }
   }
 }

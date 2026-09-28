@@ -12,6 +12,7 @@ S.MutationRuntime = {
 S.AimChain = { apply_aim_row=function() return true end }
 S.AimBones = { patch_row=function() return true end }
 S.AimABI = { get=function(o,k) return o and o[k] or nil end }
+S.P029RuntimeHelpers = { delay=function(_, cb) cb(); return nil end }
 S.AimRefresh = { init_current_weapon=function() return true end, refresh_methods=function() return true end }
 S.AimRuntime = { set_native_aim_assist=function() return true end, set_fire_assisted_aim_debug=function() return true end }
 assert(loadfile(root .. "/src/spectra/payload_feature_bridge.lua"))(S)

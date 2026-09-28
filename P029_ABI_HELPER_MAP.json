@@ -510,7 +510,8 @@
         "src/spectra/aim_refresh.lua: AimRefresh.collect_targets/refresh_methods/init_current_weapon",
         "src/spectra/aim_chain.lua: AimChain.walk_and_patch/apply_aim_row",
         "src/spectra/payload_feature_bridge.lua: default_dependencies read_field injection",
-        "src/spectra/aim_mutation.lua: replacement consumes injected deps.read_field"
+        "src/spectra/aim_mutation.lua: replacement consumes injected deps.read_field",
+        "src/spectra/mutation_runtime.lua: canonical safe_get used throughout active P0.29.68 source path"
       ],
       "return_contract": "exactly one value: truthy field value or nil; false/nil/error collapse to nil",
       "retry_order": "single protected lookup",
@@ -1024,7 +1025,8 @@
         }
       ],
       "known_source_consumers": [
-        "src/spectra/aim_refresh.lua: collect_targets FindComponentByClass optional-self call"
+        "src/spectra/aim_refresh.lua: collect_targets FindComponentByClass optional-self call",
+        "src/spectra/mutation_runtime.lua: get_data_table inherits exact P0.29.12 optional-self ABI"
       ],
       "return_contract": "all paths exactly two values; success true,result1; fallback failure false,error",
       "retry_order": "self-first pcall, then static pcall only after first exception",
@@ -1039,6 +1041,9 @@
     "src/spectra/aim_chain.lua",
     "src/spectra/aim_mutation.lua",
     "src/spectra/payload_feature_bridge.lua",
-    "src/spectra/feature_control.lua"
+    "src/spectra/feature_control.lua",
+    "src/spectra/mutation_runtime.lua",
+    "src/spectra/p029_runtime_helpers.lua",
+    "src/spectra/visual_scan.lua"
   ]
 }

@@ -1,9 +1,10 @@
 local root = assert(arg[1])
 local S = {}
+assert(loadfile(root .. "/src/spectra/aim_abi.lua"))(S)
+assert(loadfile(root .. "/src/spectra/p029_runtime_helpers.lua"))(S)
 assert(loadfile(root .. "/src/spectra/mutation_runtime.lua"))(S)
 assert(loadfile(root .. "/src/spectra/aim_mutation.lua"))(S)
 assert(loadfile(root .. "/src/spectra/aim_bones.lua"))(S)
-assert(loadfile(root .. "/src/spectra/aim_abi.lua"))(S)
 assert(loadfile(root .. "/src/spectra/aim_chain.lua"))(S)
 assert(loadfile(root .. "/src/spectra/feature_control.lua"))(S)
 S.Runtime = { delay=function(_, fn) return fn and true or false end }

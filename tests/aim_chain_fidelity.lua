@@ -1,9 +1,10 @@
 local root = assert(arg[1])
 local S = {}
+assert(loadfile(root .. "/src/spectra/aim_abi.lua"))(S)
+assert(loadfile(root .. "/src/spectra/p029_runtime_helpers.lua"))(S)
 assert(loadfile(root .. "/src/spectra/mutation_runtime.lua"))(S)
 assert(loadfile(root .. "/src/spectra/aim_mutation.lua"))(S)
 assert(loadfile(root .. "/src/spectra/aim_bones.lua"))(S)
-assert(loadfile(root .. "/src/spectra/aim_abi.lua"))(S)
 assert(loadfile(root .. "/src/spectra/aim_chain.lua"))(S)
 local Mutation, Chain, Bones, ABI = S.MutationRuntime, S.AimChain, S.AimBones, S.AimABI
 local function eq(a,b,m) if a~=b then error((m or "value")..": expected "..tostring(b)..", got "..tostring(a),2) end end
@@ -54,7 +55,7 @@ do
     Mutation.restore_feature_snapshot(state,"aim")
     Mutation.restore_bone_array_snapshots(state)
     eq(row._Dat.ConeFilterBones[1],"Head","_Dat bone restore")
-    eq(row.ShootingConfig.bTakeEffect,false,"field restore")
+    eq(row.ShootingConfig.bTakeEffect,nil,"P15 false snapshot restores nil")
 end
 
 -- Cycles are deduped by raw table identity; a sibling config is still visited.

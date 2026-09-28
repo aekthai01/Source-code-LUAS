@@ -1,5 +1,7 @@
 local S = ...
 assert(type(S) == "table", "spectra module table required")
+local ABI = assert(S.AimABI, "AimABI required")
+local RuntimeHelpers = assert(S.P029RuntimeHelpers, "P0.29 runtime helpers required")
 
 -- Phase D3 reconstruction of the data-table mutation/snapshot layer used by
 -- P0.29.17 / P0.29.60 / P0.29.67 / P0.29.68 and the no_recoil/converge
@@ -128,42 +130,17 @@ M.CONVERGE_FIELDS = {
     "RightLeg", "X", "Y",
 }
 
-local function safe_get(obj, key)
-    if obj == nil then return nil end
-    local ok, value = pcall(function() return obj[key] end)
-    if ok then return value end
-    return nil
-end
+local safe_get = ABI.get
+local call_optional_self = ABI.call_optional_self
 M.safe_get = safe_get
-
-local function call_optional_self(fn, self, ...)
-    if type(fn) ~= "function" then return false, nil end
-    local ok, a, b = pcall(fn, self, ...)
-    if ok then return true, a, b end
-    ok, a, b = pcall(fn, ...)
-    if ok then return true, a, b end
-    return false, nil
-end
 M.call_optional_self = call_optional_self
 
 function M.normalize_identifier(value)
     return string.lower(tostring(value or "")):gsub("[^%w]", "")
 end
 
-function M.get_table_manager()
-    local facade = rawget(_G, "Facade")
-    local manager = safe_get(facade, "TableManager")
-    if manager ~= nil then return manager end
-    return rawget(_G, "TableManager")
-end
-
-function M.get_data_table(name)
-    local manager = M.get_table_manager()
-    local fn = safe_get(manager, "GetTable")
-    local ok, value = call_optional_self(fn, manager, name)
-    if ok then return value end
-    return nil
-end
+M.get_table_manager = RuntimeHelpers.get_table_manager
+M.get_data_table = RuntimeHelpers.get_data_table
 
 function M.table_extend(value)
     if type(value) ~= "userdata" then return value end

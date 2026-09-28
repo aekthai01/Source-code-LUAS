@@ -1,6 +1,8 @@
 local root=assert(arg[1]); local S={}
 S.Runtime={delay=function(_,cb) cb(); return true end}
 assert(loadfile(root..'/src/spectra/visual_runtime.lua'))(S)
+assert(loadfile(root .. "/src/spectra/aim_abi.lua"))(S)
+assert(loadfile(root .. "/src/spectra/p029_runtime_helpers.lua"))(S)
 assert(loadfile(root..'/src/spectra/visual_scan.lua'))(S)
 assert(loadfile(root..'/src/spectra/character_visuals.lua'))(S)
 local orig_ai=function() return 'orig-ai' end

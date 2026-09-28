@@ -1,4 +1,6 @@
 local root=assert(arg[1]); local S={}
+assert(loadfile(root .. "/src/spectra/aim_abi.lua"))(S)
+assert(loadfile(root .. "/src/spectra/p029_runtime_helpers.lua"))(S)
 assert(loadfile(root..'/src/spectra/visual_scan.lua'))(S)
 local V=S.VisualScan
 

@@ -34,12 +34,14 @@ NESTED = [
     "0.29.77.0.0.0.0",
 ]
 ABI_HELPERS = ["0.29.2", "0.29.2.0", "0.29.3", "0.29.4", "0.29.12"]
-ALL = [*PRIMARY, *OUTER, *NESTED, *ABI_HELPERS]
+RUNTIME_HELPERS = ["0.29.5", "0.29.6", "0.29.8", "0.29.11", "0.29.13"]
+ALL = [*PRIMARY, *OUTER, *NESTED, *ABI_HELPERS, *RUNTIME_HELPERS]
 assert len(PRIMARY) == 26
 assert len(OUTER) == 2
 assert len(NESTED) == 11
 assert len(ABI_HELPERS) == 5
-assert len(ALL) == 44 and len(set(ALL)) == 44
+assert len(RUNTIME_HELPERS) == 5
+assert len(ALL) == 49 and len(set(ALL)) == 49
 missing = [pid for pid in ALL if pid not in P]
 assert not missing, f"missing payload prototypes: {missing}"
 
@@ -47,6 +49,8 @@ assert not missing, f"missing payload prototypes: {missing}"
 def source_for(pid):
     if pid in ABI_HELPERS:
         return "src/spectra/aim_abi.lua"
+    if pid in RUNTIME_HELPERS:
+        return "src/spectra/p029_runtime_helpers.lua"
     if pid.startswith("0.29.77"):
         return "src/spectra/feature_control.lua"
     if pid.startswith(("0.29.74", "0.29.75", "0.29.76")):
@@ -75,6 +79,7 @@ def disassembly_blocks():
 
 D = disassembly_blocks()
 assert set(ABI_HELPERS) <= set(D)
+assert set(RUNTIME_HELPERS) <= set(D)
 
 # Mechanically derive the root P0.29 child closure registers. These are not
 # reconstructed names; they are bytecode register identities at closure creation.
@@ -91,7 +96,12 @@ expected_root_registers = {
     "0.29.2": "R19",
     "0.29.3": "R20",
     "0.29.4": "R21",
+    "0.29.5": "R22",
+    "0.29.6": "R23",
+    "0.29.8": "R25",
+    "0.29.11": "R31",
     "0.29.12": "R32",
+    "0.29.13": "R33",
 }
 for pid, register in expected_root_registers.items():
     assert root_closures[pid]["register"] == register, (pid, root_closures.get(pid))
@@ -142,6 +152,17 @@ def direct_root_capture_consumers(target_pid):
     return result
 
 
+root_register_to_pid = {int(v["register"][1:]): k for k,v in root_closures.items()}
+def captured_root_helpers(pid):
+    result=[]
+    for i,d in enumerate(P[pid]["upvalues"]):
+        if d.get("instack") != 1: continue
+        target=root_register_to_pid.get(d.get("idx"))
+        if target is not None:
+            result.append({"upvalue":f"U{i}","register":f"R{d['idx']}","prototype":target})
+    return result
+
+
 # Concrete source consumers. The files are inspected here so evidence generation
 # fails if these source-owned paths stop using the reconstructed ABI helpers.
 source_text = {
@@ -152,6 +173,9 @@ source_text = {
         "src/spectra/aim_mutation.lua",
         "src/spectra/payload_feature_bridge.lua",
         "src/spectra/feature_control.lua",
+        "src/spectra/mutation_runtime.lua",
+        "src/spectra/p029_runtime_helpers.lua",
+        "src/spectra/visual_scan.lua",
     )
 }
 assert "local safe_get = ABI.get" in source_text["src/spectra/aim_refresh.lua"]
@@ -162,6 +186,14 @@ assert "AimABI.get" in source_text["src/spectra/aim_chain.lua"]
 assert "read_field = AimABI.get" in source_text["src/spectra/payload_feature_bridge.lua"]
 assert "deps.read_field" in source_text["src/spectra/aim_mutation.lua"]
 assert "AimABI" not in source_text["src/spectra/feature_control.lua"]
+assert 'local ABI = assert(S.AimABI, "AimABI required")' in source_text["src/spectra/p029_runtime_helpers.lua"]
+assert 'local safe_get = ABI.get' in source_text["src/spectra/mutation_runtime.lua"]
+assert 'local call_optional_self = ABI.call_optional_self' in source_text["src/spectra/mutation_runtime.lua"]
+assert 'M.get_table_manager = RuntimeHelpers.get_table_manager' in source_text["src/spectra/mutation_runtime.lua"]
+assert 'M.get_data_table = RuntimeHelpers.get_data_table' in source_text["src/spectra/mutation_runtime.lua"]
+assert 'local object_name = RuntimeHelpers.object_name' in source_text["src/spectra/visual_scan.lua"]
+assert 'RuntimeHelpers.is_function_field' in source_text["src/spectra/visual_scan.lua"]
+assert 'choose("delay", RuntimeHelpers.delay)' in source_text["src/spectra/payload_feature_bridge.lua"]
 
 SOURCE_CONSUMERS = {
     "0.29.2": [
@@ -169,6 +201,7 @@ SOURCE_CONSUMERS = {
         "src/spectra/aim_chain.lua: AimChain.walk_and_patch/apply_aim_row",
         "src/spectra/payload_feature_bridge.lua: default_dependencies read_field injection",
         "src/spectra/aim_mutation.lua: replacement consumes injected deps.read_field",
+        "src/spectra/mutation_runtime.lua: canonical safe_get used throughout active P0.29.68 source path",
     ],
     "0.29.2.0": [
         "src/spectra/aim_abi.lua: nested raw owner[key] closure inside AimABI.get",
@@ -181,7 +214,39 @@ SOURCE_CONSUMERS = {
     ],
     "0.29.12": [
         "src/spectra/aim_refresh.lua: collect_targets FindComponentByClass optional-self call",
+        "src/spectra/mutation_runtime.lua: get_data_table inherits exact P0.29.12 optional-self ABI",
     ],
+}
+RUNTIME_SOURCE_CONSUMERS = {
+    "0.29.5": ["src/spectra/visual_scan.lua: P0.29.81 is_mesh_component SetMaterial/SetOverlayMaterial predicates"],
+    "0.29.6": ["src/spectra/visual_scan.lua: P0.29.85 is_ai_actor object-name normalization"],
+    "0.29.8": ["src/spectra/payload_feature_bridge.lua: P0.29.77 delay dependency injection"],
+    "0.29.11": ["src/spectra/mutation_runtime.lua: get_table_manager/get_data_table/apply_feature"],
+    "0.29.13": [
+        "src/spectra/mutation_runtime.lua: get_data_table/apply_feature",
+        "src/spectra/aim_bones.lua: refresh_bone_table consumes MutationRuntime.get_data_table",
+    ],
+}
+RUNTIME_RETURN_CONTRACTS = {
+    "0.29.5": "exactly one boolean: true only when protected field value has type function",
+    "0.29.6": "nil input returns exactly one empty string; successful/fallback tostring is a tail return",
+    "0.29.8": "exactly zero values on every normal path",
+    "0.29.11": "exactly one value: truthy Facade.TableManager or raw global TableManager fallback",
+    "0.29.13": "exactly one value: GetTable first result on success, otherwise nil",
+}
+RUNTIME_RETRY_ORDER = {
+    "0.29.5": "P0.29.2 protected lookup then strict type(value)==function",
+    "0.29.6": "GetFullName then GetName via P0.29.3 self-first ABI; final tostring fallback",
+    "0.29.8": "missing/non-function DelayCall invokes callback immediately; otherwise static pcall then self fallback after exception; errors discarded",
+    "0.29.11": "rawget Facade; P0.29.2 TableManager lookup; truthy branch; raw global fallback",
+    "0.29.13": "P0.29.11 manager; P0.29.2 GetTable; P0.29.12 self-first call; ok branch returns value",
+}
+RUNTIME_SOURCE_SYMBOLS = {
+    "0.29.5": "P029RuntimeHelpers.is_function_field",
+    "0.29.6": "P029RuntimeHelpers.object_name",
+    "0.29.8": "P029RuntimeHelpers.delay",
+    "0.29.11": "P029RuntimeHelpers.get_table_manager",
+    "0.29.13": "P029RuntimeHelpers.get_data_table",
 }
 
 RETURN_CONTRACTS = {
@@ -285,6 +350,50 @@ for pid in ABI_HELPERS:
     md.append("")
 (ROOT / "P029_ABI_HELPER_MAP.md").write_text("\n".join(md), encoding="utf-8")
 
+runtime_map={
+ "_meta":{
+  "source_of_truth":"embedded_payload.bin","payload_sha256":PAYLOAD_SHA,"parent_prototype":"0.29",
+  "names_are_reconstructed_semantic_labels":True,"payload_closure_rebinding":False,
+  "ownership_model":"source-owned callers use src/spectra/p029_runtime_helpers.lua directly; payload-owned callers retain captured payload closures",
+  "mutation_runtime_integration":{
+   "canonical_get":"AimABI.get","canonical_optional_self":"AimABI.call_optional_self",
+   "table_manager":"P029RuntimeHelpers.get_table_manager","get_data_table":"P029RuntimeHelpers.get_data_table"}},
+ "helpers":{},"inspected_source_files":list(source_text)}
+for pid in RUNTIME_HELPERS:
+ item=P[pid]
+ runtime_map["helpers"][pid]={
+  "prototype_id":pid,"instruction_count":item["instruction_count"],"numparams":item["numparams"],
+  "upvalues":item["upvalues"],"child_count":item["child_count"],
+  "p029_parent_register":root_closures[pid]["register"],
+  "p029_closure_instruction":root_closures[pid]["instruction"],
+  "captured_helper_registers":captured_root_helpers(pid),
+  "known_payload_capture_consumers":direct_root_capture_consumers(pid),
+  "known_source_consumers":RUNTIME_SOURCE_CONSUMERS[pid],
+  "return_contract":RUNTIME_RETURN_CONTRACTS[pid],"retry_or_branch_order":RUNTIME_RETRY_ORDER[pid],
+  "source_implementation_symbol":RUNTIME_SOURCE_SYMBOLS[pid],
+  "source_file":"src/spectra/p029_runtime_helpers.lua",
+  "source_implementation_exists":True,"current_ownership":"source_owned",
+  "active_source_consumer":True,"payload_closure_rebinding":False,
+  "source_only_dependency":True,"name_is_original_symbol":False}
+(ROOT/"P029_RUNTIME_HELPER_MAP.json").write_text(json.dumps(runtime_map,indent=2,ensure_ascii=False)+"\n")
+runtime_md=["# P0.29 Runtime Helper Map","",f"Evidence payload SHA-256: `{PAYLOAD_SHA}`.","",
+ "Names are reconstructed semantic labels, not recovered stripped symbols.","",
+ "Payload closures are not dynamically rebound. Source-owned callers use exact source helpers directly.","",
+ "| Prototype | Register | Params | Instructions | Upvalues | Source symbol | Return contract |",
+ "|---|---:|---:|---:|---:|---|---|"]
+for pid in RUNTIME_HELPERS:
+ e=runtime_map["helpers"][pid]
+ runtime_md.append(f"| `{pid}` | `{e['p029_parent_register']}` | {e['numparams']} | {e['instruction_count']} | {len(e['upvalues'])} | `{e['source_implementation_symbol']}` | {e['return_contract']} |")
+runtime_md += ["","## MutationRuntime integration","",
+ "- `MutationRuntime.safe_get` reuses `AimABI.get`.",
+ "- `MutationRuntime.call_optional_self` reuses `AimABI.call_optional_self`.",
+ "- `MutationRuntime.get_table_manager` / `get_data_table` reuse P0.29.11 / P0.29.13 source helpers.",
+ "","## Source consumers",""]
+for pid in RUNTIME_HELPERS:
+ runtime_md.append(f"### `{pid}`")
+ runtime_md.extend(f"- {v}" for v in RUNTIME_SOURCE_CONSUMERS[pid]); runtime_md.append("")
+(ROOT/"P029_RUNTIME_HELPER_MAP.md").write_text("\n".join(runtime_md))
+
 index = {
     "_meta": {
         "source_of_truth": "embedded_payload.bin",
@@ -293,7 +402,8 @@ index = {
         "outer_dispatch_prototypes": 2,
         "nested_callbacks": 11,
         "abi_helpers": 5,
-        "indexed_entries_total": 44,
+        "runtime_helpers": 5,
+        "indexed_entries_total": 49,
         "detailed_legacy_index": "AIM_PROTOTYPE_INDEX_LEGACY_DETAILED.json",
         "runtime_ownership": {"aim": True, "anti_shake": True},
         "game_runtime_test": False,
@@ -305,6 +415,8 @@ index = {
 for pid in ALL:
     if pid in ABI_HELPERS:
         category = "abi_helper"
+    elif pid in RUNTIME_HELPERS:
+        category = "runtime_helper"
     elif pid in PRIMARY:
         category = "primary_requested"
     elif pid in OUTER:
@@ -316,7 +428,7 @@ for pid in ALL:
         "source": source_for(pid),
         "implementation_status": (
             "source-owned helper; payload closure copy not rebound for unreconstructed payload callers"
-            if category == "abi_helper"
+            if category in {"abi_helper", "runtime_helper"}
             else "source-owned after payload init"
             if category != "nested_callback"
             else "source-reconstructed and owned through reconstructed parent flow"
@@ -327,6 +439,11 @@ for pid in ALL:
         item.update(
             reconstructed_name=SOURCE_SYMBOLS[pid],
             evidence_status="exact return arity, retry order, root register/capture and source-consumer evidence pinned",
+        )
+    elif pid in RUNTIME_HELPERS:
+        item.update(
+            reconstructed_name=RUNTIME_SOURCE_SYMBOLS[pid],
+            evidence_status="exact bytecode shape, root register/captures, source integration and return contract pinned",
         )
     elif pid == "0.29.65":
         item.update(
@@ -360,5 +477,6 @@ for pid in ALL:
 )
 print(
     f"indexed {len(index['prototypes'])} prototypes "
-    f"({len(PRIMARY)} primary + {len(OUTER)} outer + {len(NESTED)} nested + {len(ABI_HELPERS)} ABI helpers)"
+    f"({len(PRIMARY)} primary + {len(OUTER)} outer + {len(NESTED)} nested + "
+    f"{len(ABI_HELPERS)} ABI helpers + {len(RUNTIME_HELPERS)} runtime helpers)"
 )

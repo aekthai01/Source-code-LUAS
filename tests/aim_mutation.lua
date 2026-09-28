@@ -1,5 +1,7 @@
 local root = assert(arg[1])
 local S = {}
+assert(loadfile(root .. "/src/spectra/aim_abi.lua"))(S)
+assert(loadfile(root .. "/src/spectra/p029_runtime_helpers.lua"))(S)
 assert(loadfile(root .. "/src/spectra/mutation_runtime.lua"))(S)
 assert(loadfile(root .. "/src/spectra/aim_mutation.lua"))(S)
 local M = S.AimMutation
@@ -108,7 +110,7 @@ eq(nested.ConeFilterBones.bTakeEffect, false, "bone-array subtree excluded")
 M.walk_and_patch(state, deps, row, "ShootingConfig", nested, "WeaponBase/WeaponMainAttributeTable", 0, seen, 1)
 eq(#state.custom_dongdong_feature_snapshots.aim.records, 1, "one original snapshot")
 eq(S.MutationRuntime.restore_feature_snapshot(state, "aim"), true, "restore succeeds")
-eq(nested.bTakeEffect, false, "original value restored")
+eq(nested.bTakeEffect, nil, "P15 snapshots false through P2 as nil")
 local called_bones = 0
 eq(pcall(M.apply_aim_table, state, {
     normalize_identifier=deps.normalize_identifier, read_field=deps.read_field

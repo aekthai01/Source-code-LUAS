@@ -1,5 +1,6 @@
 local S = ...
 assert(type(S) == "table", "spectra module table required")
+local RuntimeHelpers = assert(S.P029RuntimeHelpers, "P0.29 runtime helpers required")
 local M = {}
 S.VisualScan = M
 
@@ -99,14 +100,7 @@ local function is_valid(obj)
     local ok,v=pcall(fn,obj)
     return ok and v==true
 end
-local function object_name(obj)
-    if obj==nil then return "" end
-    for _,n in ipairs({"GetFullName","GetName"}) do
-        local ok,v=method(obj,n)
-        if ok and v~=nil then return tostring(v) end
-    end
-    return tostring(obj)
-end
+local object_name = RuntimeHelpers.object_name
 local function import_class(name)
     local direct=rawget(_G,name)
     if direct~=nil then return direct end
@@ -153,8 +147,8 @@ function M.is_mesh_component(value)
     if not is_valid(value) then return false end
     local ok=method(value,"GetNumMaterials")
     if not ok then return false end
-    local setm=safe_get(value,"SetMaterial"); if type(setm)~="function" then return false end
-    return type(safe_get(value,"SetOverlayMaterial"))=="function"
+    if not RuntimeHelpers.is_function_field(value,"SetMaterial") then return false end
+    return RuntimeHelpers.is_function_field(value,"SetOverlayMaterial")
 end
 
 function M.collect_mesh_value(list,seen,value)

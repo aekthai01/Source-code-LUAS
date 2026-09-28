@@ -1,0 +1,385 @@
+{
+  "_meta": {
+    "source_of_truth": "embedded_payload.bin",
+    "payload_sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263",
+    "parent_prototype": "0.29",
+    "names_are_reconstructed_semantic_labels": true,
+    "payload_closure_rebinding": false,
+    "ownership_model": "source-owned callers use src/spectra/p029_runtime_helpers.lua directly; payload-owned callers retain captured payload closures",
+    "mutation_runtime_integration": {
+      "canonical_get": "AimABI.get",
+      "canonical_optional_self": "AimABI.call_optional_self",
+      "table_manager": "P029RuntimeHelpers.get_table_manager",
+      "get_data_table": "P029RuntimeHelpers.get_data_table"
+    }
+  },
+  "helpers": {
+    "0.29.5": {
+      "prototype_id": "0.29.5",
+      "instruction_count": 15,
+      "numparams": 2,
+      "upvalues": [
+        {
+          "instack": 0,
+          "idx": 0
+        },
+        {
+          "instack": 1,
+          "idx": 19
+        }
+      ],
+      "child_count": 0,
+      "p029_parent_register": "R22",
+      "p029_closure_instruction": 141,
+      "captured_helper_registers": [
+        {
+          "upvalue": "U1",
+          "register": "R19",
+          "prototype": "0.29.2"
+        }
+      ],
+      "known_payload_capture_consumers": [
+        {
+          "prototype": "0.29.81",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 13,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 21,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 27,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.94",
+          "upvalue": "U6",
+          "direct_call_sites": [
+            {
+              "instruction": 92,
+              "opcode": "CALL"
+            }
+          ]
+        }
+      ],
+      "known_source_consumers": [
+        "src/spectra/visual_scan.lua: P0.29.81 is_mesh_component SetMaterial/SetOverlayMaterial predicates"
+      ],
+      "return_contract": "exactly one boolean: true only when protected field value has type function",
+      "retry_or_branch_order": "P0.29.2 protected lookup then strict type(value)==function",
+      "source_implementation_symbol": "P029RuntimeHelpers.is_function_field",
+      "source_file": "src/spectra/p029_runtime_helpers.lua",
+      "source_implementation_exists": true,
+      "current_ownership": "source_owned",
+      "active_source_consumer": true,
+      "payload_closure_rebinding": false,
+      "source_only_dependency": true,
+      "name_is_original_symbol": false
+    },
+    "0.29.6": {
+      "prototype_id": "0.29.6",
+      "instruction_count": 33,
+      "numparams": 1,
+      "upvalues": [
+        {
+          "instack": 0,
+          "idx": 0
+        },
+        {
+          "instack": 1,
+          "idx": 20
+        }
+      ],
+      "child_count": 0,
+      "p029_parent_register": "R23",
+      "p029_closure_instruction": 142,
+      "captured_helper_registers": [
+        {
+          "upvalue": "U1",
+          "register": "R20",
+          "prototype": "0.29.3"
+        }
+      ],
+      "known_payload_capture_consumers": [
+        {
+          "prototype": "0.29.85",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 7,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.87",
+          "upvalue": "U4",
+          "direct_call_sites": []
+        },
+        {
+          "prototype": "0.29.98",
+          "upvalue": "U8",
+          "direct_call_sites": [
+            {
+              "instruction": 107,
+              "opcode": "CALL"
+            }
+          ]
+        }
+      ],
+      "known_source_consumers": [
+        "src/spectra/visual_scan.lua: P0.29.85 is_ai_actor object-name normalization"
+      ],
+      "return_contract": "nil input returns exactly one empty string; successful/fallback tostring is a tail return",
+      "retry_or_branch_order": "GetFullName then GetName via P0.29.3 self-first ABI; final tostring fallback",
+      "source_implementation_symbol": "P029RuntimeHelpers.object_name",
+      "source_file": "src/spectra/p029_runtime_helpers.lua",
+      "source_implementation_exists": true,
+      "current_ownership": "source_owned",
+      "active_source_consumer": true,
+      "payload_closure_rebinding": false,
+      "source_only_dependency": true,
+      "name_is_original_symbol": false
+    },
+    "0.29.8": {
+      "prototype_id": "0.29.8",
+      "instruction_count": 33,
+      "numparams": 2,
+      "upvalues": [
+        {
+          "instack": 0,
+          "idx": 0
+        },
+        {
+          "instack": 1,
+          "idx": 19
+        }
+      ],
+      "child_count": 0,
+      "p029_parent_register": "R25",
+      "p029_closure_instruction": 144,
+      "captured_helper_registers": [
+        {
+          "upvalue": "U1",
+          "register": "R19",
+          "prototype": "0.29.2"
+        }
+      ],
+      "known_payload_capture_consumers": [
+        {
+          "prototype": "0.29.72",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 15,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 19,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.76",
+          "upvalue": "U3",
+          "direct_call_sites": [
+            {
+              "instruction": 51,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.77",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 15,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.97",
+          "upvalue": "U4",
+          "direct_call_sites": [
+            {
+              "instruction": 30,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.105",
+          "upvalue": "U3",
+          "direct_call_sites": []
+        },
+        {
+          "prototype": "0.29.106",
+          "upvalue": "U3",
+          "direct_call_sites": [
+            {
+              "instruction": 18,
+              "opcode": "CALL"
+            }
+          ]
+        }
+      ],
+      "known_source_consumers": [
+        "src/spectra/payload_feature_bridge.lua: P0.29.77 delay dependency injection"
+      ],
+      "return_contract": "exactly zero values on every normal path",
+      "retry_or_branch_order": "missing/non-function DelayCall invokes callback immediately; otherwise static pcall then self fallback after exception; errors discarded",
+      "source_implementation_symbol": "P029RuntimeHelpers.delay",
+      "source_file": "src/spectra/p029_runtime_helpers.lua",
+      "source_implementation_exists": true,
+      "current_ownership": "source_owned",
+      "active_source_consumer": true,
+      "payload_closure_rebinding": false,
+      "source_only_dependency": true,
+      "name_is_original_symbol": false
+    },
+    "0.29.11": {
+      "prototype_id": "0.29.11",
+      "instruction_count": 19,
+      "numparams": 0,
+      "upvalues": [
+        {
+          "instack": 0,
+          "idx": 0
+        },
+        {
+          "instack": 1,
+          "idx": 19
+        }
+      ],
+      "child_count": 0,
+      "p029_parent_register": "R31",
+      "p029_closure_instruction": 326,
+      "captured_helper_registers": [
+        {
+          "upvalue": "U1",
+          "register": "R19",
+          "prototype": "0.29.2"
+        }
+      ],
+      "known_payload_capture_consumers": [
+        {
+          "prototype": "0.29.13",
+          "upvalue": "U0",
+          "direct_call_sites": [
+            {
+              "instruction": 4,
+              "opcode": "CALL"
+            }
+          ]
+        }
+      ],
+      "known_source_consumers": [
+        "src/spectra/mutation_runtime.lua: get_table_manager/get_data_table/apply_feature"
+      ],
+      "return_contract": "exactly one value: truthy Facade.TableManager or raw global TableManager fallback",
+      "retry_or_branch_order": "rawget Facade; P0.29.2 TableManager lookup; truthy branch; raw global fallback",
+      "source_implementation_symbol": "P029RuntimeHelpers.get_table_manager",
+      "source_file": "src/spectra/p029_runtime_helpers.lua",
+      "source_implementation_exists": true,
+      "current_ownership": "source_owned",
+      "active_source_consumer": true,
+      "payload_closure_rebinding": false,
+      "source_only_dependency": true,
+      "name_is_original_symbol": false
+    },
+    "0.29.13": {
+      "prototype_id": "0.29.13",
+      "instruction_count": 20,
+      "numparams": 1,
+      "upvalues": [
+        {
+          "instack": 1,
+          "idx": 31
+        },
+        {
+          "instack": 1,
+          "idx": 19
+        },
+        {
+          "instack": 1,
+          "idx": 32
+        }
+      ],
+      "child_count": 0,
+      "p029_parent_register": "R33",
+      "p029_closure_instruction": 328,
+      "captured_helper_registers": [
+        {
+          "upvalue": "U0",
+          "register": "R31",
+          "prototype": "0.29.11"
+        },
+        {
+          "upvalue": "U1",
+          "register": "R19",
+          "prototype": "0.29.2"
+        },
+        {
+          "upvalue": "U2",
+          "register": "R32",
+          "prototype": "0.29.12"
+        }
+      ],
+      "known_payload_capture_consumers": [
+        {
+          "prototype": "0.29.64",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 19,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.68",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 19,
+              "opcode": "CALL"
+            }
+          ]
+        }
+      ],
+      "known_source_consumers": [
+        "src/spectra/mutation_runtime.lua: get_data_table/apply_feature",
+        "src/spectra/aim_bones.lua: refresh_bone_table consumes MutationRuntime.get_data_table"
+      ],
+      "return_contract": "exactly one value: GetTable first result on success, otherwise nil",
+      "retry_or_branch_order": "P0.29.11 manager; P0.29.2 GetTable; P0.29.12 self-first call; ok branch returns value",
+      "source_implementation_symbol": "P029RuntimeHelpers.get_data_table",
+      "source_file": "src/spectra/p029_runtime_helpers.lua",
+      "source_implementation_exists": true,
+      "current_ownership": "source_owned",
+      "active_source_consumer": true,
+      "payload_closure_rebinding": false,
+      "source_only_dependency": true,
+      "name_is_original_symbol": false
+    }
+  },
+  "inspected_source_files": [
+    "src/spectra/aim_refresh.lua",
+    "src/spectra/aim_chain.lua",
+    "src/spectra/aim_mutation.lua",
+    "src/spectra/payload_feature_bridge.lua",
+    "src/spectra/feature_control.lua",
+    "src/spectra/mutation_runtime.lua",
+    "src/spectra/p029_runtime_helpers.lua",
+    "src/spectra/visual_scan.lua"
+  ]
+}
