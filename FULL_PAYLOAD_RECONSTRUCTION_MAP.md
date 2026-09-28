@@ -31,11 +31,11 @@ The current compact ownership index is `FULL_PAYLOAD_PROTOTYPE_INDEX.json`. The 
 | `P0.16` | `_CheckSafeBoxExpiredStatus` | `source_owned` | `true` | `src/spectra/product_module.lua` |
 | `P0.17` | `_CheckKeyChainExpiredStatus` | `source_owned` | `true` | `src/spectra/product_module.lua` |
 | `P0.18` | `_CheckPropExpiredStatus` | `source_owned` | `true` | `src/spectra/product_module.lua` |
-| `P0.19` | `CheckPlayerBodyItemsByList` | `payload_owned` | `false` | `payload` |
-| `P0.20` | `CheckNightVisionLimitByList` | `payload_owned` | `false` | `payload` |
-| `P0.21` | `CheckThermalImagingLimitByList` | `payload_owned` | `false` | `payload` |
-| `P0.22` | `CheckPlayerBodyItemsEntryQuality` | `payload_owned` | `false` | `payload` |
-| `P0.23` | `CheckRentalConsumableID` | `payload_owned` | `false` | `payload` |
+| `P0.19` | `CheckPlayerBodyItemsByList` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.20` | `CheckNightVisionLimitByList` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.21` | `CheckThermalImagingLimitByList` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.22` | `CheckPlayerBodyItemsEntryQuality` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.23` | `CheckRentalConsumableID` | `source_owned` | `true` | `src/spectra/product_module.lua` |
 | `P0.24` | `_CheckPropinfoDownloadWithLog` | `payload_owned` | `false` | `payload` |
 | `P0.25` | `_CheckItemWithCompsDownloaded` | `payload_owned` | `false` | `payload` |
 | `P0.26` | `_CheckItemIdDownloaded` | `payload_owned` | `false` | `payload` |
@@ -44,9 +44,9 @@ The current compact ownership index is `FULL_PAYLOAD_PROTOTYPE_INDEX.json`. The 
 
 Exact root fields: `EquipTypeList`, `ContainerTypeList`.
 
-## P0.0..P0.18 source-only preparation
+## P0.0..P0.23 source-only preparation
 
-- All nineteen public methods P0.0..P0.18 receive source-owned captures and helpers; none use `debug.getupvalue`.
+- All twenty-four public methods P0.0..P0.23 receive source-owned captures and helpers; none use `debug.getupvalue`.
 - P0.3 uses source `info_logger` (R1) and `error_logger` (R2).
 - P0.7/P0.7.0 use source `ItemHelperTool` (R4), `debug_logger` (R0), `error_logger` (R2), and the owning product table passed by the source constructor.
 - P0.8/P0.8.0 use source `error_logger` (R2).
@@ -58,13 +58,17 @@ Exact root fields: `EquipTypeList`, `ContainerTypeList`.
 - P0.15 uses source R3 EquipTypeList/ContainerTypeList plus root R8 ItemBaseTool. It preserves ipairs order, plain two-argument support-helper ABI, early returns, and exact false on a complete miss.
 - P0.16/P0.17 preserve distinct ExpiredStatus gates, Inventory SELF calls, slot subtypes and four-field abnormal records.
 - P0.18 uses source R3 traversal lists plus root R9 ArmedForceExpiredLogic with a plain one-argument CheckExpired ABI and exact three-field ExpiredProp record.
-- `ProductModule.create(context, globals)` creates/binds P0.0..P0.18 on the same source R3 product table and emits exact `EquipTypeList` / `ContainerTypeList` order.
-- The transitional payload overlay remains restorable; P0.0..P0.18 neither inspect nor call payload closures and do not extract payload upvalues.
+- P0.19/P0.19.0 use source R3 traversal lists plus R2/R4/R6 captures, one-result receiver raw-prop semantics, static expansion ABI, matched-map dedupe and engine `table.keys` ordering.
+- P0.20/P0.21 remain distinct exports and tail-forward every return through a dynamic source R3 `CheckPlayerBodyItemsByList` lookup.
+- P0.22/P0.22.0/P0.22.1/P0.22.2 preserve setdefault(false,true), strict comparators, exact three-slot result state and static R4/R5/R6 helper ABIs.
+- P0.23 preserves the RentalVoucherDoNotMeetEntryRequirements gate, ArmedForce SELF call and exact four-field abnormal record with an empty `param` table.
+- `ProductModule.create(context, globals)` creates/binds P0.0..P0.23 on the same source R3 product table and emits exact `EquipTypeList` / `ContainerTypeList` order.
+- The transitional payload overlay remains restorable; P0.0..P0.23 neither inspect nor call payload closures and do not extract payload upvalues.
 
 ## Current ownership
 
-- Source-owned: **96**
-- Payload-owned: **200**
+- Source-owned: **105**
+- Payload-owned: **191**
 - Partially reconstructed: **0**
 - Unknown: **0**
-- Root methods source-owned: **19 / 29**
+- Root methods source-owned: **24 / 29**

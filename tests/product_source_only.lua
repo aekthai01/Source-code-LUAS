@@ -124,6 +124,9 @@ local names={
     "DynamicGuidPriceFinishFetch","CheckRaidBulletEnough","GetMatchBulletNumByWeaponItem",
     "_CheckNightFight","_CheckPlayerSuppliesForNightSpeicalType",
     "_CheckSafeBoxExpiredStatus","_CheckKeyChainExpiredStatus","_CheckPropExpiredStatus",
+    "CheckPlayerBodyItemsByList","CheckNightVisionLimitByList",
+    "CheckThermalImagingLimitByList","CheckPlayerBodyItemsEntryQuality",
+    "CheckRentalConsumableID",
 }
 for _,name in ipairs(names) do truth(type(product[name])=="function",name.." source export") end
 

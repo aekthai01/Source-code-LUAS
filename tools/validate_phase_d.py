@@ -57,7 +57,7 @@ def main():
     assert source_root_indices==list(range(root_source_owned))
     assert all(roots[name]['source_only_dependency'] for name in list(roots)[:root_source_owned])
     assert all(not roots[name]['source_only_dependency'] for name in list(roots)[root_source_owned:])
-    assert root_source_owned>=19
+    assert root_source_owned>=24
     assert {'0.12','0.12.0','0.13','0.13.0'} <= set(groups['source_owned'])
     for source_file in ('product_context.lua','product_constructor.lua','product_module_bridge.lua'):
         text=(ROOT/'src/spectra'/source_file).read_text()
@@ -121,7 +121,24 @@ def main():
     assert roots['_CheckSafeBoxExpiredStatus']['source_only_dependency'] is True
     assert roots['_CheckKeyChainExpiredStatus']['source_only_dependency'] is True
     assert roots['_CheckPropExpiredStatus']['source_only_dependency'] is True
-    assert roots['CheckPlayerBodyItemsByList']['current_ownership']=='payload_owned'
+    assert captured('R2','P0.19','U0') and captured('R4','P0.19','U2') and captured('R6','P0.19','U3') and captured('R3','P0.19','U4')
+    assert captured('R3','P0.20','U0') and captured('R3','P0.21','U0')
+    assert captured('R4','P0.22','U1') and captured('R5','P0.22','U2') and captured('R6','P0.22','U3') and captured('R3','P0.22','U4') and captured('R2','P0.22','U5')
+    assert prototypes['0.19']['numparams']==1 and prototypes['0.19']['instruction_count']==87 and len(prototypes['0.19']['upvalues'])==5
+    assert prototypes['0.19.0']['numparams']==1 and prototypes['0.19.0']['instruction_count']==57 and len(prototypes['0.19.0']['upvalues'])==5
+    assert prototypes['0.20']['numparams']==1 and prototypes['0.20']['instruction_count']==8 and len(prototypes['0.20']['upvalues'])==1
+    assert prototypes['0.21']['numparams']==1 and prototypes['0.21']['instruction_count']==8 and len(prototypes['0.21']['upvalues'])==1
+    assert prototypes['0.22']['numparams']==1 and prototypes['0.22']['instruction_count']==103 and len(prototypes['0.22']['upvalues'])==6
+    assert prototypes['0.22.0']['numparams']==2 and prototypes['0.22.0']['instruction_count']==9 and len(prototypes['0.22.0']['upvalues'])==0
+    assert prototypes['0.22.1']['numparams']==2 and prototypes['0.22.1']['instruction_count']==9 and len(prototypes['0.22.1']['upvalues'])==0
+    assert prototypes['0.22.2']['numparams']==1 and prototypes['0.22.2']['instruction_count']==131 and len(prototypes['0.22.2']['upvalues'])==6
+    assert prototypes['0.23']['numparams']==0 and prototypes['0.23']['instruction_count']==51 and len(prototypes['0.23']['upvalues'])==1
+    migrated={'0.19','0.19.0','0.20','0.21','0.22','0.22.0','0.22.1','0.22.2','0.23'}
+    assert migrated <= set(groups['source_owned'])
+    assert all(inv['source_files'][p]=='src/spectra/product_module.lua' for p in migrated)
+    for name in ('CheckPlayerBodyItemsByList','CheckNightVisionLimitByList','CheckThermalImagingLimitByList','CheckPlayerBodyItemsEntryQuality','CheckRentalConsumableID'):
+        assert roots[name]['source_only_dependency'] is True
+    assert roots['_CheckPropinfoDownloadWithLog']['current_ownership']=='payload_owned'
 
     coverage_text=(ROOT/'RECONSTRUCTION_COVERAGE.md').read_text()
     for line in (
@@ -151,7 +168,7 @@ def main():
       'aim_runtime.lua':'aim-runtime: ok','aim_mutation.lua':'aim-mutation: ok','aim_differential.lua':'aim-differential: ok','aim_bones.lua':'aim-bones: ok',
       'aim_refresh.lua':'aim-refresh: ok','aim_abi.lua':'aim-abi: ok','aim_dispatch.lua':'aim-dispatch: ok','aim_chain.lua':'aim-chain: ok',
       'aim_chain_fidelity.lua':'aim-chain-fidelity: ok','aim_transaction.lua':'aim-transaction: ok','product_context.lua':'product-context: ok',
-      'product_module.lua':'product-module: ok','product_night.lua':'product-night: ok','product_expiration.lua':'product-expiration: ok','product_source_only.lua':'product-source-only: ok','product_module_bridge.lua':'product-module-bridge: ok',
+      'product_module.lua':'product-module: ok','product_night.lua':'product-night: ok','product_expiration.lua':'product-expiration: ok','product_body_limits.lua':'product-body-limits: ok','product_source_only.lua':'product-source-only: ok','product_module_bridge.lua':'product-module-bridge: ok',
       'visual_runtime.lua':'visual-runtime: ok','mutation_runtime.lua':'mutation-runtime: ok','payload_feature_bridge.lua':'payload-feature-bridge: ok',
       'visual_scan.lua':'visual-scan: ok','payload_visual_bridge.lua':'payload-visual-bridge: ok','smoke.lua':'smoke: ok','protocol_fixture.lua':'protocol-fixture: ok'}
     passed={}
@@ -159,10 +176,10 @@ def main():
         out=run([lua,str(ROOT/'tests'/file),str(ROOT)]); assert marker in out; passed[file]='passed'
 
     report={
-      'phase':'E5.5-root-expiration-source-only',
+      'phase':'E5.6-root-body-limits-source-only',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
       'inventory':{'total':len(paths),'classified':coverage['classified'],'source_owned':coverage['source_owned'],'payload_owned':coverage['payload_owned'],'partially_reconstructed':coverage['partially_reconstructed'],'unknown':coverage['unknown'],'root_methods_source_owned':root_source_owned,'root_methods_total':len(roots)},
-      'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_18':True,'payload_upvalue_introspection':False},
+      'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_23':True,'payload_upvalue_introspection':False},
       'runtime_ownership':{'no_recoil':True,'converge':True,'aim':True,'anti_shake':True},
       'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
     (ROOT/'validation_phase_d.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')

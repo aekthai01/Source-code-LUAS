@@ -65,7 +65,7 @@ local function bind(product, globals, source, dependencies, mode)
     end
 end
 
--- Source-only constructor for the reconstructed P0.0..P0.18 boundary. The
+-- Source-only constructor for the reconstructed P0.0..P0.23 boundary. The
 -- context's R3 table is used directly so every root capture of the product
 -- table observes the same source identity. Later root groups extend this same
 -- table rather than swapping in a payload-created object.
@@ -121,6 +121,26 @@ function M.create(context, globals)
     local p18 = { armed_force_expired_logic = context.armed_force_expired_logic }
     product._CheckPropExpiredStatus = bind(product, globals,
         Product._CheckPropExpiredStatus, p18, "expired_prop")
+    local p19 = {
+        error_logger = context.error_logger,
+        item_helper = context.item_helper,
+        weapon_assembly_tool = context.weapon_assembly_tool,
+    }
+    product.CheckPlayerBodyItemsByList = bind(product, globals,
+        Product.CheckPlayerBodyItemsByList, p19, "static_one_arg_deps")
+    product.CheckNightVisionLimitByList = bind(product, globals,
+        Product.CheckNightVisionLimitByList, nil, "one_arg")
+    product.CheckThermalImagingLimitByList = bind(product, globals,
+        Product.CheckThermalImagingLimitByList, nil, "one_arg")
+    local p22 = {
+        item_helper = context.item_helper,
+        item_config_tool = context.item_config_tool,
+        weapon_assembly_tool = context.weapon_assembly_tool,
+        error_logger = context.error_logger,
+    }
+    product.CheckPlayerBodyItemsEntryQuality = bind(product, globals,
+        Product.CheckPlayerBodyItemsEntryQuality, p22, "static_one_arg_deps")
+    product.CheckRentalConsumableID = bind(product, globals, Product.CheckRentalConsumableID)
 
     local slot = assert(globals.ESlotType, "ESlotType required")
     product.EquipTypeList = {

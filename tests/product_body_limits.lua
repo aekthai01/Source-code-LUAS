@@ -54,12 +54,14 @@ do
         end,
     }
     local slots={}
-    local inventory={GetSlot=function(self,slot_type,group)
+    local inventory
+    inventory={GetSlot=function(self,slot_type,group)
         eq(self,inventory,"P0.19 InventoryServer receiver"); eq(group,"body-group")
         slot_calls[#slot_calls+1]=slot_type
         return slots[slot_type]
     end}
-    local armed={GetCurSlotGroupId=function(self) eq(self,armed); return "body-group" end}
+    local armed
+    armed={GetCurSlotGroupId=function(self) eq(self,armed); return "body-group" end}
     local env={
         Server={ArmedForceServer=armed,InventoryServer=inventory},
         EItemType={Receiver="receiver"}, table=table_helpers, ipairs=ipairs,
@@ -79,14 +81,17 @@ do
 
     local direct={id="direct"}
     local duplicate={id="direct"}
-    local receiver={id="recv",GetRawPropInfo=function(self)
+    local receiver
+    receiver={id="recv",GetRawPropInfo=function(self)
         eq(self,receiver,"P0.19 receiver raw-prop SELF")
         return "raw-first","ignored-second","ignored-third"
     end}
-    local receiver_empty={id="recv_empty",GetRawPropInfo=function(self)
+    local receiver_empty
+    receiver_empty={id="recv_empty",GetRawPropInfo=function(self)
         eq(self,receiver_empty); return "empty-raw","ignored"
     end}
-    local receiver_nil_raw={id="recv_nil_raw",GetRawPropInfo=function(self)
+    local receiver_nil_raw
+    receiver_nil_raw={id="recv_nil_raw",GetRawPropInfo=function(self)
         eq(self,receiver_nil_raw); return nil,"must-not-forward"
     end}
     product.EquipTypeList={"e-missing","e-empty","e-direct","e-receiver-empty"}
@@ -176,11 +181,13 @@ do
         error("unexpected weapon raw "..tostring(a[1]))
     end}
     local slots={}
-    local inventory={GetSlot=function(self,slot_type,group)
+    local inventory
+    inventory={GetSlot=function(self,slot_type,group)
         eq(self,inventory,"P0.22 InventoryServer receiver"); eq(group,"quality-group")
         slot_calls[#slot_calls+1]=slot_type; return slots[slot_type]
     end}
-    local armed={GetCurSlotGroupId=function(self) eq(self,armed); return "quality-group" end}
+    local armed
+    armed={GetCurSlotGroupId=function(self) eq(self,armed); return "quality-group" end}
     local env={
         Server={ArmedForceServer=armed,InventoryServer=inventory},
         ESlotType={Helmet="helmet-slot",BreastPlate="breast-slot",BulletLeft="bullet-slot"},
@@ -199,9 +206,12 @@ do
         weapon_assembly_tool=weapon,error_logger=function(...) logs[#logs+1]=table.pack(...) end}
     local function equip(item) return {GetEquipItem=function() return item end} end
     local function container(items) return {GetItems=function() return items end} end
-    local receiver={id="recv",GetRawPropInfo=function(self) eq(self,receiver); return "receiver-raw","ignored" end}
-    local receiver_nil={id="recv_nil",GetRawPropInfo=function(self) eq(self,receiver_nil); return "nil-bullets","ignored" end}
-    local receiver_empty={id="recv_empty",GetRawPropInfo=function(self) eq(self,receiver_empty); return "empty-bullets","ignored" end}
+    local receiver
+    receiver={id="recv",GetRawPropInfo=function(self) eq(self,receiver); return "receiver-raw","ignored" end}
+    local receiver_nil
+    receiver_nil={id="recv_nil",GetRawPropInfo=function(self) eq(self,receiver_nil); return "nil-bullets","ignored" end}
+    local receiver_empty
+    receiver_empty={id="recv_empty",GetRawPropInfo=function(self) eq(self,receiver_empty); return "empty-bullets","ignored" end}
     local product={
         EquipTypeList={"e-h2","e-h5","e-br4","e-b3"},
         ContainerTypeList={"c-missing","c-nil","c-empty","c-items","c-after"},
@@ -293,7 +303,8 @@ do
         eq(self,armed_force,"P0.23 ArmedForce SELF receiver"); eq(value,consumable_id)
         calls[#calls+1]="apply:"..tostring(value); return can_apply
     end
-    local armed_server={GetCurRentalPlan_ConsumableID=function(self)
+    local armed_server
+    armed_server={GetCurRentalPlan_ConsumableID=function(self)
         eq(self,armed_server,"P0.23 ArmedForceServer receiver")
         calls[#calls+1]="id"; return consumable_id
     end}

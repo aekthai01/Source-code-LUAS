@@ -20,12 +20,12 @@
   },
   "coverage": {
     "classified": 296,
-    "source_owned": 96,
-    "payload_owned": 200,
+    "source_owned": 105,
+    "payload_owned": 191,
     "partially_reconstructed": 0,
     "dead_or_unreachable_verified": 0,
     "unknown": 0,
-    "root_methods_source_owned": 19,
+    "root_methods_source_owned": 24,
     "root_methods_total": 29
   },
   "root_public_methods": {
@@ -164,38 +164,38 @@
     },
     "CheckPlayerBodyItemsByList": {
       "prototype_id": "P0.19",
-      "current_ownership": "payload_owned",
-      "source_file": null,
-      "runtime_takeover": "payload",
-      "source_only_dependency": false
+      "current_ownership": "source_owned",
+      "source_file": "src/spectra/product_module.lua",
+      "runtime_takeover": "source",
+      "source_only_dependency": true
     },
     "CheckNightVisionLimitByList": {
       "prototype_id": "P0.20",
-      "current_ownership": "payload_owned",
-      "source_file": null,
-      "runtime_takeover": "payload",
-      "source_only_dependency": false
+      "current_ownership": "source_owned",
+      "source_file": "src/spectra/product_module.lua",
+      "runtime_takeover": "source",
+      "source_only_dependency": true
     },
     "CheckThermalImagingLimitByList": {
       "prototype_id": "P0.21",
-      "current_ownership": "payload_owned",
-      "source_file": null,
-      "runtime_takeover": "payload",
-      "source_only_dependency": false
+      "current_ownership": "source_owned",
+      "source_file": "src/spectra/product_module.lua",
+      "runtime_takeover": "source",
+      "source_only_dependency": true
     },
     "CheckPlayerBodyItemsEntryQuality": {
       "prototype_id": "P0.22",
-      "current_ownership": "payload_owned",
-      "source_file": null,
-      "runtime_takeover": "payload",
-      "source_only_dependency": false
+      "current_ownership": "source_owned",
+      "source_file": "src/spectra/product_module.lua",
+      "runtime_takeover": "source",
+      "source_only_dependency": true
     },
     "CheckRentalConsumableID": {
       "prototype_id": "P0.23",
-      "current_ownership": "payload_owned",
-      "source_file": null,
-      "runtime_takeover": "payload",
-      "source_only_dependency": false
+      "current_ownership": "source_owned",
+      "source_file": "src/spectra/product_module.lua",
+      "runtime_takeover": "source",
+      "source_only_dependency": true
     },
     "_CheckPropinfoDownloadWithLog": {
       "prototype_id": "P0.24",
@@ -259,6 +259,15 @@
       "0.16",
       "0.17",
       "0.18",
+      "0.19",
+      "0.19.0",
+      "0.20",
+      "0.21",
+      "0.22",
+      "0.22.0",
+      "0.22.1",
+      "0.22.2",
+      "0.23",
       "0.29.17",
       "0.29.26",
       "0.29.29",
@@ -334,15 +343,6 @@
     ],
     "payload_owned": [
       "0",
-      "0.19",
-      "0.19.0",
-      "0.20",
-      "0.21",
-      "0.22",
-      "0.22.0",
-      "0.22.1",
-      "0.22.2",
-      "0.23",
       "0.24",
       "0.25",
       "0.25.0",
@@ -563,6 +563,15 @@
     "0.16": "src/spectra/product_module.lua",
     "0.17": "src/spectra/product_module.lua",
     "0.18": "src/spectra/product_module.lua",
+    "0.19": "src/spectra/product_module.lua",
+    "0.19.0": "src/spectra/product_module.lua",
+    "0.20": "src/spectra/product_module.lua",
+    "0.21": "src/spectra/product_module.lua",
+    "0.22": "src/spectra/product_module.lua",
+    "0.22.0": "src/spectra/product_module.lua",
+    "0.22.1": "src/spectra/product_module.lua",
+    "0.22.2": "src/spectra/product_module.lua",
+    "0.23": "src/spectra/product_module.lua",
     "0.29.17": "src/spectra/mutation_runtime.lua",
     "0.29.26": "src/spectra/mutation_runtime.lua",
     "0.29.29": "src/spectra/mutation_runtime.lua",

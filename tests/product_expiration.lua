@@ -210,7 +210,7 @@ do
         weapon_helper_tool={},item_base_tool={},armed_force_expired_logic=expired_logic,
         ammo_data_manager_module={},ammo_data_manager={}}
     truth(Bridge.install(target,{context=ctx,environment=env}),"P0.16-P0.18 bridge install")
-    eq(Bridge.status().source_owned_root_methods,19,"bridge owns P0.0..P0.18")
+    eq(Bridge.status().source_owned_root_methods,24,"bridge owns P0.0..P0.23")
     local bridge_result=table.pack(target._CheckPropExpiredStatus())
     eq(bridge_result.n,0,"P0.18 bridge no-return ABI")
     eq(#payload_calls,0,"P0.18 bridge does not call original payload method")

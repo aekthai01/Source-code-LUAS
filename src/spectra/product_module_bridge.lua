@@ -25,6 +25,11 @@ M.METHODS = {
     "_CheckSafeBoxExpiredStatus",
     "_CheckKeyChainExpiredStatus",
     "_CheckPropExpiredStatus",
+    "CheckPlayerBodyItemsByList",
+    "CheckNightVisionLimitByList",
+    "CheckThermalImagingLimitByList",
+    "CheckPlayerBodyItemsEntryQuality",
+    "CheckRentalConsumableID",
 }
 M.ROOT_METHOD_COUNT = 29
 
@@ -70,6 +75,17 @@ local function dependency_sets(context)
         _CheckPropExpiredStatus = {
             armed_force_expired_logic = context.armed_force_expired_logic,
         },
+        CheckPlayerBodyItemsByList = {
+            error_logger = context.error_logger,
+            item_helper = context.item_helper,
+            weapon_assembly_tool = context.weapon_assembly_tool,
+        },
+        CheckPlayerBodyItemsEntryQuality = {
+            item_helper = context.item_helper,
+            item_config_tool = context.item_config_tool,
+            weapon_assembly_tool = context.weapon_assembly_tool,
+            error_logger = context.error_logger,
+        },
     }
 end
 
@@ -101,6 +117,14 @@ local function wrap(name, target, dependencies, environment)
         elseif name == "_CheckPropExpiredStatus" then
             result = table.pack(pcall(target, product, environment,
                 dependencies.armed_force_expired_logic))
+        elseif name == "CheckPlayerBodyItemsByList"
+            or name == "CheckPlayerBodyItemsEntryQuality" then
+            result = table.pack(pcall(target, product, environment, dependencies, arguments[1]))
+        elseif name == "CheckNightVisionLimitByList"
+            or name == "CheckThermalImagingLimitByList" then
+            result = table.pack(pcall(target, product, environment, arguments[1]))
+        elseif name == "CheckRentalConsumableID" then
+            result = table.pack(pcall(target, product, environment))
         else
             result = table.pack(pcall(target, product, environment, dependencies))
         end
@@ -174,6 +198,11 @@ function M.install(target, options)
         _CheckSafeBoxExpiredStatus = Source._CheckSafeBoxExpiredStatus,
         _CheckKeyChainExpiredStatus = Source._CheckKeyChainExpiredStatus,
         _CheckPropExpiredStatus = Source._CheckPropExpiredStatus,
+        CheckPlayerBodyItemsByList = Source.CheckPlayerBodyItemsByList,
+        CheckNightVisionLimitByList = Source.CheckNightVisionLimitByList,
+        CheckThermalImagingLimitByList = Source.CheckThermalImagingLimitByList,
+        CheckPlayerBodyItemsEntryQuality = Source.CheckPlayerBodyItemsEntryQuality,
+        CheckRentalConsumableID = Source.CheckRentalConsumableID,
     }
 
     local set_method = options.set_method or default_set_method

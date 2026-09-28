@@ -3,7 +3,7 @@ assert(type(S) == "table", "spectra module table required")
 local M = {}
 S.ProductModule = M
 
--- P0.0..P0.18 are reconstructed descriptions of stripped closures. Exported
+-- P0.0..P0.23 are reconstructed descriptions of stripped closures. Exported
 -- field names below are exact strings recovered from root P0 bytecode.
 M.PROTOTYPES = {
     CheckEquipmentBeforEnterGameProcess = "0.0",
@@ -25,6 +25,11 @@ M.PROTOTYPES = {
     _CheckSafeBoxExpiredStatus = "0.16",
     _CheckKeyChainExpiredStatus = "0.17",
     _CheckPropExpiredStatus = "0.18",
+    CheckPlayerBodyItemsByList = "0.19",
+    CheckNightVisionLimitByList = "0.20",
+    CheckThermalImagingLimitByList = "0.21",
+    CheckPlayerBodyItemsEntryQuality = "0.22",
+    CheckRentalConsumableID = "0.23",
 }
 M.ROOT_FIELDS = { "EquipTypeList", "ContainerTypeList" }
 
@@ -842,6 +847,207 @@ function M._CheckPropExpiredStatus(product, globals, armed_force_expired_logic)
             loc = check_data.abnormalDesc,
         })
     end
+end
+
+
+-- P0.19 and nested P0.19.0. The parent captures root R2/R4/R6 plus the
+-- source R3 product table. Receiver expansion deliberately consumes only the
+-- first result from GetRawPropInfo and calls the assembly helper as a static
+-- function with (raw_prop, false, false, true).
+function M.CheckPlayerBodyItemsByList(product, globals, dependencies, check_list)
+    globals = globals_or_default(globals)
+    dependencies = assert(dependencies, "P0.19 source dependencies required")
+    local error_logger = assert(dependencies.error_logger, "P0.19 R2 error logger missing")
+    local item_helper = assert(dependencies.item_helper, "P0.19 R4 ItemHelperTool missing")
+    local weapon_assembly_tool = assert(dependencies.weapon_assembly_tool,
+        "P0.19 R6 WeaponAssemblyTool missing")
+
+    if not check_list then
+        error_logger("CheckEquipLogic.CheckNightVisionLimitByList checkList is nil!!!")
+        return false, {}
+    end
+
+    local result_keys
+    local matched = {}
+    local slot_group_id = globals.Server.ArmedForceServer:GetCurSlotGroupId()
+
+    local function collect_item(item)
+        local item_id = item.id
+        local main_type = item_helper.GetMainTypeById(item_id)
+        if main_type == globals.EItemType.Receiver then
+            local raw_prop = item:GetRawPropInfo()
+            if not raw_prop then return end
+            local ids = weapon_assembly_tool.GetItemIDsByPropInfo(
+                raw_prop, false, false, true)
+            if globals.table.isempty(ids) then return end
+            for _, candidate_id in globals.ipairs(ids) do
+                if globals.table.isInList(candidate_id, check_list)
+                    and not matched[candidate_id] then
+                    matched[candidate_id] = true
+                end
+            end
+        else
+            if globals.table.isInList(item_id, check_list) and not matched[item_id] then
+                matched[item_id] = true
+            end
+        end
+    end
+
+    for _, slot_type in globals.ipairs(product.EquipTypeList) do
+        local slot = globals.Server.InventoryServer:GetSlot(slot_type, slot_group_id)
+        if slot then
+            local item = slot:GetEquipItem()
+            if item then collect_item(item) end
+        end
+    end
+
+    for _, slot_type in globals.ipairs(product.ContainerTypeList) do
+        local slot = globals.Server.InventoryServer:GetSlot(slot_type, slot_group_id)
+        if slot then
+            local items = slot:GetItems()
+            if items and not globals.table.isempty(items) then
+                for _, item in globals.ipairs(items) do
+                    if item then collect_item(item) end
+                end
+            end
+        end
+    end
+
+    result_keys = globals.table.keys(matched)
+    return not globals.table.isempty(result_keys), result_keys
+end
+
+-- P0.20 is a distinct exported prototype whose whole body is a dynamic R3
+-- field lookup followed by a tailcall. Returning the call directly preserves
+-- every result from a runtime replacement of CheckPlayerBodyItemsByList.
+function M.CheckNightVisionLimitByList(product, globals, check_list)
+    return product.CheckPlayerBodyItemsByList(check_list)
+end
+
+-- P0.21 has the same tailcall shape as P0.20 but remains a separate public
+-- prototype/export.
+function M.CheckThermalImagingLimitByList(product, globals, check_list)
+    return product.CheckPlayerBodyItemsByList(check_list)
+end
+
+-- P0.22 and nested P0.22.0/P0.22.1/P0.22.2. setdefault is called exactly so
+-- an explicit false remains false. The selected comparator stays strict and
+-- the -1 sentinel is handled before comparator invocation.
+function M.CheckPlayerBodyItemsEntryQuality(product, globals, dependencies, limit_max)
+    globals = globals_or_default(globals)
+    dependencies = assert(dependencies, "P0.22 source dependencies required")
+    local item_helper = assert(dependencies.item_helper, "P0.22 R4 ItemHelperTool missing")
+    local item_config_tool = assert(dependencies.item_config_tool, "P0.22 R5 ItemConfigTool missing")
+    local weapon_assembly_tool = assert(dependencies.weapon_assembly_tool,
+        "P0.22 R6 WeaponAssemblyTool missing")
+    local error_logger = assert(dependencies.error_logger, "P0.22 R2 error logger missing")
+
+    limit_max = globals.setdefault(limit_max, true)
+    local result = {
+        [globals.ESlotType.Helmet] = -1,
+        [globals.ESlotType.BreastPlate] = -1,
+        [globals.ESlotType.BulletLeft] = -1,
+    }
+    local slot_group_id = globals.Server.ArmedForceServer:GetCurSlotGroupId()
+
+    local comparator
+    if limit_max then
+        comparator = function(new_quality, current_quality)
+            return current_quality < new_quality
+        end
+    else
+        comparator = function(new_quality, current_quality)
+            return new_quality < current_quality
+        end
+    end
+
+    local function update_quality(slot_type, new_quality)
+        local current_quality = result[slot_type]
+        if current_quality == -1 or comparator(new_quality, current_quality) then
+            result[slot_type] = new_quality
+        end
+    end
+
+    local function collect_quality(item)
+        local item_id = item.id
+        local main_type = item_helper.GetMainTypeById(item_id)
+        local sub_type = item_helper.GetSubTypeById(item_id)
+        local quality = item_config_tool.GetItemQuality(item_id)
+
+        if main_type == globals.EItemType.Receiver then
+            local raw_prop = item:GetRawPropInfo()
+            local bullets = weapon_assembly_tool.GetWeaponBullets(raw_prop)
+            if not bullets then return end
+            if globals.table.isempty(bullets) then return end
+            for _, bullet in globals.ipairs(bullets) do
+                local bullet_id = bullet.id
+                if item_helper.GetMainTypeById(bullet_id) == globals.EItemType.Bullet then
+                    local bullet_quality = item_config_tool.GetItemQuality(bullet_id)
+                    update_quality(globals.ESlotType.BulletLeft, bullet_quality)
+                end
+            end
+        elseif main_type == globals.EItemType.Equipment then
+            if sub_type == globals.EEquipmentType.Helmet then
+                update_quality(globals.ESlotType.Helmet, quality)
+            elseif sub_type == globals.EEquipmentType.BreastPlate then
+                update_quality(globals.ESlotType.BreastPlate, quality)
+            end
+        elseif main_type == globals.EItemType.Bullet then
+            update_quality(globals.ESlotType.BulletLeft, quality)
+        end
+    end
+
+    for _, slot_type in globals.ipairs(product.EquipTypeList) do
+        local slot = globals.Server.InventoryServer:GetSlot(slot_type, slot_group_id)
+        if slot then
+            local item = slot:GetEquipItem()
+            if item then collect_quality(item) end
+        end
+    end
+
+    for _, slot_type in globals.ipairs(product.ContainerTypeList) do
+        local slot = globals.Server.InventoryServer:GetSlot(slot_type, slot_group_id)
+        if slot then
+            local items = slot:GetItems()
+            if items and not globals.table.isempty(items) then
+                for _, item in globals.ipairs(items) do
+                    if item then collect_quality(item) end
+                end
+            end
+        end
+    end
+
+    error_logger(globals.string.format(
+        "CheckEquipLogic.CheckPlayerBodyItemsEntryQuality [bLimitMax = %s, 头盔品质 = %s, 护甲品质 = %s, 子弹品质 = %s]",
+        limit_max,
+        result[globals.ESlotType.Helmet],
+        result[globals.ESlotType.BreastPlate],
+        result[globals.ESlotType.BulletLeft]
+    ))
+    return result
+end
+
+-- P0.23 captures only root _ENV. Both ArmedForce calls use SELF semantics and
+-- the emitted record keeps the bytecode's explicit empty param table.
+function M.CheckRentalConsumableID(product, globals)
+    globals = globals_or_default(globals)
+    local field = globals.Module.ArmedForce.Field
+    local check_data = field:GetEquipmentCheckData(
+        globals.Module.ArmedForce.Config.EAbnormalType.RentalVoucherDoNotMeetEntryRequirements,
+        0)
+    if not check_data then return end
+    if not check_data.switch then return end
+
+    local consumable_id = globals.Server.ArmedForceServer:GetCurRentalPlan_ConsumableID()
+    if not (0 < consumable_id) then return end
+    if globals.Module.ArmedForce:CheckConsumableIDCanBeApply(consumable_id) then return end
+
+    globals.Module.ArmedForce.Field:AddEquipAbnormal({
+        key = check_data.key,
+        abnormalType = globals.Module.ArmedForce.Config.EAbnormalType.RentalVoucherDoNotMeetEntryRequirements,
+        loc = check_data.abnormalDesc,
+        param = {},
+    })
 end
 
 return M
