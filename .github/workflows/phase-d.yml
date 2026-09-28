@@ -1,4 +1,6 @@
 name: Phase D reconstruction
+permissions:
+  contents: write
 on:
   push:
     branches: [work/phase-d-aim-reconstruction]
@@ -10,6 +12,9 @@ jobs:
       - uses: actions/checkout@v6
       - name: Install Lua 5.3 toolchain
         run: sudo apt-get update && sudo apt-get install -y lua5.3
+      - name: Apply P0.14/P0.15 checkpoint
+        if: github.event_name == 'push'
+        run: python3 tools/apply_p014_p015_checkpoint.py
       - name: Verify source-only product boundary
         run: |
           ! grep -R "debug.getupvalue" src/spectra/product_context.lua src/spectra/product_constructor.lua src/spectra/product_module_bridge.lua
