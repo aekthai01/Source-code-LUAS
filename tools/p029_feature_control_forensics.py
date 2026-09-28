@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Generate exact P0.29.73 feature-control ownership evidence.
 
-Run after tools/aim_forensics.py. This bounded generator patches the reviewer-facing
-AIM index with P73 ownership and removes P73 from the aim-runtime adjacent-exclusion
-note; it does not alter P69/P70/P77 ownership.
+This bounded generator owns only P73 evidence. It may correct adjacent aim-runtime
+metadata that still lists P73 as payload-owned, but it does not rewrite the wider
+aim prototype index or change P69/P70/P77 ownership.
 """
 import json
 import re
@@ -126,6 +126,13 @@ artifact={
         "payload_closure_rebinding":False,
     },
     "prototypes":{"0.29.73":entry},
+    "p77_integration":{
+        "prototype_id":"0.29.77",
+        "current_ownership":"source_owned",
+        "ownership_changed_in_this_checkpoint":False,
+        "timing_sequence":[0.12,0.04,0.10,0.38],
+        "feature_config_dependency":"production P77 path consumes the single exact source P73 closure constructed once at takeover/install boundary",
+    },
 }
 (ROOT/"P029_FEATURE_CONTROL_MAP.json").write_text(json.dumps(artifact,indent=2,ensure_ascii=False)+"\n")
 md=[
@@ -143,27 +150,14 @@ md += ["","## Exact closure contract","",
     "- Capture lifetime: state and U2..U6-equivalent helper function identities are fixed at construction.",
     "- Unsupported feature names still receive the literal-true-normalized toggle write and return exactly one `false`, with no restore/apply/native/debug call.",
     "- Payload closure rebinding: `false`.",
+    "","## P0.29.77 integration","",
+    "- P77 remains source-owned; this checkpoint does not change its ownership.",
+    "- Timing remains `0.12`, `0.04`, `0.10`, `0.38`.",
+    "- Production P77 consumes the same exact P73 closure constructed once at takeover/install time.",
 ]
 (ROOT/"P029_FEATURE_CONTROL_MAP.md").write_text("\n".join(md)+"\n")
 
-# Patch the AIM reviewer index produced immediately before this generator.
-index_path=ROOT/"AIM_PROTOTYPE_INDEX.json"
-index=json.loads(index_path.read_text())
-index["prototypes"]["0.29.73"]={
-    "category":"feature_control",
-    "source":"src/spectra/feature_control.lua",
-    "implementation_status":"source-owned after payload init",
-    "name_is_original_symbol":True,
-    "reconstructed_name":"set_dongdong_feature_config",
-    "evidence_status":"81-instruction R98 P73 exact two-parameter closure; seven captures, strict boolean normalization, call order, return arity and fixed capture identity pinned",
-}
-if "0.29.77" in index["prototypes"]:
-    index["prototypes"]["0.29.77"]["evidence_status"]="0.12/0.04/0.10/0.38 delayed sequence; production path consumes the single exact source P73 closure constructed at takeover"
-index["_meta"]["feature_control"]=1
-index["_meta"]["indexed_entries_total"]=len(index["prototypes"])
-index_path.write_text(json.dumps(index,indent=2,ensure_ascii=False)+"\n")
-
-# P73 is no longer an excluded adjacent prototype of the P71/P72 map.
+# P73 is no longer an excluded adjacent payload-owned prototype of the P71/P72 map.
 aim_json=ROOT/"P029_AIM_RUNTIME_MAP.json"
 aim=json.loads(aim_json.read_text())
 aim["_meta"]["excluded_adjacent"]=[x for x in aim["_meta"].get("excluded_adjacent",[]) if x!="0.29.73"]

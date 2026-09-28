@@ -197,5 +197,17 @@
       "payload_closure_rebinding": false,
       "public_symbol_proven_by_bytecode": "set_dongdong_feature_config"
     }
+  },
+  "p77_integration": {
+    "prototype_id": "0.29.77",
+    "current_ownership": "source_owned",
+    "ownership_changed_in_this_checkpoint": false,
+    "timing_sequence": [
+      0.12,
+      0.04,
+      0.1,
+      0.38
+    ],
+    "feature_config_dependency": "production P77 path consumes the single exact source P73 closure constructed once at takeover/install boundary"
   }
 }

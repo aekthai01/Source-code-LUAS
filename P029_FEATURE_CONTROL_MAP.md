@@ -23,3 +23,9 @@ The public name `set_dongdong_feature_config` is directly proven by the P0.29 by
 - Capture lifetime: state and U2..U6-equivalent helper function identities are fixed at construction.
 - Unsupported feature names still receive the literal-true-normalized toggle write and return exactly one `false`, with no restore/apply/native/debug call.
 - Payload closure rebinding: `false`.
+
+## P0.29.77 integration
+
+- P77 remains source-owned; this checkpoint does not change its ownership.
+- Timing remains `0.12`, `0.04`, `0.10`, `0.38`.
+- Production P77 consumes the same exact P73 closure constructed once at takeover/install time.

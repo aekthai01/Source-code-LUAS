@@ -2,7 +2,7 @@
 
 Evidence payload SHA-256: `a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263`.
 
-This subsystem map source-owns `P0.29.71/.71.0` and `P0.29.72/.72.0`; adjacent P69/P70/P73 ownership is unchanged.
+This subsystem map source-owns `P0.29.71/.71.0` and `P0.29.72/.72.0`; adjacent P69/P70 ownership is unchanged; P73 is tracked by P029_FEATURE_CONTROL_MAP.
 
 | Prototype | Parent register | Params | Instructions | Upvalues | Children | Source symbol | Return contract |
 |---|---:|---:|---:|---:|---:|---|---|
