@@ -35,15 +35,17 @@ NESTED = [
 ]
 ABI_HELPERS = ["0.29.2", "0.29.2.0", "0.29.3", "0.29.4", "0.29.12"]
 RUNTIME_HELPERS = ["0.29.5", "0.29.6", "0.29.8", "0.29.11", "0.29.13"]
+MUTATION_HELPERS = ["0.29.10", "0.29.18", "0.29.49"]
 AIM_RUNTIME = ["0.29.71", "0.29.71.0", "0.29.72", "0.29.72.0"]
-ALL = [*PRIMARY, *OUTER, *NESTED, *ABI_HELPERS, *RUNTIME_HELPERS, *AIM_RUNTIME]
+ALL = [*PRIMARY, *OUTER, *NESTED, *ABI_HELPERS, *RUNTIME_HELPERS, *MUTATION_HELPERS, *AIM_RUNTIME]
 assert len(PRIMARY) == 26
 assert len(OUTER) == 2
 assert len(NESTED) == 11
 assert len(ABI_HELPERS) == 5
 assert len(RUNTIME_HELPERS) == 5
+assert len(MUTATION_HELPERS) == 3
 assert len(AIM_RUNTIME) == 4
-assert len(ALL) == 53 and len(set(ALL)) == 53
+assert len(ALL) == 56 and len(set(ALL)) == 56
 missing = [pid for pid in ALL if pid not in P]
 assert not missing, f"missing payload prototypes: {missing}"
 
@@ -53,6 +55,8 @@ def source_for(pid):
         return "src/spectra/aim_abi.lua"
     if pid in RUNTIME_HELPERS:
         return "src/spectra/p029_runtime_helpers.lua"
+    if pid in MUTATION_HELPERS:
+        return "src/spectra/mutation_runtime.lua"
     if pid in AIM_RUNTIME:
         return "src/spectra/aim_runtime.lua"
     if pid.startswith("0.29.77"):
@@ -84,6 +88,7 @@ def disassembly_blocks():
 D = disassembly_blocks()
 assert set(ABI_HELPERS) <= set(D)
 assert set(RUNTIME_HELPERS) <= set(D)
+assert set(MUTATION_HELPERS) <= set(D)
 assert set(AIM_RUNTIME) <= set(D)
 
 # Mechanically derive the root P0.29 child closure registers. These are not
@@ -107,6 +112,9 @@ expected_root_registers = {
     "0.29.11": "R31",
     "0.29.12": "R32",
     "0.29.13": "R33",
+    "0.29.10": "R30",
+    "0.29.18": "R38",
+    "0.29.49": "R74",
     "0.29.71": "R96",
     "0.29.72": "R97",
 }
@@ -448,6 +456,36 @@ aim_runtime_md += ["","## P0.29.72.0 parent capture map",""]
 for cap in aim_runtime_map["prototypes"]["0.29.72.0"]["parent_capture_mapping"]: aim_runtime_md.append(f"- `{cap['upvalue']}` <- {cap['from']}")
 (ROOT/"P029_AIM_RUNTIME_MAP.md").write_text("\n".join(aim_runtime_md)+"\n")
 
+# Reusable source-ownership evidence for mutation primitives. Later bone-array
+# checkpoints extend this subsystem map rather than inventing one file per helper.
+mutation_symbols={"0.29.10":"MutationRuntime.normalize_identifier","0.29.18":"MutationRuntime.table_extend","0.29.49":"MutationRuntime.array_get"}
+mutation_contracts={
+  "0.29.10":"tail-return string.gsub: exactly normalized string plus substitution count",
+  "0.29.18":"exactly one value: table extension only on successful protected call yielding table, else original input",
+  "0.29.49":"exactly one value: zero-based table read or protected userdata Get/helper Get with false preserved and nil fallback",
+}
+mutation_order={
+  "0.29.10":"lower(tostring(input or empty)); tailcall gsub non-word removal",
+  "0.29.18":"userdata gate; fixed P2 TableExtend lookup; pcall(fn,value); retry pcall(fn) only after exception; accept table result only",
+  "0.29.49":"table direct index+1; userdata gate; fixed P2 Get; fixed P12 self-first; direct nil falls through to ULuaArrayHelper Get through same P2/P12",
+}
+mutation_map={"_meta":{"source_of_truth":"embedded_payload.bin","payload_sha256":PAYLOAD_SHA,"names_are_reconstructed_semantic_labels":True,"payload_closure_rebinding":False,"ownership_boundary":MUTATION_HELPERS},"helpers":{}}
+for pid in MUTATION_HELPERS:
+    item=P[pid]
+    mutation_map["helpers"][pid]={
+      "prototype_id":pid,"numparams":item["numparams"],"instruction_count":item["instruction_count"],"upvalues":item["upvalues"],"child_count":item["child_count"],
+      "p029_parent_register":root_closures[pid]["register"],"p029_closure_instruction":root_closures[pid]["instruction"],"captured_helper_registers":captured_root_helpers(pid),
+      "source_symbol":mutation_symbols[pid],"source_file":"src/spectra/mutation_runtime.lua","return_contract":mutation_contracts[pid],"branch_retry_order":mutation_order[pid],
+      "source_capture_identity":"fixed sibling helper identities captured when MutationRuntime loads" if pid!="0.29.10" else "environment-only helper; no sibling closure capture",
+      "source_only_dependency":True,"current_ownership":"source_owned","payload_closure_rebinding":False,
+    }
+(ROOT/"P029_MUTATION_HELPER_MAP.json").write_text(json.dumps(mutation_map,indent=2,ensure_ascii=False)+"\n")
+md=["# P0.29 Mutation Helper Map","",f"Evidence payload SHA-256: `{PAYLOAD_SHA}`.","","Names are reconstructed semantic labels. Payload copies are not dynamically rebound.","","| Prototype | Root register | Params | Instructions | Captures | Source symbol | Return contract |","|---|---:|---:|---:|---|---|---|"]
+for pid in MUTATION_HELPERS:
+    e=mutation_map["helpers"][pid]; caps=", ".join(x["register"]+"/"+x["prototype"] for x in e["captured_helper_registers"]) or "environment only"
+    md.append(f"| `{pid}` | `{e['p029_parent_register']}` | {e['numparams']} | {e['instruction_count']} | {caps} | `{e['source_symbol']}` | {e['return_contract']} |")
+(ROOT/"P029_MUTATION_HELPER_MAP.md").write_text("\n".join(md)+"\n")
+
 index = {
     "_meta": {
         "source_of_truth": "embedded_payload.bin",
@@ -457,8 +495,9 @@ index = {
         "nested_callbacks": 11,
         "abi_helpers": 5,
         "runtime_helpers": 5,
+        "mutation_helpers": 3,
         "aim_runtime": 4,
-        "indexed_entries_total": 53,
+        "indexed_entries_total": 56,
         "detailed_legacy_index": "AIM_PROTOTYPE_INDEX_LEGACY_DETAILED.json",
         "runtime_ownership": {"aim": True, "anti_shake": True},
         "game_runtime_test": False,
@@ -502,6 +541,12 @@ for pid in ALL:
             reconstructed_name=RUNTIME_SOURCE_SYMBOLS[pid],
             evidence_status="exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned",
         )
+    elif pid == "0.29.10":
+        item.update(reconstructed_name="normalize_identifier", evidence_status="17-instruction environment-only gsub tail-return helper; two-value return pinned")
+    elif pid == "0.29.18":
+        item.update(reconstructed_name="table_extend", evidence_status="40-instruction fixed P2 lookup and exception-only static retry; one-value return pinned")
+    elif pid == "0.29.49":
+        item.update(reconstructed_name="array_get", evidence_status="71-instruction fixed P2/P12 userdata array getter; false-vs-nil and one-value return pinned")
     elif pid == "0.29.71":
         item.update(reconstructed_name="set_native_aim_assist", evidence_status="108-instruction R96 parent, fixed R0/P2/P12 captures, one-time snapshot, nested setter pcall, SaveDataConfig ordering and one-boolean return pinned")
     elif pid == "0.29.71.0":

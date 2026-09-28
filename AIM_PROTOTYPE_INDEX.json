@@ -7,8 +7,9 @@
     "nested_callbacks": 11,
     "abi_helpers": 5,
     "runtime_helpers": 5,
+    "mutation_helpers": 3,
     "aim_runtime": 4,
-    "indexed_entries_total": 53,
+    "indexed_entries_total": 56,
     "detailed_legacy_index": "AIM_PROTOTYPE_INDEX_LEGACY_DETAILED.json",
     "runtime_ownership": {
       "aim": true,
@@ -341,6 +342,30 @@
       "name_is_original_symbol": false,
       "reconstructed_name": "P029RuntimeHelpers.get_data_table",
       "evidence_status": "exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned"
+    },
+    "0.29.10": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "normalize_identifier",
+      "evidence_status": "17-instruction environment-only gsub tail-return helper; two-value return pinned"
+    },
+    "0.29.18": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "table_extend",
+      "evidence_status": "40-instruction fixed P2 lookup and exception-only static retry; one-value return pinned"
+    },
+    "0.29.49": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "array_get",
+      "evidence_status": "71-instruction fixed P2/P12 userdata array getter; false-vs-nil and one-value return pinned"
     },
     "0.29.71": {
       "category": "aim_runtime",

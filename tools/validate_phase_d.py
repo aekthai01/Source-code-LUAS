@@ -459,6 +459,50 @@ def main():
     assert 'AimRuntime.set_native_aim_assist(enabled)' in bridge_source
     assert 'AimRuntime.set_fire_assisted_aim_debug(enabled)' in bridge_source
 
+    # Mutation primitive source-ownership checkpoint: exact ABI and fixed captures.
+    mutation_paths={'0.29.10','0.29.18','0.29.49'}
+    mutation_evidence=json.loads((ROOT/'P029_MUTATION_HELPER_MAP.json').read_text())
+    assert mutation_evidence['_meta']['payload_sha256']==PAY
+    assert mutation_evidence['_meta']['payload_closure_rebinding'] is False
+    assert set(mutation_evidence['_meta']['ownership_boundary'])==mutation_paths
+    assert set(mutation_evidence['helpers'])==mutation_paths
+    assert mutation_paths <= set(groups['source_owned'])
+    assert all(source_files[path]=='src/spectra/mutation_runtime.lua' for path in mutation_paths)
+    mutation_shape={'0.29.10':(1,17,1,0),'0.29.18':(1,40,2,0),'0.29.49':(2,71,3,0)}
+    mutation_upvalues={'0.29.10':[(0,0)],'0.29.18':[(0,0),(1,19)],'0.29.49':[(0,0),(1,19),(1,32)]}
+    mutation_registers={'0.29.10':('R30',325),'0.29.18':('R38',333),'0.29.49':('R74',1034)}
+    mutation_captures={'0.29.10':set(),'0.29.18':{('U1','R19','0.29.2')},'0.29.49':{('U1','R19','0.29.2'),('U2','R32','0.29.12')}}
+    for path,(params,instructions,upvalues,children) in mutation_shape.items():
+        item=prototypes[path]
+        assert (item['numparams'],item['instruction_count'],len(item['upvalues']),item['child_count'])==(params,instructions,upvalues,children),path
+        assert item['upvalues']==[{'instack':a,'idx':b} for a,b in mutation_upvalues[path]],path
+        evidence=mutation_evidence['helpers'][path]
+        assert (evidence['p029_parent_register'],evidence['p029_closure_instruction'])==mutation_registers[path]
+        assert evidence['current_ownership']=='source_owned' and evidence['source_only_dependency'] is True
+        assert evidence['source_file']=='src/spectra/mutation_runtime.lua' and evidence['payload_closure_rebinding'] is False
+        captures={(x['upvalue'],x['register'],x['prototype']) for x in evidence['captured_helper_registers']}
+        assert captures==mutation_captures[path],(path,captures)
+    root29=body('0.29')
+    for path,(reg,pc) in mutation_registers.items():
+        child=int(path.rsplit('.',1)[1]); assert re.search(rf'^{pc:04d} CLOSURE\s+{reg}, P{child}$',root29,re.M)
+    p10=body('0.29.10')
+    assert re.search(r"^0003 GETTABUP\s+R1, U0, K0='string'$",p10,re.M)
+    assert re.search(r"^0011 SELF\s+R1, R1, K4='gsub'$",p10,re.M)
+    assert re.search(r'^0014 TAILCALL\s+A=1 B=4 C=0$',p10,re.M)
+    p18=body('0.29.18')
+    assert re.search(r"^0011 LOADK\s+R3, K2='TableExtend'$",p18,re.M)
+    assert re.search(r'^0022 CALL\s+A=2 B=3 C=3$',p18,re.M)
+    assert re.search(r'^0027 CALL\s+A=4 B=2 C=3$',p18,re.M)
+    assert re.search(r'^0037 RETURN\s+A=3 B=2 C=0$',p18,re.M) and re.search(r'^0038 RETURN\s+A=0 B=2 C=0$',p18,re.M)
+    p49=body('0.29.49')
+    assert "'ULuaArrayHelper'" in p49 and "'Get'" in p49
+    assert re.search(r'^0009 GETTABLE\s+R2, R0, R2$',p49,re.M) and re.search(r'^0010 RETURN\s+A=2 B=2 C=0$',p49,re.M)
+    mutation_source=(ROOT/'src/spectra/mutation_runtime.lua').read_text()
+    assert 'return string.lower(tostring(value or "")):gsub("[^%w]", "")' in mutation_source
+    assert 'local safe_get = ABI.get' in mutation_source and 'local call_optional_self = ABI.call_optional_self' in mutation_source
+    assert 'local ok, extended = pcall(fn, value)' in mutation_source and 'if not ok then ok, extended = pcall(fn) end' in mutation_source
+    assert 'function M.array_get(array, index0)' in mutation_source
+
     coverage_text=(ROOT/'RECONSTRUCTION_COVERAGE.md').read_text()
     for line in (
         f"- Total prototypes: **{len(paths)}**",
@@ -488,19 +532,19 @@ def main():
       'aim_refresh.lua':'aim-refresh: ok','aim_abi.lua':'aim-abi: ok','aim_dispatch.lua':'aim-dispatch: ok','aim_chain.lua':'aim-chain: ok',
       'aim_chain_fidelity.lua':'aim-chain-fidelity: ok','aim_transaction.lua':'aim-transaction: ok','product_context.lua':'product-context: ok',
       'product_module.lua':'product-module: ok','product_night.lua':'product-night: ok','product_expiration.lua':'product-expiration: ok','product_body_limits.lua':'product-body-limits: ok','product_downloads.lua':'product-downloads: ok','product_source_only.lua':'product-source-only: ok','product_module_bridge.lua':'product-module-bridge: ok',
-      'visual_runtime.lua':'visual-runtime: ok','mutation_runtime.lua':'mutation-runtime: ok','p029_runtime_helpers.lua':'p029-runtime-helpers: ok','payload_feature_bridge.lua':'payload-feature-bridge: ok',
+      'visual_runtime.lua':'visual-runtime: ok','mutation_runtime.lua':'mutation-runtime: ok','p029_runtime_helpers.lua':'p029-runtime-helpers: ok','p029_mutation_primitives.lua':'p029-mutation-primitives: ok','payload_feature_bridge.lua':'payload-feature-bridge: ok',
       'visual_scan.lua':'visual-scan: ok','payload_visual_bridge.lua':'payload-visual-bridge: ok','smoke.lua':'smoke: ok','protocol_fixture.lua':'protocol-fixture: ok'}
     passed={}
     for file,marker in tests.items():
         out=run([lua,str(ROOT/'tests'/file),str(ROOT)]); assert marker in out; passed[file]='passed'
 
     report={
-      'phase':'E5.11-p029-71-72-source-only',
+      'phase':'E5.12-p029-mutation-primitives-source-only',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
       'inventory':{'total':len(paths),'classified':coverage['classified'],'source_owned':coverage['source_owned'],'payload_owned':coverage['payload_owned'],'partially_reconstructed':coverage['partially_reconstructed'],'unknown':coverage['unknown'],'root_methods_source_owned':root_source_owned,'root_methods_total':len(roots)},
-      'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_28':True,'p029_abi_helpers':True,'p029_runtime_helpers':True,'p029_aim_runtime':True,'payload_upvalue_introspection':False},
+      'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_28':True,'p029_abi_helpers':True,'p029_runtime_helpers':True,'p029_mutation_helpers':True,'p029_aim_runtime':True,'payload_upvalue_introspection':False},
       'runtime_ownership':{'no_recoil':True,'converge':True,'aim':True,'anti_shake':True},
-      'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','root_download_bytecode_captures':'passed','p029_abi_helper_map':'passed','p029_abi_exact_return_shapes':'passed','p029_runtime_helper_map':'passed','mutation_runtime_abi_integration':'passed','p029_capture_identity':'passed','p029_aim_runtime_map':'passed','p029_71_exact_parent_child':'passed','p029_72_exact_parent_child':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
+      'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','root_download_bytecode_captures':'passed','p029_abi_helper_map':'passed','p029_abi_exact_return_shapes':'passed','p029_runtime_helper_map':'passed','mutation_runtime_abi_integration':'passed','p029_capture_identity':'passed','p029_mutation_helper_map':'passed','p029_mutation_primitive_exact_abi':'passed','p029_aim_runtime_map':'passed','p029_71_exact_parent_child':'passed','p029_72_exact_parent_child':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
     (ROOT/'validation_phase_d.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     print('phase-d-validation: ok')
 
