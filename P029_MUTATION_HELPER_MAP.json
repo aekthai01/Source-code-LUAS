@@ -1,0 +1,289 @@
+{
+  "_meta": {
+    "source_of_truth": "embedded_payload.bin",
+    "payload_sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263",
+    "names_are_reconstructed_semantic_labels": true,
+    "payload_closure_rebinding": false,
+    "ownership_boundary": [
+      "0.29.10",
+      "0.29.14",
+      "0.29.15",
+      "0.29.16",
+      "0.29.18",
+      "0.29.49",
+      "0.29.57",
+      "0.29.58"
+    ]
+  },
+  "helpers": {
+    "0.29.10": {
+      "prototype_id": "0.29.10",
+      "numparams": 1,
+      "instruction_count": 17,
+      "upvalues": [
+        {
+          "instack": 0,
+          "idx": 0
+        }
+      ],
+      "child_count": 0,
+      "p029_parent_register": "R30",
+      "p029_closure_instruction": 325,
+      "captured_helper_registers": [],
+      "source_symbol": "MutationRuntime.normalize_identifier",
+      "source_file": "src/spectra/mutation_runtime.lua",
+      "return_contract": "tail-return string.gsub: exactly normalized string plus substitution count",
+      "branch_retry_order": "lower(tostring(input or empty)); tailcall gsub non-word removal",
+      "source_capture_identity": "environment-only helper; no sibling closure capture",
+      "source_only_dependency": true,
+      "current_ownership": "source_owned",
+      "payload_closure_rebinding": false
+    },
+    "0.29.14": {
+      "prototype_id": "0.29.14",
+      "numparams": 1,
+      "instruction_count": 27,
+      "upvalues": [
+        {
+          "instack": 1,
+          "idx": 0
+        },
+        {
+          "instack": 0,
+          "idx": 0
+        }
+      ],
+      "child_count": 0,
+      "p029_parent_register": "R34",
+      "p029_closure_instruction": 329,
+      "captured_helper_registers": [],
+      "source_symbol": "MutationRuntime.p029_ensure_feature_snapshot",
+      "source_file": "src/spectra/mutation_runtime.lua",
+      "return_contract": "exactly one snapshot table; captured state table identity",
+      "branch_retry_order": "captured R0 snapshot root; type gates; create {records={},seen={}} only when feature snapshot is not table",
+      "source_capture_identity": "fixed sibling helper identities captured when MutationRuntime loads",
+      "source_only_dependency": true,
+      "current_ownership": "source_owned",
+      "payload_closure_rebinding": false
+    },
+    "0.29.15": {
+      "prototype_id": "0.29.15",
+      "numparams": 4,
+      "instruction_count": 48,
+      "upvalues": [
+        {
+          "instack": 1,
+          "idx": 19
+        },
+        {
+          "instack": 1,
+          "idx": 34
+        },
+        {
+          "instack": 0,
+          "idx": 0
+        }
+      ],
+      "child_count": 1,
+      "p029_parent_register": "R35",
+      "p029_closure_instruction": 330,
+      "captured_helper_registers": [
+        {
+          "upvalue": "U0",
+          "register": "R19",
+          "prototype": "0.29.2"
+        },
+        {
+          "upvalue": "U1",
+          "register": "R34",
+          "prototype": "0.29.14"
+        }
+      ],
+      "source_symbol": "MutationRuntime.p029_snapshot_set",
+      "source_file": "src/spectra/mutation_runtime.lua",
+      "return_contract": "nil owner/key and unchanged paths exactly one boolean; assignment tailcalls pcall so success is one true and failure is false,error",
+      "branch_retry_order": "nil owner/key gate; fixed P2 read; equality short-circuit; fixed P14 snapshot; tostring identity dedupe; tailcall pcall assignment child",
+      "source_capture_identity": "fixed sibling helper identities captured when MutationRuntime loads",
+      "source_only_dependency": true,
+      "current_ownership": "source_owned",
+      "payload_closure_rebinding": false
+    },
+    "0.29.16": {
+      "prototype_id": "0.29.16",
+      "numparams": 1,
+      "instruction_count": 11,
+      "upvalues": [
+        {
+          "instack": 1,
+          "idx": 0
+        },
+        {
+          "instack": 0,
+          "idx": 0
+        }
+      ],
+      "child_count": 0,
+      "p029_parent_register": "R36",
+      "p029_closure_instruction": 331,
+      "captured_helper_registers": [],
+      "source_symbol": "MutationRuntime.p029_clear_feature_snapshot",
+      "source_file": "src/spectra/mutation_runtime.lua",
+      "return_contract": "exactly zero returns after clearing captured state snapshot entry when snapshot root is a table",
+      "branch_retry_order": "captured R0 snapshot root; only clear feature when root type is table; zero-value return",
+      "source_capture_identity": "fixed sibling helper identities captured when MutationRuntime loads",
+      "source_only_dependency": true,
+      "current_ownership": "source_owned",
+      "payload_closure_rebinding": false
+    },
+    "0.29.18": {
+      "prototype_id": "0.29.18",
+      "numparams": 1,
+      "instruction_count": 40,
+      "upvalues": [
+        {
+          "instack": 0,
+          "idx": 0
+        },
+        {
+          "instack": 1,
+          "idx": 19
+        }
+      ],
+      "child_count": 0,
+      "p029_parent_register": "R38",
+      "p029_closure_instruction": 333,
+      "captured_helper_registers": [
+        {
+          "upvalue": "U1",
+          "register": "R19",
+          "prototype": "0.29.2"
+        }
+      ],
+      "source_symbol": "MutationRuntime.table_extend",
+      "source_file": "src/spectra/mutation_runtime.lua",
+      "return_contract": "exactly one value: table extension only on successful protected call yielding table, else original input",
+      "branch_retry_order": "userdata gate; fixed P2 TableExtend lookup; pcall(fn,value); retry pcall(fn) only after exception; accept table result only",
+      "source_capture_identity": "fixed sibling helper identities captured when MutationRuntime loads",
+      "source_only_dependency": true,
+      "current_ownership": "source_owned",
+      "payload_closure_rebinding": false
+    },
+    "0.29.49": {
+      "prototype_id": "0.29.49",
+      "numparams": 2,
+      "instruction_count": 71,
+      "upvalues": [
+        {
+          "instack": 0,
+          "idx": 0
+        },
+        {
+          "instack": 1,
+          "idx": 19
+        },
+        {
+          "instack": 1,
+          "idx": 32
+        }
+      ],
+      "child_count": 0,
+      "p029_parent_register": "R74",
+      "p029_closure_instruction": 1034,
+      "captured_helper_registers": [
+        {
+          "upvalue": "U1",
+          "register": "R19",
+          "prototype": "0.29.2"
+        },
+        {
+          "upvalue": "U2",
+          "register": "R32",
+          "prototype": "0.29.12"
+        }
+      ],
+      "source_symbol": "MutationRuntime.array_get",
+      "source_file": "src/spectra/mutation_runtime.lua",
+      "return_contract": "exactly one value: zero-based table read or protected userdata Get/helper Get with false preserved and nil fallback",
+      "branch_retry_order": "table direct index+1; userdata gate; fixed P2 Get; fixed P12 self-first; direct nil falls through to ULuaArrayHelper Get through same P2/P12",
+      "source_capture_identity": "fixed sibling helper identities captured when MutationRuntime loads",
+      "source_only_dependency": true,
+      "current_ownership": "source_owned",
+      "payload_closure_rebinding": false
+    },
+    "0.29.57": {
+      "prototype_id": "0.29.57",
+      "numparams": 3,
+      "instruction_count": 80,
+      "upvalues": [
+        {
+          "instack": 0,
+          "idx": 0
+        },
+        {
+          "instack": 1,
+          "idx": 19
+        },
+        {
+          "instack": 1,
+          "idx": 32
+        }
+      ],
+      "child_count": 2,
+      "p029_parent_register": "R82",
+      "p029_closure_instruction": 1042,
+      "captured_helper_registers": [
+        {
+          "upvalue": "U1",
+          "register": "R19",
+          "prototype": "0.29.2"
+        },
+        {
+          "upvalue": "U2",
+          "register": "R32",
+          "prototype": "0.29.12"
+        }
+      ],
+      "source_symbol": "MutationRuntime.array_set_raw",
+      "source_file": "src/spectra/mutation_runtime.lua",
+      "return_contract": "table/final assignment tail-return pcall arity; wrong type one false; successful userdata Set paths one true",
+      "branch_retry_order": "index+1; table pcall child; userdata fixed P2 Set then fixed P12 self-first; ULuaArrayHelper.Set static pcall then self pcall only after exception; final pcall child",
+      "source_capture_identity": "fixed sibling helper identities captured when MutationRuntime loads",
+      "source_only_dependency": true,
+      "current_ownership": "source_owned",
+      "payload_closure_rebinding": false
+    },
+    "0.29.58": {
+      "prototype_id": "0.29.58",
+      "numparams": 2,
+      "instruction_count": 50,
+      "upvalues": [
+        {
+          "instack": 0,
+          "idx": 0
+        },
+        {
+          "instack": 1,
+          "idx": 82
+        }
+      ],
+      "child_count": 2,
+      "p029_parent_register": "R83",
+      "p029_closure_instruction": 1043,
+      "captured_helper_registers": [
+        {
+          "upvalue": "U1",
+          "register": "R82",
+          "prototype": "0.29.57"
+        }
+      ],
+      "source_symbol": "MutationRuntime.restore_binding",
+      "source_file": "src/spectra/mutation_runtime.lua",
+      "return_contract": "exactly one boolean; protected direct/parent-owner writes and fixed P57 parent-array restore aggregate success",
+      "branch_retry_order": "binding table/owner/key gate; protected owner assignment; nil-specific parent triple invokes fixed P57; nil-specific parent owner/key protected assignment; return aggregate boolean",
+      "source_capture_identity": "fixed sibling helper identities captured when MutationRuntime loads",
+      "source_only_dependency": true,
+      "current_ownership": "source_owned",
+      "payload_closure_rebinding": false
+    }
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "_meta": {
+    "source_of_truth": "embedded_payload.bin",
+    "payload_sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263",
+    "root_prototype": "P0",
+    "root_instruction_count": 127,
+    "gen_local_log_call": "GenLocalLogFunc(ELuaLogCategory.LuaMArmedForce)",
+    "gen_local_log_return_count": 3,
+    "source_only_target": true,
+    "note": "Logger roles are derived from child use instructions; stripped debug/local names are not claimed as originals."
+  },
+  "root_registers": {
+    "R0": {
+      "root_value": "GenLocalLogFunc result #1",
+      "semantic_role": "debug_logger",
+      "product_context_field": "debug_logger",
+      "direct_child_upvalue_captures": [
+        {
+          "prototype": "P0.7",
+          "upvalue": "U2"
+        }
+      ],
+      "usage_evidence": [
+        "P0.7 U2 -> P0.7.0 inherited U3; called before '[Debug] Get Value = '"
+      ]
+    },
+    "R1": {
+      "root_value": "GenLocalLogFunc result #2",
+      "semantic_role": "info_logger",
+      "product_context_field": "info_logger",
+      "direct_child_upvalue_captures": [
+        {
+          "prototype": "P0.3",
+          "upvalue": "U0"
+        },
+        {
+          "prototype": "P0.10",
+          "upvalue": "U1"
+        },
+        {
+          "prototype": "P0.12",
+          "upvalue": "U3"
+        },
+        {
+          "prototype": "P0.24",
+          "upvalue": "U2"
+        },
+        {
+          "prototype": "P0.26",
+          "upvalue": "U2"
+        },
+        {
+          "prototype": "P0.27",
+          "upvalue": "U1"
+        },
+        {
+          "prototype": "P0.28",
+          "upvalue": "U2"
+        }
+      ],
+      "usage_evidence": [
+        "P0.3 U0 normal START/result/END diagnostics",
+        "P0.10 U1 equipment price diagnostics"
+      ]
+    },
+    "R2": {
+      "root_value": "GenLocalLogFunc result #3",
+      "semantic_role": "error_logger",
+      "product_context_field": "error_logger",
+      "direct_child_upvalue_captures": [
+        {
+          "prototype": "P0.3",
+          "upvalue": "U2"
+        },
+        {
+          "prototype": "P0.7",
+          "upvalue": "U4"
+        },
+        {
+          "prototype": "P0.8",
+          "upvalue": "U1"
+        },
+        {
+          "prototype": "P0.12",
+          "upvalue": "U0"
+        },
+        {
+          "prototype": "P0.19",
+          "upvalue": "U0"
+        },
+        {
+          "prototype": "P0.22",
+          "upvalue": "U5"
+        }
+      ],
+      "usage_evidence": [
+        "P0.3 U2 rental-plan nil error",
+        "P0.7 U4 -> P0.7.0 inherited U6 negative checkValue error",
+        "P0.8 U1 -> P0.8.0 inherited U3 negative durability checkValue error"
+      ]
+    },
+    "R3": {
+      "root_value": "new root product table",
+      "semantic_role": "product_table",
+      "product_context_field": "product",
+      "direct_child_upvalue_captures": [
+        {
+          "prototype": "P0.0",
+          "upvalue": "U1"
+        },
+        {
+          "prototype": "P0.1",
+          "upvalue": "U0"
+        },
+        {
+          "prototype": "P0.2",
+          "upvalue": "U0"
+        },
+        {
+          "prototype": "P0.3",
+          "upvalue": "U3"
+        },
+        {
+          "prototype": "P0.4",
+          "upvalue": "U1"
+        },
+        {
+          "prototype": "P0.7",
+          "upvalue": "U3"
+        },
+        {
+          "prototype": "P0.11",
+          "upvalue": "U1"
+        },
+        {
+          "prototype": "P0.12",
+          "upvalue": "U2"
+        },
+        {
+          "prototype": "P0.14",
+          "upvalue": "U2"
+        },
+        {
+          "prototype": "P0.15",
+          "upvalue": "U1"
+        },
+        {
+          "prototype": "P0.18",
+          "upvalue": "U1"
+        },
+        {
+          "prototype": "P0.19",
+          "upvalue": "U4"
+        },
+        {
+          "prototype": "P0.20",
+          "upvalue": "U0"
+        },
+        {
+          "prototype": "P0.21",
+          "upvalue": "U0"
+        },
+        {
+          "prototype": "P0.22",
+          "upvalue": "U4"
+        },
+        {
+          "prototype": "P0.25",
+          "upvalue": "U1"
+        }
+      ],
+      "usage_evidence": [
+        "P0.3 U3 reads CheckEquipSlotValue",
+        "P0.7 U3 -> P0.7.0 inherited U4 reads GetMatchBulletNumByWeaponItem"
+      ]
+    },
+    "R4": {
+      "root_value": "require('DFM.StandaloneLua.BusinessTool.ItemHelperTool')",
+      "semantic_role": "item_helper",
+      "product_context_field": "item_helper",
+      "direct_child_upvalue_captures": [
+        {
+          "prototype": "P0.7",
+          "upvalue": "U1"
+        },
+        {
+          "prototype": "P0.19",
+          "upvalue": "U2"
+        },
+        {
+          "prototype": "P0.22",
+          "upvalue": "U1"
+        },
+        {
+          "prototype": "P0.28",
+          "upvalue": "U0"
+        }
+      ],
+      "usage_evidence": [
+        "P0.7 U1 -> P0.7.0 inherited U2 reads GetSubTypeById"
+      ]
+    },
+    "R5": {
+      "root_value": "require('DFM.StandaloneLua.BusinessTool.StructTool.ItemConfigTool')",
+      "semantic_role": "item_config_tool",
+      "product_context_field": "item_config_tool",
+      "direct_child_upvalue_captures": [
+        {
+          "prototype": "P0.22",
+          "upvalue": "U2"
+        }
+      ],
+      "usage_evidence": []
+    },
+    "R6": {
+      "root_value": "require('DFM.StandaloneLua.BusinessTool.StructTool.WeaponAssemblyTool')",
+      "semantic_role": "weapon_assembly_tool",
+      "product_context_field": "weapon_assembly_tool",
+      "direct_child_upvalue_captures": [
+        {
+          "prototype": "P0.13",
+          "upvalue": "U2"
+        },
+        {
+          "prototype": "P0.19",
+          "upvalue": "U3"
+        },
+        {
+          "prototype": "P0.22",
+          "upvalue": "U3"
+        }
+      ],
+      "usage_evidence": []
+    },
+    "R7": {
+      "root_value": "require('DFM.StandaloneLua.BusinessTool.WeaponHelperTool')",
+      "semantic_role": "weapon_helper_tool",
+      "product_context_field": "weapon_helper_tool",
+      "direct_child_upvalue_captures": [],
+      "usage_evidence": []
+    },
+    "R8": {
+      "root_value": "require('DFM.StandaloneLua.BusinessTool.StructTool.ItemBaseTool')",
+      "semantic_role": "item_base_tool",
+      "product_context_field": "item_base_tool",
+      "direct_child_upvalue_captures": [
+        {
+          "prototype": "P0.14",
+          "upvalue": "U1"
+        },
+        {
+          "prototype": "P0.15",
+          "upvalue": "U2"
+        }
+      ],
+      "usage_evidence": []
+    },
+    "R9": {
+      "root_value": "require('DFM.Business.Module.ArmedForceModule.Logic.ArmedForce.ArmedForceExpiredLogic')",
+      "semantic_role": "armed_force_expired_logic",
+      "product_context_field": "armed_force_expired_logic",
+      "direct_child_upvalue_captures": [
+        {
+          "prototype": "P0.18",
+          "upvalue": "U2"
+        }
+      ],
+      "usage_evidence": []
+    },
+    "R10": {
+      "root_value": "import('AmmoDataManager')",
+      "semantic_role": "ammo_data_manager_module",
+      "product_context_field": "ammo_data_manager_module",
+      "direct_child_upvalue_captures": [],
+      "usage_evidence": [
+        "root imports AmmoDataManager before fetching Get"
+      ]
+    },
+    "R11": {
+      "root_value": "AmmoDataManager.Get()",
+      "semantic_role": "ammo_data_manager",
+      "product_context_field": "ammo_data_manager",
+      "direct_child_upvalue_captures": [
+        {
+          "prototype": "P0.13",
+          "upvalue": "U1"
+        }
+      ],
+      "usage_evidence": [
+        "root calls imported AmmoDataManager.Get() without self"
+      ]
+    },
+    "R12": {
+      "root_value": "new root download-log table",
+      "semantic_role": "prop_download_log_set",
+      "product_context_field": "per_product_constructor",
+      "direct_child_upvalue_captures": [
+        {
+          "prototype": "P0.24",
+          "upvalue": "U1"
+        }
+      ],
+      "usage_evidence": [
+        "P0 PC0107 NEWTABLE before P0.24 capture U1; persists across calls of one product"
+      ]
+    },
+    "R13": {
+      "root_value": "new root item-ID-log table",
+      "semantic_role": "item_id_download_log_set",
+      "product_context_field": "per_product_constructor",
+      "direct_child_upvalue_captures": [
+        {
+          "prototype": "P0.26",
+          "upvalue": "U1"
+        }
+      ],
+      "usage_evidence": [
+        "P0 PC0112 NEWTABLE before P0.26 capture U1; distinct from R12 and persists across calls"
+      ]
+    }
+  }
+}

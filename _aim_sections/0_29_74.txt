@@ -1,0 +1,159 @@
+=== PROTO 0.29.74 off=66031..67463 params=0 stack=23 code=157 consts=32 up=5 children=1 source='穷途陌路        _全新寫法.lua' ===
+0000 LOADNIL   A=22 B=0 C=0
+0001 LOADBOOL  A=22 B=1 C=0
+0002 LOADNIL   A=22 B=0 C=0
+0003 NEWTABLE  A=0 B=0 C=0
+0004 NEWTABLE  A=1 B=0 C=0
+0005 CLOSURE   R2, P0
+0006 GETTABUP  R3, U0, K0='rawget'
+0007 GETTABUP  R4, U0, K1='_G'
+0008 LOADK     R5, K2='Facade'
+0009 CALL      A=3 B=3 C=2
+0010 GETUPVAL  R4, U1
+0011 MOVE      R5, R3
+0012 LOADK     R6, K3='GameFlowManager'
+0013 CALL      A=4 B=3 C=2
+0014 GETUPVAL  R5, U2
+0015 GETUPVAL  R6, U1
+0016 MOVE      R7, R4
+0017 LOADK     R8, K4='GetCharacter'
+0018 CALL      A=6 B=3 C=2
+0019 MOVE      R7, R4
+0020 CALL      A=5 B=3 C=3
+0021 EQ        A=0 R6, K5=None
+0022 JMP       A=0 sBx=19 -> 42
+0023 GETTABUP  R7, U0, K0='rawget'
+0024 GETTABUP  R8, U0, K1='_G'
+0025 LOADK     R9, K6='InGameController'
+0026 CALL      A=7 B=3 C=2
+0027 GETUPVAL  R8, U3
+0028 MOVE      R9, R7
+0029 LOADK     R10, K7='Get'
+0030 CALL      A=8 B=3 C=3
+0031 TEST      R8 C=0
+0032 JMP       A=0 sBx=9 -> 42
+0033 EQ        A=1 R9, K5=None
+0034 JMP       A=0 sBx=7 -> 42
+0035 GETUPVAL  R10, U4
+0036 MOVE      R11, R9
+0037 LOADK     R12, K8='GetGPCharacter'
+0038 CALL      A=10 B=3 C=3
+0039 TEST      R10 C=0
+0040 JMP       A=0 sBx=1 -> 42
+0041 MOVE      R6, R11
+0042 MOVE      R7, R2
+0043 MOVE      R8, R6
+0044 CALL      A=7 B=2 C=1
+0045 GETUPVAL  R7, U1
+0046 MOVE      R8, R6
+0047 LOADK     R9, K9='Blackboard'
+0048 CALL      A=7 B=3 C=2
+0049 MOVE      R8, R2
+0050 MOVE      R9, R7
+0051 CALL      A=8 B=2 C=1
+0052 GETUPVAL  R8, U1
+0053 MOVE      R9, R7
+0054 LOADK     R10, K10='WeaponManager'
+0055 CALL      A=8 B=3 C=2
+0056 EQ        A=0 R8, K5=None
+0057 JMP       A=0 sBx=27 -> 85
+0058 EQ        A=1 R6, K5=None
+0059 JMP       A=0 sBx=25 -> 85
+0060 GETTABUP  R9, U0, K0='rawget'
+0061 GETTABUP  R10, U0, K1='_G'
+0062 LOADK     R11, K11='UE'
+0063 CALL      A=9 B=3 C=2
+0064 GETUPVAL  R10, U1
+0065 MOVE      R11, R9
+0066 LOADK     R12, K12='GameplayBlueprintHelper'
+0067 CALL      A=10 B=3 C=2
+0068 GETUPVAL  R11, U1
+0069 MOVE      R12, R9
+0070 LOADK     R13, K13='WeaponManagerComponent'
+0071 CALL      A=11 B=3 C=2
+0072 GETUPVAL  R12, U1
+0073 MOVE      R13, R10
+0074 LOADK     R14, K14='FindComponentByClass'
+0075 CALL      A=12 B=3 C=2
+0076 GETUPVAL  R13, U2
+0077 MOVE      R14, R12
+0078 MOVE      R15, R10
+0079 MOVE      R16, R6
+0080 MOVE      R17, R11
+0081 CALL      A=13 B=5 C=3
+0082 TEST      R13 C=0
+0083 JMP       A=0 sBx=1 -> 85
+0084 MOVE      R8, R14
+0085 MOVE      R9, R2
+0086 MOVE      R10, R8
+0087 CALL      A=9 B=2 C=1
+0088 LOADNIL   A=9 B=0 C=0
+0089 GETUPVAL  R10, U4
+0090 MOVE      R11, R6
+0091 LOADK     R12, K15='GetRealWeapon'
+0092 CALL      A=10 B=3 C=3
+0093 TEST      R10 C=0
+0094 JMP       A=0 sBx=1 -> 96
+0095 MOVE      R9, R11
+0096 EQ        A=0 R9, K5=None
+0097 JMP       A=0 sBx=9 -> 107
+0098 GETUPVAL  R12, U4
+0099 MOVE      R13, R8
+0100 LOADK     R14, K16='BP_GetCurrentWeapon'
+0101 CALL      A=12 B=3 C=3
+0102 MOVE      R11, R13
+0103 MOVE      R10, R12
+0104 TEST      R10 C=0
+0105 JMP       A=0 sBx=1 -> 107
+0106 MOVE      R9, R11
+0107 MOVE      R12, R2
+0108 MOVE      R13, R9
+0109 CALL      A=12 B=2 C=1
+0110 EQ        A=1 R9, K5=None
+0111 JMP       A=0 sBx=43 -> 155
+0112 GETTABUP  R12, U0, K17='ipairs'
+0113 NEWTABLE  A=13 B=8 C=0
+0114 LOADK     R14, K18='WeaponDataComponentAiming'
+0115 LOADK     R15, K19='WeaponDataComponentProxy'
+0116 LOADK     R16, K20='WeaponAimingComponent'
+0117 LOADK     R17, K21='AimingComponent'
+0118 LOADK     R18, K22='AimAssistorComponent'
+0119 LOADK     R19, K23='WeaponAimAssistorComponent'
+0120 LOADK     R20, K24='WeaponViewComponent'
+0121 LOADK     R21, K25='ViewComponent'
+0122 SETLIST   A=13 B=8 C=1
+0123 CALL      A=12 B=2 C=4
+0124 JMP       A=0 sBx=6 -> 131
+0125 MOVE      R17, R2
+0126 GETUPVAL  R18, U1
+0127 MOVE      R19, R9
+0128 MOVE      R20, R16
+0129 CALL      A=18 B=3 C=0
+0130 CALL      A=17 B=0 C=1
+0131 TFORCALL  A=12 B=0 C=2
+0132 TFORLOOP  A=14 sBx=-8 -> 125
+0133 GETTABUP  R12, U0, K17='ipairs'
+0134 NEWTABLE  A=13 B=6 C=0
+0135 LOADK     R14, K26='GetWeaponDataComponentAiming'
+0136 LOADK     R15, K27='GetWeaponDataComponentProxy'
+0137 LOADK     R16, K28='GetWeaponAimingComponent'
+0138 LOADK     R17, K29='GetAimingComponent'
+0139 LOADK     R18, K30='GetAimAssistorComponent'
+0140 LOADK     R19, K31='GetWeaponAimAssistorComponent'
+0141 SETLIST   A=13 B=6 C=1
+0142 CALL      A=12 B=2 C=4
+0143 JMP       A=0 sBx=9 -> 153
+0144 GETUPVAL  R17, U4
+0145 MOVE      R18, R9
+0146 MOVE      R19, R16
+0147 CALL      A=17 B=3 C=3
+0148 TEST      R17 C=0
+0149 JMP       A=0 sBx=3 -> 153
+0150 MOVE      R19, R2
+0151 MOVE      R20, R18
+0152 CALL      A=19 B=2 C=1
+0153 TFORCALL  A=12 B=0 C=2
+0154 TFORLOOP  A=14 sBx=-11 -> 144
+0155 RETURN    A=0 B=2 C=0
+0156 RETURN    A=0 B=1 C=0
+

@@ -1,0 +1,40 @@
+=== PROTO 0.29.64 off=55841..56239 params=0 stack=7 code=38 consts=7 up=7 children=1 source='穷途陌路        _全新寫法.lua' ===
+0000 LOADNIL   A=6 B=0 C=0
+0001 LOADBOOL  A=6 B=1 C=0
+0002 LOADNIL   A=6 B=0 C=0
+0003 GETTABUP  R0, U0, K0='custom_dongdong_toggle_state'
+0004 TEST      R0 C=1
+0005 JMP       A=0 sBx=1 -> 7
+0006 NEWTABLE  A=0 B=0 C=0
+0007 GETTABLE  R1, R0, K1='aim'
+0008 EQ        A=1 R1, K2=True
+0009 JMP       A=0 sBx=5 -> 15
+0010 GETTABLE  R1, R0, K3='anti_shake'
+0011 EQ        A=1 R1, K2=True
+0012 JMP       A=0 sBx=2 -> 15
+0013 LOADBOOL  A=1 B=0 C=0
+0014 RETURN    A=1 B=2 C=0
+0015 GETUPVAL  R1, U1
+0016 CALL      A=1 B=1 C=1
+0017 GETUPVAL  R1, U2
+0018 LOADK     R2, K4='WeaponAimAssistorTable'
+0019 CALL      A=1 B=2 C=2
+0020 GETUPVAL  R2, U3
+0021 MOVE      R3, R1
+0022 CALL      A=2 B=2 C=2
+0023 MOVE      R1, R2
+0024 GETTABUP  R2, U4, K5='type'
+0025 MOVE      R3, R1
+0026 CALL      A=2 B=2 C=2
+0027 EQ        A=1 R2, K6='table'
+0028 JMP       A=0 sBx=2 -> 31
+0029 LOADBOOL  A=2 B=0 C=0
+0030 RETURN    A=2 B=2 C=0
+0031 LOADBOOL  A=2 B=0 C=0
+0032 GETUPVAL  R3, U5
+0033 MOVE      R4, R1
+0034 CLOSURE   R5, P0
+0035 CALL      A=3 B=3 C=1
+0036 RETURN    A=2 B=2 C=0
+0037 RETURN    A=0 B=1 C=0
+

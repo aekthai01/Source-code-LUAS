@@ -1,0 +1,5354 @@
+[
+  {
+    "proto": "0",
+    "pc": 3,
+    "access": "read",
+    "name": "GenLocalLogFunc"
+  },
+  {
+    "proto": "0",
+    "pc": 4,
+    "access": "read",
+    "name": "ELuaLogCategory"
+  },
+  {
+    "proto": "0",
+    "pc": 8,
+    "access": "read",
+    "name": "require"
+  },
+  {
+    "proto": "0",
+    "pc": 11,
+    "access": "read",
+    "name": "require"
+  },
+  {
+    "proto": "0",
+    "pc": 14,
+    "access": "read",
+    "name": "require"
+  },
+  {
+    "proto": "0",
+    "pc": 17,
+    "access": "read",
+    "name": "require"
+  },
+  {
+    "proto": "0",
+    "pc": 20,
+    "access": "read",
+    "name": "require"
+  },
+  {
+    "proto": "0",
+    "pc": 23,
+    "access": "read",
+    "name": "require"
+  },
+  {
+    "proto": "0",
+    "pc": 26,
+    "access": "read",
+    "name": "import"
+  },
+  {
+    "proto": "0",
+    "pc": 62,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0",
+    "pc": 64,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0",
+    "pc": 66,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0",
+    "pc": 68,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0",
+    "pc": 70,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0",
+    "pc": 72,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0",
+    "pc": 74,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0",
+    "pc": 79,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0",
+    "pc": 81,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0",
+    "pc": 83,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0",
+    "pc": 85,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0",
+    "pc": 120,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0",
+    "pc": 122,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.0",
+    "pc": 3,
+    "access": "read",
+    "name": "Facade"
+  },
+  {
+    "proto": "0.0",
+    "pc": 6,
+    "access": "read",
+    "name": "Facade"
+  },
+  {
+    "proto": "0.0",
+    "pc": 13,
+    "access": "read",
+    "name": "Facade"
+  },
+  {
+    "proto": "0.0",
+    "pc": 17,
+    "access": "read",
+    "name": "EGameFlowStageType"
+  },
+  {
+    "proto": "0.0",
+    "pc": 21,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.0",
+    "pc": 28,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.1",
+    "pc": 23,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.2",
+    "pc": 5,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.2",
+    "pc": 9,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.2",
+    "pc": 13,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.2",
+    "pc": 29,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.2",
+    "pc": 36,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.2",
+    "pc": 49,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.2",
+    "pc": 53,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.2",
+    "pc": 69,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.2",
+    "pc": 76,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.3",
+    "pc": 7,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.3",
+    "pc": 13,
+    "access": "read",
+    "name": "ECurrencyClientType"
+  },
+  {
+    "proto": "0.3",
+    "pc": 17,
+    "access": "read",
+    "name": "ECurrencyClientType"
+  },
+  {
+    "proto": "0.3",
+    "pc": 19,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.3",
+    "pc": 25,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.3",
+    "pc": 33,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.3",
+    "pc": 49,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.3",
+    "pc": 51,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.3",
+    "pc": 53,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.3",
+    "pc": 55,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.3",
+    "pc": 57,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.3",
+    "pc": 59,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.3",
+    "pc": 61,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.3",
+    "pc": 64,
+    "access": "read",
+    "name": "pairs"
+  },
+  {
+    "proto": "0.3",
+    "pc": 74,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.3",
+    "pc": 79,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.3",
+    "pc": 89,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.4",
+    "pc": 3,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.4",
+    "pc": 9,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.4",
+    "pc": 11,
+    "access": "read",
+    "name": "EDispensingMedicineType"
+  },
+  {
+    "proto": "0.4",
+    "pc": 21,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.4",
+    "pc": 24,
+    "access": "read",
+    "name": "CommonConfig"
+  },
+  {
+    "proto": "0.4",
+    "pc": 28,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.4",
+    "pc": 35,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.4",
+    "pc": 41,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.4",
+    "pc": 43,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.5",
+    "pc": 9,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.5",
+    "pc": 13,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.5",
+    "pc": 17,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.5",
+    "pc": 29,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.5",
+    "pc": 36,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.5",
+    "pc": 42,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.5",
+    "pc": 47,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.6",
+    "pc": 4,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.6",
+    "pc": 8,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.6",
+    "pc": 17,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.6",
+    "pc": 21,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.6",
+    "pc": 24,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.6",
+    "pc": 41,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.6",
+    "pc": 44,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.6",
+    "pc": 63,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.6",
+    "pc": 66,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.6",
+    "pc": 93,
+    "access": "read",
+    "name": "MathUtil"
+  },
+  {
+    "proto": "0.6",
+    "pc": 97,
+    "access": "read",
+    "name": "MathUtil"
+  },
+  {
+    "proto": "0.6",
+    "pc": 103,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.6",
+    "pc": 110,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.6",
+    "pc": 116,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.6",
+    "pc": 119,
+    "access": "read",
+    "name": "MathUtil"
+  },
+  {
+    "proto": "0.6",
+    "pc": 129,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.6",
+    "pc": 135,
+    "access": "read",
+    "name": "ESlotGroup"
+  },
+  {
+    "proto": "0.6",
+    "pc": 139,
+    "access": "read",
+    "name": "ESlotGroup"
+  },
+  {
+    "proto": "0.6",
+    "pc": 141,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.6",
+    "pc": 144,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.6",
+    "pc": 151,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.6",
+    "pc": 155,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.6",
+    "pc": 171,
+    "access": "read",
+    "name": "MathUtil"
+  },
+  {
+    "proto": "0.6",
+    "pc": 177,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.6",
+    "pc": 184,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.6.0",
+    "pc": 5,
+    "access": "read",
+    "name": "pairs"
+  },
+  {
+    "proto": "0.6.0",
+    "pc": 10,
+    "access": "read",
+    "name": "EItemType"
+  },
+  {
+    "proto": "0.6.0",
+    "pc": 15,
+    "access": "read",
+    "name": "EFeatureType"
+  },
+  {
+    "proto": "0.6.0",
+    "pc": 23,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.7",
+    "pc": 4,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.7",
+    "pc": 10,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.7",
+    "pc": 14,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.7",
+    "pc": 18,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.7",
+    "pc": 28,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.7",
+    "pc": 31,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.7",
+    "pc": 34,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.7",
+    "pc": 37,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.7",
+    "pc": 42,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.7",
+    "pc": 45,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.7",
+    "pc": 52,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.7",
+    "pc": 55,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.7",
+    "pc": 61,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.7",
+    "pc": 64,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.7",
+    "pc": 71,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.7",
+    "pc": 74,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.7",
+    "pc": 77,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.7",
+    "pc": 80,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.7",
+    "pc": 87,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.7",
+    "pc": 90,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.7",
+    "pc": 93,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.7",
+    "pc": 96,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.7",
+    "pc": 102,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.7",
+    "pc": 105,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.7",
+    "pc": 108,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.7",
+    "pc": 111,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.7",
+    "pc": 115,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.7",
+    "pc": 121,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.7",
+    "pc": 124,
+    "access": "read",
+    "name": "CommonConfig"
+  },
+  {
+    "proto": "0.7",
+    "pc": 131,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.7",
+    "pc": 137,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.7.0",
+    "pc": 3,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.7.0",
+    "pc": 16,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.7.0",
+    "pc": 20,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.7.0",
+    "pc": 32,
+    "access": "read",
+    "name": "MathUtil"
+  },
+  {
+    "proto": "0.7.0",
+    "pc": 51,
+    "access": "read",
+    "name": "ItemConfig"
+  },
+  {
+    "proto": "0.7.0",
+    "pc": 56,
+    "access": "read",
+    "name": "StringUtil"
+  },
+  {
+    "proto": "0.7.0",
+    "pc": 61,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.8",
+    "pc": 4,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.8",
+    "pc": 10,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.8",
+    "pc": 14,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.8",
+    "pc": 22,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.8",
+    "pc": 25,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.8",
+    "pc": 28,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.8",
+    "pc": 31,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.8",
+    "pc": 37,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.8",
+    "pc": 40,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.8",
+    "pc": 43,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.8",
+    "pc": 46,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.8",
+    "pc": 54,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.8",
+    "pc": 57,
+    "access": "read",
+    "name": "CommonConfig"
+  },
+  {
+    "proto": "0.8",
+    "pc": 64,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.8",
+    "pc": 70,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.8.0",
+    "pc": 3,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.8.0",
+    "pc": 14,
+    "access": "read",
+    "name": "EFeatureType"
+  },
+  {
+    "proto": "0.8.0",
+    "pc": 27,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.8.0",
+    "pc": 31,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.8.0",
+    "pc": 48,
+    "access": "read",
+    "name": "MathUtil"
+  },
+  {
+    "proto": "0.8.0",
+    "pc": 53,
+    "access": "read",
+    "name": "MathUtil"
+  },
+  {
+    "proto": "0.8.0",
+    "pc": 59,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.8.0",
+    "pc": 66,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.8.0",
+    "pc": 69,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.8.0",
+    "pc": 74,
+    "access": "read",
+    "name": "MathUtil"
+  },
+  {
+    "proto": "0.9",
+    "pc": 3,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.9",
+    "pc": 7,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.10",
+    "pc": 3,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.10",
+    "pc": 7,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.10",
+    "pc": 18,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.10",
+    "pc": 27,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.10",
+    "pc": 35,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.11",
+    "pc": 3,
+    "access": "read",
+    "name": "Facade"
+  },
+  {
+    "proto": "0.11",
+    "pc": 6,
+    "access": "read",
+    "name": "Facade"
+  },
+  {
+    "proto": "0.11",
+    "pc": 13,
+    "access": "read",
+    "name": "Facade"
+  },
+  {
+    "proto": "0.11",
+    "pc": 17,
+    "access": "read",
+    "name": "EGameFlowStageType"
+  },
+  {
+    "proto": "0.12",
+    "pc": 10,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.12",
+    "pc": 12,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.12",
+    "pc": 14,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.12",
+    "pc": 19,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.12",
+    "pc": 24,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.12",
+    "pc": 34,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.12.0",
+    "pc": 3,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.12.0",
+    "pc": 13,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.12.0",
+    "pc": 14,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.12.0",
+    "pc": 16,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.12.0",
+    "pc": 23,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.12.0",
+    "pc": 41,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.12.0",
+    "pc": 59,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.12.0",
+    "pc": 78,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.12.0",
+    "pc": 82,
+    "access": "read",
+    "name": "weaponPrefixID"
+  },
+  {
+    "proto": "0.13",
+    "pc": 17,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.13",
+    "pc": 19,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.13",
+    "pc": 21,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.13",
+    "pc": 23,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.13",
+    "pc": 26,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.13.0",
+    "pc": 3,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.13.0",
+    "pc": 11,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.14",
+    "pc": 3,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.14",
+    "pc": 11,
+    "access": "read",
+    "name": "pairs"
+  },
+  {
+    "proto": "0.14",
+    "pc": 15,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.14",
+    "pc": 19,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.14",
+    "pc": 37,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.14",
+    "pc": 49,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.14",
+    "pc": 56,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.15",
+    "pc": 3,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.15",
+    "pc": 7,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.15",
+    "pc": 11,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.15",
+    "pc": 33,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.15",
+    "pc": 37,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.15",
+    "pc": 49,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.15",
+    "pc": 55,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.16",
+    "pc": 3,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.16",
+    "pc": 7,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.16",
+    "pc": 12,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.16",
+    "pc": 20,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.16",
+    "pc": 26,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.16",
+    "pc": 33,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.16",
+    "pc": 42,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.17",
+    "pc": 3,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.17",
+    "pc": 7,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.17",
+    "pc": 12,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.17",
+    "pc": 20,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.17",
+    "pc": 26,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.17",
+    "pc": 33,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.17",
+    "pc": 42,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.18",
+    "pc": 3,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.18",
+    "pc": 7,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.18",
+    "pc": 20,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.18",
+    "pc": 25,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.18",
+    "pc": 29,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.18",
+    "pc": 50,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.18",
+    "pc": 54,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.18",
+    "pc": 66,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.18",
+    "pc": 72,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.18",
+    "pc": 89,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.18",
+    "pc": 96,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.19",
+    "pc": 13,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.19",
+    "pc": 18,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.19",
+    "pc": 22,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.19",
+    "pc": 39,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.19",
+    "pc": 43,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.19",
+    "pc": 55,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.19",
+    "pc": 61,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.19",
+    "pc": 74,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.19",
+    "pc": 79,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.19.0",
+    "pc": 7,
+    "access": "read",
+    "name": "EItemType"
+  },
+  {
+    "proto": "0.19.0",
+    "pc": 21,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.19.0",
+    "pc": 27,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.19.0",
+    "pc": 31,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.19.0",
+    "pc": 45,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.22",
+    "pc": 3,
+    "access": "read",
+    "name": "setdefault"
+  },
+  {
+    "proto": "0.22",
+    "pc": 9,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22",
+    "pc": 12,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22",
+    "pc": 15,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22",
+    "pc": 18,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.22",
+    "pc": 29,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.22",
+    "pc": 33,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.22",
+    "pc": 50,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.22",
+    "pc": 54,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.22",
+    "pc": 66,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.22",
+    "pc": 72,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.22",
+    "pc": 86,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.22",
+    "pc": 90,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22",
+    "pc": 93,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22",
+    "pc": 96,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 13,
+    "access": "read",
+    "name": "EItemType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 24,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 30,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 38,
+    "access": "read",
+    "name": "EItemType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 45,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 52,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 58,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 64,
+    "access": "read",
+    "name": "EItemType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 68,
+    "access": "read",
+    "name": "EEquipmentType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 72,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 79,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 85,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 89,
+    "access": "read",
+    "name": "EEquipmentType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 93,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 100,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 106,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 110,
+    "access": "read",
+    "name": "EItemType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 114,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 121,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.22.2",
+    "pc": 127,
+    "access": "read",
+    "name": "ESlotType"
+  },
+  {
+    "proto": "0.23",
+    "pc": 3,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.23",
+    "pc": 7,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.23",
+    "pc": 19,
+    "access": "read",
+    "name": "Server"
+  },
+  {
+    "proto": "0.23",
+    "pc": 25,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.23",
+    "pc": 32,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.23",
+    "pc": 39,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.24",
+    "pc": 5,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.25",
+    "pc": 18,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.25.0",
+    "pc": 4,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.25.0",
+    "pc": 9,
+    "access": "read",
+    "name": "ItemBase"
+  },
+  {
+    "proto": "0.25.0",
+    "pc": 13,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.25.0",
+    "pc": 18,
+    "access": "read",
+    "name": "VersionUtil"
+  },
+  {
+    "proto": "0.25.0",
+    "pc": 48,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.25.0",
+    "pc": 81,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.26",
+    "pc": 3,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.26",
+    "pc": 8,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.27",
+    "pc": 3,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.28",
+    "pc": 17,
+    "access": "read",
+    "name": "EItemType"
+  },
+  {
+    "proto": "0.28",
+    "pc": 21,
+    "access": "read",
+    "name": "ItemConfig"
+  },
+  {
+    "proto": "0.28",
+    "pc": 30,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.28",
+    "pc": 48,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.28",
+    "pc": 53,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.28.0",
+    "pc": 3,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.28.0",
+    "pc": 8,
+    "access": "read",
+    "name": "ItemBase"
+  },
+  {
+    "proto": "0.28.0",
+    "pc": 12,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.28.0",
+    "pc": 19,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.28.0",
+    "pc": 29,
+    "access": "read",
+    "name": "Module"
+  },
+  {
+    "proto": "0.28.0",
+    "pc": 37,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29",
+    "pc": 15,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29",
+    "pc": 25,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29",
+    "pc": 132,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29",
+    "pc": 136,
+    "access": "read",
+    "name": "unpack"
+  },
+  {
+    "proto": "0.29.0",
+    "pc": 3,
+    "access": "read",
+    "name": "setmetatable"
+  },
+  {
+    "proto": "0.29.1",
+    "pc": 4,
+    "access": "read",
+    "name": "select"
+  },
+  {
+    "proto": "0.29.2",
+    "pc": 7,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.3",
+    "pc": 7,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.3",
+    "pc": 15,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.3",
+    "pc": 26,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.4",
+    "pc": 7,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.4",
+    "pc": 15,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.4",
+    "pc": 25,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.5",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.6",
+    "pc": 7,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.6",
+    "pc": 22,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.6",
+    "pc": 28,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.7",
+    "pc": 3,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.7",
+    "pc": 4,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.7",
+    "pc": 10,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.7",
+    "pc": 11,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.7",
+    "pc": 14,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.7",
+    "pc": 19,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.8",
+    "pc": 3,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.8",
+    "pc": 4,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.8",
+    "pc": 11,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.8",
+    "pc": 19,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.8",
+    "pc": 26,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.9",
+    "pc": 7,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.9",
+    "pc": 8,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.9",
+    "pc": 11,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.9",
+    "pc": 18,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.10",
+    "pc": 3,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.10",
+    "pc": 5,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.11",
+    "pc": 3,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.11",
+    "pc": 4,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.11",
+    "pc": 13,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.11",
+    "pc": 14,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.12",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.12",
+    "pc": 11,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.12",
+    "pc": 21,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.14",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.14",
+    "pc": 13,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.15",
+    "pc": 20,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.15",
+    "pc": 24,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.15",
+    "pc": 43,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.16",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.17",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.17",
+    "pc": 12,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.17",
+    "pc": 17,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.17",
+    "pc": 33,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.17",
+    "pc": 44,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.18",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.18",
+    "pc": 13,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.18",
+    "pc": 19,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.18",
+    "pc": 25,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.18",
+    "pc": 32,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.19",
+    "pc": 11,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.19",
+    "pc": 19,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.19",
+    "pc": 24,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.19",
+    "pc": 29,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.19",
+    "pc": 34,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.19",
+    "pc": 43,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.20",
+    "pc": 7,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.20",
+    "pc": 13,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.20.0",
+    "pc": 3,
+    "access": "read",
+    "name": "pairs"
+  },
+  {
+    "proto": "0.29.21",
+    "pc": 7,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.21",
+    "pc": 20,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.22",
+    "pc": 12,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.22.0",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.22.0",
+    "pc": 15,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.22.0",
+    "pc": 30,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.22.0",
+    "pc": 37,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.24.0",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.26",
+    "pc": 10,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.26",
+    "pc": 30,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.27",
+    "pc": 6,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.27",
+    "pc": 37,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.27",
+    "pc": 56,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.27.0",
+    "pc": 6,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.28",
+    "pc": 26,
+    "access": "read",
+    "name": "pairs"
+  },
+  {
+    "proto": "0.29.28",
+    "pc": 31,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.28",
+    "pc": 52,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.28",
+    "pc": 64,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.29",
+    "pc": 9,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.29",
+    "pc": 18,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.29",
+    "pc": 27,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.29",
+    "pc": 46,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.29",
+    "pc": 58,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.29",
+    "pc": 74,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.29",
+    "pc": 93,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.30",
+    "pc": 3,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.36",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.40",
+    "pc": 17,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.40",
+    "pc": 21,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.40",
+    "pc": 30,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.40",
+    "pc": 37,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.41",
+    "pc": 3,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.41",
+    "pc": 7,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.42",
+    "pc": 3,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.43",
+    "pc": 11,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.44",
+    "pc": 10,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.44",
+    "pc": 15,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.44",
+    "pc": 20,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.44",
+    "pc": 44,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.44",
+    "pc": 74,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.44",
+    "pc": 85,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.45",
+    "pc": 3,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.46",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.46",
+    "pc": 9,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.46",
+    "pc": 19,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.46",
+    "pc": 20,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.46",
+    "pc": 23,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.46",
+    "pc": 28,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.47",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.47",
+    "pc": 8,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.47",
+    "pc": 15,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.48",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.48",
+    "pc": 10,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.48",
+    "pc": 27,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.48",
+    "pc": 30,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.48",
+    "pc": 32,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.48",
+    "pc": 41,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.48",
+    "pc": 42,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.48",
+    "pc": 49,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.48",
+    "pc": 54,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.48",
+    "pc": 62,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.48",
+    "pc": 71,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.48",
+    "pc": 74,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.48",
+    "pc": 76,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.49",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.49",
+    "pc": 11,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.49",
+    "pc": 33,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.49",
+    "pc": 34,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.49",
+    "pc": 41,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.49",
+    "pc": 46,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.49",
+    "pc": 55,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.50",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.51",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.51",
+    "pc": 16,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.51",
+    "pc": 23,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.52",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.52",
+    "pc": 10,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29.52",
+    "pc": 13,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.52",
+    "pc": 16,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.52",
+    "pc": 19,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.52",
+    "pc": 22,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.52",
+    "pc": 25,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.52",
+    "pc": 28,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.53",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.53",
+    "pc": 8,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.53",
+    "pc": 21,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.53",
+    "pc": 28,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.54",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.54",
+    "pc": 16,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.56",
+    "pc": 9,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.56",
+    "pc": 14,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.56",
+    "pc": 19,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.56",
+    "pc": 28,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.56",
+    "pc": 33,
+    "access": "read",
+    "name": "select"
+  },
+  {
+    "proto": "0.29.56",
+    "pc": 45,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.56",
+    "pc": 46,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.56",
+    "pc": 53,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.56",
+    "pc": 58,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.56",
+    "pc": 67,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.56",
+    "pc": 77,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.57",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.57",
+    "pc": 9,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.57",
+    "pc": 13,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.57",
+    "pc": 24,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.57",
+    "pc": 29,
+    "access": "read",
+    "name": "select"
+  },
+  {
+    "proto": "0.29.57",
+    "pc": 42,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.57",
+    "pc": 43,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.57",
+    "pc": 50,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.57",
+    "pc": 55,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.57",
+    "pc": 63,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.57",
+    "pc": 75,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.58",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.58",
+    "pc": 16,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.58",
+    "pc": 42,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.59",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.59",
+    "pc": 8,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.59",
+    "pc": 16,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.60",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.60",
+    "pc": 9,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.60",
+    "pc": 17,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.60",
+    "pc": 21,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.60",
+    "pc": 29,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.60",
+    "pc": 36,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.60",
+    "pc": 73,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.61",
+    "pc": 7,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.61",
+    "pc": 45,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.62",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.62",
+    "pc": 29,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.62",
+    "pc": 45,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.62",
+    "pc": 50,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.62",
+    "pc": 88,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.62",
+    "pc": 93,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.62",
+    "pc": 140,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.62",
+    "pc": 148,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.63",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.63",
+    "pc": 23,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.63",
+    "pc": 28,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.63",
+    "pc": 46,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.63",
+    "pc": 51,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.63",
+    "pc": 69,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.63",
+    "pc": 74,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.63",
+    "pc": 92,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.63",
+    "pc": 97,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.63",
+    "pc": 113,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.64",
+    "pc": 24,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 31,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 40,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 51,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 60,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 71,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 82,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 93,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 104,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 115,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 126,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 137,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 162,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 213,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 268,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 290,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 307,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 323,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 339,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 355,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 371,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 387,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 447,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 499,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 571,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 591,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 609,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 620,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 697,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 703,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 709,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 715,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 733,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 742,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 771,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.65",
+    "pc": 823,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.66",
+    "pc": 37,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.66",
+    "pc": 56,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.66.0",
+    "pc": 9,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.67",
+    "pc": 7,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.67.0",
+    "pc": 7,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.67.0",
+    "pc": 18,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.67.0",
+    "pc": 50,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.67.0",
+    "pc": 62,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.67.0",
+    "pc": 77,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.67.0",
+    "pc": 97,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.68",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.68",
+    "pc": 13,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.71",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.71",
+    "pc": 12,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.71",
+    "pc": 13,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.71",
+    "pc": 16,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.71",
+    "pc": 17,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.71",
+    "pc": 20,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.71",
+    "pc": 25,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.71",
+    "pc": 32,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.71",
+    "pc": 36,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.71",
+    "pc": 87,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.71",
+    "pc": 94,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.71",
+    "pc": 99,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.72.0",
+    "pc": 3,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.72.0",
+    "pc": 4,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.72.0",
+    "pc": 7,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.72.0",
+    "pc": 8,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.72.0",
+    "pc": 13,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.72.0",
+    "pc": 14,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.72.0",
+    "pc": 17,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.72.0",
+    "pc": 22,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.72.0",
+    "pc": 31,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.72.0",
+    "pc": 38,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.72.0",
+    "pc": 51,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.72.0",
+    "pc": 58,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.72.0",
+    "pc": 66,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.73",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.74",
+    "pc": 6,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.74",
+    "pc": 7,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.74",
+    "pc": 23,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.74",
+    "pc": 24,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.74",
+    "pc": 60,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.74",
+    "pc": 61,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.74",
+    "pc": 112,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.74",
+    "pc": 133,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.74.0",
+    "pc": 6,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.75",
+    "pc": 24,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.75",
+    "pc": 29,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.75",
+    "pc": 33,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.76",
+    "pc": 3,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.76",
+    "pc": 4,
+    "access": "read",
+    "name": "require"
+  },
+  {
+    "proto": "0.29.76",
+    "pc": 9,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.77",
+    "pc": 3,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.78",
+    "pc": 8,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.78",
+    "pc": 11,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.78",
+    "pc": 24,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.78",
+    "pc": 34,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.78",
+    "pc": 45,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.78.0",
+    "pc": 3,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.79",
+    "pc": 6,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.83",
+    "pc": 17,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.83",
+    "pc": 23,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.83.1",
+    "pc": 3,
+    "access": "read",
+    "name": "pairs"
+  },
+  {
+    "proto": "0.29.84",
+    "pc": 12,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.84",
+    "pc": 35,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.84",
+    "pc": 175,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.84",
+    "pc": 189,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.84",
+    "pc": 203,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.84",
+    "pc": 220,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.84",
+    "pc": 235,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.84",
+    "pc": 280,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.84",
+    "pc": 285,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.84",
+    "pc": 307,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.84",
+    "pc": 312,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.84",
+    "pc": 321,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.84.0",
+    "pc": 6,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.84.1",
+    "pc": 13,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.84.1",
+    "pc": 19,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.84.1.1",
+    "pc": 3,
+    "access": "read",
+    "name": "pairs"
+  },
+  {
+    "proto": "0.29.85",
+    "pc": 3,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.85",
+    "pc": 9,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.85",
+    "pc": 29,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.85",
+    "pc": 42,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.85",
+    "pc": 51,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.85",
+    "pc": 64,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.85",
+    "pc": 86,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.86",
+    "pc": 10,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.86",
+    "pc": 32,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.87",
+    "pc": 6,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.87",
+    "pc": 7,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.87",
+    "pc": 10,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.87",
+    "pc": 15,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.87",
+    "pc": 23,
+    "access": "read",
+    "name": "select"
+  },
+  {
+    "proto": "0.29.87",
+    "pc": 33,
+    "access": "read",
+    "name": "select"
+  },
+  {
+    "proto": "0.29.87",
+    "pc": 55,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.87",
+    "pc": 60,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.87",
+    "pc": 74,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.87",
+    "pc": 79,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.87.0",
+    "pc": 14,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.87.0",
+    "pc": 20,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.87.0",
+    "pc": 29,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.87.0",
+    "pc": 38,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.87.0",
+    "pc": 47,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.87.0",
+    "pc": 65,
+    "access": "read",
+    "name": "select"
+  },
+  {
+    "proto": "0.29.88",
+    "pc": 7,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.88",
+    "pc": 15,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.88",
+    "pc": 16,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.88",
+    "pc": 19,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.88",
+    "pc": 24,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.89",
+    "pc": 7,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.89",
+    "pc": 17,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.89",
+    "pc": 18,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.89",
+    "pc": 21,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.89",
+    "pc": 26,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.91",
+    "pc": 20,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.91",
+    "pc": 21,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.91",
+    "pc": 28,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.91",
+    "pc": 33,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.91",
+    "pc": 39,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.91",
+    "pc": 53,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.91",
+    "pc": 62,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.91",
+    "pc": 63,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.91",
+    "pc": 66,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.91",
+    "pc": 71,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.91",
+    "pc": 84,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.91",
+    "pc": 85,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.91",
+    "pc": 88,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.91",
+    "pc": 93,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.92",
+    "pc": 5,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.92",
+    "pc": 11,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.92",
+    "pc": 16,
+    "access": "read",
+    "name": "pairs"
+  },
+  {
+    "proto": "0.29.93",
+    "pc": 20,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.93",
+    "pc": 41,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.93",
+    "pc": 63,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.94",
+    "pc": 20,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.94",
+    "pc": 26,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.94",
+    "pc": 40,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.94",
+    "pc": 95,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.94",
+    "pc": 122,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.95",
+    "pc": 4,
+    "access": "read",
+    "name": "pairs"
+  },
+  {
+    "proto": "0.29.95",
+    "pc": 8,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.97",
+    "pc": 3,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.97",
+    "pc": 17,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.97.0",
+    "pc": 10,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.98",
+    "pc": 3,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.98",
+    "pc": 9,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.98",
+    "pc": 10,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.98",
+    "pc": 27,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.98",
+    "pc": 33,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.98",
+    "pc": 40,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.98",
+    "pc": 49,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.98",
+    "pc": 72,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.98",
+    "pc": 84,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.98",
+    "pc": 101,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.98",
+    "pc": 103,
+    "access": "read",
+    "name": "string"
+  },
+  {
+    "proto": "0.29.98",
+    "pc": 154,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.98",
+    "pc": 160,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.98",
+    "pc": 174,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.103",
+    "pc": 11,
+    "access": "read",
+    "name": "pairs"
+  },
+  {
+    "proto": "0.29.104",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.104",
+    "pc": 32,
+    "access": "read",
+    "name": "select"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 22,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 23,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 26,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 27,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 30,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 31,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 40,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 41,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 44,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 45,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 48,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 49,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 52,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 61,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 66,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 73,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 77,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 81,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 85,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 102,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 105,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 111,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 118,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 124,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 131,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 135,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 139,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 143,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 235,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105",
+    "pc": 255,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.0",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.0.0",
+    "pc": 3,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.105.0.0",
+    "pc": 12,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29.105.1",
+    "pc": 7,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.1",
+    "pc": 12,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105.1",
+    "pc": 18,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105.1",
+    "pc": 24,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105.2",
+    "pc": 3,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105.2",
+    "pc": 4,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.105.2",
+    "pc": 7,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.2",
+    "pc": 12,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.3",
+    "pc": 3,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105.3",
+    "pc": 4,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.105.3",
+    "pc": 7,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.3",
+    "pc": 12,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.3",
+    "pc": 24,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.4",
+    "pc": 10,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.4",
+    "pc": 19,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.5",
+    "pc": 3,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.105.5",
+    "pc": 4,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.105.5",
+    "pc": 7,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.5",
+    "pc": 12,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.6",
+    "pc": 15,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.6",
+    "pc": 18,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.6",
+    "pc": 25,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.6",
+    "pc": 30,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.6",
+    "pc": 35,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.6",
+    "pc": 41,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.6",
+    "pc": 44,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.7",
+    "pc": 6,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.7",
+    "pc": 16,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.7.0",
+    "pc": 5,
+    "access": "read",
+    "name": "ESlateVisibility"
+  },
+  {
+    "proto": "0.29.105.8",
+    "pc": 12,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.9",
+    "pc": 13,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.105.9",
+    "pc": 17,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.10",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.10",
+    "pc": 21,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29.105.10",
+    "pc": 39,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.10",
+    "pc": 49,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.10",
+    "pc": 59,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.10.0",
+    "pc": 4,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.11",
+    "pc": 6,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.11",
+    "pc": 23,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.11.0",
+    "pc": 20,
+    "access": "read",
+    "name": "EHorizontalAlignment"
+  },
+  {
+    "proto": "0.29.105.11.0",
+    "pc": 25,
+    "access": "read",
+    "name": "EVerticalAlignment"
+  },
+  {
+    "proto": "0.29.105.12",
+    "pc": 13,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.12",
+    "pc": 16,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.12",
+    "pc": 21,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.13",
+    "pc": 61,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.13",
+    "pc": 65,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29.105.13.0",
+    "pc": 17,
+    "access": "read",
+    "name": "EHorizontalAlignment"
+  },
+  {
+    "proto": "0.29.105.13.0",
+    "pc": 22,
+    "access": "read",
+    "name": "EVerticalAlignment"
+  },
+  {
+    "proto": "0.29.105.14",
+    "pc": 25,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.14.0",
+    "pc": 17,
+    "access": "read",
+    "name": "EHorizontalAlignment"
+  },
+  {
+    "proto": "0.29.105.14.0",
+    "pc": 22,
+    "access": "read",
+    "name": "EVerticalAlignment"
+  },
+  {
+    "proto": "0.29.105.15",
+    "pc": 22,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.15",
+    "pc": 58,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.105.15",
+    "pc": 61,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.105.15",
+    "pc": 77,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29.105.16",
+    "pc": 16,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.16",
+    "pc": 19,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.105.16",
+    "pc": 22,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.105.16",
+    "pc": 25,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.105.16",
+    "pc": 27,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.105.16",
+    "pc": 49,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.16",
+    "pc": 58,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29.105.16.1",
+    "pc": 3,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.105.16.1",
+    "pc": 6,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.105.16.1",
+    "pc": 9,
+    "access": "read",
+    "name": "math"
+  },
+  {
+    "proto": "0.29.105.16.1",
+    "pc": 11,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.105.16.1",
+    "pc": 26,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.16.1.0",
+    "pc": 7,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.105.16.2",
+    "pc": 9,
+    "access": "read",
+    "name": "tostring"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 22,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 25,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 28,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 37,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 41,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 46,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 58,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 66,
+    "access": "read",
+    "name": "ipairs"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 217,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 224,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 231,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 238,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 321,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 324,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.17",
+    "pc": 327,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.17.0",
+    "pc": 5,
+    "access": "read",
+    "name": "EConsumeMouseWheel"
+  },
+  {
+    "proto": "0.29.105.17.1",
+    "pc": 5,
+    "access": "read",
+    "name": "ESlateVisibility"
+  },
+  {
+    "proto": "0.29.105.17.5",
+    "pc": 5,
+    "access": "read",
+    "name": "EHorizontalAlignment"
+  },
+  {
+    "proto": "0.29.105.17.5",
+    "pc": 10,
+    "access": "read",
+    "name": "EVerticalAlignment"
+  },
+  {
+    "proto": "0.29.105.17.6",
+    "pc": 18,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.17.21",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.17.22",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.17.23",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.17.24",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.17.25",
+    "pc": 3,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.105.17.34",
+    "pc": 48,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29.105.17.34",
+    "pc": 68,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29.105.17.34",
+    "pc": 88,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29.105.17.34",
+    "pc": 108,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29.105.17.34",
+    "pc": 126,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.18",
+    "pc": 3,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.18",
+    "pc": 8,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.18",
+    "pc": 25,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.18",
+    "pc": 36,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29.105.18",
+    "pc": 41,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29.105.19",
+    "pc": 11,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.19",
+    "pc": 16,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.19",
+    "pc": 40,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29.105.19",
+    "pc": 46,
+    "access": "read",
+    "name": "table"
+  },
+  {
+    "proto": "0.29.105.19",
+    "pc": 53,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.20",
+    "pc": 11,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.105.20",
+    "pc": 18,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.20",
+    "pc": 27,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.20",
+    "pc": 36,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.21",
+    "pc": 7,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.21",
+    "pc": 16,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.21.0",
+    "pc": 7,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.21.0",
+    "pc": 12,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.21.0",
+    "pc": 17,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.21.0",
+    "pc": 22,
+    "access": "read",
+    "name": "error"
+  },
+  {
+    "proto": "0.29.105.21.0",
+    "pc": 26,
+    "access": "read",
+    "name": "type"
+  },
+  {
+    "proto": "0.29.105.21.0",
+    "pc": 31,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.29",
+    "pc": 9,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.105.29",
+    "pc": 17,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.105.30",
+    "pc": 5,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.105.30",
+    "pc": 15,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.106",
+    "pc": 11,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.107",
+    "pc": 3,
+    "access": "read",
+    "name": "select"
+  },
+  {
+    "proto": "0.29.107",
+    "pc": 6,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.107",
+    "pc": 7,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.107",
+    "pc": 17,
+    "access": "read",
+    "name": "rawget"
+  },
+  {
+    "proto": "0.29.107",
+    "pc": 18,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.107",
+    "pc": 29,
+    "access": "read",
+    "name": "rawset"
+  },
+  {
+    "proto": "0.29.107",
+    "pc": 30,
+    "access": "read",
+    "name": "_G"
+  },
+  {
+    "proto": "0.29.107.0",
+    "pc": 7,
+    "access": "read",
+    "name": "tonumber"
+  },
+  {
+    "proto": "0.29.107.0",
+    "pc": 27,
+    "access": "read",
+    "name": "pcall"
+  },
+  {
+    "proto": "0.29.108",
+    "pc": 7,
+    "access": "read",
+    "name": "pcall"
+  }
+]

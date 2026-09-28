@@ -1,103 +1,188 @@
 # Work handoff: SPECTRA Lua reconstruction
 
-## Source of truth
+## Authoritative branch
 
-Use `baseline_original.luac` only as the binary source of truth.
+Repository: `aekthai01/Source-code-LUAS`
 
-- baseline size: `180034`
-- baseline SHA-256: `35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536`
-- embedded payload size: `108533`
-- embedded payload SHA-256: `a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263`
+Branch: `work/phase-d-aim-reconstruction`
 
-Do not continue from older experimental lifecycle-patched binaries.
+Draft PR: `#2 Phase D aim reconstruction: bytecode field rules (draft)`
 
-## Current materialized checkpoint
+Do not merge `main` as part of this handoff.
 
-Authoritative machine-readable state: `validation_phase_d.json`.
+## Binary source of truth
 
-Current phase: `D4-recovery-public-visual-runtime-takeover`.
+Baseline:
 
-- phase-D source size: `302644`
-- phase-D source SHA-256: `66e728079d912dc93f45ed0e6929f126fc98e4a911d82479af9af4968f5116f1`
-- custom chunk size: `260725`
-- custom chunk SHA-256: `78017b01338c4a6fdaeded208350e0e31934ceff217b98e8c3fe2ce1e6235346`
-- game runtime validation: **not performed** (`game_runtime_test=false`)
+- size `180034`
+- SHA-256 `35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536`
 
-## Runtime ownership now
+Embedded payload:
 
-Source-owned after the known-good embedded payload initializes:
+- size `108533`
+- SHA-256 `a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263`
 
-- wrapper/bootstrap/auth/storage/login UI
-- post-login `SystemSettingMainView` native settings UI
-- `no_recoil`
-- `converge`
-- `set_ai_color`
-- `set_real_player_color`
-- `set_character_xray`
-- visual actor/mesh scan `P0.29.78..98`
-- visual fashion refresh `P0.29.104`
-- visual tick/fallback `P0.29.106/107`
+The forensic tarball may remain for archive purposes, but it is no longer required to
+reproduce Phase D validation.
 
-Still payload-owned:
+## Direct-checkout reproduction
 
-- `aim`
-- `anti_shake`
-- the low-level aim mutation chain ending in `P0.29.65`
-- remaining payload business/equipment functionality not yet reconstructed
-
-A previous report-only claim that aim takeover had been completed was retracted because the referenced source files were not present in the delivered workspace. Do not treat that claim as completed work.
-
-## Next task
-
-Reconstruct aim/anti-shake from the actual payload bytecode and materialize it in source before takeover.
-
-Primary target group:
-
-- `P0.29.30..45`
-- `P0.29.61..66`
-- `P0.29.74..77`
-- especially `P0.29.65` (842 instructions / 136 constants)
-
-Useful extracted disassembly is already in `_aim_sections/` and the full source evidence remains in `payload_disassembly.txt`, `payload_constants.json`, `payload_prototypes.json`, and related forensic files.
-
-Requirements for the next migration:
-
-1. Reconstruct replacement rules from bytecode rather than guessing field semantics.
-2. Preserve separation of normal `WeaponAimAssistorTable` and Gamepad-specific paths.
-3. Preserve `fire`/`ads` mode-specific logic, FOV/range/speed/lock-time behavior, bone remap, snapshot/restore, and revision/timing chain.
-4. Add source files and regression tests before changing runtime ownership.
-5. Keep unknown/unreconstructed behavior delegated to the embedded payload.
-6. Re-run `tools/validate_phase_d.py` and keep `validation_phase_d.json` authoritative.
-7. Do not claim game-runtime compatibility until the rebuilt custom chunk is actually tested in the DFM/game runtime.
-
-## Build / validation
+From a clean checkout:
 
 ```sh
 python3 tools/build_phase_d.py
+python3 tools/aim_forensics.py
+python3 tools/full_payload_forensics.py
 python3 tools/validate_phase_d.py
 ```
 
-Relevant focused tests include:
+GitHub Actions runs the same validation path and a second deterministic build.
 
-```sh
-texlua tests/mutation_runtime.lua .
-texlua tests/payload_feature_bridge.lua .
-texlua tests/visual_scan.lua .
-texlua tests/payload_visual_bridge.lua .
-texlua tests/native_settings_ui.lua .
-texlua tests/smoke.lua .
-texlua tests/protocol_fixture.lua .
-```
+## Current Phase D / Phase E artifact
 
-## Key documentation
+Phase: `E3-root-empty-slot-reconstruction`
 
-- `PHASE_A_REPORT.md`
-- `PHASE_D_REPORT.md`
-- `PAYLOAD_FUNCTION_CATALOG.md`
-- `PAYLOAD_UI_MAP.md`
-- `DATA_MUTATION_MAP.md`
-- `VISUAL_SCAN_MAP.md`
-- `WRAPPER_CALL_GRAPH.md`
-- `RUNTIME_TEST_CHECKLIST.md`
+- source size `388485`
+- source SHA-256 `a433d5ddcdb473608f9e33e3bb01af41e62b5e88186903ed32b227ede1bc17bb`
+- standard chunk size `307159`
+- standard SHA-256 `e702f1d9259f6806ba7336df3c5166a2a4d2ab48f2dc8e4846597f9156ab3d7d`
+- custom chunk size `307159`
+- custom SHA-256 `0daed5c692e8e485e76788fc06d42514adcb741a738cbb349f27da4276bf698e`
 
-When documentation conflicts with machine artifacts, verify against the baseline bytecode and `validation_phase_d.json`; do not propagate a report-only claim.
+`validation_phase_d.json` is the machine-readable checkpoint.
+
+## Runtime ownership
+
+Source-owned after the byte-identical payload initializes:
+
+- wrapper/bootstrap/auth/storage/login UI
+- native post-login settings UI
+- `no_recoil`
+- `converge`
+- `aim`
+- `anti_shake`
+- root P0.0..P0.2 and P0.4..P0.6 method overlay
+- root P0.9 `CheckEquipSlotEmpty` argument/return bridge
+- root P0.10 `CheckEquipSlotValue` source with conditional captured-U1 bridge
+- P0.3 source logic with conditional runtime ownership when original logger captures are available
+- source `set_dongdong_feature_config` (`P0.29.73`)
+- source `set_dongdong_aim_part` (`P0.29.77`)
+- aim chain `P68 -> P67 -> P63 -> P66 -> P65`
+- `P0.29.74..76` weapon/runtime refresh
+- public visual entries and reconstructed visual scan/fashion/tick path
+
+Still payload-owned:
+
+- root P0.3 when original diagnostic U0/U2 closures are unavailable
+- root P0.7 bullet check when captured helper/logger/module identity is unavailable; its source and tests exist but the prototype remains partially reconstructed
+- root P0.8 durability check when its captured error logger is unavailable; its source and tests exist but the prototype remains partially reconstructed
+- remaining unreconstructed business/equipment behavior outside the migrated Phase D
+  feature/visual surfaces
+- saved payload feature/aim functions retained only as transactional fallback
+
+## Aim prototype status
+
+`AIM_PROTOTYPE_INDEX.json` is the current implementation/ownership index:
+**26 primary requested prototypes plus nested callbacks, 39 indexed entries total**.
+
+`AIM_PROTOTYPE_INDEX_LEGACY_DETAILED.json` preserves the pre-takeover detailed structural
+metadata (instruction counts, constants, captures, conservative call edges). Do not use
+legacy runtime-status wording from that archive as the current ownership source.
+
+Important current mappings:
+
+- `P0.29.65` -> `replace_aim_field` in `aim_mutation.lua`
+- `P0.29.66` -> recursive walker in `aim_chain.lua`
+- `P0.29.67` -> aim row dispatcher in `aim_chain.lua`
+- `P0.29.68` -> reconstructed `apply_feature` in `mutation_runtime.lua`
+- `P0.29.74..76` -> `aim_refresh.lua`
+- `P0.29.77` -> source `set_dongdong_aim_part` in `feature_control.lua`
+
+Names above are reconstructed descriptions unless they are exact public globals.
+
+## Transactional bridge invariants
+
+The active feature bridge must preserve both original payload globals.
+
+- dependency failure before install: no global replacement
+- failure replacing the second global: restore both payload globals
+- source execution failure: rollback source snapshots/state, then call saved payload
+- no fallback recursion through the source wrapper
+- P77 delayed callbacks stay bound to source P73 after takeover
+
+Aim and anti-shake remain mutually exclusive.
+
+## Focused regressions
+
+The validator runs:
+
+- native settings UI
+- feature control
+- character visuals
+- aim runtime
+- P65 mutation
+- differential P65 fixtures
+- bone handling
+- refresh helper ABI
+- P68 dispatch
+- P67/P68 chain
+- chain fidelity
+- transactional mutation failures
+- mutation runtime
+- payload feature bridge
+- visual runtime/scan/bridge
+- wrapper smoke
+- auth/protocol fixture
+
+CI also checks custom/standard roundtrip, Lua 5.3 chunk structure, baseline/payload
+identity and deterministic custom-chunk output.
+
+## Remaining required runtime checkpoint
+
+`game_runtime_test=false`.
+
+Do not change it until the rebuilt custom chunk is actually executed in the DFM/game
+runtime. CI/mock success is not a substitute for that engine-runtime execution.
+
+## Follow-up rollback hardening
+
+Before delegating a failed source transaction, the bridge verifies every saved field and
+bone record. Bone checks include captured array counts, canonical values at all indices,
+owner bindings, parent-array entries and parent-owner links. Failed restoration retains
+snapshots and the bone-name pool and returns false without entering payload. Focused tests
+create two actual bone records and cover partial value, binding and index failures plus
+complete restore. Game runtime execution remains unverified.
+
+## Phase E3 full inventory and root equipment-check methods
+
+`FULL_PAYLOAD_PROTOTYPE_INDEX.json` is generated from the verified payload prototype,
+constant and disassembly artifacts. It contains exactly 296 prototype paths. Generated
+coverage is 80 source-owned, 210 payload-owned, 6 partially reconstructed, 0 verified
+dead and 0 unknown. Static closure reachability does not assert runtime invocation.
+
+`FULL_PAYLOAD_RECONSTRUCTION_MAP.md` records exact P0.0..P0.28 exports and the
+`EquipTypeList` / `ContainerTypeList` fields. `src/spectra/product_module.lua` materializes
+P0.0..P0.10 plus nested callbacks P0.6.0, P0.7.0 and P0.8.0; tests cover flow branches, process call order,
+threshold boundaries, rental and currency paths, medicine traversal/filtering/aggregation,
+container capacity and safe-box branches, bullet slot ordering, negative/rounded bullet
+requirements, subtype combination, armor eligibility, durability threshold/formatting,
+empty-slot public arguments and return arity, P0.10 dynamic shop pricing/logging, abnormal
+construction and event arguments.
+`product_module_bridge.lua` receives `state.product` after payload execution, preserves
+originals and rolls back partial installation. P0.0..P0.2, P0.4..P0.6 and P0.9 are installed by
+default (7/29 root methods). P0.10 is installed only when its original U1 logger capture
+can be recovered at debug index 2; absent that function, the payload closure remains in place. P0.3 is source tested but runtime installation
+requires the original U0/U2 logger closures; without those it stays payload-owned. Source
+exceptions propagate without retrying possibly non-reversible effects. P0.7 remains partial:
+the bridge checks closure upvalues 2..5 for `ItemHelperTool`, debug logger, the identical
+product table and error logger; if any capture is missing or mismatched the payload method
+stays installed. Direct bridge tests verify both the capture indices and rollback at the P0.7
+write. P0.8 conditionally captures its single error logger at debug upvalue 2; source takeover
+requires that exact capture and rolls back the full method set if its write fails. P0.10
+uses exact shop arguments `(item, nil, false)`, logs through its captured U1 function, and is
+covered for empty/occupied branches, open-result logger forwarding, fallback return and
+transactional install failure. Its static ownership remains partial until capture is verified.
+
+CI regenerates the full inventory, asserts exactly 296 entries, runs Phase D and Phase E
+tests, checks ownership consistency and repeats the custom build for determinism. The
+workflow uses `actions/checkout@v6`, whose action metadata specifies Node 24.

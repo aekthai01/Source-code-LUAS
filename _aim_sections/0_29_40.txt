@@ -1,0 +1,55 @@
+=== PROTO 0.29.40 off=46292..46692 params=2 stack=15 code=53 consts=12 up=2 children=0 source='穷途陌路        _全新寫法.lua' ===
+0000 LOADNIL   A=14 B=0 C=0
+0001 LOADBOOL  A=14 B=1 C=0
+0002 LOADNIL   A=14 B=0 C=0
+0003 GETUPVAL  R2, U0
+0004 MOVE      R3, R0
+0005 CALL      A=2 B=2 C=2
+0006 GETUPVAL  R3, U0
+0007 MOVE      R4, R1
+0008 CALL      A=3 B=2 C=2
+0009 MOVE      R1, R3
+0010 NEWTABLE  A=3 B=5 C=0
+0011 LOADK     R4, K0='shootingconfig'
+0012 LOADK     R5, K1='crosshairfollowingconfig'
+0013 LOADK     R6, K2='crosshairdampingconfig'
+0014 LOADK     R7, K3='zoominginconfig'
+0015 LOADK     R8, K4='activetrackingconfig'
+0016 SETLIST   A=3 B=5 C=1
+0017 GETTABUP  R4, U1, K5='ipairs'
+0018 MOVE      R5, R3
+0019 CALL      A=4 B=2 C=4
+0020 JMP       A=0 sBx=28 -> 49
+0021 GETTABUP  R9, U1, K6='string'
+0022 GETTABLE  R9, R9, K7='find'
+0023 MOVE      R10, R2
+0024 MOVE      R11, R8
+0025 LOADK     R12, K8=1
+0026 LOADBOOL  A=13 B=1 C=0
+0027 CALL      A=9 B=5 C=2
+0028 EQ        A=1 R9, K9=None
+0029 JMP       A=0 sBx=19 -> 49
+0030 GETTABUP  R10, U1, K6='string'
+0031 GETTABLE  R10, R10, K10='sub'
+0032 MOVE      R11, R2
+0033 MOVE      R12, R9
+0034 CALL      A=10 B=3 C=2
+0035 EQ        A=1 R1, K11=''
+0036 JMP       A=0 sBx=11 -> 48
+0037 GETTABUP  R11, U1, K6='string'
+0038 GETTABLE  R11, R11, K10='sub'
+0039 MOVE      R12, R10
+0040 LEN       R13, R1
+0041 UNM       R13, R13
+0042 CALL      A=11 B=3 C=2
+0043 EQ        A=1 R11, R1
+0044 JMP       A=0 sBx=3 -> 48
+0045 MOVE      R11, R10
+0046 MOVE      R12, R1
+0047 CONCAT    R10, R11..R12
+0048 RETURN    A=10 B=2 C=0
+0049 TFORCALL  A=4 B=0 C=2
+0050 TFORLOOP  A=6 sBx=-30 -> 21
+0051 RETURN    A=1 B=2 C=0
+0052 RETURN    A=0 B=1 C=0
+

@@ -1,0 +1,471 @@
+{
+  "_meta": {
+    "source_of_truth": "embedded_payload.bin",
+    "payload_sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263",
+    "primary_requested_prototypes": 26,
+    "outer_dispatch_prototypes": 2,
+    "nested_callbacks": 12,
+    "abi_helpers": 5,
+    "runtime_helpers": 5,
+    "mutation_helpers": 3,
+    "aim_runtime": 4,
+    "indexed_entries_total": 57,
+    "detailed_legacy_index": "AIM_PROTOTYPE_INDEX_LEGACY_DETAILED.json",
+    "runtime_ownership": {
+      "aim": true,
+      "anti_shake": true
+    },
+    "game_runtime_test": false,
+    "note": "Names are reconstructed descriptions unless an exact public/global symbol is stated."
+  },
+  "prototypes": {
+    "0.29.30": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.31": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.32": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.33": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.34": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.35": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.36": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.37": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.38": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.39": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.40": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.41": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.42": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.43": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.44": {
+      "category": "primary_requested",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.45": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_bones.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.61": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_bones.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.62": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_bones.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.63": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_bones.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.64": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_bones.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.65": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_mutation.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "replace_aim_field",
+      "evidence_status": "842-instruction replacement rules differential-tested"
+    },
+    "0.29.66": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_chain.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "walk_and_patch_aim_field",
+      "evidence_status": "recursive depth-13 walker; bone fields skipped; transactional failure reporting tested"
+    },
+    "0.29.74": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_refresh.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.75": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_refresh.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.76": {
+      "category": "primary_requested",
+      "source": "src/spectra/aim_refresh.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false
+    },
+    "0.29.77": {
+      "category": "primary_requested",
+      "source": "src/spectra/feature_control.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "set_dongdong_aim_part",
+      "evidence_status": "0.12/0.04/0.10/0.38 delayed sequence; source P73 captured consistently"
+    },
+    "0.29.67": {
+      "category": "outer_dispatch",
+      "source": "src/spectra/aim_chain.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "apply_aim_row / per-table dispatcher",
+      "evidence_status": "AimAssistorId plus exact row-name fallback; P63 then P66 chain tested"
+    },
+    "0.29.68": {
+      "category": "outer_dispatch",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "apply_feature",
+      "evidence_status": "38 instructions matched: captured feature list, ipairs order, P13 lookup, raw table identity dedupe, P67 dispatch, boolean return, no internal pcall"
+    },
+    "0.29.15.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.17.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "restore_feature_snapshot assignment child",
+      "evidence_status": "8-instruction P17 child; captures parent R8 record; object/key/value assignment; zero-value return pinned"
+    },
+    "0.29.57.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.57.1": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.58.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.58.1": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.62.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/aim_bones.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.64.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/aim_bones.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.66.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/aim_chain.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.67.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/aim_chain.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.67.0.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/aim_chain.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.74.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/aim_refresh.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.76.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/aim_refresh.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.77.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/feature_control.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.77.0.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/feature_control.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.77.0.0.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/feature_control.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.77.0.0.0.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/feature_control.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.2": {
+      "category": "abi_helper",
+      "source": "src/spectra/aim_abi.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "AimABI.get",
+      "evidence_status": "exact return arity, retry order, root register/capture and source-consumer evidence pinned"
+    },
+    "0.29.2.0": {
+      "category": "abi_helper",
+      "source": "src/spectra/aim_abi.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "AimABI.get nested protected lookup closure",
+      "evidence_status": "exact return arity, retry order, root register/capture and source-consumer evidence pinned"
+    },
+    "0.29.3": {
+      "category": "abi_helper",
+      "source": "src/spectra/aim_abi.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "AimABI.self_first",
+      "evidence_status": "exact return arity, retry order, root register/capture and source-consumer evidence pinned"
+    },
+    "0.29.4": {
+      "category": "abi_helper",
+      "source": "src/spectra/aim_abi.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "AimABI.static_first",
+      "evidence_status": "exact return arity, retry order, root register/capture and source-consumer evidence pinned"
+    },
+    "0.29.12": {
+      "category": "abi_helper",
+      "source": "src/spectra/aim_abi.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "AimABI.call_optional_self",
+      "evidence_status": "exact return arity, retry order, root register/capture and source-consumer evidence pinned"
+    },
+    "0.29.5": {
+      "category": "runtime_helper",
+      "source": "src/spectra/p029_runtime_helpers.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "P029RuntimeHelpers.is_function_field",
+      "evidence_status": "exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned"
+    },
+    "0.29.6": {
+      "category": "runtime_helper",
+      "source": "src/spectra/p029_runtime_helpers.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "P029RuntimeHelpers.object_name",
+      "evidence_status": "exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned"
+    },
+    "0.29.8": {
+      "category": "runtime_helper",
+      "source": "src/spectra/p029_runtime_helpers.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "P029RuntimeHelpers.delay",
+      "evidence_status": "exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned"
+    },
+    "0.29.11": {
+      "category": "runtime_helper",
+      "source": "src/spectra/p029_runtime_helpers.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "P029RuntimeHelpers.get_table_manager",
+      "evidence_status": "exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned"
+    },
+    "0.29.13": {
+      "category": "runtime_helper",
+      "source": "src/spectra/p029_runtime_helpers.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "P029RuntimeHelpers.get_data_table",
+      "evidence_status": "exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned"
+    },
+    "0.29.10": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "normalize_identifier",
+      "evidence_status": "17-instruction environment-only gsub tail-return helper; two-value return pinned"
+    },
+    "0.29.14": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.15": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.16": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.18": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "table_extend",
+      "evidence_status": "40-instruction fixed P2 lookup and exception-only static retry; one-value return pinned"
+    },
+    "0.29.49": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "array_get",
+      "evidence_status": "71-instruction fixed P2/P12 userdata array getter; false-vs-nil and one-value return pinned"
+    },
+    "0.29.57": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.58": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.71": {
+      "category": "aim_runtime",
+      "source": "src/spectra/aim_runtime.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "set_native_aim_assist",
+      "evidence_status": "108-instruction R96 parent, fixed R0/P2/P12 captures, one-time snapshot, nested setter pcall, SaveDataConfig ordering and one-boolean return pinned"
+    },
+    "0.29.71.0": {
+      "category": "aim_runtime",
+      "source": "src/spectra/aim_runtime.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "set_native_aim_assist nested assignment",
+      "evidence_status": "6-instruction child, parent R10/R11 captures, assignment-only body and zero-value return pinned"
+    },
+    "0.29.72": {
+      "category": "aim_runtime",
+      "source": "src/spectra/aim_runtime.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "set_fire_assisted_aim_debug",
+      "evidence_status": "22-instruction parent, R97 closure, fixed P2/P8 captures, literal-true command selection, same child immediate/0.35/1.2 schedule and one-value return pinned"
+    },
+    "0.29.72.0": {
+      "category": "aim_runtime",
+      "source": "src/spectra/aim_runtime.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "set_fire_assisted_aim_debug child execute_console",
+      "evidence_status": "76-instruction child, env/P2/command captures, nil-only gates, exact static/self pcall arity and boolean return pinned"
+    }
+  }
+}

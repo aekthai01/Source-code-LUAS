@@ -1,0 +1,56 @@
+=== PROTO 0.29.75 off=67463..68114 params=0 stack=21 code=54 consts=21 up=4 children=0 source='穷途陌路        _全新寫法.lua' ===
+0000 LOADNIL   A=20 B=0 C=0
+0001 LOADBOOL  A=20 B=1 C=0
+0002 LOADNIL   A=20 B=0 C=0
+0003 LOADBOOL  A=0 B=0 C=0
+0004 NEWTABLE  A=1 B=17 C=0
+0005 LOADK     R2, K0='RefreshAimAssistorConfig'
+0006 LOADK     R3, K1='ReloadAimAssistorConfig'
+0007 LOADK     R4, K2='RebuildAimAssistorConfig'
+0008 LOADK     R5, K3='RefreshAimingConfig'
+0009 LOADK     R6, K4='ReloadAimingConfig'
+0010 LOADK     R7, K5='RebuildAimingConfig'
+0011 LOADK     R8, K6='RefreshAimingData'
+0012 LOADK     R9, K7='ReloadAimingData'
+0013 LOADK     R10, K8='RebuildAimingData'
+0014 LOADK     R11, K9='UpdateAimingData'
+0015 LOADK     R12, K10='ApplyAimingData'
+0016 LOADK     R13, K11='OnAimingDataChanged'
+0017 LOADK     R14, K12='RefreshWeaponData'
+0018 LOADK     R15, K13='ReloadWeaponData'
+0019 LOADK     R16, K14='RebuildWeaponData'
+0020 LOADK     R17, K15='UpdateWeaponData'
+0021 LOADK     R18, K16='ApplyWeaponData'
+0022 LOADK     R19, K17='OnWeaponDataChanged'
+0023 SETLIST   A=1 B=18 C=1
+0024 GETTABUP  R2, U0, K18='ipairs'
+0025 GETUPVAL  R3, U1
+0026 CALL      A=3 B=1 C=0
+0027 CALL      A=2 B=0 C=4
+0028 JMP       A=0 sBx=21 -> 50
+0029 GETTABUP  R7, U0, K18='ipairs'
+0030 MOVE      R8, R1
+0031 CALL      A=7 B=2 C=4
+0032 JMP       A=0 sBx=15 -> 48
+0033 GETTABUP  R12, U0, K19='type'
+0034 GETUPVAL  R13, U2
+0035 MOVE      R14, R6
+0036 MOVE      R15, R11
+0037 CALL      A=13 B=3 C=0
+0038 CALL      A=12 B=0 C=2
+0039 EQ        A=0 R12, K20='function'
+0040 JMP       A=0 sBx=7 -> 48
+0041 GETUPVAL  R12, U3
+0042 MOVE      R13, R6
+0043 MOVE      R14, R11
+0044 CALL      A=12 B=3 C=2
+0045 TEST      R12 C=0
+0046 JMP       A=0 sBx=1 -> 48
+0047 LOADBOOL  A=0 B=1 C=0
+0048 TFORCALL  A=7 B=0 C=2
+0049 TFORLOOP  A=9 sBx=-17 -> 33
+0050 TFORCALL  A=2 B=0 C=2
+0051 TFORLOOP  A=4 sBx=-23 -> 29
+0052 RETURN    A=0 B=2 C=0
+0053 RETURN    A=0 B=1 C=0
+

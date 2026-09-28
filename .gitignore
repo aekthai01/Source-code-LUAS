@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 *.pyo
 .DS_Store
+spectra_rebuild/
+spectra_wrapper_phase_d_source.lua
+spectra_wrapper_phase_d.standard.luac
+spectra_wrapper_phase_d.custom.luac

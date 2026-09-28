@@ -1,0 +1,57 @@
+name: Full-source reconstruction validation
+on:
+  push:
+    branches: [work/phase-d-aim-reconstruction]
+  pull_request:
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install Lua 5.3 toolchain
+        run: sudo apt-get update && sudo apt-get install -y lua5.3
+      - name: Verify source-only product boundary
+        run: |
+          ! grep -R "debug.getupvalue" src/spectra/product_context.lua src/spectra/product_constructor.lua src/spectra/product_module_bridge.lua
+      - name: Regenerate root capture map
+        run: |
+          python3 tools/root_capture_forensics.py
+          git diff --exit-code -- ROOT_CAPTURE_MAP.json ROOT_CAPTURE_MAP.md
+      - name: Regenerate aim implementation index
+        run: |
+          python3 tools/aim_forensics.py
+          python3 tools/p029_feature_control_forensics.py
+          git diff --exit-code -- AIM_PROTOTYPE_INDEX.json P029_ABI_HELPER_MAP.json P029_ABI_HELPER_MAP.md P029_RUNTIME_HELPER_MAP.json P029_RUNTIME_HELPER_MAP.md P029_MUTATION_HELPER_MAP.json P029_MUTATION_HELPER_MAP.md P029_AIM_RUNTIME_MAP.json P029_AIM_RUNTIME_MAP.md P029_FEATURE_CONTROL_MAP.json P029_FEATURE_CONTROL_MAP.md
+      - name: Regenerate complete payload inventory and coverage
+        run: |
+          python3 tools/full_payload_forensics.py
+          python3 - <<'PY'
+          import json
+          d=json.load(open('FULL_PAYLOAD_PROTOTYPE_INDEX.json'))
+          groups=d['ownership_groups']
+          paths=[p for values in groups.values() for p in values]
+          assert d['_meta']['total_prototypes'] == 296
+          assert len(paths) == d['_meta']['total_prototypes'] and len(set(paths)) == len(paths)
+          assert d['coverage']['classified'] == len(paths)
+          assert d['coverage']['unknown'] == 0
+          assert d['coverage']['root_methods_source_owned'] == sum(
+              item['current_ownership']=='source_owned' for item in d['root_public_methods'].values())
+          assert set(d['source_files']) == set(groups['source_owned'])
+          for name,item in d['root_public_methods'].items():
+              if item['current_ownership']=='source_owned':
+                  assert item['source_only_dependency'] is True, name
+                  assert item['source_file'] and item['source_file'] in set(d['source_files'].values()), name
+          PY
+          cat FULL_PAYLOAD_PROTOTYPE_INDEX.json
+          git diff --exit-code -- FULL_PAYLOAD_PROTOTYPE_INDEX.json FULL_PAYLOAD_RECONSTRUCTION_MAP.md RECONSTRUCTION_COVERAGE.md
+      - name: Build and run full regressions
+        run: |
+          python3 tools/build_phase_d.py
+          python3 tools/validate_p029_feature_control.py
+          python3 tools/validate_phase_d.py
+          git diff --exit-code -- validation_phase_d.json
+      - name: Verify deterministic compiler output
+        run: |
+          sha256sum spectra_wrapper_phase_d.custom.luac > /tmp/phase-d.sha
+          python3 tools/build_phase_d.py
+          sha256sum --check /tmp/phase-d.sha

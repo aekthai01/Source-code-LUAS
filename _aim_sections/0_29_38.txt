@@ -1,0 +1,18 @@
+=== PROTO 0.29.38 off=45964..46106 params=0 stack=3 code=16 consts=4 up=1 children=0 source='穷途陌路        _全新寫法.lua' ===
+0000 LOADNIL   A=2 B=0 C=0
+0001 LOADBOOL  A=2 B=1 C=0
+0002 LOADNIL   A=2 B=0 C=0
+0003 GETUPVAL  R0, U0
+0004 CALL      A=0 B=1 C=2
+0005 DIV       R0, K0=50.0, R0
+0006 MUL       R0, K1=0.05, R0
+0007 LT        A=0 R0, K2=0.001
+0008 JMP       A=0 sBx=2 -> 11
+0009 LOADK     R0, K2=0.001
+0010 JMP       A=0 sBx=3 -> 14
+0011 LT        A=0 K3=1.0, R0
+0012 JMP       A=0 sBx=1 -> 14
+0013 LOADK     R0, K3=1.0
+0014 RETURN    A=0 B=2 C=0
+0015 RETURN    A=0 B=1 C=0
+

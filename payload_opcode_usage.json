@@ -1,0 +1,237 @@
+[
+  {
+    "raw": 0,
+    "semantic": "MOVE",
+    "count": 1450
+  },
+  {
+    "raw": 1,
+    "semantic": "SELF",
+    "count": 189
+  },
+  {
+    "raw": 2,
+    "semantic": "ADD",
+    "count": 78
+  },
+  {
+    "raw": 3,
+    "semantic": "SUB",
+    "count": 22
+  },
+  {
+    "raw": 4,
+    "semantic": "MUL",
+    "count": 25
+  },
+  {
+    "raw": 5,
+    "semantic": "MOD",
+    "count": 0
+  },
+  {
+    "raw": 6,
+    "semantic": "POW",
+    "count": 0
+  },
+  {
+    "raw": 7,
+    "semantic": "DIV",
+    "count": 12
+  },
+  {
+    "raw": 8,
+    "semantic": "IDIV",
+    "count": 0
+  },
+  {
+    "raw": 9,
+    "semantic": "BAND",
+    "count": 0
+  },
+  {
+    "raw": 10,
+    "semantic": "BOR",
+    "count": 0
+  },
+  {
+    "raw": 11,
+    "semantic": "BXOR",
+    "count": 0
+  },
+  {
+    "raw": 12,
+    "semantic": "SHL",
+    "count": 0
+  },
+  {
+    "raw": 13,
+    "semantic": "SHR",
+    "count": 0
+  },
+  {
+    "raw": 14,
+    "semantic": "UNM",
+    "count": 3
+  },
+  {
+    "raw": 15,
+    "semantic": "BNOT",
+    "count": 0
+  },
+  {
+    "raw": 16,
+    "semantic": "NOT",
+    "count": 1
+  },
+  {
+    "raw": 17,
+    "semantic": "LEN",
+    "count": 20
+  },
+  {
+    "raw": 18,
+    "semantic": "CONCAT",
+    "count": 7
+  },
+  {
+    "raw": 19,
+    "semantic": "JMP",
+    "count": 1321
+  },
+  {
+    "raw": 20,
+    "semantic": "EQ",
+    "count": 618
+  },
+  {
+    "raw": 21,
+    "semantic": "LT",
+    "count": 52
+  },
+  {
+    "raw": 22,
+    "semantic": "LE",
+    "count": 24
+  },
+  {
+    "raw": 23,
+    "semantic": "TEST",
+    "count": 439
+  },
+  {
+    "raw": 24,
+    "semantic": "TESTSET",
+    "count": 19
+  },
+  {
+    "raw": 25,
+    "semantic": "CALL",
+    "count": 1474
+  },
+  {
+    "raw": 26,
+    "semantic": "TAILCALL",
+    "count": 25
+  },
+  {
+    "raw": 27,
+    "semantic": "RETURN",
+    "count": 701
+  },
+  {
+    "raw": 28,
+    "semantic": "FORLOOP",
+    "count": 12
+  },
+  {
+    "raw": 29,
+    "semantic": "FORPREP",
+    "count": 12
+  },
+  {
+    "raw": 30,
+    "semantic": "TFORCALL",
+    "count": 80
+  },
+  {
+    "raw": 31,
+    "semantic": "TFORLOOP",
+    "count": 80
+  },
+  {
+    "raw": 32,
+    "semantic": "SETLIST",
+    "count": 51
+  },
+  {
+    "raw": 33,
+    "semantic": "CLOSURE",
+    "count": 295
+  },
+  {
+    "raw": 34,
+    "semantic": "VARARG",
+    "count": 11
+  },
+  {
+    "raw": 35,
+    "semantic": "LOADK",
+    "count": 1613
+  },
+  {
+    "raw": 36,
+    "semantic": "LOADKX",
+    "count": 0
+  },
+  {
+    "raw": 37,
+    "semantic": "LOADBOOL",
+    "count": 664
+  },
+  {
+    "raw": 38,
+    "semantic": "LOADNIL",
+    "count": 672
+  },
+  {
+    "raw": 39,
+    "semantic": "GETUPVAL",
+    "count": 808
+  },
+  {
+    "raw": 40,
+    "semantic": "GETTABUP",
+    "count": 1114
+  },
+  {
+    "raw": 41,
+    "semantic": "GETTABLE",
+    "count": 757
+  },
+  {
+    "raw": 42,
+    "semantic": "SETTABUP",
+    "count": 106
+  },
+  {
+    "raw": 43,
+    "semantic": "SETUPVAL",
+    "count": 20
+  },
+  {
+    "raw": 44,
+    "semantic": "SETTABLE",
+    "count": 532
+  },
+  {
+    "raw": 45,
+    "semantic": "NEWTABLE",
+    "count": 187
+  },
+  {
+    "raw": 46,
+    "semantic": "EXTRAARG",
+    "count": 0
+  }
+]

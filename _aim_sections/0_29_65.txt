@@ -1,0 +1,844 @@
+=== PROTO 0.29.65 off=56239..61785 params=5 stack=38 code=842 consts=136 up=13 children=0 source='穷途陌路        _全新寫法.lua' ===
+0000 LOADNIL   A=37 B=0 C=0
+0001 LOADBOOL  A=37 B=1 C=0
+0002 LOADNIL   A=37 B=0 C=0
+0003 GETUPVAL  R5, U0
+0004 MOVE      R6, R1
+0005 CALL      A=5 B=2 C=2
+0006 GETUPVAL  R6, U0
+0007 MOVE      R7, R2
+0008 CALL      A=6 B=2 C=2
+0009 MOVE      R2, R6
+0010 GETUPVAL  R6, U1
+0011 CALL      A=6 B=1 C=2
+0012 EQ        A=0 R6, K0=None
+0013 JMP       A=0 sBx=3 -> 17
+0014 LOADNIL   A=7 B=0 C=0
+0015 LOADBOOL  A=8 B=0 C=0
+0016 RETURN    A=7 B=3 C=0
+0017 GETUPVAL  R7, U2
+0018 CALL      A=7 B=1 C=2
+0019 DIV       R8, R7, K1=50.0
+0020 GETUPVAL  R9, U3
+0021 CALL      A=9 B=1 C=2
+0022 GETUPVAL  R10, U4
+0023 CALL      A=10 B=1 C=2
+0024 GETUPVAL  R11, U5
+0025 CALL      A=11 B=1 C=2
+0026 DIV       R12, R11, K2=150.0
+0027 MUL       R13, R11, K3=100.0
+0028 MUL       R14, R13, K4=3.0
+0029 GETUPVAL  R15, U6
+0030 CALL      A=15 B=1 C=2
+0031 GETTABUP  R16, U7, K5='string'
+0032 GETTABLE  R16, R16, K6='find'
+0033 MOVE      R17, R5
+0034 LOADK     R18, K7='weaponaimassistortable'
+0035 LOADK     R19, K8=1
+0036 LOADBOOL  A=20 B=1 C=0
+0037 CALL      A=16 B=5 C=2
+0038 EQ        A=1 R16, K0=None
+0039 JMP       A=0 sBx=9 -> 49
+0040 GETTABUP  R16, U7, K5='string'
+0041 GETTABLE  R16, R16, K6='find'
+0042 MOVE      R17, R5
+0043 LOADK     R18, K9='weaponaimassistortableforgamepad'
+0044 LOADK     R19, K8=1
+0045 LOADBOOL  A=20 B=1 C=0
+0046 CALL      A=16 B=5 C=2
+0047 EQ        A=1 R16, K0=None
+0048 JMP       A=0 sBx=1 -> 50
+0049 LOADBOOL  A=16 B=0 C=1
+0050 LOADBOOL  A=16 B=1 C=0
+0051 GETTABUP  R17, U7, K5='string'
+0052 GETTABLE  R17, R17, K6='find'
+0053 MOVE      R18, R5
+0054 LOADK     R19, K10='weaponassistedaimingtable'
+0055 LOADK     R20, K8=1
+0056 LOADBOOL  A=21 B=1 C=0
+0057 CALL      A=17 B=5 C=2
+0058 EQ        A=1 R17, K0=None
+0059 JMP       A=0 sBx=9 -> 69
+0060 GETTABUP  R17, U7, K5='string'
+0061 GETTABLE  R17, R17, K6='find'
+0062 MOVE      R18, R5
+0063 LOADK     R19, K11='weaponassistedaiminggrouptable'
+0064 LOADK     R20, K8=1
+0065 LOADBOOL  A=21 B=1 C=0
+0066 CALL      A=17 B=5 C=2
+0067 EQ        A=1 R17, K0=None
+0068 JMP       A=0 sBx=1 -> 70
+0069 LOADBOOL  A=17 B=0 C=1
+0070 LOADBOOL  A=17 B=1 C=0
+0071 GETTABUP  R18, U7, K5='string'
+0072 GETTABLE  R18, R18, K6='find'
+0073 MOVE      R19, R5
+0074 LOADK     R20, K11='weaponassistedaiminggrouptable'
+0075 LOADK     R21, K8=1
+0076 LOADBOOL  A=22 B=1 C=0
+0077 CALL      A=18 B=5 C=2
+0078 EQ        A=0 R18, K0=None
+0079 JMP       A=0 sBx=1 -> 81
+0080 LOADBOOL  A=18 B=0 C=1
+0081 LOADBOOL  A=18 B=1 C=0
+0082 GETTABUP  R19, U7, K5='string'
+0083 GETTABLE  R19, R19, K6='find'
+0084 MOVE      R20, R5
+0085 LOADK     R21, K12='weaponbullettable'
+0086 LOADK     R22, K8=1
+0087 LOADBOOL  A=23 B=1 C=0
+0088 CALL      A=19 B=5 C=2
+0089 EQ        A=0 R19, K0=None
+0090 JMP       A=0 sBx=1 -> 92
+0091 LOADBOOL  A=19 B=0 C=1
+0092 LOADBOOL  A=19 B=1 C=0
+0093 GETTABUP  R20, U7, K5='string'
+0094 GETTABLE  R20, R20, K6='find'
+0095 MOVE      R21, R5
+0096 LOADK     R22, K13='shootingconfig'
+0097 LOADK     R23, K8=1
+0098 LOADBOOL  A=24 B=1 C=0
+0099 CALL      A=20 B=5 C=2
+0100 EQ        A=0 R20, K0=None
+0101 JMP       A=0 sBx=1 -> 103
+0102 LOADBOOL  A=20 B=0 C=1
+0103 LOADBOOL  A=20 B=1 C=0
+0104 GETTABUP  R21, U7, K5='string'
+0105 GETTABLE  R21, R21, K6='find'
+0106 MOVE      R22, R5
+0107 LOADK     R23, K14='crosshairfollowingconfig'
+0108 LOADK     R24, K8=1
+0109 LOADBOOL  A=25 B=1 C=0
+0110 CALL      A=21 B=5 C=2
+0111 EQ        A=0 R21, K0=None
+0112 JMP       A=0 sBx=1 -> 114
+0113 LOADBOOL  A=21 B=0 C=1
+0114 LOADBOOL  A=21 B=1 C=0
+0115 GETTABUP  R22, U7, K5='string'
+0116 GETTABLE  R22, R22, K6='find'
+0117 MOVE      R23, R5
+0118 LOADK     R24, K15='crosshairdampingconfig'
+0119 LOADK     R25, K8=1
+0120 LOADBOOL  A=26 B=1 C=0
+0121 CALL      A=22 B=5 C=2
+0122 EQ        A=0 R22, K0=None
+0123 JMP       A=0 sBx=1 -> 125
+0124 LOADBOOL  A=22 B=0 C=1
+0125 LOADBOOL  A=22 B=1 C=0
+0126 GETTABUP  R23, U7, K5='string'
+0127 GETTABLE  R23, R23, K6='find'
+0128 MOVE      R24, R5
+0129 LOADK     R25, K16='activetrackingconfig'
+0130 LOADK     R26, K8=1
+0131 LOADBOOL  A=27 B=1 C=0
+0132 CALL      A=23 B=5 C=2
+0133 EQ        A=0 R23, K0=None
+0134 JMP       A=0 sBx=1 -> 136
+0135 LOADBOOL  A=23 B=0 C=1
+0136 LOADBOOL  A=23 B=1 C=0
+0137 GETTABUP  R24, U7, K5='string'
+0138 GETTABLE  R24, R24, K6='find'
+0139 MOVE      R25, R5
+0140 LOADK     R26, K17='zoominginconfig'
+0141 LOADK     R27, K8=1
+0142 LOADBOOL  A=28 B=1 C=0
+0143 CALL      A=24 B=5 C=2
+0144 EQ        A=0 R24, K0=None
+0145 JMP       A=0 sBx=1 -> 147
+0146 LOADBOOL  A=24 B=0 C=1
+0147 LOADBOOL  A=24 B=1 C=0
+0148 EQ        A=0 R6, K18='ads'
+0149 JMP       A=0 sBx=136 -> 286
+0150 TEST      R16 C=1
+0151 JMP       A=0 sBx=3 -> 155
+0152 LOADNIL   A=25 B=0 C=0
+0153 LOADBOOL  A=26 B=0 C=0
+0154 RETURN    A=25 B=3 C=0
+0155 EQ        A=0 R2, K19='btakeeffect'
+0156 JMP       A=0 sBx=3 -> 160
+0157 LOADBOOL  A=25 B=1 C=0
+0158 LOADBOOL  A=26 B=1 C=0
+0159 RETURN    A=25 B=3 C=0
+0160 EQ        A=0 R2, K20='x'
+0161 JMP       A=0 sBx=12 -> 174
+0162 GETTABUP  R25, U7, K5='string'
+0163 GETTABLE  R25, R25, K6='find'
+0164 MOVE      R26, R5
+0165 LOADK     R27, K21='effectivefovrange'
+0166 LOADK     R28, K8=1
+0167 LOADBOOL  A=29 B=1 C=0
+0168 CALL      A=25 B=5 C=2
+0169 EQ        A=1 R25, K0=None
+0170 JMP       A=0 sBx=3 -> 174
+0171 MOVE      R25, R9
+0172 LOADBOOL  A=26 B=1 C=0
+0173 RETURN    A=25 B=3 C=0
+0174 EQ        A=1 R2, K22='coneanglebase'
+0175 JMP       A=0 sBx=2 -> 178
+0176 EQ        A=0 R2, K23='outer2innerrangeforraychecker'
+0177 JMP       A=0 sBx=3 -> 181
+0178 MOVE      R25, R9
+0179 LOADBOOL  A=26 B=1 C=0
+0180 RETURN    A=25 B=3 C=0
+0181 EQ        A=0 R2, K24='rangescale'
+0182 JMP       A=0 sBx=3 -> 186
+0183 DIV       R25, R9, K25=90.0
+0184 LOADBOOL  A=26 B=1 C=0
+0185 RETURN    A=25 B=3 C=0
+0186 EQ        A=0 R2, K26='coneheightbase'
+0187 JMP       A=0 sBx=3 -> 191
+0188 MOVE      R25, R13
+0189 LOADBOOL  A=26 B=1 C=0
+0190 RETURN    A=25 B=3 C=0
+0191 EQ        A=0 R2, K27='lockontime'
+0192 JMP       A=0 sBx=4 -> 197
+0193 GETUPVAL  R25, U8
+0194 CALL      A=25 B=1 C=2
+0195 LOADBOOL  A=26 B=1 C=0
+0196 RETURN    A=25 B=3 C=0
+0197 EQ        A=1 R2, K28='pitchrateads'
+0198 JMP       A=0 sBx=2 -> 201
+0199 EQ        A=0 R2, K29='yawrateads'
+0200 JMP       A=0 sBx=3 -> 204
+0201 MOVE      R25, R7
+0202 LOADBOOL  A=26 B=1 C=0
+0203 RETURN    A=25 B=3 C=0
+0204 EQ        A=1 R2, K30='pitchratehip'
+0205 JMP       A=0 sBx=2 -> 208
+0206 EQ        A=0 R2, K31='yawratehip'
+0207 JMP       A=0 sBx=3 -> 211
+0208 LOADNIL   A=25 B=0 C=0
+0209 LOADBOOL  A=26 B=0 C=0
+0210 RETURN    A=25 B=3 C=0
+0211 EQ        A=0 R2, K32='inrangeb'
+0212 JMP       A=0 sBx=34 -> 247
+0213 GETTABUP  R25, U7, K33='type'
+0214 MOVE      R26, R3
+0215 CALL      A=25 B=2 C=2
+0216 EQ        A=1 R25, K34='number'
+0217 JMP       A=0 sBx=3 -> 221
+0218 LOADNIL   A=25 B=0 C=0
+0219 LOADBOOL  A=26 B=0 C=0
+0220 RETURN    A=25 B=3 C=0
+0221 LOADNIL   A=25 B=0 C=0
+0222 LE        A=0 K35=9000, R3
+0223 JMP       A=0 sBx=2 -> 226
+0224 LOADK     R25, K36=33333.0
+0225 JMP       A=0 sBx=18 -> 244
+0226 LE        A=0 K37=5500, R3
+0227 JMP       A=0 sBx=2 -> 230
+0228 LOADK     R25, K38=22222.0
+0229 JMP       A=0 sBx=14 -> 244
+0230 LE        A=0 K39=2800, R3
+0231 JMP       A=0 sBx=2 -> 234
+0232 LOADK     R25, K40=9999.0
+0233 JMP       A=0 sBx=10 -> 244
+0234 LE        A=0 K41=2200, R3
+0235 JMP       A=0 sBx=7 -> 243
+0236 TEST      R20 C=0
+0237 JMP       A=0 sBx=3 -> 241
+0238 LOADK     R26, K42=7000.0
+0239 TESTSET   R25, R26 C=1
+0240 JMP       A=0 sBx=1 -> 242
+0241 LOADK     R25, K43=7777.0
+0242 JMP       A=0 sBx=1 -> 244
+0243 LOADK     R25, K4=3.0
+0244 MUL       R26, R25, R12
+0245 LOADBOOL  A=27 B=1 C=0
+0246 RETURN    A=26 B=3 C=0
+0247 EQ        A=1 R2, K44='outrangea'
+0248 JMP       A=0 sBx=2 -> 251
+0249 EQ        A=0 R2, K45='outrangeb'
+0250 JMP       A=0 sBx=3 -> 254
+0251 LOADK     R25, K4=3.0
+0252 LOADBOOL  A=26 B=1 C=0
+0253 RETURN    A=25 B=3 C=0
+0254 EQ        A=0 R2, K46='playerinputawaytargetangle'
+0255 JMP       A=0 sBx=3 -> 259
+0256 LOADK     R25, K47=1555.0
+0257 LOADBOOL  A=26 B=1 C=0
+0258 RETURN    A=25 B=3 C=0
+0259 EQ        A=1 R2, K48='playerinputawaytargetvalue'
+0260 JMP       A=0 sBx=2 -> 263
+0261 EQ        A=0 R2, K49='playerinputrecordtime'
+0262 JMP       A=0 sBx=3 -> 266
+0263 LOADK     R25, K50=0.0
+0264 LOADBOOL  A=26 B=1 C=0
+0265 RETURN    A=25 B=3 C=0
+0266 EQ        A=0 R2, K51='conefilteractorsmaxnum'
+0267 JMP       A=0 sBx=15 -> 283
+0268 GETTABUP  R25, U7, K52='math'
+0269 GETTABLE  R25, R25, K53='floor'
+0270 MUL       R26, K54=8.0, R10
+0271 ADD       R26, R26, K55=0.5
+0272 CALL      A=25 B=2 C=2
+0273 LT        A=0 R25, K56=16
+0274 JMP       A=0 sBx=2 -> 277
+0275 LOADK     R25, K56=16
+0276 JMP       A=0 sBx=3 -> 280
+0277 LT        A=0 K57=64, R25
+0278 JMP       A=0 sBx=1 -> 280
+0279 LOADK     R25, K57=64
+0280 MOVE      R26, R25
+0281 LOADBOOL  A=27 B=1 C=0
+0282 RETURN    A=26 B=3 C=0
+0283 LOADNIL   A=25 B=0 C=0
+0284 LOADBOOL  A=26 B=0 C=0
+0285 RETURN    A=25 B=3 C=0
+0286 TEST      R19 C=0
+0287 JMP       A=0 sBx=15 -> 303
+0288 EQ        A=0 R2, K58='radius'
+0289 JMP       A=0 sBx=10 -> 300
+0290 GETTABUP  R25, U7, K33='type'
+0291 MOVE      R26, R3
+0292 CALL      A=25 B=2 C=2
+0293 EQ        A=0 R25, K34='number'
+0294 JMP       A=0 sBx=5 -> 300
+0295 LE        A=0 R3, K4=3.0
+0296 JMP       A=0 sBx=3 -> 300
+0297 LOADK     R25, K59=5.0
+0298 LOADBOOL  A=26 B=1 C=0
+0299 RETURN    A=25 B=3 C=0
+0300 LOADNIL   A=25 B=0 C=0
+0301 LOADBOOL  A=26 B=0 C=0
+0302 RETURN    A=25 B=3 C=0
+0303 TEST      R18 C=0
+0304 JMP       A=0 sBx=98 -> 403
+0305 EQ        A=0 R2, K60='singleidpve'
+0306 JMP       A=0 sBx=14 -> 321
+0307 GETTABUP  R25, U7, K61='tonumber'
+0308 GETUPVAL  R26, U9
+0309 MOVE      R27, R0
+0310 LOADK     R28, K62='SingleId'
+0311 CALL      A=26 B=3 C=0
+0312 CALL      A=25 B=0 C=2
+0313 EQ        A=1 R25, K0=None
+0314 JMP       A=0 sBx=85 -> 400
+0315 LT        A=0 K63=0, R25
+0316 JMP       A=0 sBx=83 -> 400
+0317 MOVE      R26, R25
+0318 LOADBOOL  A=27 B=1 C=0
+0319 RETURN    A=26 B=3 C=0
+0320 JMP       A=0 sBx=79 -> 400
+0321 EQ        A=0 R2, K64='autoidpve'
+0322 JMP       A=0 sBx=14 -> 337
+0323 GETTABUP  R25, U7, K61='tonumber'
+0324 GETUPVAL  R26, U9
+0325 MOVE      R27, R0
+0326 LOADK     R28, K65='AutoId'
+0327 CALL      A=26 B=3 C=0
+0328 CALL      A=25 B=0 C=2
+0329 EQ        A=1 R25, K0=None
+0330 JMP       A=0 sBx=69 -> 400
+0331 LT        A=0 K63=0, R25
+0332 JMP       A=0 sBx=67 -> 400
+0333 MOVE      R26, R25
+0334 LOADBOOL  A=27 B=1 C=0
+0335 RETURN    A=26 B=3 C=0
+0336 JMP       A=0 sBx=63 -> 400
+0337 EQ        A=0 R2, K66='burstidpve'
+0338 JMP       A=0 sBx=14 -> 353
+0339 GETTABUP  R25, U7, K61='tonumber'
+0340 GETUPVAL  R26, U9
+0341 MOVE      R27, R0
+0342 LOADK     R28, K67='BurstId'
+0343 CALL      A=26 B=3 C=0
+0344 CALL      A=25 B=0 C=2
+0345 EQ        A=1 R25, K0=None
+0346 JMP       A=0 sBx=53 -> 400
+0347 LT        A=0 K63=0, R25
+0348 JMP       A=0 sBx=51 -> 400
+0349 MOVE      R26, R25
+0350 LOADBOOL  A=27 B=1 C=0
+0351 RETURN    A=26 B=3 C=0
+0352 JMP       A=0 sBx=47 -> 400
+0353 EQ        A=0 R2, K68='aimingsingleidpve'
+0354 JMP       A=0 sBx=14 -> 369
+0355 GETTABUP  R25, U7, K61='tonumber'
+0356 GETUPVAL  R26, U9
+0357 MOVE      R27, R0
+0358 LOADK     R28, K69='AimingSingleId'
+0359 CALL      A=26 B=3 C=0
+0360 CALL      A=25 B=0 C=2
+0361 EQ        A=1 R25, K0=None
+0362 JMP       A=0 sBx=37 -> 400
+0363 LT        A=0 K63=0, R25
+0364 JMP       A=0 sBx=35 -> 400
+0365 MOVE      R26, R25
+0366 LOADBOOL  A=27 B=1 C=0
+0367 RETURN    A=26 B=3 C=0
+0368 JMP       A=0 sBx=31 -> 400
+0369 EQ        A=0 R2, K70='aimingautoidpve'
+0370 JMP       A=0 sBx=14 -> 385
+0371 GETTABUP  R25, U7, K61='tonumber'
+0372 GETUPVAL  R26, U9
+0373 MOVE      R27, R0
+0374 LOADK     R28, K71='AimingAutoId'
+0375 CALL      A=26 B=3 C=0
+0376 CALL      A=25 B=0 C=2
+0377 EQ        A=1 R25, K0=None
+0378 JMP       A=0 sBx=21 -> 400
+0379 LT        A=0 K63=0, R25
+0380 JMP       A=0 sBx=19 -> 400
+0381 MOVE      R26, R25
+0382 LOADBOOL  A=27 B=1 C=0
+0383 RETURN    A=26 B=3 C=0
+0384 JMP       A=0 sBx=15 -> 400
+0385 EQ        A=0 R2, K72='aimingburstidpve'
+0386 JMP       A=0 sBx=13 -> 400
+0387 GETTABUP  R25, U7, K61='tonumber'
+0388 GETUPVAL  R26, U9
+0389 MOVE      R27, R0
+0390 LOADK     R28, K73='AimingBurstId'
+0391 CALL      A=26 B=3 C=0
+0392 CALL      A=25 B=0 C=2
+0393 EQ        A=1 R25, K0=None
+0394 JMP       A=0 sBx=5 -> 400
+0395 LT        A=0 K63=0, R25
+0396 JMP       A=0 sBx=3 -> 400
+0397 MOVE      R26, R25
+0398 LOADBOOL  A=27 B=1 C=0
+0399 RETURN    A=26 B=3 C=0
+0400 LOADNIL   A=25 B=0 C=0
+0401 LOADBOOL  A=26 B=0 C=0
+0402 RETURN    A=25 B=3 C=0
+0403 TEST      R17 C=0
+0404 JMP       A=0 sBx=118 -> 523
+0405 EQ        A=1 R2, K74='enabledistancemin'
+0406 JMP       A=0 sBx=4 -> 411
+0407 EQ        A=1 R2, K75='enabledistanceminforrotatesticky'
+0408 JMP       A=0 sBx=2 -> 411
+0409 EQ        A=0 R2, K76='enabledistanceminformagneticsticky'
+0410 JMP       A=0 sBx=3 -> 414
+0411 LOADK     R25, K50=0.0
+0412 LOADBOOL  A=26 B=1 C=0
+0413 RETURN    A=25 B=3 C=0
+0414 EQ        A=1 R2, K77='enabledistancemax'
+0415 JMP       A=0 sBx=4 -> 420
+0416 EQ        A=1 R2, K78='enabledistancemaxforrotatesticky'
+0417 JMP       A=0 sBx=2 -> 420
+0418 EQ        A=0 R2, K79='enabledistancemaxformagneticsticky'
+0419 JMP       A=0 sBx=3 -> 423
+0420 MOVE      R25, R14
+0421 LOADBOOL  A=26 B=1 C=0
+0422 RETURN    A=25 B=3 C=0
+0423 EQ        A=1 R2, K80='assistedboxminradius'
+0424 JMP       A=0 sBx=4 -> 429
+0425 EQ        A=1 R2, K81='assistedboxminradiusforrotatesticky'
+0426 JMP       A=0 sBx=2 -> 429
+0427 EQ        A=0 R2, K82='assistedboxminradiusformagneticsticky'
+0428 JMP       A=0 sBx=3 -> 432
+0429 MUL       R25, R15, K83=0.65
+0430 LOADBOOL  A=26 B=1 C=0
+0431 RETURN    A=25 B=3 C=0
+0432 EQ        A=1 R2, K84='assistedboxmaxradius'
+0433 JMP       A=0 sBx=4 -> 438
+0434 EQ        A=1 R2, K85='assistedboxmaxradiusforrotatesticky'
+0435 JMP       A=0 sBx=2 -> 438
+0436 EQ        A=0 R2, K86='assistedboxmaxradiusformagneticsticky'
+0437 JMP       A=0 sBx=3 -> 441
+0438 MOVE      R25, R15
+0439 LOADBOOL  A=26 B=1 C=0
+0440 RETURN    A=25 B=3 C=0
+0441 EQ        A=1 R2, K87='assistedboxverticalscale'
+0442 JMP       A=0 sBx=4 -> 447
+0443 EQ        A=1 R2, K88='assistedboxverticalscaleforrotatesticky'
+0444 JMP       A=0 sBx=2 -> 447
+0445 EQ        A=0 R2, K89='assistedboxverticalscaleformagneticsticky'
+0446 JMP       A=0 sBx=13 -> 460
+0447 GETTABUP  R25, U7, K52='math'
+0448 GETTABLE  R25, R25, K90='max'
+0449 LOADK     R26, K50=0.0
+0450 SUB       R27, R10, K91=1.0
+0451 CALL      A=25 B=3 C=2
+0452 MUL       R25, R25, K92=0.13
+0453 ADD       R25, K93=1.35, R25
+0454 LT        A=0 K94=2.0, R25
+0455 JMP       A=0 sBx=1 -> 457
+0456 LOADK     R25, K94=2.0
+0457 MOVE      R26, R25
+0458 LOADBOOL  A=27 B=1 C=0
+0459 RETURN    A=26 B=3 C=0
+0460 EQ        A=1 R2, K95='horizontalrecoilspeed'
+0461 JMP       A=0 sBx=6 -> 468
+0462 EQ        A=1 R2, K96='verticalrecoilspeed'
+0463 JMP       A=0 sBx=4 -> 468
+0464 EQ        A=1 R2, K97='horizontalrecoilspeedforzoomin'
+0465 JMP       A=0 sBx=2 -> 468
+0466 EQ        A=0 R2, K98='verticalrecoilspeedforzoomin'
+0467 JMP       A=0 sBx=3 -> 471
+0468 MOVE      R25, R7
+0469 LOADBOOL  A=26 B=1 C=0
+0470 RETURN    A=25 B=3 C=0
+0471 EQ        A=1 R2, K99='pausetimeafterfire'
+0472 JMP       A=0 sBx=6 -> 479
+0473 EQ        A=1 R2, K100='recoilreduceactivationtime'
+0474 JMP       A=0 sBx=4 -> 479
+0475 EQ        A=1 R2, K101='magneticcdseconds'
+0476 JMP       A=0 sBx=2 -> 479
+0477 EQ        A=0 R2, K102='magneticenablefocusseconds'
+0478 JMP       A=0 sBx=3 -> 482
+0479 LOADK     R25, K50=0.0
+0480 LOADBOOL  A=26 B=1 C=0
+0481 RETURN    A=25 B=3 C=0
+0482 EQ        A=0 R2, K103='recoilspeedtouchparam'
+0483 JMP       A=0 sBx=3 -> 487
+0484 MUL       R25, R8, K104=1.5
+0485 LOADBOOL  A=26 B=1 C=0
+0486 RETURN    A=25 B=3 C=0
+0487 EQ        A=0 R2, K105='stickyparam'
+0488 JMP       A=0 sBx=3 -> 492
+0489 MUL       R25, R8, K4=3.0
+0490 LOADBOOL  A=26 B=1 C=0
+0491 RETURN    A=25 B=3 C=0
+0492 EQ        A=0 R2, K106='bpreventmissenable'
+0493 JMP       A=0 sBx=3 -> 497
+0494 LOADBOOL  A=25 B=1 C=0
+0495 LOADBOOL  A=26 B=1 C=0
+0496 RETURN    A=25 B=3 C=0
+0497 EQ        A=0 R2, K107='preventmissaddbulletradiusdelta'
+0498 JMP       A=0 sBx=11 -> 510
+0499 GETTABUP  R25, U7, K52='math'
+0500 GETTABLE  R25, R25, K90='max'
+0501 MUL       R26, R15, K108=1.25
+0502 MUL       R27, R13, K109=0.02
+0503 CALL      A=25 B=3 C=2
+0504 LT        A=0 K110=1500.0, R25
+0505 JMP       A=0 sBx=1 -> 507
+0506 LOADK     R25, K110=1500.0
+0507 MOVE      R26, R25
+0508 LOADBOOL  A=27 B=1 C=0
+0509 RETURN    A=26 B=3 C=0
+0510 EQ        A=0 R2, K111='preventmissnumber'
+0511 JMP       A=0 sBx=3 -> 515
+0512 LOADK     R25, K112=12
+0513 LOADBOOL  A=26 B=1 C=0
+0514 RETURN    A=25 B=3 C=0
+0515 EQ        A=0 R2, K113='preventmisstime'
+0516 JMP       A=0 sBx=3 -> 520
+0517 LOADK     R25, K114=0.25
+0518 LOADBOOL  A=26 B=1 C=0
+0519 RETURN    A=25 B=3 C=0
+0520 LOADNIL   A=25 B=0 C=0
+0521 LOADBOOL  A=26 B=0 C=0
+0522 RETURN    A=25 B=3 C=0
+0523 TEST      R16 C=1
+0524 JMP       A=0 sBx=3 -> 528
+0525 LOADNIL   A=25 B=0 C=0
+0526 LOADBOOL  A=26 B=0 C=0
+0527 RETURN    A=25 B=3 C=0
+0528 EQ        A=0 R2, K19='btakeeffect'
+0529 JMP       A=0 sBx=19 -> 549
+0530 TEST      R23 C=1
+0531 JMP       A=0 sBx=2 -> 534
+0532 TEST      R24 C=0
+0533 JMP       A=0 sBx=3 -> 537
+0534 LOADBOOL  A=25 B=0 C=0
+0535 LOADBOOL  A=26 B=1 C=0
+0536 RETURN    A=25 B=3 C=0
+0537 TEST      R20 C=1
+0538 JMP       A=0 sBx=4 -> 543
+0539 TEST      R21 C=1
+0540 JMP       A=0 sBx=2 -> 543
+0541 TEST      R22 C=0
+0542 JMP       A=0 sBx=3 -> 546
+0543 LOADBOOL  A=25 B=1 C=0
+0544 LOADBOOL  A=26 B=1 C=0
+0545 RETURN    A=25 B=3 C=0
+0546 LOADNIL   A=25 B=0 C=0
+0547 LOADBOOL  A=26 B=0 C=0
+0548 RETURN    A=25 B=3 C=0
+0549 GETUPVAL  R25, U10
+0550 MOVE      R26, R4
+0551 MOVE      R27, R1
+0552 MOVE      R28, R2
+0553 CALL      A=25 B=4 C=3
+0554 EQ        A=1 R25, K0=None
+0555 JMP       A=0 sBx=253 -> 809
+0556 EQ        A=0 R26, K27='lockontime'
+0557 JMP       A=0 sBx=9 -> 567
+0558 GETUPVAL  R27, U11
+0559 MOVE      R28, R25
+0560 GETUPVAL  R29, U12
+0561 CALL      A=29 B=1 C=2
+0562 LOADK     R30, K115=0.001
+0563 LOADK     R31, K91=1.0
+0564 CALL      A=27 B=5 C=2
+0565 LOADBOOL  A=28 B=1 C=0
+0566 RETURN    A=27 B=3 C=0
+0567 LOADBOOL  A=27 B=0 C=0
+0568 LOADBOOL  A=28 B=0 C=0
+0569 TEST      R20 C=0
+0570 JMP       A=0 sBx=18 -> 589
+0571 GETTABUP  R29, U7, K5='string'
+0572 GETTABLE  R29, R29, K6='find'
+0573 MOVE      R30, R26
+0574 LOADK     R31, K116='factor'
+0575 LOADK     R32, K8=1
+0576 LOADBOOL  A=33 B=1 C=0
+0577 CALL      A=29 B=5 C=2
+0578 EQ        A=0 R29, K0=None
+0579 JMP       A=0 sBx=1 -> 581
+0580 LOADBOOL  A=27 B=0 C=1
+0581 LOADBOOL  A=27 B=1 C=0
+0582 EQ        A=1 R2, K117='deltatime'
+0583 JMP       A=0 sBx=3 -> 587
+0584 EQ        A=1 R2, K118='cdtime'
+0585 JMP       A=0 sBx=1 -> 587
+0586 LOADBOOL  A=28 B=0 C=1
+0587 LOADBOOL  A=28 B=1 C=0
+0588 JMP       A=0 sBx=17 -> 606
+0589 TEST      R21 C=0
+0590 JMP       A=0 sBx=15 -> 606
+0591 GETTABUP  R29, U7, K5='string'
+0592 GETTABLE  R29, R29, K6='find'
+0593 MOVE      R30, R26
+0594 LOADK     R31, K116='factor'
+0595 LOADK     R32, K8=1
+0596 LOADBOOL  A=33 B=1 C=0
+0597 CALL      A=29 B=5 C=2
+0598 EQ        A=0 R29, K0=None
+0599 JMP       A=0 sBx=1 -> 601
+0600 LOADBOOL  A=27 B=0 C=1
+0601 LOADBOOL  A=27 B=1 C=0
+0602 EQ        A=1 R2, K119='intervaltime'
+0603 JMP       A=0 sBx=1 -> 605
+0604 LOADBOOL  A=28 B=0 C=1
+0605 LOADBOOL  A=28 B=1 C=0
+0606 TEST      R27 C=0
+0607 JMP       A=0 sBx=52 -> 660
+0608 MOVE      R29, R8
+0609 GETTABUP  R30, U7, K5='string'
+0610 GETTABLE  R30, R30, K6='find'
+0611 MOVE      R31, R26
+0612 LOADK     R32, K120='pitchfactor'
+0613 LOADK     R33, K8=1
+0614 LOADBOOL  A=34 B=1 C=0
+0615 CALL      A=30 B=5 C=2
+0616 EQ        A=0 R30, K0=None
+0617 JMP       A=0 sBx=1 -> 619
+0618 LOADBOOL  A=30 B=0 C=1
+0619 LOADBOOL  A=30 B=1 C=0
+0620 GETTABUP  R31, U7, K5='string'
+0621 GETTABLE  R31, R31, K6='find'
+0622 MOVE      R32, R26
+0623 LOADK     R33, K121='factorlockon'
+0624 LOADK     R34, K8=1
+0625 LOADBOOL  A=35 B=1 C=0
+0626 CALL      A=31 B=5 C=2
+0627 EQ        A=0 R31, K0=None
+0628 JMP       A=0 sBx=1 -> 630
+0629 LOADBOOL  A=31 B=0 C=1
+0630 LOADBOOL  A=31 B=1 C=0
+0631 TEST      R30 C=0
+0632 JMP       A=0 sBx=14 -> 647
+0633 TEST      R20 C=0
+0634 JMP       A=0 sBx=2 -> 637
+0635 MUL       R29, R29, K122=1.3
+0636 JMP       A=0 sBx=15 -> 652
+0637 TEST      R21 C=0
+0638 JMP       A=0 sBx=13 -> 652
+0639 TEST      R31 C=0
+0640 JMP       A=0 sBx=3 -> 644
+0641 LOADK     R32, K123=1.7
+0642 TEST      R32 C=1
+0643 JMP       A=0 sBx=1 -> 645
+0644 LOADK     R32, K124=1.4
+0645 MUL       R29, R29, R32
+0646 JMP       A=0 sBx=5 -> 652
+0647 TEST      R21 C=0
+0648 JMP       A=0 sBx=3 -> 652
+0649 TEST      R31 C=0
+0650 JMP       A=0 sBx=1 -> 652
+0651 MUL       R29, R29, K125=1.15
+0652 GETUPVAL  R32, U11
+0653 MOVE      R33, R25
+0654 MOVE      R34, R29
+0655 LOADK     R35, K50=0.0
+0656 LOADK     R36, K4=3.0
+0657 CALL      A=32 B=5 C=2
+0658 LOADBOOL  A=33 B=1 C=0
+0659 RETURN    A=32 B=3 C=0
+0660 TEST      R28 C=0
+0661 JMP       A=0 sBx=30 -> 692
+0662 GETUPVAL  R29, U11
+0663 MOVE      R30, R25
+0664 DIV       R31, K91=1.0, R8
+0665 LOADK     R32, K115=0.001
+0666 LOADK     R33, K114=0.25
+0667 CALL      A=29 B=5 C=2
+0668 TEST      R20 C=0
+0669 JMP       A=0 sBx=5 -> 675
+0670 EQ        A=0 R2, K117='deltatime'
+0671 JMP       A=0 sBx=3 -> 675
+0672 LT        A=0 K126=0.015, R29
+0673 JMP       A=0 sBx=1 -> 675
+0674 LOADK     R29, K126=0.015
+0675 TEST      R20 C=0
+0676 JMP       A=0 sBx=5 -> 682
+0677 EQ        A=0 R2, K118='cdtime'
+0678 JMP       A=0 sBx=3 -> 682
+0679 LT        A=0 K127=0.008, R29
+0680 JMP       A=0 sBx=1 -> 682
+0681 LOADK     R29, K127=0.008
+0682 TEST      R21 C=0
+0683 JMP       A=0 sBx=5 -> 689
+0684 EQ        A=0 R2, K119='intervaltime'
+0685 JMP       A=0 sBx=3 -> 689
+0686 LT        A=0 K135=0.012, R29
+0687 JMP       A=0 sBx=1 -> 689
+0688 LOADK     R29, K135=0.012
+0689 MOVE      R30, R29
+0690 LOADBOOL  A=31 B=1 C=0
+0691 RETURN    A=30 B=3 C=0
+0692 EQ        A=0 R26, K128='coneanglepower'
+0693 JMP       A=0 sBx=37 -> 731
+0694 LOADNIL   A=29 B=0 C=0
+0695 LE        A=0 K91=1.0, R10
+0696 JMP       A=0 sBx=12 -> 709
+0697 GETTABUP  R30, U7, K61='tonumber'
+0698 MOVE      R31, R25
+0699 CALL      A=30 B=2 C=2
+0700 TEST      R30 C=1
+0701 JMP       A=0 sBx=1 -> 703
+0702 LOADK     R30, K91=1.0
+0703 GETTABUP  R31, U7, K52='math'
+0704 GETTABLE  R31, R31, K129='sqrt'
+0705 MOVE      R32, R10
+0706 CALL      A=31 B=2 C=2
+0707 DIV       R29, R30, R31
+0708 JMP       A=0 sBx=12 -> 721
+0709 GETTABUP  R30, U7, K61='tonumber'
+0710 MOVE      R31, R25
+0711 CALL      A=30 B=2 C=2
+0712 TEST      R30 C=1
+0713 JMP       A=0 sBx=1 -> 715
+0714 LOADK     R30, K91=1.0
+0715 GETTABUP  R31, U7, K52='math'
+0716 GETTABLE  R31, R31, K90='max'
+0717 MOVE      R32, R10
+0718 LOADK     R33, K130=0.05
+0719 CALL      A=31 B=3 C=2
+0720 DIV       R29, R30, R31
+0721 LT        A=0 R29, K55=0.5
+0722 JMP       A=0 sBx=2 -> 725
+0723 LOADK     R29, K55=0.5
+0724 JMP       A=0 sBx=3 -> 728
+0725 LT        A=0 K54=8.0, R29
+0726 JMP       A=0 sBx=1 -> 728
+0727 LOADK     R29, K54=8.0
+0728 MOVE      R30, R29
+0729 LOADBOOL  A=31 B=1 C=0
+0730 RETURN    A=30 B=3 C=0
+0731 EQ        A=1 R26, K22='coneanglebase'
+0732 JMP       A=0 sBx=18 -> 751
+0733 GETTABUP  R29, U7, K5='string'
+0734 GETTABLE  R29, R29, K6='find'
+0735 MOVE      R30, R26
+0736 LOADK     R31, K21='effectivefovrange'
+0737 LOADK     R32, K8=1
+0738 LOADBOOL  A=33 B=1 C=0
+0739 CALL      A=29 B=5 C=2
+0740 EQ        A=0 R29, K0=None
+0741 JMP       A=0 sBx=9 -> 751
+0742 GETTABUP  R29, U7, K5='string'
+0743 GETTABLE  R29, R29, K6='find'
+0744 MOVE      R30, R26
+0745 LOADK     R31, K23='outer2innerrangeforraychecker'
+0746 LOADK     R32, K8=1
+0747 LOADBOOL  A=33 B=1 C=0
+0748 CALL      A=29 B=5 C=2
+0749 EQ        A=1 R29, K0=None
+0750 JMP       A=0 sBx=8 -> 759
+0751 GETUPVAL  R29, U11
+0752 MOVE      R30, R25
+0753 MOVE      R31, R10
+0754 LOADK     R32, K115=0.001
+0755 LOADK     R33, K131=99999.0
+0756 CALL      A=29 B=5 C=2
+0757 LOADBOOL  A=30 B=1 C=0
+0758 RETURN    A=29 B=3 C=0
+0759 EQ        A=1 R26, K26='coneheightbase'
+0760 JMP       A=0 sBx=2 -> 763
+0761 EQ        A=0 R26, K132='coneheightpower'
+0762 JMP       A=0 sBx=8 -> 771
+0763 GETUPVAL  R29, U11
+0764 MOVE      R30, R25
+0765 MOVE      R31, R12
+0766 LOADK     R32, K115=0.001
+0767 LOADK     R33, K133=999999.0
+0768 CALL      A=29 B=5 C=2
+0769 LOADBOOL  A=30 B=1 C=0
+0770 RETURN    A=29 B=3 C=0
+0771 GETTABUP  R29, U7, K5='string'
+0772 GETTABLE  R29, R29, K6='find'
+0773 MOVE      R30, R26
+0774 LOADK     R31, K24='rangescale'
+0775 LOADK     R32, K8=1
+0776 LOADBOOL  A=33 B=1 C=0
+0777 CALL      A=29 B=5 C=2
+0778 EQ        A=1 R29, K0=None
+0779 JMP       A=0 sBx=29 -> 809
+0780 GETUPVAL  R29, U11
+0781 MOVE      R30, R25
+0782 MOVE      R31, R12
+0783 LOADK     R32, K115=0.001
+0784 LOADK     R33, K133=999999.0
+0785 CALL      A=29 B=5 C=2
+0786 EQ        A=0 R2, K32='inrangeb'
+0787 JMP       A=0 sBx=3 -> 791
+0788 LT        A=0 R29, R14
+0789 JMP       A=0 sBx=1 -> 791
+0790 MOVE      R29, R14
+0791 EQ        A=1 R2, K44='outrangea'
+0792 JMP       A=0 sBx=2 -> 795
+0793 EQ        A=0 R2, K45='outrangeb'
+0794 JMP       A=0 sBx=11 -> 806
+0795 TEST      R20 C=1
+0796 JMP       A=0 sBx=2 -> 799
+0797 TEST      R21 C=0
+0798 JMP       A=0 sBx=4 -> 803
+0799 LT        A=0 R29, K134=6.0
+0800 JMP       A=0 sBx=5 -> 806
+0801 LOADK     R29, K134=6.0
+0802 JMP       A=0 sBx=3 -> 806
+0803 LT        A=0 R29, K4=3.0
+0804 JMP       A=0 sBx=1 -> 806
+0805 LOADK     R29, K4=3.0
+0806 MOVE      R30, R29
+0807 LOADBOOL  A=31 B=1 C=0
+0808 RETURN    A=30 B=3 C=0
+0809 EQ        A=0 R2, K46='playerinputawaytargetangle'
+0810 JMP       A=0 sBx=3 -> 814
+0811 LOADK     R27, K47=1555.0
+0812 LOADBOOL  A=28 B=1 C=0
+0813 RETURN    A=27 B=3 C=0
+0814 EQ        A=1 R2, K48='playerinputawaytargetvalue'
+0815 JMP       A=0 sBx=2 -> 818
+0816 EQ        A=0 R2, K49='playerinputrecordtime'
+0817 JMP       A=0 sBx=3 -> 821
+0818 LOADK     R27, K50=0.0
+0819 LOADBOOL  A=28 B=1 C=0
+0820 RETURN    A=27 B=3 C=0
+0821 EQ        A=0 R2, K51='conefilteractorsmaxnum'
+0822 JMP       A=0 sBx=15 -> 838
+0823 GETTABUP  R27, U7, K52='math'
+0824 GETTABLE  R27, R27, K53='floor'
+0825 MUL       R28, K54=8.0, R10
+0826 ADD       R28, R28, K55=0.5
+0827 CALL      A=27 B=2 C=2
+0828 LT        A=0 R27, K56=16
+0829 JMP       A=0 sBx=2 -> 832
+0830 LOADK     R27, K56=16
+0831 JMP       A=0 sBx=3 -> 835
+0832 LT        A=0 K57=64, R27
+0833 JMP       A=0 sBx=1 -> 835
+0834 LOADK     R27, K57=64
+0835 MOVE      R28, R27
+0836 LOADBOOL  A=29 B=1 C=0
+0837 RETURN    A=28 B=3 C=0
+0838 LOADNIL   A=27 B=0 C=0
+0839 LOADBOOL  A=28 B=0 C=0
+0840 RETURN    A=27 B=3 C=0
+0841 RETURN    A=0 B=1 C=0
+

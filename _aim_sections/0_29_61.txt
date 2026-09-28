@@ -1,0 +1,57 @@
+=== PROTO 0.29.61 off=53806..54176 params=2 stack=17 code=55 consts=9 up=6 children=0 source='穷途陌路        _全新寫法.lua' ===
+0000 LOADNIL   A=16 B=0 C=0
+0001 LOADBOOL  A=16 B=1 C=0
+0002 LOADNIL   A=16 B=0 C=0
+0003 GETUPVAL  R2, U0
+0004 MOVE      R3, R0
+0005 MOVE      R4, R1
+0006 CALL      A=2 B=3 C=2
+0007 GETTABUP  R3, U1, K0='type'
+0008 MOVE      R4, R2
+0009 CALL      A=3 B=2 C=2
+0010 EQ        A=1 R3, K1='table'
+0011 JMP       A=0 sBx=2 -> 14
+0012 LOADBOOL  A=3 B=0 C=0
+0013 RETURN    A=3 B=2 C=0
+0014 LOADBOOL  A=3 B=0 C=0
+0015 LOADK     R4, K2=0
+0016 LOADK     R5, K2=0
+0017 GETTABLE  R6, R2, K3='count'
+0018 SUB       R6, R6, K4=1
+0019 LOADK     R7, K4=1
+0020 FORPREP   A=5 sBx=18 -> 39
+0021 GETTABLE  R9, R2, K5='values'
+0022 ADD       R10, R8, K4=1
+0023 GETTABLE  R9, R9, R10
+0024 GETUPVAL  R10, U2
+0025 MOVE      R11, R9
+0026 CALL      A=10 B=2 C=2
+0027 EQ        A=1 R10, K6=None
+0028 JMP       A=0 sBx=10 -> 39
+0029 GETUPVAL  R11, U3
+0030 MOVE      R12, R0
+0031 MOVE      R13, R8
+0032 MOVE      R14, R9
+0033 MOVE      R15, R10
+0034 CALL      A=11 B=5 C=2
+0035 TEST      R11 C=0
+0036 JMP       A=0 sBx=2 -> 39
+0037 LOADBOOL  A=3 B=1 C=0
+0038 ADD       R4, R4, K4=1
+0039 FORLOOP   A=5 sBx=-19 -> 21
+0040 TEST      R3 C=0
+0041 JMP       A=0 sBx=11 -> 53
+0042 GETUPVAL  R5, U4
+0043 MOVE      R6, R2
+0044 CALL      A=5 B=2 C=1
+0045 GETTABUP  R5, U1, K8='tonumber'
+0046 GETTABUP  R6, U5, K7='custom_dongdong_aim_bone_verified_count'
+0047 CALL      A=5 B=2 C=2
+0048 TEST      R5 C=1
+0049 JMP       A=0 sBx=1 -> 51
+0050 LOADK     R5, K2=0
+0051 ADD       R5, R5, R4
+0052 SETTABUP  U5, K7='custom_dongdong_aim_bone_verified_count', R5
+0053 RETURN    A=3 B=2 C=0
+0054 RETURN    A=0 B=1 C=0
+
