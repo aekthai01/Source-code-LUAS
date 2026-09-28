@@ -22,6 +22,9 @@ M.METHODS = {
     "GetMatchBulletNumByWeaponItem",
     "_CheckNightFight",
     "_CheckPlayerSuppliesForNightSpeicalType",
+    "_CheckSafeBoxExpiredStatus",
+    "_CheckKeyChainExpiredStatus",
+    "_CheckPropExpiredStatus",
 }
 M.ROOT_METHOD_COUNT = 29
 
@@ -64,6 +67,9 @@ local function dependency_sets(context)
         _CheckPlayerSuppliesForNightSpeicalType = {
             item_base_tool = context.item_base_tool,
         },
+        _CheckPropExpiredStatus = {
+            armed_force_expired_logic = context.armed_force_expired_logic,
+        },
     }
 end
 
@@ -92,6 +98,9 @@ local function wrap(name, target, dependencies, environment)
         elseif name == "_CheckPlayerSuppliesForNightSpeicalType" then
             result = table.pack(pcall(target, product, environment,
                 dependencies.item_base_tool, arguments[1]))
+        elseif name == "_CheckPropExpiredStatus" then
+            result = table.pack(pcall(target, product, environment,
+                dependencies.armed_force_expired_logic))
         else
             result = table.pack(pcall(target, product, environment, dependencies))
         end
@@ -162,6 +171,9 @@ function M.install(target, options)
         GetMatchBulletNumByWeaponItem = Source.GetMatchBulletNumByWeaponItem,
         _CheckNightFight = Source._CheckNightFight,
         _CheckPlayerSuppliesForNightSpeicalType = Source._CheckPlayerSuppliesForNightSpeicalType,
+        _CheckSafeBoxExpiredStatus = Source._CheckSafeBoxExpiredStatus,
+        _CheckKeyChainExpiredStatus = Source._CheckKeyChainExpiredStatus,
+        _CheckPropExpiredStatus = Source._CheckPropExpiredStatus,
     }
 
     local set_method = options.set_method or default_set_method

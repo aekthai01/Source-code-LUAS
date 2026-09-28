@@ -19,6 +19,11 @@ local function bind(product, globals, source, dependencies, mode)
             return source(product, globals, dependencies.item_base_tool, a)
         end
     end
+    if mode == "expired_prop" then
+        return function()
+            return source(product, globals, dependencies.armed_force_expired_logic)
+        end
+    end
     if mode == "weapon_count" then
         return function(weapon_item, slot_group_id)
             return source(product, globals, dependencies.ammo_data_manager,
@@ -60,7 +65,7 @@ local function bind(product, globals, source, dependencies, mode)
     end
 end
 
--- Source-only constructor for the reconstructed P0.0..P0.15 boundary. The
+-- Source-only constructor for the reconstructed P0.0..P0.18 boundary. The
 -- context's R3 table is used directly so every root capture of the product
 -- table observes the same source identity. Later root groups extend this same
 -- table rather than swapping in a payload-created object.
@@ -111,6 +116,11 @@ function M.create(context, globals)
         Product._CheckNightFight, p14_p15, "night_zero_arg_item_base")
     product._CheckPlayerSuppliesForNightSpeicalType = bind(product, globals,
         Product._CheckPlayerSuppliesForNightSpeicalType, p14_p15, "night_one_arg_item_base")
+    product._CheckSafeBoxExpiredStatus = bind(product, globals, Product._CheckSafeBoxExpiredStatus)
+    product._CheckKeyChainExpiredStatus = bind(product, globals, Product._CheckKeyChainExpiredStatus)
+    local p18 = { armed_force_expired_logic = context.armed_force_expired_logic }
+    product._CheckPropExpiredStatus = bind(product, globals,
+        Product._CheckPropExpiredStatus, p18, "expired_prop")
 
     local slot = assert(globals.ESlotType, "ESlotType required")
     product.EquipTypeList = {

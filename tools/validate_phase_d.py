@@ -57,7 +57,7 @@ def main():
     assert source_root_indices==list(range(root_source_owned))
     assert all(roots[name]['source_only_dependency'] for name in list(roots)[:root_source_owned])
     assert all(not roots[name]['source_only_dependency'] for name in list(roots)[root_source_owned:])
-    assert root_source_owned>=14
+    assert root_source_owned>=19
     assert {'0.12','0.12.0','0.13','0.13.0'} <= set(groups['source_owned'])
     for source_file in ('product_context.lua','product_constructor.lua','product_module_bridge.lua'):
         text=(ROOT/'src/spectra'/source_file).read_text()
@@ -109,6 +109,19 @@ def main():
     assert prototypes['0.15']['upvalues'][1]=={'instack':1,'idx':3} and prototypes['0.15']['upvalues'][2]=={'instack':1,'idx':8}
     assert {'0.14','0.15'} <= set(groups['source_owned'])
     assert inv['source_files']['0.14']==inv['source_files']['0.15']=='src/spectra/product_module.lua'
+    assert captured('R3','P0.18','U1') and captured('R9','P0.18','U2')
+    assert prototypes['0.16']['numparams']==0 and prototypes['0.16']['instruction_count']==48 and len(prototypes['0.16']['upvalues'])==1
+    assert prototypes['0.17']['numparams']==0 and prototypes['0.17']['instruction_count']==48 and len(prototypes['0.17']['upvalues'])==1
+    assert prototypes['0.18']['numparams']==0 and prototypes['0.18']['instruction_count']==106 and len(prototypes['0.18']['upvalues'])==3
+    assert prototypes['0.18']['upvalues'][0]=={'instack':0,'idx':0}
+    assert prototypes['0.18']['upvalues'][1]=={'instack':1,'idx':3}
+    assert prototypes['0.18']['upvalues'][2]=={'instack':1,'idx':9}
+    assert {'0.16','0.17','0.18'} <= set(groups['source_owned'])
+    assert all(inv['source_files'][p]=='src/spectra/product_module.lua' for p in ('0.16','0.17','0.18'))
+    assert roots['_CheckSafeBoxExpiredStatus']['source_only_dependency'] is True
+    assert roots['_CheckKeyChainExpiredStatus']['source_only_dependency'] is True
+    assert roots['_CheckPropExpiredStatus']['source_only_dependency'] is True
+    assert roots['CheckPlayerBodyItemsByList']['current_ownership']=='payload_owned'
 
     coverage_text=(ROOT/'RECONSTRUCTION_COVERAGE.md').read_text()
     for line in (
@@ -138,7 +151,7 @@ def main():
       'aim_runtime.lua':'aim-runtime: ok','aim_mutation.lua':'aim-mutation: ok','aim_differential.lua':'aim-differential: ok','aim_bones.lua':'aim-bones: ok',
       'aim_refresh.lua':'aim-refresh: ok','aim_abi.lua':'aim-abi: ok','aim_dispatch.lua':'aim-dispatch: ok','aim_chain.lua':'aim-chain: ok',
       'aim_chain_fidelity.lua':'aim-chain-fidelity: ok','aim_transaction.lua':'aim-transaction: ok','product_context.lua':'product-context: ok',
-      'product_module.lua':'product-module: ok','product_night.lua':'product-night: ok','product_source_only.lua':'product-source-only: ok','product_module_bridge.lua':'product-module-bridge: ok',
+      'product_module.lua':'product-module: ok','product_night.lua':'product-night: ok','product_expiration.lua':'product-expiration: ok','product_source_only.lua':'product-source-only: ok','product_module_bridge.lua':'product-module-bridge: ok',
       'visual_runtime.lua':'visual-runtime: ok','mutation_runtime.lua':'mutation-runtime: ok','payload_feature_bridge.lua':'payload-feature-bridge: ok',
       'visual_scan.lua':'visual-scan: ok','payload_visual_bridge.lua':'payload-visual-bridge: ok','smoke.lua':'smoke: ok','protocol_fixture.lua':'protocol-fixture: ok'}
     passed={}
@@ -146,10 +159,10 @@ def main():
         out=run([lua,str(ROOT/'tests'/file),str(ROOT)]); assert marker in out; passed[file]='passed'
 
     report={
-      'phase':'E5.4-root-night-fight-source-only',
+      'phase':'E5.5-root-expiration-source-only',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
       'inventory':{'total':len(paths),'classified':coverage['classified'],'source_owned':coverage['source_owned'],'payload_owned':coverage['payload_owned'],'partially_reconstructed':coverage['partially_reconstructed'],'unknown':coverage['unknown'],'root_methods_source_owned':root_source_owned,'root_methods_total':len(roots)},
-      'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_15':True,'payload_upvalue_introspection':False},
+      'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_18':True,'payload_upvalue_introspection':False},
       'runtime_ownership':{'no_recoil':True,'converge':True,'aim':True,'anti_shake':True},
       'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
     (ROOT/'validation_phase_d.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')

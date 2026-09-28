@@ -3,7 +3,7 @@ assert(type(S) == "table", "spectra module table required")
 local M = {}
 S.ProductModule = M
 
--- P0.0..P0.10 are reconstructed descriptions of stripped closures. Exported
+-- P0.0..P0.18 are reconstructed descriptions of stripped closures. Exported
 -- field names below are exact strings recovered from root P0 bytecode.
 M.PROTOTYPES = {
     CheckEquipmentBeforEnterGameProcess = "0.0",
@@ -22,6 +22,9 @@ M.PROTOTYPES = {
     GetMatchBulletNumByWeaponItem = "0.13",
     _CheckNightFight = "0.14",
     _CheckPlayerSuppliesForNightSpeicalType = "0.15",
+    _CheckSafeBoxExpiredStatus = "0.16",
+    _CheckKeyChainExpiredStatus = "0.17",
+    _CheckPropExpiredStatus = "0.18",
 }
 M.ROOT_FIELDS = { "EquipTypeList", "ContainerTypeList" }
 
@@ -741,6 +744,104 @@ function M._CheckPlayerSuppliesForNightSpeicalType(product, globals, item_base_t
     end
 
     return false
+end
+
+
+-- P0.16 is a distinct root prototype. It uses the ExpiredStatus config keyed
+-- by ESlotType.SafeBox, then invokes Module.Inventory with SELF semantics.
+function M._CheckSafeBoxExpiredStatus(product, globals)
+    globals = globals_or_default(globals)
+    local field = globals.Module.ArmedForce.Field
+    local check_data = field:GetEquipmentCheckData(
+        globals.Module.ArmedForce.Config.EAbnormalType.ExpiredStatus,
+        globals.ESlotType.SafeBox)
+    if not check_data then return end
+    if not check_data.switch then return end
+    if not globals.Module.Inventory:CheckSafeBoxExpiredStatus() then return end
+
+    globals.Module.ArmedForce.Field:AddEquipAbnormal({
+        key = check_data.key,
+        abnormalType = globals.Module.ArmedForce.Config.EAbnormalType.ExpiredStatus,
+        loc = check_data.abnormalDesc,
+        param = {
+            abnormalSubType = globals.ESlotType.SafeBox,
+        },
+    })
+end
+
+-- P0.17 intentionally remains separate from P0.16 because the payload exports
+-- a distinct prototype and distinct Inventory method for the key-chain status.
+function M._CheckKeyChainExpiredStatus(product, globals)
+    globals = globals_or_default(globals)
+    local field = globals.Module.ArmedForce.Field
+    local check_data = field:GetEquipmentCheckData(
+        globals.Module.ArmedForce.Config.EAbnormalType.ExpiredStatus,
+        globals.ESlotType.KeyChain)
+    if not check_data then return end
+    if not check_data.switch then return end
+    if not globals.Module.Inventory:CheckKeyChainExpiredStatus() then return end
+
+    globals.Module.ArmedForce.Field:AddEquipAbnormal({
+        key = check_data.key,
+        abnormalType = globals.Module.ArmedForce.Config.EAbnormalType.ExpiredStatus,
+        loc = check_data.abnormalDesc,
+        param = {
+            abnormalSubType = globals.ESlotType.KeyChain,
+        },
+    })
+end
+
+-- P0.18 captures source R3 and root R9 ArmedForceExpiredLogic. CheckExpired is
+-- a plain/static call. An equipment hit skips the container phase entirely.
+-- In the container phase the bytecode exits the current item loop on a hit,
+-- then resumes the outer container TFORCALL (instruction 85), so later
+-- containers are still visited before the final single abnormal is emitted.
+function M._CheckPropExpiredStatus(product, globals, armed_force_expired_logic)
+    globals = globals_or_default(globals)
+    local field = globals.Module.ArmedForce.Field
+    local check_data = field:GetEquipmentCheckData(
+        globals.Module.ArmedForce.Config.EAbnormalType.ExpiredProp, 0)
+    if not check_data then return end
+    if not check_data.switch then return end
+
+    local slot_group_id = globals.Server.ArmedForceServer:GetCurSlotGroupId()
+    local expired = false
+
+    for _, slot_type in globals.ipairs(product.EquipTypeList) do
+        local slot = globals.Server.InventoryServer:GetSlot(slot_type, slot_group_id)
+        if slot then
+            local item = slot:GetEquipItem()
+            if armed_force_expired_logic.CheckExpired(item) then
+                expired = true
+                break
+            end
+        end
+    end
+
+    if not expired then
+        for _, slot_type in globals.ipairs(product.ContainerTypeList) do
+            local slot = globals.Server.InventoryServer:GetSlot(slot_type, slot_group_id)
+            if slot then
+                local items = slot:GetItems()
+                if items and not globals.table.isempty(items) then
+                    for _, item in globals.ipairs(items) do
+                        if armed_force_expired_logic.CheckExpired(item) then
+                            expired = true
+                            break
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    if expired then
+        globals.Module.ArmedForce.Field:AddEquipAbnormal({
+            key = check_data.key,
+            abnormalType = globals.Module.ArmedForce.Config.EAbnormalType.ExpiredProp,
+            loc = check_data.abnormalDesc,
+        })
+    end
 end
 
 return M

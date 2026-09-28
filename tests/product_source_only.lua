@@ -122,6 +122,8 @@ local names={
     "GetAllEquipmentValue","_CheckMedicine","_CheckUnCarryMedicine","_CheckContainer",
     "_CheckBullet","_CheckDurabulity","CheckEquipSlotEmpty","CheckEquipSlotValue",
     "DynamicGuidPriceFinishFetch","CheckRaidBulletEnough","GetMatchBulletNumByWeaponItem",
+    "_CheckNightFight","_CheckPlayerSuppliesForNightSpeicalType",
+    "_CheckSafeBoxExpiredStatus","_CheckKeyChainExpiredStatus","_CheckPropExpiredStatus",
 }
 for _,name in ipairs(names) do truth(type(product[name])=="function",name.." source export") end
 

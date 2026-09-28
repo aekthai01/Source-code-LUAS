@@ -20,12 +20,12 @@
   },
   "coverage": {
     "classified": 296,
-    "source_owned": 93,
-    "payload_owned": 203,
+    "source_owned": 96,
+    "payload_owned": 200,
     "partially_reconstructed": 0,
     "dead_or_unreachable_verified": 0,
     "unknown": 0,
-    "root_methods_source_owned": 16,
+    "root_methods_source_owned": 19,
     "root_methods_total": 29
   },
   "root_public_methods": {
@@ -143,24 +143,24 @@
     },
     "_CheckSafeBoxExpiredStatus": {
       "prototype_id": "P0.16",
-      "current_ownership": "payload_owned",
-      "source_file": null,
-      "runtime_takeover": "payload",
-      "source_only_dependency": false
+      "current_ownership": "source_owned",
+      "source_file": "src/spectra/product_module.lua",
+      "runtime_takeover": "source",
+      "source_only_dependency": true
     },
     "_CheckKeyChainExpiredStatus": {
       "prototype_id": "P0.17",
-      "current_ownership": "payload_owned",
-      "source_file": null,
-      "runtime_takeover": "payload",
-      "source_only_dependency": false
+      "current_ownership": "source_owned",
+      "source_file": "src/spectra/product_module.lua",
+      "runtime_takeover": "source",
+      "source_only_dependency": true
     },
     "_CheckPropExpiredStatus": {
       "prototype_id": "P0.18",
-      "current_ownership": "payload_owned",
-      "source_file": null,
-      "runtime_takeover": "payload",
-      "source_only_dependency": false
+      "current_ownership": "source_owned",
+      "source_file": "src/spectra/product_module.lua",
+      "runtime_takeover": "source",
+      "source_only_dependency": true
     },
     "CheckPlayerBodyItemsByList": {
       "prototype_id": "P0.19",
@@ -256,6 +256,9 @@
       "0.13.0",
       "0.14",
       "0.15",
+      "0.16",
+      "0.17",
+      "0.18",
       "0.29.17",
       "0.29.26",
       "0.29.29",
@@ -331,9 +334,6 @@
     ],
     "payload_owned": [
       "0",
-      "0.16",
-      "0.17",
-      "0.18",
       "0.19",
       "0.19.0",
       "0.20",
@@ -560,6 +560,9 @@
     "0.13.0": "src/spectra/product_module.lua",
     "0.14": "src/spectra/product_module.lua",
     "0.15": "src/spectra/product_module.lua",
+    "0.16": "src/spectra/product_module.lua",
+    "0.17": "src/spectra/product_module.lua",
+    "0.18": "src/spectra/product_module.lua",
     "0.29.17": "src/spectra/mutation_runtime.lua",
     "0.29.26": "src/spectra/mutation_runtime.lua",
     "0.29.29": "src/spectra/mutation_runtime.lua",
