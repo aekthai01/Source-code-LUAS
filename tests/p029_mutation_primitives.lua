@@ -110,4 +110,27 @@ eq(fixed.n,1,"P49 fixed capture arity"); eq(fixed[1],false)
 eq(replacement_get,0,"P49 fixed P2 capture"); eq(replacement_optional,0,"P49 fixed P12 capture")
 _G.ULuaArrayHelper=nil
 
+-- P0.29.17.0 is the zero-return child assignment closure used by P17 restore.
+local restore_obj={x=9}
+local restore_state={
+  custom_dongdong_feature_snapshots={
+    demo={records={{object=restore_obj,key="x",value=4}},seen={}}
+  }
+}
+local restored=packed(M.restore_feature_snapshot,restore_state,"demo")
+eq(restored.n,1,"P17 parent arity"); eq(restored[1],true,"P17 child success"); eq(restore_obj.x,4,"P17 child assignment")
+eq(restore_state.custom_dongdong_feature_snapshots.demo,nil,"P17 snapshot cleared")
+
+-- Assignment error is swallowed by the parent pcall; child is not retried.
+local writes=0
+local blocked=setmetatable({}, {__newindex=function() writes=writes+1; error("blocked") end})
+local fail_state={
+  custom_dongdong_feature_snapshots={
+    demo={records={{object=blocked,key="x",value=7}},seen={}}
+  }
+}
+local failed=packed(M.restore_feature_snapshot,fail_state,"demo")
+eq(failed.n,1,"P17 failure arity"); eq(failed[1],false,"P17 child failure"); eq(writes,1,"P17 child no retry")
+eq(fail_state.custom_dongdong_feature_snapshots.demo,nil,"P17 failed snapshot cleared")
+
 print("p029-mutation-primitives: ok")

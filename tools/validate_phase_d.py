@@ -351,6 +351,22 @@ def main():
     assert re.search(r'^0016 RETURN\s+A=4 B=2 C=0$',p13,re.M)
     assert re.search(r'^0018 RETURN\s+A=5 B=2 C=0$',p13,re.M)
 
+    # P0.29.17.0 is the exact assignment child already executed by source-owned P17.
+    p170=prototypes['0.29.17.0']
+    assert (p170['numparams'],p170['instruction_count'],len(p170['upvalues']),p170['child_count'])==(0,8,1,0)
+    assert p170['upvalues']==[{'instack':1,'idx':8}]
+    assert '0.29.17' in groups['source_owned'] and '0.29.17.0' in groups['source_owned']
+    assert source_files['0.29.17.0']=='src/spectra/mutation_runtime.lua'
+    p17=body('0.29.17'); p170_body=body('0.29.17.0')
+    assert re.search(r"^0044 GETTABUP\s+R9, U1, K9='pcall'$",p17,re.M)
+    assert re.search(r'^0045 CLOSURE\s+R10, P0$',p17,re.M)
+    assert re.search(r'^0046 CALL\s+A=9 B=2 C=2$',p17,re.M)
+    assert re.search(r"^0003 GETTABUP\s+R0, U0, K0='object'$",p170_body,re.M)
+    assert re.search(r"^0004 GETTABUP\s+R1, U0, K1='key'$",p170_body,re.M)
+    assert re.search(r"^0005 GETTABUP\s+R2, U0, K2='value'$",p170_body,re.M)
+    assert re.search(r'^0006 SETTABLE\s+R0, R1, R2$',p170_body,re.M)
+    assert re.search(r'^0007 RETURN\s+A=0 B=1 C=0$',p170_body,re.M)
+
     # P0.29.15 is not migrated here, but its active source reconstruction must
     # inherit exact P0.29.2 false->nil behavior. U0 captures R19/P2 and the
     # original field read is the P2 call at PC0012 before snapshot recording.
@@ -539,12 +555,12 @@ def main():
         out=run([lua,str(ROOT/'tests'/file),str(ROOT)]); assert marker in out; passed[file]='passed'
 
     report={
-      'phase':'E5.12-p029-mutation-primitives-source-only',
+      'phase':'E5.13-p029-17-child-source-only',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
       'inventory':{'total':len(paths),'classified':coverage['classified'],'source_owned':coverage['source_owned'],'payload_owned':coverage['payload_owned'],'partially_reconstructed':coverage['partially_reconstructed'],'unknown':coverage['unknown'],'root_methods_source_owned':root_source_owned,'root_methods_total':len(roots)},
       'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_28':True,'p029_abi_helpers':True,'p029_runtime_helpers':True,'p029_mutation_helpers':True,'p029_aim_runtime':True,'payload_upvalue_introspection':False},
       'runtime_ownership':{'no_recoil':True,'converge':True,'aim':True,'anti_shake':True},
-      'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','root_download_bytecode_captures':'passed','p029_abi_helper_map':'passed','p029_abi_exact_return_shapes':'passed','p029_runtime_helper_map':'passed','mutation_runtime_abi_integration':'passed','p029_capture_identity':'passed','p029_mutation_helper_map':'passed','p029_mutation_primitive_exact_abi':'passed','p029_aim_runtime_map':'passed','p029_71_exact_parent_child':'passed','p029_72_exact_parent_child':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
+      'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','root_download_bytecode_captures':'passed','p029_abi_helper_map':'passed','p029_abi_exact_return_shapes':'passed','p029_runtime_helper_map':'passed','mutation_runtime_abi_integration':'passed','p029_capture_identity':'passed','p029_mutation_helper_map':'passed','p029_17_child_exact':'passed','p029_mutation_primitive_exact_abi':'passed','p029_aim_runtime_map':'passed','p029_71_exact_parent_child':'passed','p029_72_exact_parent_child':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
     (ROOT/'validation_phase_d.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     print('phase-d-validation: ok')
 

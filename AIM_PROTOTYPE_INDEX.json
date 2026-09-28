@@ -4,12 +4,12 @@
     "payload_sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263",
     "primary_requested_prototypes": 26,
     "outer_dispatch_prototypes": 2,
-    "nested_callbacks": 11,
+    "nested_callbacks": 12,
     "abi_helpers": 5,
     "runtime_helpers": 5,
     "mutation_helpers": 3,
     "aim_runtime": 4,
-    "indexed_entries_total": 56,
+    "indexed_entries_total": 57,
     "detailed_legacy_index": "AIM_PROTOTYPE_INDEX_LEGACY_DETAILED.json",
     "runtime_ownership": {
       "aim": true,
@@ -196,6 +196,14 @@
       "name_is_original_symbol": false,
       "reconstructed_name": "apply_feature",
       "evidence_status": "38 instructions matched: captured feature list, ipairs order, P13 lookup, raw table identity dedupe, P67 dispatch, boolean return, no internal pcall"
+    },
+    "0.29.17.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "restore_feature_snapshot assignment child",
+      "evidence_status": "8-instruction P17 child; captures parent R8 record; object/key/value assignment; zero-value return pinned"
     },
     "0.29.62.0": {
       "category": "nested_callback",

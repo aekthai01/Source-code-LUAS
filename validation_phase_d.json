@@ -1,5 +1,5 @@
 {
-  "phase": "E5.12-p029-mutation-primitives-source-only",
+  "phase": "E5.13-p029-17-child-source-only",
   "baseline": {
     "size": 180034,
     "sha256": "35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536"
@@ -23,8 +23,8 @@
   "inventory": {
     "total": 296,
     "classified": 296,
-    "source_owned": 129,
-    "payload_owned": 167,
+    "source_owned": 130,
+    "payload_owned": 166,
     "partially_reconstructed": 0,
     "unknown": 0,
     "root_methods_source_owned": 29,
@@ -61,6 +61,7 @@
     "mutation_runtime_abi_integration": "passed",
     "p029_capture_identity": "passed",
     "p029_mutation_helper_map": "passed",
+    "p029_17_child_exact": "passed",
     "p029_mutation_primitive_exact_abi": "passed",
     "p029_aim_runtime_map": "passed",
     "p029_71_exact_parent_child": "passed",

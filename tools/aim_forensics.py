@@ -21,6 +21,7 @@ PRIMARY = [
 ]
 OUTER = ["0.29.67", "0.29.68"]
 NESTED = [
+    "0.29.17.0",
     "0.29.62.0",
     "0.29.64.0",
     "0.29.66.0",
@@ -40,12 +41,12 @@ AIM_RUNTIME = ["0.29.71", "0.29.71.0", "0.29.72", "0.29.72.0"]
 ALL = [*PRIMARY, *OUTER, *NESTED, *ABI_HELPERS, *RUNTIME_HELPERS, *MUTATION_HELPERS, *AIM_RUNTIME]
 assert len(PRIMARY) == 26
 assert len(OUTER) == 2
-assert len(NESTED) == 11
+assert len(NESTED) == 12
 assert len(ABI_HELPERS) == 5
 assert len(RUNTIME_HELPERS) == 5
 assert len(MUTATION_HELPERS) == 3
 assert len(AIM_RUNTIME) == 4
-assert len(ALL) == 56 and len(set(ALL)) == 56
+assert len(ALL) == 57 and len(set(ALL)) == 57
 missing = [pid for pid in ALL if pid not in P]
 assert not missing, f"missing payload prototypes: {missing}"
 
@@ -59,6 +60,8 @@ def source_for(pid):
         return "src/spectra/mutation_runtime.lua"
     if pid in AIM_RUNTIME:
         return "src/spectra/aim_runtime.lua"
+    if pid == "0.29.17.0":
+        return "src/spectra/mutation_runtime.lua"
     if pid.startswith("0.29.77"):
         return "src/spectra/feature_control.lua"
     if pid.startswith(("0.29.74", "0.29.75", "0.29.76")):
@@ -492,12 +495,12 @@ index = {
         "payload_sha256": PAYLOAD_SHA,
         "primary_requested_prototypes": 26,
         "outer_dispatch_prototypes": 2,
-        "nested_callbacks": 11,
+        "nested_callbacks": 12,
         "abi_helpers": 5,
         "runtime_helpers": 5,
         "mutation_helpers": 3,
         "aim_runtime": 4,
-        "indexed_entries_total": 56,
+        "indexed_entries_total": 57,
         "detailed_legacy_index": "AIM_PROTOTYPE_INDEX_LEGACY_DETAILED.json",
         "runtime_ownership": {"aim": True, "anti_shake": True},
         "game_runtime_test": False,
@@ -541,6 +544,8 @@ for pid in ALL:
             reconstructed_name=RUNTIME_SOURCE_SYMBOLS[pid],
             evidence_status="exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned",
         )
+    elif pid == "0.29.17.0":
+        item.update(reconstructed_name="restore_feature_snapshot assignment child", evidence_status="8-instruction P17 child; captures parent R8 record; object/key/value assignment; zero-value return pinned")
     elif pid == "0.29.10":
         item.update(reconstructed_name="normalize_identifier", evidence_status="17-instruction environment-only gsub tail-return helper; two-value return pinned")
     elif pid == "0.29.18":
