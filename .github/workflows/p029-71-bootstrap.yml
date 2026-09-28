@@ -1,0 +1,60 @@
+name: P0.29.71 exact parent-child gate
+on:
+  push:
+    branches: [work/phase-d-aim-reconstruction]
+permissions:
+  contents: write
+jobs:
+  reconstruct:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Install Lua 5.3 toolchain
+        run: sudo apt-get update && sudo apt-get install -y lua5.3
+      - name: Apply exact P0.29.71 bounded patch
+        run: python3 tools/patch_p029_71.py
+      - name: Focused P71 runtime regressions
+        run: |
+          lua5.3 tests/aim_abi.lua .
+          lua5.3 tests/p029_runtime_helpers.lua .
+          lua5.3 tests/aim_runtime.lua .
+          lua5.3 tests/payload_feature_bridge.lua .
+      - name: Regenerate and validate bounded ownership
+        run: |
+          python3 tools/root_capture_forensics.py
+          python3 tools/aim_forensics.py
+          python3 tools/full_payload_forensics.py
+          python3 tools/build_phase_d.py
+          python3 tools/validate_phase_d.py
+          python3 - <<'PY'
+          import json
+          d=json.load(open('FULL_PAYLOAD_PROTOTYPE_INDEX.json'))
+          g=d['ownership_groups']
+          assert {'0.29.71','0.29.71.0'} <= set(g['source_owned'])
+          assert {'0.29.69','0.29.70','0.29.73'} <= set(g['payload_owned'])
+          assert d['coverage']['classified']==d['_meta']['total_prototypes']==296
+          assert d['coverage']['partially_reconstructed']==0
+          assert d['coverage']['unknown']==0
+          PY
+          git add -A
+          python3 tools/root_capture_forensics.py
+          python3 tools/aim_forensics.py
+          python3 tools/full_payload_forensics.py
+          python3 tools/build_phase_d.py
+          python3 tools/validate_phase_d.py
+          git diff --exit-code
+      - name: Verify deterministic custom rebuild
+        run: |
+          sha256sum spectra_wrapper_phase_d.custom.luac > /tmp/p029-71.sha
+          python3 tools/build_phase_d.py
+          sha256sum --check /tmp/p029-71.sha
+      - name: Commit validated bounded checkpoint
+        run: |
+          rm tools/patch_p029_71.py
+          git add -A
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reconstruct P0.29.71 native aim state'
+          git push origin HEAD:work/phase-d-aim-reconstruction
