@@ -3,9 +3,9 @@ from pathlib import Path
 p=Path(__file__).resolve().parent/'patch_p029_snapshot_helpers.py'
 s=p.read_text()
 repls={
-"^1001 CLOSURE\\s+R34, P14$":"^0329 CLOSURE\\s+R34, P14$",
-"^1002 CLOSURE\\s+R35, P15$":"^0330 CLOSURE\\s+R35, P15$",
-"^1003 CLOSURE\\s+R36, P16$":"^0331 CLOSURE\\s+R36, P16$",
+"1001 CLOSURE":"0329 CLOSURE",
+"1002 CLOSURE":"0330 CLOSURE",
+"1003 CLOSURE":"0331 CLOSURE",
 }
 for old,new in repls.items():
     assert s.count(old)==1,(old,s.count(old))
