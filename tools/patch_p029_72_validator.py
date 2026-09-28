@@ -36,8 +36,7 @@ insert=r'''    assert 'choose("delay", RuntimeHelpers.delay)' in bridge_source
     assert set(aim_runtime_evidence['prototypes'])==aim_runtime_paths
     assert aim_runtime_paths <= set(groups['source_owned'])
     assert all(source_files[path]=='src/spectra/aim_runtime.lua' for path in aim_runtime_paths)
-    assert {'0.29.69','0.29.70','0.29.71','0.29.71.0'} <= set(groups['payload_owned'])
-    assert '0.29.73' in groups['payload_owned'] or '0.29.73' in groups['source_owned']
+    assert {'0.29.69','0.29.70','0.29.71','0.29.71.0','0.29.73'} <= set(groups['payload_owned'])
 
     p72_meta=prototypes['0.29.72']; p720_meta=prototypes['0.29.72.0']
     assert (p72_meta['numparams'],p72_meta['instruction_count'],len(p72_meta['upvalues']),p72_meta['child_count'])==(1,22,3,1)
