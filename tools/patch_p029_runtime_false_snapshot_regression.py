@@ -10,8 +10,8 @@ def rep(path,old,new):
 # P0.29.15 captures P0.29.2 as U0 and calls it before recording the original.
 # Therefore a literal false field is normalized to nil in the payload snapshot.
 rep('tests/aim_mutation.lua',
-' eq(nested.bTakeEffect, false, "original value restored")',
-' eq(nested.bTakeEffect, nil, "P15 snapshots false through P2 as nil")')
+'eq(nested.bTakeEffect, false, "original value restored")',
+'eq(nested.bTakeEffect, nil, "P15 snapshots false through P2 as nil")')
 
 rep('tools/validate_phase_d.py',
 """    assert re.search(r'^0018 RETURN\\s+A=5 B=2 C=0$',p13,re.M)\n\n    runtime_source=(ROOT/'src/spectra/p029_runtime_helpers.lua').read_text()\n""",
