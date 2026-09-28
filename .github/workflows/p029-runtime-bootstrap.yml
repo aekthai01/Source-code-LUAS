@@ -16,6 +16,7 @@ jobs:
       - name: Apply bounded source and evidence patches
         run: |
           python3 tools/patch_p029_runtime_source.py
+          python3 tools/patch_p029_runtime_test_loaders.py
           python3 tools/patch_p029_runtime_evidence.py
           python3 tools/patch_p029_runtime_validator.py
           python3 tools/patch_p029_runtime_false_snapshot_regression.py
@@ -46,7 +47,7 @@ jobs:
           sha256sum --check /tmp/p029-runtime.sha
       - name: Commit validated bounded checkpoint
         run: |
-          rm tools/patch_p029_runtime_source.py tools/patch_p029_runtime_evidence.py tools/patch_p029_runtime_validator.py tools/patch_p029_runtime_false_snapshot_regression.py
+          rm tools/patch_p029_runtime_source.py tools/patch_p029_runtime_test_loaders.py tools/patch_p029_runtime_evidence.py tools/patch_p029_runtime_validator.py tools/patch_p029_runtime_false_snapshot_regression.py
           rm .github/workflows/p029-runtime-bootstrap.yml
           git add -A
           git config user.name 'github-actions[bot]'
