@@ -1,0 +1,57 @@
+name: P0.29.57 array-set bounded gate
+on:
+  push:
+    branches: [work/phase-d-aim-reconstruction]
+permissions:
+  contents: write
+jobs:
+  reconstruct:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Install Lua 5.3 toolchain
+        run: sudo apt-get update && sudo apt-get install -y lua5.3
+      - name: Apply exact P0.29.57 patch
+        run: python3 tools/patch_p029_57_array_set.py
+      - name: Focused P0.29.57 regression
+        run: |
+          lua5.3 tests/p029_array_set_raw.lua .
+          lua5.3 tests/mutation_runtime.lua .
+      - name: Regenerate and validate bounded ownership twice
+        run: |
+          python3 tools/root_capture_forensics.py
+          python3 tools/aim_forensics.py
+          python3 tools/full_payload_forensics.py
+          python3 tools/build_phase_d.py
+          python3 tools/validate_phase_d.py
+          python3 - <<'PY'
+          import json
+          d=json.load(open('FULL_PAYLOAD_PROTOTYPE_INDEX.json')); g=d['ownership_groups']
+          assert {'0.29.57','0.29.57.0','0.29.57.1'} <= set(g['source_owned'])
+          assert {'0.29.56','0.29.58','0.29.59','0.29.60','0.29.73'} <= set(g['payload_owned'])
+          assert d['coverage']['classified']==d['_meta']['total_prototypes']==296
+          assert d['coverage']['unknown']==0 and d['coverage']['partially_reconstructed']==0
+          PY
+          git add -A
+          python3 tools/root_capture_forensics.py
+          python3 tools/aim_forensics.py
+          python3 tools/full_payload_forensics.py
+          python3 tools/build_phase_d.py
+          python3 tools/validate_phase_d.py
+          git diff --exit-code
+      - name: Verify deterministic custom rebuild
+        run: |
+          sha256sum spectra_wrapper_phase_d.custom.luac > /tmp/p57.sha
+          python3 tools/build_phase_d.py
+          sha256sum --check /tmp/p57.sha
+      - name: Commit validated bounded checkpoint
+        run: |
+          rm tools/patch_p029_57_array_set.py
+          git add -A
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'source-own P0.29.57 array-set helper'
+          git pull --rebase origin work/phase-d-aim-reconstruction
+          git push origin HEAD:work/phase-d-aim-reconstruction
