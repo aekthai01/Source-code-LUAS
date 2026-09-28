@@ -101,6 +101,9 @@ flow_calls=0
 local p011_false=table.pack(product.DynamicGuidPriceFinishFetch(false))
 eq(p011_false.n,0,"P0.11 false gate returns no values")
 eq(child_calls,1,"P0.11 false argument suppresses child")
+local p013_result=table.pack(product.GetMatchBulletNumByWeaponItem(nil,"g"))
+eq(p013_result.n,1,"P0.13 constructor one-value return ABI")
+eq(p013_result[1],0,"P0.13 nil item source value")
 local p12_errors,p12_infos={},{}
 local old_error,old_info=context.error_logger,context.info_logger
 context.error_logger=function(...) p12_errors[#p12_errors+1]=table.pack(...) end
@@ -118,7 +121,7 @@ local names={
     "CheckEquipmentBeforEnterGameProcess","_CheckProcess","_CheckEquipmentValue",
     "GetAllEquipmentValue","_CheckMedicine","_CheckUnCarryMedicine","_CheckContainer",
     "_CheckBullet","_CheckDurabulity","CheckEquipSlotEmpty","CheckEquipSlotValue",
-    "DynamicGuidPriceFinishFetch","CheckRaidBulletEnough",
+    "DynamicGuidPriceFinishFetch","CheckRaidBulletEnough","GetMatchBulletNumByWeaponItem",
 }
 for _,name in ipairs(names) do truth(type(product[name])=="function",name.." source export") end
 

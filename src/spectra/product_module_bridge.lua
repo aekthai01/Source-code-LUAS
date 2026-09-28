@@ -19,6 +19,7 @@ M.METHODS = {
     "CheckEquipSlotValue",
     "DynamicGuidPriceFinishFetch",
     "CheckRaidBulletEnough",
+    "GetMatchBulletNumByWeaponItem",
 }
 M.ROOT_METHOD_COUNT = 29
 
@@ -51,6 +52,10 @@ local function dependency_sets(context)
             globals = context.globals,
             product = context.product,
         },
+        GetMatchBulletNumByWeaponItem = {
+            ammo_data_manager = context.ammo_data_manager,
+            weapon_assembly_tool = context.weapon_assembly_tool,
+        },
     }
 end
 
@@ -70,6 +75,10 @@ local function wrap(name, target, dependencies, environment)
         elseif name == "CheckRaidBulletEnough" then
             result = table.pack(pcall(target, product, dependencies.globals or environment,
                 dependencies, arguments[1]))
+        elseif name == "GetMatchBulletNumByWeaponItem" then
+            result = table.pack(pcall(target, product, dependencies.globals or environment,
+                dependencies.ammo_data_manager, dependencies.weapon_assembly_tool,
+                arguments[1], arguments[2]))
         else
             result = table.pack(pcall(target, product, environment, dependencies))
         end
@@ -137,6 +146,7 @@ function M.install(target, options)
         CheckEquipSlotValue = Source.CheckEquipSlotValue,
         DynamicGuidPriceFinishFetch = Source.DynamicGuidPriceFinishFetch,
         CheckRaidBulletEnough = Source.CheckRaidBulletEnough,
+        GetMatchBulletNumByWeaponItem = Source.GetMatchBulletNumByWeaponItem,
     }
 
     local set_method = options.set_method or default_set_method

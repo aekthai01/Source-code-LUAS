@@ -59,7 +59,7 @@ do
     eq(report.source_only_dependency,true,"source-only dependency report")
     eq(report.payload_upvalue_introspection,false,"payload upvalue introspection disabled")
     local status=Bridge.status()
-    eq(status.source_owned_root_methods,13,"P0.0..P0.12 public methods source-owned")
+    eq(status.source_owned_root_methods,14,"P0.0..P0.13 public methods source-owned")
     eq(status.source_only_dependency,true,"status source-only dependency")
     for _,name in ipairs(Bridge.METHODS) do truth(product[name]~=originals[name],name.." replaced") end
 
@@ -93,6 +93,15 @@ do
     end
     local info_rows={}
     local raid_context=context_fixture(environment); raid_context.product=raid_product
+    local p13_assembly_calls,p13_ammo_calls=0,0
+    raid_context.weapon_assembly_tool={GetWeaponBulletNumAndCapacity=function(...)
+        local args=table.pack(...)
+        eq(args.n,3,"P0.13 bridge forwards raw property open tuple")
+        eq(args[1],"raw-a"); eq(args[2],nil); eq(args[3],"raw-c")
+        p13_assembly_calls=p13_assembly_calls+1
+        return 100,777
+    end}
+    raid_context.ammo_data_manager={IsMatchWeapon=function() p13_ammo_calls=p13_ammo_calls+1; return false end}
     raid_context.error_logger=function(...) source_calls[#source_calls+1]="error" end
     raid_context.info_logger=function(...) info_rows[#info_rows+1]=table.pack(...) end
     local raid_field={GetRaidBulletCheckNum=function() return 3 end}
@@ -100,7 +109,10 @@ do
         ArmedForceServer={GetCurSlotGroupId=function() return "raid-g" end},
         InventoryServer={GetSlot=function(_,slot_type,group)
             eq(group,"raid-g"); source_calls[#source_calls+1]="slot:"..tostring(slot_type)
-            return {GetEquipItem=function() return {id=1234001} end}
+            return {GetEquipItem=function()
+                return {id=1234001,IsWeapon=function() return true end,
+                    GetRawPropInfo=function() return "raw-a",nil,"raw-c" end}
+            end}
         end},
     }
     environment.ESlotType={MainWeaponLeft="left",MainWeaponRight="right",Pistrol="pistol"}
@@ -117,9 +129,45 @@ do
     eq(raid_result[1],true,"P0.12 bridge sufficient ammo result")
     eq(next(raid_result[2]),nil,"P0.12 bridge no abnormal for strict greater")
     eq(#info_rows,4,"P0.12 info log per weapon plus summary")
-    eq(table.concat(source_calls,","),"slot:left,match,slot:right,match,slot:pistol,match",
-        "P0.12 bridge R3 callback lookup and slot order")
+    eq(p13_assembly_calls,3,"P0.13 WeaponAssemblyTool runs once per weapon slot")
+    eq(p13_ammo_calls,0,"P0.13 ammo manager skips non-bullets on empty slots")
+    eq(table.concat(source_calls,","),"slot:left,slot:right,slot:pistol",
+        "P0.12 bridge slot order with source P0.13 late helper")
     eq(#payload_calls,0,"P0.12 bridge never calls original methods")
+
+    Bridge.restore_original()
+    local p13_source_calls={}
+    local p13_product={}
+    for _,name in ipairs(Bridge.METHODS) do p13_product[name]=function() payload_calls[#payload_calls+1]=name end end
+    local p13_asm_calls=0
+    local p13_context=context_fixture(environment); p13_context.product=p13_product
+    p13_context.weapon_assembly_tool={GetWeaponBulletNumAndCapacity=function(...)
+        local args=table.pack(...)
+        eq(args.n,3,"P0.13 bridge raw-property open tuple")
+        eq(args[1],"raw-a"); eq(args[2],nil); eq(args[3],"raw-c")
+        p13_asm_calls=p13_asm_calls+1
+        return 6,999
+    end}
+    p13_context.ammo_data_manager={IsMatchWeapon=function(self,weapon_id,bullet_id)
+        eq(weapon_id,"weapon-13-id"); p13_source_calls[#p13_source_calls+1]="match:"..bullet_id
+        return bullet_id=="box-bullet"
+    end}
+    local p13_slot_types={"ChestHangingContainer","BagContainer","Pocket","SafeBoxContainer"}
+    environment.ESlotType={ChestHangingContainer=p13_slot_types[1],BagContainer=p13_slot_types[2],Pocket=p13_slot_types[3],SafeBoxContainer=p13_slot_types[4]}
+    environment.Server.InventoryServer.GetSlot=function(_,slot_type,group)
+        eq(group,"p13-group"); p13_source_calls[#p13_source_calls+1]="slot:"..slot_type
+        return {GetItems=function() return {{id="box-bullet",num=3,IsBullet=function() return true end}} end}
+    end
+    local p13_ok=Bridge.install(p13_product,{context=p13_context,environment=environment})
+    truth(p13_ok,"P0.13 source bridge install")
+    local weapon_item={id="weapon-13-id",IsWeapon=function() return true end,
+        GetRawPropInfo=function() return "raw-a",nil,"raw-c" end}
+    local p13_result=table.pack(p13_product.GetMatchBulletNumByWeaponItem(weapon_item,"p13-group"))
+    eq(p13_result.n,1,"P0.13 bridge return arity")
+    eq(p13_result[1],18,"P0.13 bridge base and four ammo-stack counts")
+    eq(p13_asm_calls,1)
+    eq(table.concat(p13_source_calls,","),"slot:ChestHangingContainer,match:box-bullet,slot:BagContainer,match:box-bullet,slot:Pocket,match:box-bullet,slot:SafeBoxContainer,match:box-bullet")
+    eq(#payload_calls,0,"P0.13 bridge must not call original payload methods")
     Bridge.restore_original()
 
     Bridge.restore_original()

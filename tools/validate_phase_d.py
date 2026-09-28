@@ -57,8 +57,8 @@ def main():
     assert source_root_indices==list(range(root_source_owned))
     assert all(roots[name]['source_only_dependency'] for name in list(roots)[:root_source_owned])
     assert all(not roots[name]['source_only_dependency'] for name in list(roots)[root_source_owned:])
-    assert root_source_owned>=13
-    assert {'0.12','0.12.0'} <= set(groups['source_owned'])
+    assert root_source_owned>=14
+    assert {'0.12','0.12.0','0.13','0.13.0'} <= set(groups['source_owned'])
     for source_file in ('product_context.lua','product_constructor.lua','product_module_bridge.lua'):
         text=(ROOT/'src/spectra'/source_file).read_text()
         assert 'debug.getupvalue' not in text,source_file
@@ -92,6 +92,15 @@ def main():
     assert prototypes['0.12.0']['upvalues'][3]=={'instack':0,'idx':2}
     assert captured('R2','P0.12','U0') and captured('R3','P0.12','U2') and captured('R1','P0.12','U3')
     assert captured('R11','P0.13','U1') and captured('R6','P0.13','U2')
+    assert prototypes['0.13']['numparams']==2 and len(prototypes['0.13']['upvalues'])==3
+    assert prototypes['0.13.0']['numparams']==2 and len(prototypes['0.13.0']['upvalues'])==4
+    assert prototypes['0.13']['upvalues'][1]=={'instack':1,'idx':11}
+    assert prototypes['0.13']['upvalues'][2]=={'instack':1,'idx':6}
+    assert prototypes['0.13.0']['upvalues'][1]=={'instack':1,'idx':1}
+    assert prototypes['0.13.0']['upvalues'][2]=={'instack':0,'idx':1}
+    assert prototypes['0.13.0']['upvalues'][3]=={'instack':1,'idx':2}
+    assert {'0.13','0.13.0'} <= set(groups['source_owned'])
+    assert inv['source_files']['0.13']==inv['source_files']['0.13.0']=='src/spectra/product_module.lua'
     assert captured('R8','P0.14','U1') and captured('R8','P0.15','U2')
 
     coverage_text=(ROOT/'RECONSTRUCTION_COVERAGE.md').read_text()
@@ -130,10 +139,10 @@ def main():
         out=run([lua,str(ROOT/'tests'/file),str(ROOT)]); assert marker in out; passed[file]='passed'
 
     report={
-      'phase':'E5.2-root-check-raid-bullet-enough-source-only',
+      'phase':'E5.3-root-get-match-bullet-num-source-only',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
       'inventory':{'total':len(paths),'classified':coverage['classified'],'source_owned':coverage['source_owned'],'payload_owned':coverage['payload_owned'],'partially_reconstructed':coverage['partially_reconstructed'],'unknown':coverage['unknown'],'root_methods_source_owned':root_source_owned,'root_methods_total':len(roots)},
-      'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_12':True,'payload_upvalue_introspection':False},
+      'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_13':True,'payload_upvalue_introspection':False},
       'runtime_ownership':{'no_recoil':True,'converge':True,'aim':True,'anti_shake':True},
       'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
     (ROOT/'validation_phase_d.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')

@@ -1254,6 +1254,73 @@ do
     eq(logs[1][2],"extra-format-result")
 end
 
+-- P0.13 specialized source fixtures cover ABI, slot scan order and stack sums.
+do
+    local calls={}
+    local weapon_assembly={GetWeaponBulletNumAndCapacity=function(...)
+        local args=table.pack(...)
+        eq(args.n,3,"P0.13 open raw-property tuple forwarded exactly")
+        eq(args[1],"raw-a"); eq(args[2],nil); eq(args[3],"raw-c")
+        calls[#calls+1]="assembly"
+        return 7,999
+    end}
+    local ammo_manager
+    ammo_manager={IsMatchWeapon=function(self,weapon_id,bullet_id)
+        eq(self,ammo_manager,"P0.13 AmmoDataManager receiver")
+        calls[#calls+1]="match:"..weapon_id..":"..bullet_id
+        return bullet_id=="b1" or bullet_id=="b3"
+    end}
+    local function bullet(id,num,is_bullet)
+        return {id=id,num=num,IsBullet=function(self) calls[#calls+1]="bullet:"..self.id; return is_bullet end}
+    end
+    local items_by_slot={
+        hanging={bullet("b1",2,true),bullet("not-bullet",100,false)},
+        bag={bullet("b2",30,true)},
+        pocket={bullet("b3",5,true)},
+        safe={bullet("b4",99,true)},
+    }
+    local enum={ChestHangingContainer="hanging",BagContainer="bag",Pocket="pocket",SafeBoxContainer="safe"}
+    local inventory={GetSlot=function(self,slot_type,slot_group)
+        eq(slot_group,"slot-group-13","P0.13 slot-group passthrough")
+        calls[#calls+1]="slot:"..slot_type
+        return {GetItems=function() calls[#calls+1]="items:"..slot_type; return items_by_slot[slot_type] end}
+    end}
+    local env={Server={InventoryServer=inventory},ESlotType=enum,ipairs=ipairs}
+    local product_item
+    product_item={
+        IsWeapon=function(self) eq(self,product_item); calls[#calls+1]="is-weapon"; return true end,
+        GetRawPropInfo=function(self)
+            eq(self,product_item); calls[#calls+1]="raw-props"
+            return "raw-a",nil,"raw-c"
+        end,
+        id="weapon-13",
+    }
+    local weapon_item_result=table.pack(Product.GetMatchBulletNumByWeaponItem(
+        {},env,ammo_manager,weapon_assembly,product_item,"slot-group-13"))
+    eq(weapon_item_result.n,1,"P0.13 returns one count")
+    eq(weapon_item_result[1],14,"P0.13 base plus matched stack sums; capacity is ignored")
+    eq(table.concat(calls,","),
+        "is-weapon,raw-props,assembly,slot:hanging,items:hanging,bullet:b1,match:weapon-13:b1,bullet:not-bullet,slot:bag,items:bag,bullet:b2,match:weapon-13:b2,slot:pocket,items:pocket,bullet:b3,match:weapon-13:b3,slot:safe,items:safe,bullet:b4,match:weapon-13:b4",
+        "P0.13 specialized slot/item order and predicates")
+
+    calls={}
+    local nil_result=table.pack(Product.GetMatchBulletNumByWeaponItem({},env,ammo_manager,weapon_assembly,nil,"g"))
+    eq(nil_result.n,1); eq(nil_result[1],0,"P0.13 nil item returns numeric zero")
+    eq(#calls,0,"P0.13 nil input skips every dependency")
+
+    calls={}
+    local non_weapon={IsWeapon=function() calls[#calls+1]="is-weapon"; return false end}
+    local non_weapon_result=table.pack(Product.GetMatchBulletNumByWeaponItem({},env,ammo_manager,weapon_assembly,non_weapon,"g"))
+    eq(non_weapon_result.n,1); eq(non_weapon_result[1],0,"P0.13 nonweapon returns numeric zero")
+    eq(table.concat(calls,","),"is-weapon","P0.13 nonweapon skips helper and inventory scan")
+    local malformed_env={Server={InventoryServer={GetSlot=function()
+        return {GetItems=function() return nil end}
+    end}},ESlotType=enum,ipairs=ipairs}
+    local get_ok=pcall(Product.GetMatchBulletNumByWeaponItem,{},malformed_env,
+        ammo_manager,weapon_assembly,product_item,"g")
+    eq(get_ok,false,"P0.13 nil GetItems retains bytecode iteration error rather than guessing zero")
+end
+
 -- The final TESTSET in P0.10 implements `price or 0` for a falsey result.
 do
     local item={name="masked-price"}

@@ -33,7 +33,8 @@ jobs:
           assert len(paths) == d['_meta']['total_prototypes'] and len(set(paths)) == len(paths)
           assert d['coverage']['classified'] == len(paths)
           assert d['coverage']['unknown'] == 0
-          assert d['coverage']['root_methods_source_owned'] >= 13
+          assert d['coverage']['root_methods_source_owned'] == sum(
+              item['current_ownership']=='source_owned' for item in d['root_public_methods'].values())
           assert set(d['source_files']) == set(groups['source_owned'])
           for name,item in d['root_public_methods'].items():
               if item['current_ownership']=='source_owned':

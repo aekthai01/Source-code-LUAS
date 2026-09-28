@@ -9,6 +9,12 @@ function M.new_product_table()
 end
 
 local function bind(product, globals, source, dependencies, mode)
+    if mode == "weapon_count" then
+        return function(weapon_item, slot_group_id)
+            return source(product, globals, dependencies.ammo_data_manager,
+                dependencies.weapon_assembly_tool, weapon_item, slot_group_id)
+        end
+    end
     if mode == "static_one_arg_deps" then
         return function(a)
             return source(product, globals, dependencies, a)
@@ -44,7 +50,7 @@ local function bind(product, globals, source, dependencies, mode)
     end
 end
 
--- Source-only constructor for the reconstructed P0.0..P0.12 boundary. The
+-- Source-only constructor for the reconstructed P0.0..P0.13 boundary. The
 -- context's R3 table is used directly so every root capture of the product
 -- table observes the same source identity. Later root groups extend this same
 -- table rather than swapping in a payload-created object.
@@ -84,6 +90,12 @@ function M.create(context, globals)
     }
     product.CheckRaidBulletEnough = bind(product, globals,
         Product.CheckRaidBulletEnough, p12, "static_one_arg_deps")
+    local p13 = {
+        ammo_data_manager = context.ammo_data_manager,
+        weapon_assembly_tool = context.weapon_assembly_tool,
+    }
+    product.GetMatchBulletNumByWeaponItem = bind(product, globals,
+        Product.GetMatchBulletNumByWeaponItem, p13, "weapon_count")
 
     local slot = assert(globals.ESlotType, "ESlotType required")
     product.EquipTypeList = {

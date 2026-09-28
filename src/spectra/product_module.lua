@@ -19,6 +19,7 @@ M.PROTOTYPES = {
     CheckEquipSlotValue = "0.10",
     DynamicGuidPriceFinishFetch = "0.11",
     CheckRaidBulletEnough = "0.12",
+    GetMatchBulletNumByWeaponItem = "0.13",
 }
 M.ROOT_FIELDS = { "EquipTypeList", "ContainerTypeList" }
 
@@ -622,6 +623,48 @@ function M.CheckRaidBulletEnough(product, globals, dependencies, match_mode_id)
     info_logger(globals.string.format(
         "CheckEquipLogic.CheckRaidBulletEnough raid子弹检查结果 ==> bEnough = %s", enough))
     return enough, abnormal_data
+end
+
+-- P0.13 / nested P0.13.0. `weapon_item` and `slot_group_id` are the two
+-- explicit parameters. For a valid weapon, every open return from
+-- weapon_item:GetRawPropInfo() is forwarded to the static
+-- WeaponAssemblyTool.GetWeaponBulletNumAndCapacity function; its first result
+-- is accumulated and its second result is ignored. The four specialized
+-- container slots are scanned with ipairs; matching bullet-stack counts are
+-- added to the same total. No generic inventory scan replaces the bytecode.
+function M.GetMatchBulletNumByWeaponItem(product, globals, ammo_data_manager,
+    weapon_assembly_tool, weapon_item, slot_group_id)
+    globals = globals_or_default(globals)
+    local bullet_total = 0
+    if weapon_item and weapon_item:IsWeapon() then
+        local function add_matched_bullets(slot_type, weapon_item_id)
+            local slot = globals.Server.InventoryServer:GetSlot(slot_type, slot_group_id)
+            local items = slot:GetItems()
+            for _, item in globals.ipairs(items) do
+                if item:IsBullet()
+                    and ammo_data_manager:IsMatchWeapon(weapon_item_id, item.id) then
+                    bullet_total = bullet_total + item.num
+                end
+            end
+        end
+
+        local get_weapon_bullet_num_and_capacity = weapon_assembly_tool.GetWeaponBulletNumAndCapacity
+        local raw_properties = table.pack(weapon_item:GetRawPropInfo())
+        local weapon_bullet_num = get_weapon_bullet_num_and_capacity(
+            table.unpack(raw_properties, 1, raw_properties.n))
+        bullet_total = bullet_total + weapon_bullet_num
+
+        local slot_types = {
+            globals.ESlotType.ChestHangingContainer,
+            globals.ESlotType.BagContainer,
+            globals.ESlotType.Pocket,
+            globals.ESlotType.SafeBoxContainer,
+        }
+        for _, slot_type in globals.ipairs(slot_types) do
+            add_matched_bullets(slot_type, weapon_item.id)
+        end
+    end
+    return bullet_total
 end
 
 return M
