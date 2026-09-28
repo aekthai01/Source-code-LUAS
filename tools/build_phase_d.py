@@ -14,7 +14,7 @@ REMAP = ROOT / "tools" / "remap_lua53.py"
 
 MODULES = [
     "runtime.lua", "crypto.lua", "storage.lua", "transport.lua", "payload_embed.lua",
-    "aim_runtime.lua", "visual_runtime.lua", "aim_abi.lua", "p029_runtime_helpers.lua", "mutation_runtime.lua", "aim_mutation.lua", "aim_bones.lua", "aim_chain.lua", "aim_refresh.lua", "visual_scan.lua", "feature_control.lua", "character_visuals.lua", "native_settings_ui.lua", "payload_feature_bridge.lua", "payload_visual_bridge.lua", "product_context.lua", "product_module.lua", "product_constructor.lua", "product_module_bridge.lua", "payload_ui_bridge.lua", "payload_loader.lua",
+    "visual_runtime.lua", "aim_abi.lua", "p029_runtime_helpers.lua", "aim_runtime.lua", "mutation_runtime.lua", "aim_mutation.lua", "aim_bones.lua", "aim_chain.lua", "aim_refresh.lua", "visual_scan.lua", "feature_control.lua", "character_visuals.lua", "native_settings_ui.lua", "payload_feature_bridge.lua", "payload_visual_bridge.lua", "product_context.lua", "product_module.lua", "product_constructor.lua", "product_module_bridge.lua", "payload_ui_bridge.lua", "payload_loader.lua",
     "auth.lua", "login_ui.lua", "bootstrap.lua",
 ]
 

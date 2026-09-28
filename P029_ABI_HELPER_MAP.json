@@ -1044,6 +1044,7 @@
     "src/spectra/feature_control.lua",
     "src/spectra/mutation_runtime.lua",
     "src/spectra/p029_runtime_helpers.lua",
-    "src/spectra/visual_scan.lua"
+    "src/spectra/visual_scan.lua",
+    "src/spectra/aim_runtime.lua"
   ]
 }

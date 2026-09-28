@@ -73,6 +73,7 @@
       ],
       "return_contract": "exactly one boolean: true only when protected field value has type function",
       "retry_or_branch_order": "P0.29.2 protected lookup then strict type(value)==function",
+      "source_capture_identity": "fixed local P0.29.2 capture",
       "source_implementation_symbol": "P029RuntimeHelpers.is_function_field",
       "source_file": "src/spectra/p029_runtime_helpers.lua",
       "source_implementation_exists": true,
@@ -138,6 +139,7 @@
       ],
       "return_contract": "nil input returns exactly one empty string; successful/fallback tostring is a tail return",
       "retry_or_branch_order": "GetFullName then GetName via P0.29.3 self-first ABI; final tostring fallback",
+      "source_capture_identity": "fixed local P0.29.3 capture; post-load ABI.self_first replacement is not observed",
       "source_implementation_symbol": "P029RuntimeHelpers.object_name",
       "source_file": "src/spectra/p029_runtime_helpers.lua",
       "source_implementation_exists": true,
@@ -237,6 +239,7 @@
       ],
       "return_contract": "exactly zero values on every normal path",
       "retry_or_branch_order": "missing/non-function DelayCall invokes callback immediately; otherwise static pcall then self fallback after exception; errors discarded",
+      "source_capture_identity": "fixed local P0.29.2 capture",
       "source_implementation_symbol": "P029RuntimeHelpers.delay",
       "source_file": "src/spectra/p029_runtime_helpers.lua",
       "source_implementation_exists": true,
@@ -287,6 +290,7 @@
       ],
       "return_contract": "exactly one value: truthy Facade.TableManager or raw global TableManager fallback",
       "retry_or_branch_order": "rawget Facade; P0.29.2 TableManager lookup; truthy branch; raw global fallback",
+      "source_capture_identity": "fixed local P0.29.2 capture",
       "source_implementation_symbol": "P029RuntimeHelpers.get_table_manager",
       "source_file": "src/spectra/p029_runtime_helpers.lua",
       "source_implementation_exists": true,
@@ -362,6 +366,7 @@
       ],
       "return_contract": "exactly one value: GetTable first result on success, otherwise nil",
       "retry_or_branch_order": "P0.29.11 manager; P0.29.2 GetTable; P0.29.12 self-first call; ok branch returns value",
+      "source_capture_identity": "fixed local P0.29.11/P0.29.2/P0.29.12 captures; post-load export/ABI replacement is not observed",
       "source_implementation_symbol": "P029RuntimeHelpers.get_data_table",
       "source_file": "src/spectra/p029_runtime_helpers.lua",
       "source_implementation_exists": true,
@@ -380,6 +385,7 @@
     "src/spectra/feature_control.lua",
     "src/spectra/mutation_runtime.lua",
     "src/spectra/p029_runtime_helpers.lua",
-    "src/spectra/visual_scan.lua"
+    "src/spectra/visual_scan.lua",
+    "src/spectra/aim_runtime.lua"
   ]
 }

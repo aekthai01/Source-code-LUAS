@@ -7,7 +7,8 @@
     "nested_callbacks": 11,
     "abi_helpers": 5,
     "runtime_helpers": 5,
-    "indexed_entries_total": 49,
+    "aim_runtime": 2,
+    "indexed_entries_total": 51,
     "detailed_legacy_index": "AIM_PROTOTYPE_INDEX_LEGACY_DETAILED.json",
     "runtime_ownership": {
       "aim": true,
@@ -307,7 +308,7 @@
       "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
       "name_is_original_symbol": false,
       "reconstructed_name": "P029RuntimeHelpers.is_function_field",
-      "evidence_status": "exact bytecode shape, root register/captures, source integration and return contract pinned"
+      "evidence_status": "exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned"
     },
     "0.29.6": {
       "category": "runtime_helper",
@@ -315,7 +316,7 @@
       "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
       "name_is_original_symbol": false,
       "reconstructed_name": "P029RuntimeHelpers.object_name",
-      "evidence_status": "exact bytecode shape, root register/captures, source integration and return contract pinned"
+      "evidence_status": "exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned"
     },
     "0.29.8": {
       "category": "runtime_helper",
@@ -323,7 +324,7 @@
       "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
       "name_is_original_symbol": false,
       "reconstructed_name": "P029RuntimeHelpers.delay",
-      "evidence_status": "exact bytecode shape, root register/captures, source integration and return contract pinned"
+      "evidence_status": "exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned"
     },
     "0.29.11": {
       "category": "runtime_helper",
@@ -331,7 +332,7 @@
       "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
       "name_is_original_symbol": false,
       "reconstructed_name": "P029RuntimeHelpers.get_table_manager",
-      "evidence_status": "exact bytecode shape, root register/captures, source integration and return contract pinned"
+      "evidence_status": "exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned"
     },
     "0.29.13": {
       "category": "runtime_helper",
@@ -339,7 +340,23 @@
       "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
       "name_is_original_symbol": false,
       "reconstructed_name": "P029RuntimeHelpers.get_data_table",
-      "evidence_status": "exact bytecode shape, root register/captures, source integration and return contract pinned"
+      "evidence_status": "exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned"
+    },
+    "0.29.72": {
+      "category": "aim_runtime",
+      "source": "src/spectra/aim_runtime.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "set_fire_assisted_aim_debug",
+      "evidence_status": "22-instruction parent, R97 closure, fixed P2/P8 captures, literal-true command selection, same child immediate/0.35/1.2 schedule and one-value return pinned"
+    },
+    "0.29.72.0": {
+      "category": "aim_runtime",
+      "source": "src/spectra/aim_runtime.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "set_fire_assisted_aim_debug child execute_console",
+      "evidence_status": "76-instruction child, env/P2/command captures, nil-only gates, exact static/self pcall arity and boolean return pinned"
     }
   }
 }
