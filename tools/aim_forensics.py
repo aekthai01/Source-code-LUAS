@@ -21,6 +21,7 @@ PRIMARY = [
 ]
 OUTER = ["0.29.67", "0.29.68"]
 NESTED = [
+    "0.29.15.0",
     "0.29.17.0",
     "0.29.62.0",
     "0.29.64.0",
@@ -36,17 +37,17 @@ NESTED = [
 ]
 ABI_HELPERS = ["0.29.2", "0.29.2.0", "0.29.3", "0.29.4", "0.29.12"]
 RUNTIME_HELPERS = ["0.29.5", "0.29.6", "0.29.8", "0.29.11", "0.29.13"]
-MUTATION_HELPERS = ["0.29.10", "0.29.18", "0.29.49"]
+MUTATION_HELPERS = ["0.29.10", "0.29.14", "0.29.15", "0.29.16", "0.29.18", "0.29.49"]
 AIM_RUNTIME = ["0.29.71", "0.29.71.0", "0.29.72", "0.29.72.0"]
 ALL = [*PRIMARY, *OUTER, *NESTED, *ABI_HELPERS, *RUNTIME_HELPERS, *MUTATION_HELPERS, *AIM_RUNTIME]
 assert len(PRIMARY) == 26
 assert len(OUTER) == 2
-assert len(NESTED) == 12
+assert len(NESTED) == 13
 assert len(ABI_HELPERS) == 5
 assert len(RUNTIME_HELPERS) == 5
-assert len(MUTATION_HELPERS) == 3
+assert len(MUTATION_HELPERS) == 6
 assert len(AIM_RUNTIME) == 4
-assert len(ALL) == 57 and len(set(ALL)) == 57
+assert len(ALL) == 61 and len(set(ALL)) == 61
 missing = [pid for pid in ALL if pid not in P]
 assert not missing, f"missing payload prototypes: {missing}"
 
@@ -60,7 +61,7 @@ def source_for(pid):
         return "src/spectra/mutation_runtime.lua"
     if pid in AIM_RUNTIME:
         return "src/spectra/aim_runtime.lua"
-    if pid == "0.29.17.0":
+    if pid in {"0.29.15.0", "0.29.17.0"}:
         return "src/spectra/mutation_runtime.lua"
     if pid.startswith("0.29.77"):
         return "src/spectra/feature_control.lua"
@@ -116,6 +117,9 @@ expected_root_registers = {
     "0.29.12": "R32",
     "0.29.13": "R33",
     "0.29.10": "R30",
+    "0.29.14": "R34",
+    "0.29.15": "R35",
+    "0.29.16": "R36",
     "0.29.18": "R38",
     "0.29.49": "R74",
     "0.29.71": "R96",
@@ -461,14 +465,20 @@ for cap in aim_runtime_map["prototypes"]["0.29.72.0"]["parent_capture_mapping"]:
 
 # Reusable source-ownership evidence for mutation primitives. Later bone-array
 # checkpoints extend this subsystem map rather than inventing one file per helper.
-mutation_symbols={"0.29.10":"MutationRuntime.normalize_identifier","0.29.18":"MutationRuntime.table_extend","0.29.49":"MutationRuntime.array_get"}
+mutation_symbols={"0.29.10":"MutationRuntime.normalize_identifier","0.29.14":"MutationRuntime.p029_ensure_feature_snapshot","0.29.15":"MutationRuntime.p029_snapshot_set","0.29.16":"MutationRuntime.p029_clear_feature_snapshot","0.29.18":"MutationRuntime.table_extend","0.29.49":"MutationRuntime.array_get"}
 mutation_contracts={
   "0.29.10":"tail-return string.gsub: exactly normalized string plus substitution count",
+  "0.29.14":"exactly one snapshot table; captured state table identity",
+  "0.29.15":"nil owner/key and unchanged paths exactly one boolean; assignment tailcalls pcall so success is one true and failure is false,error",
+  "0.29.16":"exactly zero returns after clearing captured state snapshot entry when snapshot root is a table",
   "0.29.18":"exactly one value: table extension only on successful protected call yielding table, else original input",
   "0.29.49":"exactly one value: zero-based table read or protected userdata Get/helper Get with false preserved and nil fallback",
 }
 mutation_order={
   "0.29.10":"lower(tostring(input or empty)); tailcall gsub non-word removal",
+  "0.29.14":"captured R0 snapshot root; type gates; create {records={},seen={}} only when feature snapshot is not table",
+  "0.29.15":"nil owner/key gate; fixed P2 read; equality short-circuit; fixed P14 snapshot; tostring identity dedupe; tailcall pcall assignment child",
+  "0.29.16":"captured R0 snapshot root; only clear feature when root type is table; zero-value return",
   "0.29.18":"userdata gate; fixed P2 TableExtend lookup; pcall(fn,value); retry pcall(fn) only after exception; accept table result only",
   "0.29.49":"table direct index+1; userdata gate; fixed P2 Get; fixed P12 self-first; direct nil falls through to ULuaArrayHelper Get through same P2/P12",
 }

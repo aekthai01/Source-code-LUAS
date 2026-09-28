@@ -367,13 +367,27 @@ def main():
     assert re.search(r'^0006 SETTABLE\s+R0, R1, R2$',p170_body,re.M)
     assert re.search(r'^0007 RETURN\s+A=0 B=1 C=0$',p170_body,re.M)
 
-    # P0.29.15 is not migrated here, but its active source reconstruction must
-    # inherit exact P0.29.2 false->nil behavior. U0 captures R19/P2 and the
-    # original field read is the P2 call at PC0012 before snapshot recording.
-    p15=body('0.29.15')
-    assert prototypes['0.29.15']['upvalues'][0]=={'instack':1,'idx':19}
-    assert re.search(r'^0009 GETUPVAL\s+R4, U0$',p15,re.M)
-    assert re.search(r'^0012 CALL\s+A=4 B=3 C=2$',p15,re.M)
+    # Exact P0.29.14/.15/.15.0/.16 captured snapshot-helper family.
+    snap_paths={'0.29.14','0.29.15','0.29.15.0','0.29.16'}
+    assert snap_paths <= set(groups['source_owned'])
+    assert all(source_files[path]=='src/spectra/mutation_runtime.lua' for path in snap_paths)
+    p14m,p15m,p150m,p16m=(prototypes[x] for x in ('0.29.14','0.29.15','0.29.15.0','0.29.16'))
+    assert (p14m['numparams'],p14m['instruction_count'],p14m['upvalues'],p14m['child_count'])==(1,27,[{'instack':1,'idx':0},{'instack':0,'idx':0}],0)
+    assert (p15m['numparams'],p15m['instruction_count'],p15m['upvalues'],p15m['child_count'])==(4,48,[{'instack':1,'idx':19},{'instack':1,'idx':34},{'instack':0,'idx':0}],1)
+    assert (p150m['numparams'],p150m['instruction_count'],p150m['upvalues'],p150m['child_count'])==(0,7,[{'instack':1,'idx':1},{'instack':1,'idx':2},{'instack':1,'idx':3}],0)
+    assert (p16m['numparams'],p16m['instruction_count'],p16m['upvalues'],p16m['child_count'])==(1,11,[{'instack':1,'idx':0},{'instack':0,'idx':0}],0)
+    root=body('0.29')
+    assert re.search(r'^0329 CLOSURE\s+R34, P14$',root,re.M)
+    assert re.search(r'^0330 CLOSURE\s+R35, P15$',root,re.M)
+    assert re.search(r'^0331 CLOSURE\s+R36, P16$',root,re.M)
+    p14,p15,p150,p16=(body(x) for x in ('0.29.14','0.29.15','0.29.15.0','0.29.16'))
+    assert re.search(r"^0003 GETTABUP\s+R1, U0, K0='custom_dongdong_feature_snapshots'$",p14,re.M)
+    assert re.search(r'^0025 RETURN\s+A=2 B=2 C=0$',p14,re.M)
+    assert re.search(r'^0009 GETUPVAL\s+R4, U0$',p15,re.M) and re.search(r'^0012 CALL\s+A=4 B=3 C=2$',p15,re.M)
+    assert re.search(r'^0017 GETUPVAL\s+R5, U1$',p15,re.M) and re.search(r'^0019 CALL\s+A=5 B=2 C=2$',p15,re.M)
+    assert re.search(r'^0044 CLOSURE\s+R8, P0$',p15,re.M) and re.search(r'^0045 TAILCALL\s+A=7 B=2 C=0$',p15,re.M) and re.search(r'^0046 RETURN\s+A=7 B=0 C=0$',p15,re.M)
+    assert re.search(r'^0003 GETUPVAL\s+R0, U1$',p150,re.M) and re.search(r'^0005 SETTABUP\s+U0, R0, R1$',p150,re.M) and re.search(r'^0006 RETURN\s+A=0 B=1 C=0$',p150,re.M)
+    assert re.search(r"^0003 GETTABUP\s+R1, U0, K0='custom_dongdong_feature_snapshots'$",p16,re.M) and re.search(r'^0010 RETURN\s+A=0 B=1 C=0$',p16,re.M)
 
     runtime_source=(ROOT/'src/spectra/p029_runtime_helpers.lua').read_text()
     mutation_source=(ROOT/'src/spectra/mutation_runtime.lua').read_text()
@@ -395,6 +409,12 @@ def main():
     assert 'local call_optional_self = ABI.call_optional_self' in mutation_source
     assert 'M.get_table_manager = RuntimeHelpers.get_table_manager' in mutation_source
     assert 'M.get_data_table = RuntimeHelpers.get_data_table' in mutation_source
+    assert 'local snapshot_state_029 = _G' in mutation_source
+    assert 'local snapshot_safe_get_029_2 = safe_get' in mutation_source
+    assert 'local ensure_feature_snapshot_capture_029_14 = ensure_feature_snapshot_029_14' in mutation_source
+    assert 'M.p029_ensure_feature_snapshot = ensure_feature_snapshot_029_14' in mutation_source
+    assert 'M.p029_snapshot_set = snapshot_set_029_15' in mutation_source
+    assert 'M.p029_clear_feature_snapshot = clear_feature_snapshot_029_16' in mutation_source
     assert 'local object_name = RuntimeHelpers.object_name' in visual_source
     assert 'RuntimeHelpers.is_function_field' in visual_source
     assert 'choose("delay", RuntimeHelpers.delay)' in bridge_source
@@ -476,7 +496,7 @@ def main():
     assert 'AimRuntime.set_fire_assisted_aim_debug(enabled)' in bridge_source
 
     # Mutation primitive source-ownership checkpoint: exact ABI and fixed captures.
-    mutation_paths={'0.29.10','0.29.18','0.29.49'}
+    mutation_paths={'0.29.10','0.29.14','0.29.15','0.29.16','0.29.18','0.29.49'}
     mutation_evidence=json.loads((ROOT/'P029_MUTATION_HELPER_MAP.json').read_text())
     assert mutation_evidence['_meta']['payload_sha256']==PAY
     assert mutation_evidence['_meta']['payload_closure_rebinding'] is False

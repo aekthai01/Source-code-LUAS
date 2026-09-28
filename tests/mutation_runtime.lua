@@ -7,6 +7,40 @@ local M = assert(S.MutationRuntime)
 local function eq(a,b,m) if a~=b then error((m or "value")..": expected "..tostring(b)..", got "..tostring(a),2) end end
 local function truth(v,m) if not v then error(m or "expected truthy",2) end end
 
+-- Exact P0.29.14/.15/.15.0/.16 captured-state ABI.
+local saved_feature_snapshots=rawget(_G,"custom_dongdong_feature_snapshots")
+rawset(_G,"custom_dongdong_feature_snapshots",nil)
+local function packcall(fn,...) return table.pack(fn(...)) end
+local p14=M.p029_ensure_feature_snapshot
+local p15=M.p029_snapshot_set
+local p16=M.p029_clear_feature_snapshot
+truth(type(p14)=="function" and type(p15)=="function" and type(p16)=="function","exact snapshot helpers exported")
+local a=packcall(p14,"aim"); eq(a.n,1,"P14 return count"); truth(type(a[1])=="table","P14 snapshot")
+eq(type(a[1].records),"table","P14 records"); eq(type(a[1].seen),"table","P14 seen")
+eq(packcall(p14,"aim").n,1,"P14 existing return count")
+local owner={Value=3,FalseValue=false}
+local r=packcall(p15,"aim",nil,"Value",4); eq(r.n,1,"P15 nil owner arity"); eq(r[1],false,"P15 nil owner")
+r=packcall(p15,"aim",owner,nil,4); eq(r.n,1,"P15 nil key arity"); eq(r[1],false,"P15 nil key")
+r=packcall(p15,"aim",owner,"Value",3); eq(r.n,1,"P15 unchanged arity"); eq(r[1],true,"P15 unchanged")
+eq(#_G.custom_dongdong_feature_snapshots.aim.records,0,"P15 unchanged no record")
+r=packcall(p15,"aim",owner,"Value",9); eq(r.n,1,"P15 success pcall arity"); eq(r[1],true,"P15 success")
+eq(owner.Value,9,"P15 write"); eq(#_G.custom_dongdong_feature_snapshots.aim.records,1,"P15 one record")
+eq(_G.custom_dongdong_feature_snapshots.aim.records[1].value,3,"P15 original")
+r=packcall(p15,"aim",owner,"Value",10); eq(r.n,1,"P15 repeated success arity")
+eq(#_G.custom_dongdong_feature_snapshots.aim.records,1,"P15 dedupe")
+-- P2 semantics collapse a literal false field to nil before it is recorded.
+r=packcall(p15,"aim",owner,"FalseValue",true); eq(r.n,1,"P15 false write arity"); eq(r[1],true,"P15 false write")
+eq(_G.custom_dongdong_feature_snapshots.aim.records[2].value,nil,"P15 P2 false->nil snapshot")
+local rejecting=setmetatable({}, {__newindex=function() error("blocked-write") end})
+r=packcall(p15,"aim",rejecting,"Blocked",1); eq(r.n,2,"P15 failure pcall arity"); eq(r[1],false,"P15 failure flag"); truth(tostring(r[2]):find("blocked%-write")~=nil,"P15 failure error preserved")
+-- P15 captures P14 once. Replacing the exported P14 symbol cannot redirect it.
+M.p029_ensure_feature_snapshot=function() error("mutated P14 export observed") end
+r=packcall(p15,"capture",{},"X",1); eq(r.n,1,"P15 fixed P14 capture arity"); eq(r[1],true,"P15 fixed P14 capture")
+M.p029_ensure_feature_snapshot=p14
+r=packcall(p16,"aim"); eq(r.n,0,"P16 clear arity"); eq(_G.custom_dongdong_feature_snapshots.aim,nil,"P16 clears")
+rawset(_G,"custom_dongdong_feature_snapshots",nil); r=packcall(p16,"aim"); eq(r.n,0,"P16 absent arity")
+rawset(_G,"custom_dongdong_feature_snapshots",saved_feature_snapshots)
+
 -- Exact path inventory recovered from the parent constants feeding P0.29.68.
 eq(#M.FEATURE_TABLES.no_recoil,4,"no recoil table count")
 eq(#M.FEATURE_TABLES.converge,7,"converge table count")

@@ -142,6 +142,55 @@ end
 M.get_table_manager = RuntimeHelpers.get_table_manager
 M.get_data_table = RuntimeHelpers.get_data_table
 
+-- Exact P0.29 snapshot-helper closure family. P0.29 is constructed with _G as
+-- its captured state; P14/P16 capture that R0 identity and P15 captures the
+-- fixed P2/P14 sibling closures. Compatibility functions below remain state-
+-- explicit for older source layers, while ownership evidence targets these
+-- exact closures.
+local snapshot_state_029 = _G
+local snapshot_safe_get_029_2 = safe_get
+
+local function ensure_feature_snapshot_029_14(feature)
+    local snapshots = snapshot_state_029.custom_dongdong_feature_snapshots
+    if type(snapshots) ~= "table" then
+        snapshots = {}
+        snapshot_state_029.custom_dongdong_feature_snapshots = snapshots
+    end
+    local snapshot = snapshots[feature]
+    if type(snapshot) ~= "table" then
+        snapshot = { records = {}, seen = {} }
+        snapshots[feature] = snapshot
+    end
+    return snapshot
+end
+
+local ensure_feature_snapshot_capture_029_14 = ensure_feature_snapshot_029_14
+local function snapshot_set_029_15(feature, object, key, value)
+    if object == nil or key == nil then return false end
+    local previous = snapshot_safe_get_029_2(object, key)
+    if previous == value then return true end
+    local snapshot = ensure_feature_snapshot_capture_029_14(feature)
+    local identity = tostring(object) .. "\0" .. tostring(key)
+    if snapshot.seen[identity] ~= true then
+        snapshot.seen[identity] = true
+        snapshot.records[#snapshot.records + 1] = {
+            object = object,
+            key = key,
+            value = previous,
+        }
+    end
+    return pcall(function() object[key] = value end)
+end
+
+local function clear_feature_snapshot_029_16(feature)
+    local snapshots = snapshot_state_029.custom_dongdong_feature_snapshots
+    if type(snapshots) == "table" then snapshots[feature] = nil end
+end
+
+M.p029_ensure_feature_snapshot = ensure_feature_snapshot_029_14
+M.p029_snapshot_set = snapshot_set_029_15
+M.p029_clear_feature_snapshot = clear_feature_snapshot_029_16
+
 function M.table_extend(value)
     if type(value) ~= "userdata" then return value end
     local fn = safe_get(value, "TableExtend")

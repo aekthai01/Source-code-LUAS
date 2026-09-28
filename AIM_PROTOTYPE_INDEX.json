@@ -197,6 +197,12 @@
       "reconstructed_name": "apply_feature",
       "evidence_status": "38 instructions matched: captured feature list, ipairs order, P13 lookup, raw table identity dedupe, P67 dispatch, boolean return, no internal pcall"
     },
+    "0.29.15.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
     "0.29.17.0": {
       "category": "nested_callback",
       "source": "src/spectra/mutation_runtime.lua",
@@ -358,6 +364,24 @@
       "name_is_original_symbol": false,
       "reconstructed_name": "normalize_identifier",
       "evidence_status": "17-instruction environment-only gsub tail-return helper; two-value return pinned"
+    },
+    "0.29.14": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.15": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.16": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
     },
     "0.29.18": {
       "category": "nested_callback",
