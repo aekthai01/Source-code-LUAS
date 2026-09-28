@@ -20,6 +20,8 @@ M.METHODS = {
     "DynamicGuidPriceFinishFetch",
     "CheckRaidBulletEnough",
     "GetMatchBulletNumByWeaponItem",
+    "_CheckNightFight",
+    "_CheckPlayerSuppliesForNightSpeicalType",
 }
 M.ROOT_METHOD_COUNT = 29
 
@@ -56,6 +58,12 @@ local function dependency_sets(context)
             ammo_data_manager = context.ammo_data_manager,
             weapon_assembly_tool = context.weapon_assembly_tool,
         },
+        _CheckNightFight = {
+            item_base_tool = context.item_base_tool,
+        },
+        _CheckPlayerSuppliesForNightSpeicalType = {
+            item_base_tool = context.item_base_tool,
+        },
     }
 end
 
@@ -79,6 +87,11 @@ local function wrap(name, target, dependencies, environment)
             result = table.pack(pcall(target, product, dependencies.globals or environment,
                 dependencies.ammo_data_manager, dependencies.weapon_assembly_tool,
                 arguments[1], arguments[2]))
+        elseif name == "_CheckNightFight" then
+            result = table.pack(pcall(target, product, environment, dependencies.item_base_tool))
+        elseif name == "_CheckPlayerSuppliesForNightSpeicalType" then
+            result = table.pack(pcall(target, product, environment,
+                dependencies.item_base_tool, arguments[1]))
         else
             result = table.pack(pcall(target, product, environment, dependencies))
         end
@@ -147,6 +160,8 @@ function M.install(target, options)
         DynamicGuidPriceFinishFetch = Source.DynamicGuidPriceFinishFetch,
         CheckRaidBulletEnough = Source.CheckRaidBulletEnough,
         GetMatchBulletNumByWeaponItem = Source.GetMatchBulletNumByWeaponItem,
+        _CheckNightFight = Source._CheckNightFight,
+        _CheckPlayerSuppliesForNightSpeicalType = Source._CheckPlayerSuppliesForNightSpeicalType,
     }
 
     local set_method = options.set_method or default_set_method

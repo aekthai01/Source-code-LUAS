@@ -26,8 +26,8 @@ The current compact ownership index is `FULL_PAYLOAD_PROTOTYPE_INDEX.json`. The 
 | `P0.11` | `DynamicGuidPriceFinishFetch` | `source_owned` | `true` | `src/spectra/product_module.lua` |
 | `P0.12` | `CheckRaidBulletEnough` | `source_owned` | `true` | `src/spectra/product_module.lua` |
 | `P0.13` | `GetMatchBulletNumByWeaponItem` | `source_owned` | `true` | `src/spectra/product_module.lua` |
-| `P0.14` | `_CheckNightFight` | `payload_owned` | `false` | `payload` |
-| `P0.15` | `_CheckPlayerSuppliesForNightSpeicalType` | `payload_owned` | `false` | `payload` |
+| `P0.14` | `_CheckNightFight` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.15` | `_CheckPlayerSuppliesForNightSpeicalType` | `source_owned` | `true` | `src/spectra/product_module.lua` |
 | `P0.16` | `_CheckSafeBoxExpiredStatus` | `payload_owned` | `false` | `payload` |
 | `P0.17` | `_CheckKeyChainExpiredStatus` | `payload_owned` | `false` | `payload` |
 | `P0.18` | `_CheckPropExpiredStatus` | `payload_owned` | `false` | `payload` |
@@ -44,9 +44,9 @@ The current compact ownership index is `FULL_PAYLOAD_PROTOTYPE_INDEX.json`. The 
 
 Exact root fields: `EquipTypeList`, `ContainerTypeList`.
 
-## P0.0..P0.13 source-only preparation
+## P0.0..P0.15 source-only preparation
 
-- All fourteen public methods P0.0..P0.13 receive source-owned captures and helpers; none use `debug.getupvalue`.
+- All fourteen public methods P0.0..P0.15 receive source-owned captures and helpers; none use `debug.getupvalue`.
 - P0.3 uses source `info_logger` (R1) and `error_logger` (R2).
 - P0.7/P0.7.0 use source `ItemHelperTool` (R4), `debug_logger` (R0), `error_logger` (R2), and the owning product table passed by the source constructor.
 - P0.8/P0.8.0 use source `error_logger` (R2).
@@ -54,13 +54,15 @@ Exact root fields: `EquipTypeList`, `ContainerTypeList`.
 - P0.11 uses the P0.11 U0 globals environment and U1 captured source R3; its one argument is a truthiness gate, and the R3 child call is plain and zero-argument.
 - P0.12 maps U0 to R2 error_logger, U1 to root globals, U2 to R3 product table and U3 to R1 info_logger; its nested P0.12.0 callback captures the slot group, matchModeID, product table, enough flag, logger and abnormal-data table.
 - P0.13 uses root R11 AmmoDataManager plus R6 WeaponAssemblyTool; parent 0.13 and nested 0.13.0 map to this independent source. It preserves the four-container bullet scan and raw-prop open returns without substituting a generic inventory scan.
-- `ProductModule.create(context, globals)` creates/binds P0.0..P0.13 on the same source R3 product table and emits exact `EquipTypeList` / `ContainerTypeList` order.
-- The transitional payload overlay remains restorable; P0.0..P0.13 neither inspect nor call payload closures and do not extract payload upvalues.
+- P0.14 uses root R8 ItemBaseTool plus source R3 product. It preserves pairs value traversal, two matchModeIDList reads, dynamic R3 helper lookup, and exact LackNight abnormal shape.
+- P0.15 uses source R3 EquipTypeList/ContainerTypeList plus root R8 ItemBaseTool. It preserves ipairs order, plain two-argument support-helper ABI, early returns, and exact false on a complete miss.
+- `ProductModule.create(context, globals)` creates/binds P0.0..P0.15 on the same source R3 product table and emits exact `EquipTypeList` / `ContainerTypeList` order.
+- The transitional payload overlay remains restorable; P0.0..P0.15 neither inspect nor call payload closures and do not extract payload upvalues.
 
 ## Current ownership
 
-- Source-owned: **91**
-- Payload-owned: **205**
+- Source-owned: **93**
+- Payload-owned: **203**
 - Partially reconstructed: **0**
 - Unknown: **0**
-- Root methods source-owned: **14 / 29**
+- Root methods source-owned: **16 / 29**

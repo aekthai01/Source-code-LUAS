@@ -1,5 +1,5 @@
 {
-  "phase": "E5.3-root-get-match-bullet-num-source-only",
+  "phase": "E5.4-root-night-fight-source-only",
   "baseline": {
     "size": 180034,
     "sha256": "35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536"
@@ -9,32 +9,32 @@
     "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263"
   },
   "phase_d_source": {
-    "size": 404961,
-    "sha256": "55fdff91e336c463f2023c374e4a5dcec48825680d52c078f17a0bee6f1a2c93"
+    "size": 409953,
+    "sha256": "966e202d09c83e5368078e2eb199228b4439b4ddd04b3c3474d24e677fa56cd0"
   },
   "phase_d_standard": {
-    "size": 316559,
-    "sha256": "8916b3e56818bd002e77fda10814285fafb306d8a523601671f9f84318d08d28"
+    "size": 318848,
+    "sha256": "721e3df929a4d314c78ce9e1880c96612dd8cdc66bd53bd6a8e38cf9d33163c8"
   },
   "phase_d_custom": {
-    "size": 316559,
-    "sha256": "86c43783de5b7031873b2d4a10f3417e66c3e09af006e38fe501af03566e6807"
+    "size": 318848,
+    "sha256": "49fab88795aa14893bc44084edfd389d8c5bcee987710435b16d6c77137ba44b"
   },
   "inventory": {
     "total": 296,
     "classified": 296,
-    "source_owned": 91,
-    "payload_owned": 205,
+    "source_owned": 93,
+    "payload_owned": 203,
     "partially_reconstructed": 0,
     "unknown": 0,
-    "root_methods_source_owned": 14,
+    "root_methods_source_owned": 16,
     "root_methods_total": 29
   },
   "source_only": {
     "root_capture_map_complete": true,
     "product_context": true,
     "product_constructor": true,
-    "p0_0_through_p0_13": true,
+    "p0_0_through_p0_15": true,
     "payload_upvalue_introspection": false
   },
   "runtime_ownership": {
@@ -67,6 +67,7 @@
     "aim_transaction.lua": "passed",
     "product_context.lua": "passed",
     "product_module.lua": "passed",
+    "product_night.lua": "passed",
     "product_source_only.lua": "passed",
     "product_module_bridge.lua": "passed",
     "visual_runtime.lua": "passed",

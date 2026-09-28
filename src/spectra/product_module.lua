@@ -20,6 +20,8 @@ M.PROTOTYPES = {
     DynamicGuidPriceFinishFetch = "0.11",
     CheckRaidBulletEnough = "0.12",
     GetMatchBulletNumByWeaponItem = "0.13",
+    _CheckNightFight = "0.14",
+    _CheckPlayerSuppliesForNightSpeicalType = "0.15",
 }
 M.ROOT_FIELDS = { "EquipTypeList", "ContainerTypeList" }
 
@@ -665,6 +667,80 @@ function M.GetMatchBulletNumByWeaponItem(product, globals, ammo_data_manager,
         end
     end
     return bullet_total
+end
+
+
+-- P0.14 captures root R8 ItemBaseTool and root R3 product. The enum is
+-- traversed with pairs and the yielded value (not key) is passed to the field
+-- check. matchModeIDList is deliberately read twice because the bytecode has
+-- two observable GETTABLE/TEST sequences. The supply helper is resolved from
+-- the product table at call time so runtime replacement remains visible.
+function M._CheckNightFight(product, globals, item_base_tool)
+    globals = globals_or_default(globals)
+    local match_mode_id = globals.Server.GameModeServer:GetMatchModeID()
+    if not match_mode_id then return end
+    if not (0 < match_mode_id) then return end
+
+    for _, special_type in globals.pairs(item_base_tool.EItemSpeicalType) do
+        local field = globals.Module.ArmedForce.Field
+        local check_data = field:GetEquipmentCheckData(
+            globals.Module.ArmedForce.Config.EAbnormalType.LackNight, special_type)
+        if check_data and check_data.switch then
+            local match_mode_id_list = check_data.matchModeIDList
+            if match_mode_id_list then
+                match_mode_id_list = check_data.matchModeIDList
+                if match_mode_id_list
+                    and globals.table.contains(match_mode_id_list, match_mode_id) then
+                    local check_supplies = product._CheckPlayerSuppliesForNightSpeicalType
+                    if not check_supplies(check_data.checkSubType) then
+                        globals.Module.ArmedForce.Field:AddEquipAbnormal({
+                            key = check_data.key,
+                            abnormalType = globals.Module.ArmedForce.Config.EAbnormalType.LackNight,
+                            loc = check_data.abnormalDesc,
+                            param = {
+                                abnormalSubType = check_data.checkSubType,
+                            },
+                        })
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- P0.15 uses the current source product table for both traversal lists and the
+-- captured root R8 ItemBaseTool for a plain/static helper call. Equipment is
+-- exhausted before containers; the first supported item returns true and a
+-- complete miss returns the literal boolean false.
+function M._CheckPlayerSuppliesForNightSpeicalType(product, globals, item_base_tool, special_type)
+    globals = globals_or_default(globals)
+    local slot_group_id = globals.Server.ArmedForceServer:GetCurSlotGroupId()
+
+    for _, slot_type in globals.ipairs(product.EquipTypeList) do
+        local slot = globals.Server.InventoryServer:GetSlot(slot_type, slot_group_id)
+        if slot then
+            local item = slot:GetEquipItem()
+            if item and item_base_tool.CheckSupportNightBattleBySpeicalType(item, special_type) then
+                return true
+            end
+        end
+    end
+
+    for _, slot_type in globals.ipairs(product.ContainerTypeList) do
+        local slot = globals.Server.InventoryServer:GetSlot(slot_type, slot_group_id)
+        if slot then
+            local items = slot:GetItems()
+            if items and not globals.table.isempty(items) then
+                for _, item in globals.ipairs(items) do
+                    if item and item_base_tool.CheckSupportNightBattleBySpeicalType(item, special_type) then
+                        return true
+                    end
+                end
+            end
+        end
+    end
+
+    return false
 end
 
 return M

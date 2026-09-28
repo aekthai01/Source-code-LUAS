@@ -46,7 +46,7 @@ local environment={
     },
 }
 
--- All P0.0..P0.12 public methods install from one source context. No payload
+-- All P0.0..P0.15 public methods install from one source context. No payload
 -- upvalue extraction is involved.
 do
     Bridge.restore_original()
@@ -59,7 +59,7 @@ do
     eq(report.source_only_dependency,true,"source-only dependency report")
     eq(report.payload_upvalue_introspection,false,"payload upvalue introspection disabled")
     local status=Bridge.status()
-    eq(status.source_owned_root_methods,14,"P0.0..P0.13 public methods source-owned")
+    eq(status.source_owned_root_methods,16,"P0.0..P0.15 public methods source-owned")
     eq(status.source_only_dependency,true,"status source-only dependency")
     for _,name in ipairs(Bridge.METHODS) do truth(product[name]~=originals[name],name.." replaced") end
 
