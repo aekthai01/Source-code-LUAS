@@ -17,6 +17,7 @@ jobs:
         run: |
           python3 tools/fix_p029_snapshot_validator_pc.py
           python3 tools/patch_p029_snapshot_helpers.py
+          python3 tools/fix_p029_snapshot_evidence_validator.py
       - name: Focused snapshot helper regressions
         run: lua5.3 tests/mutation_runtime.lua .
       - name: Regenerate and validate bounded ownership twice
@@ -49,7 +50,7 @@ jobs:
           sha256sum --check /tmp/snapshot.sha
       - name: Commit validated bounded checkpoint
         run: |
-          rm tools/fix_p029_snapshot_validator_pc.py tools/patch_p029_snapshot_helpers.py
+          rm tools/fix_p029_snapshot_validator_pc.py tools/fix_p029_snapshot_evidence_validator.py tools/patch_p029_snapshot_helpers.py
           git add -A
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
