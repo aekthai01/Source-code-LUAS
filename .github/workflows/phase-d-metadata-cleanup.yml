@@ -1,0 +1,44 @@
+name: Phase D metadata cleanup
+on:
+  push:
+    branches: [work/phase-d-aim-reconstruction]
+permissions:
+  contents: write
+jobs:
+  cleanup:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: work/phase-d-aim-reconstruction
+          fetch-depth: 0
+      - name: Fix generator and regenerate metadata
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('tools/full_payload_forensics.py')
+          s = p.read_text(encoding='utf-8')
+          old1 = 'All fourteen public methods P0.0..P0.15'
+          old2 = 'Remaining root methods P0.14..P0.28'
+          assert s.count(old1) == 1, s.count(old1)
+          assert s.count(old2) == 1, s.count(old2)
+          s = s.replace(old1, 'All sixteen public methods P0.0..P0.15')
+          s = s.replace(old2, 'Remaining root methods P0.16..P0.28')
+          p.write_text(s, encoding='utf-8')
+          PY
+          python3 tools/full_payload_forensics.py >/tmp/full_payload_first.txt
+          sha256sum FULL_PAYLOAD_PROTOTYPE_INDEX.json FULL_PAYLOAD_RECONSTRUCTION_MAP.md RECONSTRUCTION_COVERAGE.md > /tmp/generated.sha
+          python3 tools/full_payload_forensics.py >/tmp/full_payload_second.txt
+          sha256sum --check /tmp/generated.sha
+          git diff -- tools/full_payload_forensics.py FULL_PAYLOAD_RECONSTRUCTION_MAP.md RECONSTRUCTION_COVERAGE.md
+      - name: Commit cleanup and remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/phase-d-metadata-cleanup.yml
+          git add tools/full_payload_forensics.py FULL_PAYLOAD_RECONSTRUCTION_MAP.md RECONSTRUCTION_COVERAGE.md FULL_PAYLOAD_PROTOTYPE_INDEX.json
+          git commit -m 'fix generated reconstruction metadata labels'
+          git push origin HEAD:work/phase-d-aim-reconstruction
