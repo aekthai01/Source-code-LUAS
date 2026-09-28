@@ -52,8 +52,9 @@ jobs:
       - name: Commit validated bounded checkpoint
         run: |
           rm tools/patch_p029_mutation_primitives.py
-          git checkout -- .github/workflows/phase-d.yml
+          git restore --source=HEAD --staged --worktree .github/workflows/phase-d.yml
           git add -A
+          git restore --source=HEAD --staged --worktree .github/workflows/phase-d.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -m 'source-own P0.29 mutation primitive helpers'
