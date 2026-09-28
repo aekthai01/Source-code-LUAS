@@ -44,4 +44,23 @@ rep('tests/visual_scan.lua',
 rep('tests/payload_feature_bridge.lua',
 'S.AimABI = { get=function(o,k) return o and o[k] or nil end }\n',
 'S.AimABI = { get=function(o,k) return o and o[k] or nil end }\nS.P029RuntimeHelpers = { delay=function(_, cb) cb(); return nil end }\n')
+
+# Unit tests that directly load MutationRuntime/VisualScan must mirror the new
+# explicit production dependency order. This is test-loader plumbing, not a
+# fallback inside the production modules.
+for test in (ROOT/'tests').glob('*.lua'):
+ s=test.read_text()
+ if ('src/spectra/mutation_runtime.lua' not in s and 'src/spectra/visual_scan.lua' not in s):
+  continue
+ if 'src/spectra/aim_abi.lua' in s:
+  continue
+ preload='assert(loadfile(root .. "/src/spectra/aim_abi.lua"))(S)\nassert(loadfile(root .. "/src/spectra/p029_runtime_helpers.lua"))(S)\n'
+ for marker in ('local S = {}\n','local S={}\n'):
+  if marker in s:
+   s=s.replace(marker,marker+preload,1)
+   test.write_text(s)
+   break
+ else:
+  raise SystemExit(f'{test}: direct source loader has no recognized S initialization')
+
 print('source integration patched')
