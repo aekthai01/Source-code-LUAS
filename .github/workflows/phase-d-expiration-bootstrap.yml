@@ -16,6 +16,20 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y lua5.3
       - name: Apply source reconstruction
         run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          generator=Path('tools/full_payload_forensics.py')
+          text=generator.read_text(encoding='utf-8')
+          old='## P0.0..P0.15 source-only preparation'
+          assert text.count(old)==1
+          generator.write_text(text.replace(old,'## P0.0..P0.18 source-only preparation'),encoding='utf-8')
+          patcher=Path('tools/apply_expiration_checkpoint.py')
+          lines=patcher.read_text(encoding='utf-8').splitlines()
+          assert lines[217].strip()=='replace_once('
+          assert 'P0.0..P0.15 source-only preparation' in lines[219]
+          del lines[217:222]
+          patcher.write_text('\n'.join(lines)+'\n',encoding='utf-8')
+          PY
           python3 tools/apply_expiration_checkpoint.py
           lua5.3 tests/product_expiration.lua "$PWD"
           lua5.3 tests/product_source_only.lua "$PWD"
