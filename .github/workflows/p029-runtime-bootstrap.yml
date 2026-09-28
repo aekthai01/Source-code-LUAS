@@ -20,6 +20,15 @@ jobs:
           python3 tools/patch_p029_runtime_evidence.py
           python3 tools/patch_p029_runtime_validator.py
           python3 tools/patch_p029_runtime_false_snapshot_regression.py
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('.github/workflows/phase-d.yml')
+          s=p.read_text()
+          new='          git diff --exit-code -- AIM_PROTOTYPE_INDEX.json P029_ABI_HELPER_MAP.json P029_ABI_HELPER_MAP.md P029_RUNTIME_HELPER_MAP.json P029_RUNTIME_HELPER_MAP.md\n'
+          old='          git diff --exit-code -- AIM_PROTOTYPE_INDEX.json P029_ABI_HELPER_MAP.json P029_ABI_HELPER_MAP.md\n'
+          assert s.count(new)==1
+          p.write_text(s.replace(new,old,1))
+          PY
       - name: Focused runtime helper regressions
         run: |
           lua5.3 tests/p029_runtime_helpers.lua .
@@ -48,7 +57,6 @@ jobs:
       - name: Commit validated bounded checkpoint
         run: |
           rm tools/patch_p029_runtime_source.py tools/patch_p029_runtime_test_loaders.py tools/patch_p029_runtime_evidence.py tools/patch_p029_runtime_validator.py tools/patch_p029_runtime_false_snapshot_regression.py
-          rm .github/workflows/p029-runtime-bootstrap.yml
           git add -A
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
