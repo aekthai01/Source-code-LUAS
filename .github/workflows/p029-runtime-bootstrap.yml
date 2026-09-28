@@ -1,0 +1,54 @@
+name: P0.29 runtime helper bootstrap
+on:
+  push:
+    branches: [work/phase-d-aim-reconstruction]
+permissions:
+  contents: write
+jobs:
+  reconstruct:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Install Lua 5.3 toolchain
+        run: sudo apt-get update && sudo apt-get install -y lua5.3
+      - name: Apply bounded source and evidence patches
+        run: |
+          python3 tools/patch_p029_runtime_source.py
+          python3 tools/patch_p029_runtime_evidence.py
+          python3 tools/patch_p029_runtime_validator.py
+      - name: Focused runtime helper regressions
+        run: |
+          lua5.3 tests/p029_runtime_helpers.lua .
+          lua5.3 tests/mutation_runtime.lua .
+          lua5.3 tests/visual_scan.lua .
+          lua5.3 tests/payload_feature_bridge.lua .
+      - name: Regenerate and validate checkpoint
+        run: |
+          python3 tools/root_capture_forensics.py
+          python3 tools/aim_forensics.py
+          python3 tools/full_payload_forensics.py
+          python3 tools/build_phase_d.py
+          python3 tools/validate_phase_d.py
+          git add -A
+          python3 tools/root_capture_forensics.py
+          python3 tools/aim_forensics.py
+          python3 tools/full_payload_forensics.py
+          python3 tools/build_phase_d.py
+          python3 tools/validate_phase_d.py
+          git diff --exit-code
+      - name: Verify deterministic custom rebuild
+        run: |
+          sha256sum spectra_wrapper_phase_d.custom.luac > /tmp/p029-runtime.sha
+          python3 tools/build_phase_d.py
+          sha256sum --check /tmp/p029-runtime.sha
+      - name: Commit validated bounded checkpoint
+        run: |
+          rm tools/patch_p029_runtime_source.py tools/patch_p029_runtime_evidence.py tools/patch_p029_runtime_validator.py
+          rm .github/workflows/p029-runtime-bootstrap.yml
+          git add -A
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reconstruct P0.29 runtime helpers'
+          git push origin HEAD:work/phase-d-aim-reconstruction
