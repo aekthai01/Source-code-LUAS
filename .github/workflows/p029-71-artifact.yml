@@ -13,6 +13,17 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y lua5.3
       - name: Apply exact P0.29.71 bounded patch
         run: python3 tools/apply_p029_71_checkpoint.py
+      - name: Fix focused-test newline materialization
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('tests/aim_runtime.lua')
+          s=p.read_text()
+          a=s.index('-- Exact P71/P71.0 source-owned behavior.\\n')
+          b=s.index('-- P72 command selection is equality to literal true, never generic truthiness.',a)
+          block=s[a:b].replace('\\n','\n')
+          p.write_text(s[:a]+block+s[b:])
+          PY
       - name: Focused P71 capture and integration regressions
         run: |
           lua5.3 tests/p029_runtime_helpers.lua .
