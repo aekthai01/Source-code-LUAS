@@ -1,0 +1,201 @@
+{
+  "_meta": {
+    "source_of_truth": "embedded_payload.bin",
+    "payload_sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263",
+    "parent_prototype": "0.29",
+    "ownership_boundary": [
+      "0.29.73"
+    ],
+    "excluded_adjacent": [
+      "0.29.69",
+      "0.29.70",
+      "0.29.77"
+    ],
+    "names_are_reconstructed_semantic_labels_except_proven_public_symbol": true,
+    "payload_closure_rebinding": false
+  },
+  "prototypes": {
+    "0.29.73": {
+      "prototype_id": "0.29.73",
+      "params": 2,
+      "instruction_count": 81,
+      "upvalues": [
+        {
+          "instack": 1,
+          "idx": 0
+        },
+        {
+          "instack": 0,
+          "idx": 0
+        },
+        {
+          "instack": 1,
+          "idx": 85
+        },
+        {
+          "instack": 1,
+          "idx": 37
+        },
+        {
+          "instack": 1,
+          "idx": 93
+        },
+        {
+          "instack": 1,
+          "idx": 96
+        },
+        {
+          "instack": 1,
+          "idx": 97
+        }
+      ],
+      "children": 0,
+      "p029_parent_register": "R98",
+      "p029_closure_instruction": 1058,
+      "exact_upvalue_descriptors": [
+        {
+          "upvalue": "U0",
+          "descriptor": {
+            "instack": 1,
+            "idx": 0
+          },
+          "register": "R0",
+          "prototype": null,
+          "semantic": "captured P0.29 invocation state containing custom_dongdong_toggle_state"
+        },
+        {
+          "upvalue": "U1",
+          "descriptor": {
+            "instack": 0,
+            "idx": 0
+          },
+          "register": null,
+          "prototype": null,
+          "semantic": "environment"
+        },
+        {
+          "upvalue": "U2",
+          "descriptor": {
+            "instack": 1,
+            "idx": 85
+          },
+          "register": "R85",
+          "prototype": "0.29.60",
+          "semantic": "restore_bone_array_snapshots-equivalent",
+          "source_symbol": "MutationRuntime.restore_bone_array_snapshots"
+        },
+        {
+          "upvalue": "U3",
+          "descriptor": {
+            "instack": 1,
+            "idx": 37
+          },
+          "register": "R37",
+          "prototype": "0.29.17",
+          "semantic": "restore_feature_snapshot-equivalent",
+          "source_symbol": "MutationRuntime.restore_feature_snapshot"
+        },
+        {
+          "upvalue": "U4",
+          "descriptor": {
+            "instack": 1,
+            "idx": 93
+          },
+          "register": "R93",
+          "prototype": "0.29.68",
+          "semantic": "apply_feature-equivalent",
+          "source_symbol": "MutationRuntime.apply_feature"
+        },
+        {
+          "upvalue": "U5",
+          "descriptor": {
+            "instack": 1,
+            "idx": 96
+          },
+          "register": "R96",
+          "prototype": "0.29.71",
+          "semantic": "set_native_aim_assist-equivalent",
+          "source_symbol": "AimRuntime.set_native_aim_assist"
+        },
+        {
+          "upvalue": "U6",
+          "descriptor": {
+            "instack": 1,
+            "idx": 97
+          },
+          "register": "R97",
+          "prototype": "0.29.72",
+          "semantic": "set_fire_assisted_aim_debug-equivalent",
+          "source_symbol": "AimRuntime.set_fire_assisted_aim_debug"
+        }
+      ],
+      "captured_helper_prototype_register_mapping": [
+        {
+          "upvalue": "U2",
+          "descriptor": {
+            "instack": 1,
+            "idx": 85
+          },
+          "register": "R85",
+          "prototype": "0.29.60",
+          "semantic": "restore_bone_array_snapshots-equivalent",
+          "source_symbol": "MutationRuntime.restore_bone_array_snapshots"
+        },
+        {
+          "upvalue": "U3",
+          "descriptor": {
+            "instack": 1,
+            "idx": 37
+          },
+          "register": "R37",
+          "prototype": "0.29.17",
+          "semantic": "restore_feature_snapshot-equivalent",
+          "source_symbol": "MutationRuntime.restore_feature_snapshot"
+        },
+        {
+          "upvalue": "U4",
+          "descriptor": {
+            "instack": 1,
+            "idx": 93
+          },
+          "register": "R93",
+          "prototype": "0.29.68",
+          "semantic": "apply_feature-equivalent",
+          "source_symbol": "MutationRuntime.apply_feature"
+        },
+        {
+          "upvalue": "U5",
+          "descriptor": {
+            "instack": 1,
+            "idx": 96
+          },
+          "register": "R96",
+          "prototype": "0.29.71",
+          "semantic": "set_native_aim_assist-equivalent",
+          "source_symbol": "AimRuntime.set_native_aim_assist"
+        },
+        {
+          "upvalue": "U6",
+          "descriptor": {
+            "instack": 1,
+            "idx": 97
+          },
+          "register": "R97",
+          "prototype": "0.29.72",
+          "semantic": "set_fire_assisted_aim_debug-equivalent",
+          "source_symbol": "AimRuntime.set_fire_assisted_aim_debug"
+        }
+      ],
+      "source_symbol": "FeatureControl.make_feature_config -> returned set_dongdong_feature_config closure",
+      "source_file": "src/spectra/feature_control.lua",
+      "exact_source_closure_abi": "function(feature, enabled) -> exactly one boolean on every semantic branch",
+      "capture_lifetime": "captured state and U2..U6-equivalent helper identities are fixed when make_feature_config constructs the closure; later dependency-table replacement is not observed",
+      "return_contract": "aim/anti_shake true; no_recoil/converge true; every other feature false; exactly one return value",
+      "call_order": "aim/anti_shake: U2(), U3(anti_shake), U3(aim), optional U4(aim), U5(active), U6(toggles.aim==true); no_recoil/converge: U3(feature), optional U4(feature)",
+      "source_only_dependency": true,
+      "current_ownership": "source_owned",
+      "payload_closure_rebinding": false,
+      "public_symbol_proven_by_bytecode": "set_dongdong_feature_config"
+    }
+  }
+}

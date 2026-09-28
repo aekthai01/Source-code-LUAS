@@ -232,20 +232,22 @@ end
 local function dependencies_ready(aim_enabled)
     local Runtime, FeatureControl, Mutation, AimChain, AimBones, AimABI, AimRefresh, AimRuntime = source_modules()
     local RuntimeHelpers = S.P029RuntimeHelpers
+    -- P73 captures U2..U6 when the exact two-parameter closure is constructed,
+    -- so these dependencies must exist regardless of the first feature toggled.
     local required = {
-        {Runtime, "delay"}, {RuntimeHelpers, "delay"}, {FeatureControl, "set_dongdong_feature_config"},
+        {Runtime, "delay"}, {RuntimeHelpers, "delay"}, {FeatureControl, "make_feature_config"},
         {Mutation, "apply_feature"}, {Mutation, "restore_feature_snapshot"},
+        {Mutation, "restore_bone_array_snapshots"},
+        {AimRuntime, "set_native_aim_assist"},
+        {AimRuntime, "set_fire_assisted_aim_debug"},
     }
     if aim_enabled then
         required[#required+1] = {FeatureControl, "set_dongdong_aim_part"}
-        required[#required+1] = {Mutation, "restore_bone_array_snapshots"}
         required[#required+1] = {AimChain, "apply_aim_row"}
         required[#required+1] = {AimBones, "patch_row"}
         required[#required+1] = {AimABI, "get"}
         required[#required+1] = {AimRefresh, "init_current_weapon"}
         required[#required+1] = {AimRefresh, "refresh_methods"}
-        required[#required+1] = {AimRuntime, "set_native_aim_assist"}
-        required[#required+1] = {AimRuntime, "set_fire_assisted_aim_debug"}
     end
     for _, item in ipairs(required) do
         if type(item[1]) ~= "table" or type(item[1][item[2]]) ~= "function" then
@@ -255,28 +257,22 @@ local function dependencies_ready(aim_enabled)
     return true
 end
 
-local function source_owned(feature, aim_enabled)
-    if feature == "no_recoil" or feature == "converge" then return true end
-    return aim_enabled and (feature == "aim" or feature == "anti_shake")
-end
-
-local function run_feature_strict(feature, enabled, deps)
-    local FeatureControl = S.FeatureControl
+local function run_feature_strict(feature_config_029_73, feature, enabled)
     local before = capture_toggles()
-    local ok, result = pcall(FeatureControl.set_dongdong_feature_config, _G, deps, feature, enabled)
+    local ok, result = pcall(feature_config_029_73, feature, enabled)
     if ok then return result end
     rollback_feature(feature)
     restore_toggles(before)
     error(result, 0)
 end
 
-local function make_feature_entry(aim_enabled, deps)
+local function make_feature_entry(feature_config_029_73)
     return function(feature, enabled)
-        if not source_owned(feature, aim_enabled) then
-            return call_saved(original_feature_config, feature, enabled)
-        end
+        -- Exact source P73 owns every input name. Unsupported names return false
+        -- after the normalized toggle write; they do not delegate merely because
+        -- they are outside the four UI features.
         local before = capture_toggles()
-        local ok, result = pcall(run_feature_strict, feature, enabled, deps)
+        local ok, result = pcall(run_feature_strict, feature_config_029_73, feature, enabled)
         if ok then return result end
         last_error = tostring(result)
         local rolled_back = rollback_feature(feature)
@@ -286,7 +282,7 @@ local function make_feature_entry(aim_enabled, deps)
     end
 end
 
-local function make_aim_part_entry(deps)
+local function make_aim_part_entry(deps, feature_config_029_73)
     return function(...)
         local args = {n=select("#", ...), ...}
         local fallback_used = false
@@ -307,7 +303,7 @@ local function make_aim_part_entry(deps)
         local p77_deps = {}
         for key, value in pairs(deps) do p77_deps[key] = value end
         p77_deps.set_feature_config = function(feature, enabled)
-            return run_feature_strict(feature, enabled, p77_deps)
+            return run_feature_strict(feature_config_029_73, feature, enabled)
         end
         local base_delay = deps.delay
         p77_deps.delay = function(seconds, callback)
@@ -336,8 +332,10 @@ function M.takeover_after_payload_load(options)
     if aim_enabled and type(aim_original) ~= "function" then return false, "original aim-part function missing" end
 
     local deps = default_dependencies(options.deps)
-    local feature_entry = make_feature_entry(aim_enabled, deps)
-    local aim_entry = aim_enabled and make_aim_part_entry(deps) or nil
+    local FeatureControl = S.FeatureControl
+    local feature_config_029_73 = FeatureControl.make_feature_config(_G, deps)
+    local feature_entry = make_feature_entry(feature_config_029_73)
+    local aim_entry = aim_enabled and make_aim_part_entry(deps, feature_config_029_73) or nil
     local setter = options.set_global or function(name, value) rawset(_G, name, value) end
 
     original_feature_config = feature_original

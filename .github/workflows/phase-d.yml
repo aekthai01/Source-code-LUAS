@@ -20,7 +20,8 @@ jobs:
       - name: Regenerate aim implementation index
         run: |
           python3 tools/aim_forensics.py
-          git diff --exit-code -- AIM_PROTOTYPE_INDEX.json P029_ABI_HELPER_MAP.json P029_ABI_HELPER_MAP.md P029_RUNTIME_HELPER_MAP.json P029_RUNTIME_HELPER_MAP.md P029_MUTATION_HELPER_MAP.json P029_MUTATION_HELPER_MAP.md P029_AIM_RUNTIME_MAP.json P029_AIM_RUNTIME_MAP.md
+          python3 tools/p029_feature_control_forensics.py
+          git diff --exit-code -- AIM_PROTOTYPE_INDEX.json P029_ABI_HELPER_MAP.json P029_ABI_HELPER_MAP.md P029_RUNTIME_HELPER_MAP.json P029_RUNTIME_HELPER_MAP.md P029_MUTATION_HELPER_MAP.json P029_MUTATION_HELPER_MAP.md P029_AIM_RUNTIME_MAP.json P029_AIM_RUNTIME_MAP.md P029_FEATURE_CONTROL_MAP.json P029_FEATURE_CONTROL_MAP.md
       - name: Regenerate complete payload inventory and coverage
         run: |
           python3 tools/full_payload_forensics.py
@@ -46,6 +47,7 @@ jobs:
       - name: Build and run full regressions
         run: |
           python3 tools/build_phase_d.py
+          python3 tools/validate_p029_feature_control.py
           python3 tools/validate_phase_d.py
           git diff --exit-code -- validation_phase_d.json
       - name: Verify deterministic compiler output

@@ -28,49 +28,64 @@ local function need(deps, name)
     return fn
 end
 
-function M.set_dongdong_feature_config(state, deps, feature, enabled)
-    assert(type(state) == "table", "state table required")
-    local toggles = ensure_state(state)
+-- Exact P0.29.73 construction boundary. The payload closure has two explicit
+-- parameters and fixed captures; capture source identities once here instead of
+-- re-reading a mutable dependency table on every toggle.
+function M.make_feature_config(captured_state, captured_deps)
+    assert(type(captured_state) == "table", "state table required")
+    local restore_bone_array_snapshots = need(captured_deps, "restore_bone_array_snapshots")
+    local restore_feature_snapshot = need(captured_deps, "restore_feature_snapshot")
+    local apply_feature = need(captured_deps, "apply_feature")
+    local set_native_aim_assist = need(captured_deps, "set_native_aim_assist")
+    local set_fire_assisted_aim_debug = need(captured_deps, "set_fire_assisted_aim_debug")
 
-    if feature == "aim" or feature == "anti_shake" then
-        if enabled == true then
-            toggles[feature] = true
-            if feature == "aim" then
-                toggles.anti_shake = false
+    return function(feature, enabled)
+        local toggles = ensure_state(captured_state)
+
+        if feature == "aim" or feature == "anti_shake" then
+            if enabled == true then
+                toggles[feature] = true
+                if feature == "aim" then
+                    toggles.anti_shake = false
+                else
+                    toggles.aim = false
+                end
             else
-                toggles.aim = false
+                toggles[feature] = false
             end
-        else
-            toggles[feature] = false
+
+            restore_bone_array_snapshots()
+            restore_feature_snapshot("anti_shake")
+            restore_feature_snapshot("aim")
+
+            local active = toggles.aim == true or toggles.anti_shake == true
+            if active then apply_feature("aim") end
+            set_native_aim_assist(active)
+            set_fire_assisted_aim_debug(toggles.aim == true)
+            return true
         end
 
-        need(deps, "restore_bone_array_snapshots")()
-        need(deps, "restore_feature_snapshot")("anti_shake")
-        need(deps, "restore_feature_snapshot")("aim")
+        toggles[feature] = enabled == true
+        if feature ~= "no_recoil" and feature ~= "converge" then
+            return false
+        end
 
-        local active = toggles.aim == true or toggles.anti_shake == true
-        if active then need(deps, "apply_feature")("aim") end
-        need(deps, "set_native_aim_assist")(active)
-        need(deps, "set_fire_assisted_aim_debug")(toggles.aim == true)
+        restore_feature_snapshot(feature)
+        if enabled == true then apply_feature(feature) end
         return true
     end
+end
 
-    toggles[feature] = enabled == true
-    if feature ~= "no_recoil" and feature ~= "converge" then
-        return false
-    end
-
-    need(deps, "restore_feature_snapshot")(feature)
-    if enabled == true then need(deps, "apply_feature")(feature) end
-    return true
+-- Compatibility surface for source tests/callers that still pass state/deps
+-- explicitly. Production takeover constructs make_feature_config exactly once.
+function M.set_dongdong_feature_config(state, deps, feature, enabled)
+    return M.make_feature_config(state, deps)(feature, enabled)
 end
 
 function M.set_dongdong_aim_part(state, deps)
     assert(type(state) == "table", "state table required")
     local delay = need(deps, "delay")
-    local set_feature = deps.set_feature_config or function(feature, enabled)
-        return M.set_dongdong_feature_config(state, deps, feature, enabled)
-    end
+    local set_feature = deps.set_feature_config or M.make_feature_config(state, deps)
 
     local revision = (tonumber(state.custom_dongdong_aim_part_revision) or 0) + 1
     state.custom_dongdong_aim_part_revision = revision
