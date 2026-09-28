@@ -1,4 +1,5 @@
 local root=assert(arg[1])
+local ROOT_ENV=_G
 local S={}
 assert(loadfile(root.."/src/spectra/aim_abi.lua"))(S)
 assert(loadfile(root.."/src/spectra/p029_runtime_helpers.lua"))(S)
@@ -15,7 +16,7 @@ local ORIGINAL={
   GetWorld=rawget(_G,"GetWorld"),
 }
 local function reset_engine()
-  _G.Timer=nil; _G.UKismetSystemLibrary=nil; _G.GetGameInstance=nil; _G.import=nil
+  _G.Timer=nil; _G.UKismetSystemLibrary=nil; _G.GetGameInstance=nil; _G.import=nil; _G.GetWorld=nil
 end
 local function timer_queue()
   local q={}
@@ -41,17 +42,112 @@ local function one_child_case(label,setup,expected,check)
   if check then check(q) end
 end
 
--- Existing P71 semantic path remains unchanged and is not claimed by this checkpoint.
-local cfg={bIsAimAssistOpen=false,SaveDataConfig=function(self) self.saved_calls=(self.saved_calls or 0)+1 end}
-_G.import=function(name) if name=="ClientBaseSetting" then return {Get=function(self,world) return cfg end} end end
-_G.GetWorld=function() return {} end
-local state={}
-eq(M.set_native_aim_assist(state,true),true,"P71 enable regression")
-eq(cfg.bIsAimAssistOpen,true,"P71 enabled")
-eq(state.custom_dongdong_native_aim_state.value,false,"P71 snapshot")
-eq(M.set_native_aim_assist(state,false),true,"P71 disable regression")
-eq(cfg.bIsAimAssistOpen,false,"P71 restored")
-eq(state.custom_dongdong_native_aim_state.saved,false,"P71 snapshot closed")
+-- Exact P71/P71.0 source-owned parent/child behavior.
+local function reset_p71()
+  reset_engine()
+  ROOT_ENV.custom_dongdong_native_aim_state=nil
+end
+local function install_p71_object(object, world_value)
+  local class={Get=function(self,world) return object end}
+  ROOT_ENV.import=function(name) eq(name,"ClientBaseSetting","P71 import name"); return class end
+  ROOT_ENV.GetWorld=function() return world_value==nil and {} or world_value end
+  return class
+end
+local function p71_result(enabled)
+  if enabled==nil then return packed(M.set_native_aim_assist) end
+  return packed(M.set_native_aim_assist,enabled)
+end
+
+reset_p71()
+local missing=p71_result(true)
+eq(missing.n,1,"P71 missing import arity"); eq(missing[1],false,"P71 missing import")
+
+reset_p71(); local world_after_import_error=0
+ROOT_ENV.import=function() error("import failed") end
+ROOT_ENV.GetWorld=function() world_after_import_error=world_after_import_error+1; return {} end
+local both_pcalls=p71_result(true)
+eq(both_pcalls.n,1,"P71 pcall failure arity"); eq(both_pcalls[1],false,"P71 import failure")
+eq(world_after_import_error,1,"P71 GetWorld still called after import exception")
+
+reset_p71(); ROOT_ENV.import=function() return nil end; ROOT_ENV.GetWorld=function() return {} end
+local nil_class=p71_result(true); eq(nil_class.n,1,"P71 nil class arity"); eq(nil_class[1],false,"P71 nil class")
+reset_p71(); local false_world_seen=false
+local false_world_cfg={bIsAimAssistOpen=false,SaveDataConfig=function() end}
+ROOT_ENV.import=function()
+  return {Get=function(self,world) eq(world,false,"P71 false world forwarded"); false_world_seen=true; return false_world_cfg end}
+end
+ROOT_ENV.GetWorld=function() return false end
+local false_world=p71_result(true)
+eq(false_world.n,1,"P71 false world arity"); eq(false_world[1],true,"P71 false world accepted")
+truth(false_world_seen,"P71 nil-only world gate")
+
+reset_p71(); local getter_attempts=0; local retry_world={}
+local retry_cfg={bIsAimAssistOpen=false,SaveDataConfig=function() end}
+local retry_class
+retry_class={Get=function(...)
+  getter_attempts=getter_attempts+1
+  local a=table.pack(...)
+  if a.n==2 and a[1]==retry_class then error("self form rejected") end
+  eq(a.n,1,"P71 static fallback arg count"); eq(a[1],retry_world,"P71 static fallback world")
+  return retry_cfg
+end}
+ROOT_ENV.import=function() return retry_class end; ROOT_ENV.GetWorld=function() return retry_world end
+local retried=p71_result(true)
+eq(retried.n,1,"P71 P12 retry arity"); eq(retried[1],true,"P71 P12 retry result")
+eq(getter_attempts,2,"P71 P12 self then static")
+
+reset_p71(); local save_calls=0
+local cfg={bIsAimAssistOpen=false,SaveDataConfig=function(self) save_calls=save_calls+1 end}
+install_p71_object(cfg,{})
+local enabled1=p71_result(true); eq(enabled1.n,1,"P71 enable arity"); eq(enabled1[1],true,"P71 enable")
+eq(cfg.bIsAimAssistOpen,true,"P71 enabled value")
+local state=ROOT_ENV.custom_dongdong_native_aim_state
+eq(state.saved,true,"P71 saved marker"); eq(state.value,false,"P71 saved original false")
+local enabled2=p71_result(true); eq(enabled2.n,1,"P71 repeated enable arity"); eq(enabled2[1],true)
+eq(state.value,false,"P71 repeated enable does not overwrite snapshot")
+local disabled=p71_result(false); eq(disabled.n,1,"P71 disable arity"); eq(disabled[1],true,"P71 disable")
+eq(cfg.bIsAimAssistOpen,false,"P71 restored value"); eq(state.saved,false,"P71 saved marker cleared")
+eq(save_calls,3,"P71 SaveDataConfig each successful setter attempt")
+
+reset_p71(); local strict_cfg={bIsAimAssistOpen=true,SaveDataConfig=function() end}; install_p71_object(strict_cfg,{})
+local strict_enable=p71_result(true); eq(strict_enable[1],true); strict_cfg.bIsAimAssistOpen=false
+local strict_disable=p71_result(0); eq(strict_disable.n,1,"P71 nontrue arity"); eq(strict_disable[1],true)
+eq(strict_cfg.bIsAimAssistOpen,true,"P71 nontrue restores saved true"); eq(ROOT_ENV.custom_dongdong_native_aim_state.saved,false)
+
+reset_p71(); local save_after_set_error=0
+local throwing_obj=setmetatable({}, {
+  __index=function(_,key)
+    if key=="bIsAimAssistOpen" then return false end
+    if key=="SaveDataConfig" then return function(self) save_after_set_error=save_after_set_error+1 end end
+  end,
+  __newindex=function(_,key,value)
+    if key=="bIsAimAssistOpen" then error("setter failed") end
+    rawset(_,key,value)
+  end,
+})
+install_p71_object(throwing_obj,{})
+local setter_fail=p71_result(true)
+eq(setter_fail.n,1,"P71 setter failure arity"); eq(setter_fail[1],false,"P71 setter failure result")
+eq(save_after_set_error,1,"P71 save still runs after setter failure")
+
+reset_p71(); local save_error_calls=0
+local save_error_cfg={bIsAimAssistOpen=false,SaveDataConfig=function(self)
+  save_error_calls=save_error_calls+1; error("save failed")
+end}
+install_p71_object(save_error_cfg,{})
+local save_error=p71_result(true)
+eq(save_error.n,1,"P71 save error arity"); eq(save_error[1],true,"P71 return is setter pcall result")
+eq(save_error_calls,1,"P71 save has no retry")
+
+local old_get,old_optional=ABI.get,ABI.call_optional_self
+local replacement_get,replacement_optional=0,0
+ABI.get=function() replacement_get=replacement_get+1; error("replacement P2 observed") end
+ABI.call_optional_self=function() replacement_optional=replacement_optional+1; error("replacement P12 observed") end
+reset_p71(); local fixed_cfg={bIsAimAssistOpen=false,SaveDataConfig=function() end}; install_p71_object(fixed_cfg,{})
+local fixed_helpers=p71_result(true)
+ABI.get,ABI.call_optional_self=old_get,old_optional
+eq(fixed_helpers.n,1,"P71 fixed helper arity"); eq(fixed_helpers[1],true,"P71 fixed helper result")
+eq(replacement_get,0,"P71 fixed P2 capture"); eq(replacement_optional,0,"P71 fixed P12 capture")
 
 -- P72 command selection is equality to literal true, never generic truthiness.
 local command_cases={{true,1},{false,0},{nil,0},{0,0},{1,0},{"true",0}}

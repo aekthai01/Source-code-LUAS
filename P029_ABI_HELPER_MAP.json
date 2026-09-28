@@ -511,7 +511,8 @@
         "src/spectra/aim_chain.lua: AimChain.walk_and_patch/apply_aim_row",
         "src/spectra/payload_feature_bridge.lua: default_dependencies read_field injection",
         "src/spectra/aim_mutation.lua: replacement consumes injected deps.read_field",
-        "src/spectra/mutation_runtime.lua: canonical safe_get used throughout active P0.29.68 source path"
+        "src/spectra/mutation_runtime.lua: canonical safe_get used throughout active P0.29.68 source path",
+        "src/spectra/aim_runtime.lua: P0.29.71 fixed protected field reads"
       ],
       "return_contract": "exactly one value: truthy field value or nil; false/nil/error collapse to nil",
       "retry_order": "single protected lookup",
@@ -1026,7 +1027,8 @@
       ],
       "known_source_consumers": [
         "src/spectra/aim_refresh.lua: collect_targets FindComponentByClass optional-self call",
-        "src/spectra/mutation_runtime.lua: get_data_table inherits exact P0.29.12 optional-self ABI"
+        "src/spectra/mutation_runtime.lua: get_data_table inherits exact P0.29.12 optional-self ABI",
+        "src/spectra/aim_runtime.lua: P0.29.71 ClientBaseSetting.Get optional-self call"
       ],
       "return_contract": "all paths exactly two values; success true,result1; fallback failure false,error",
       "retry_order": "self-first pcall, then static pcall only after first exception",

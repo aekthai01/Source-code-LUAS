@@ -7,8 +7,8 @@
     "nested_callbacks": 11,
     "abi_helpers": 5,
     "runtime_helpers": 5,
-    "aim_runtime": 2,
-    "indexed_entries_total": 51,
+    "aim_runtime": 4,
+    "indexed_entries_total": 53,
     "detailed_legacy_index": "AIM_PROTOTYPE_INDEX_LEGACY_DETAILED.json",
     "runtime_ownership": {
       "aim": true,
@@ -341,6 +341,22 @@
       "name_is_original_symbol": false,
       "reconstructed_name": "P029RuntimeHelpers.get_data_table",
       "evidence_status": "exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned"
+    },
+    "0.29.71": {
+      "category": "aim_runtime",
+      "source": "src/spectra/aim_runtime.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "set_native_aim_assist",
+      "evidence_status": "108-instruction R96 parent, fixed R0/P2/P12 captures, one-time snapshot, nested setter pcall, SaveDataConfig ordering and one-boolean return pinned"
+    },
+    "0.29.71.0": {
+      "category": "aim_runtime",
+      "source": "src/spectra/aim_runtime.lua",
+      "implementation_status": "source-owned after payload init",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "set_native_aim_assist nested assignment",
+      "evidence_status": "6-instruction child, parent R10/R11 captures, assignment-only body and zero-value return pinned"
     },
     "0.29.72": {
       "category": "aim_runtime",

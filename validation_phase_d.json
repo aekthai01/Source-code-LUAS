@@ -1,5 +1,5 @@
 {
-  "phase": "E5.10-p029-72-source-only",
+  "phase": "E5.11-p029-71-72-source-only",
   "baseline": {
     "size": 180034,
     "sha256": "35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536"
@@ -9,22 +9,22 @@
     "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263"
   },
   "phase_d_source": {
-    "size": 440253,
-    "sha256": "ea4392f3b924ccb399a3e06eb7f024efdad9c1cd4709d46299f8243ef0af70f8"
+    "size": 440122,
+    "sha256": "f11b7110ea8a0873d8cfebf00521da4928408a687424d944c08b0da6cb0aa8b2"
   },
   "phase_d_standard": {
-    "size": 333063,
-    "sha256": "1e189e400210a42e38ab5f7663962958563594f4520854508993c18192db7ac3"
+    "size": 332746,
+    "sha256": "e220e9687b016dd29d2567be26c601840207d103d1e9fc327ce2486aa658b0d2"
   },
   "phase_d_custom": {
-    "size": 333063,
-    "sha256": "35d0c11765ba4f5358e9c2ba17ee04f956374c2927845b45ab75d1f1bd596dae"
+    "size": 332746,
+    "sha256": "3aee7c00190c7fcca8f439d5b69f34152e1bd98c5f89adc7f4fe57ba99c5cdb7"
   },
   "inventory": {
     "total": 296,
     "classified": 296,
-    "source_owned": 124,
-    "payload_owned": 172,
+    "source_owned": 126,
+    "payload_owned": 170,
     "partially_reconstructed": 0,
     "unknown": 0,
     "root_methods_source_owned": 29,
@@ -60,6 +60,7 @@
     "mutation_runtime_abi_integration": "passed",
     "p029_capture_identity": "passed",
     "p029_aim_runtime_map": "passed",
+    "p029_71_exact_parent_child": "passed",
     "p029_72_exact_parent_child": "passed",
     "source_only_product_constructor": "passed",
     "no_source_owned_root_payload_capture_dependency": "passed",

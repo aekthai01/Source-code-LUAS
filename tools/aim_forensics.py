@@ -35,15 +35,15 @@ NESTED = [
 ]
 ABI_HELPERS = ["0.29.2", "0.29.2.0", "0.29.3", "0.29.4", "0.29.12"]
 RUNTIME_HELPERS = ["0.29.5", "0.29.6", "0.29.8", "0.29.11", "0.29.13"]
-AIM_RUNTIME = ["0.29.72", "0.29.72.0"]
+AIM_RUNTIME = ["0.29.71", "0.29.71.0", "0.29.72", "0.29.72.0"]
 ALL = [*PRIMARY, *OUTER, *NESTED, *ABI_HELPERS, *RUNTIME_HELPERS, *AIM_RUNTIME]
 assert len(PRIMARY) == 26
 assert len(OUTER) == 2
 assert len(NESTED) == 11
 assert len(ABI_HELPERS) == 5
 assert len(RUNTIME_HELPERS) == 5
-assert len(AIM_RUNTIME) == 2
-assert len(ALL) == 51 and len(set(ALL)) == 51
+assert len(AIM_RUNTIME) == 4
+assert len(ALL) == 53 and len(set(ALL)) == 53
 missing = [pid for pid in ALL if pid not in P]
 assert not missing, f"missing payload prototypes: {missing}"
 
@@ -107,6 +107,7 @@ expected_root_registers = {
     "0.29.11": "R31",
     "0.29.12": "R32",
     "0.29.13": "R33",
+    "0.29.71": "R96",
     "0.29.72": "R97",
 }
 for pid, register in expected_root_registers.items():
@@ -201,10 +202,15 @@ assert 'M.get_data_table = RuntimeHelpers.get_data_table' in source_text["src/sp
 assert 'local object_name = RuntimeHelpers.object_name' in source_text["src/spectra/visual_scan.lua"]
 assert 'RuntimeHelpers.is_function_field' in source_text["src/spectra/visual_scan.lua"]
 assert 'choose("delay", RuntimeHelpers.delay)' in source_text["src/spectra/payload_feature_bridge.lua"]
+assert 'local native_aim_state_029_71 = _G' in source_text["src/spectra/aim_runtime.lua"]
 assert 'local safe_get_029_2 = assert(ABI.get, "P0.29.2 required")' in source_text["src/spectra/aim_runtime.lua"]
+assert 'local call_optional_self_029_12 = assert(ABI.call_optional_self, "P0.29.12 required")' in source_text["src/spectra/aim_runtime.lua"]
+assert 'function M.set_native_aim_assist(enabled)' in source_text["src/spectra/aim_runtime.lua"]
 assert 'local delay_029_8 = assert(RuntimeHelpers.delay, "P0.29.8 required")' in source_text["src/spectra/aim_runtime.lua"]
 assert 'delay_029_8(0.35, apply)' in source_text["src/spectra/aim_runtime.lua"]
 assert 'delay_029_8(1.2, apply)' in source_text["src/spectra/aim_runtime.lua"]
+assert 'AimRuntime.set_native_aim_assist(enabled)' in source_text["src/spectra/payload_feature_bridge.lua"]
+assert 'AimRuntime.set_native_aim_assist(_G, enabled)' not in source_text["src/spectra/payload_feature_bridge.lua"]
 assert 'AimRuntime.set_fire_assisted_aim_debug(enabled)' in source_text["src/spectra/payload_feature_bridge.lua"]
 assert 'AimRuntime.set_fire_assisted_aim_debug(Runtime.delay' not in source_text["src/spectra/payload_feature_bridge.lua"]
 
@@ -215,6 +221,7 @@ SOURCE_CONSUMERS = {
         "src/spectra/payload_feature_bridge.lua: default_dependencies read_field injection",
         "src/spectra/aim_mutation.lua: replacement consumes injected deps.read_field",
         "src/spectra/mutation_runtime.lua: canonical safe_get used throughout active P0.29.68 source path",
+        "src/spectra/aim_runtime.lua: P0.29.71 fixed protected field reads",
     ],
     "0.29.2.0": [
         "src/spectra/aim_abi.lua: nested raw owner[key] closure inside AimABI.get",
@@ -228,6 +235,7 @@ SOURCE_CONSUMERS = {
     "0.29.12": [
         "src/spectra/aim_refresh.lua: collect_targets FindComponentByClass optional-self call",
         "src/spectra/mutation_runtime.lua: get_data_table inherits exact P0.29.12 optional-self ABI",
+        "src/spectra/aim_runtime.lua: P0.29.71 ClientBaseSetting.Get optional-self call",
     ],
 }
 RUNTIME_SOURCE_CONSUMERS = {
@@ -415,72 +423,29 @@ for pid in RUNTIME_HELPERS:
  runtime_md.extend(f"- {v}" for v in RUNTIME_SOURCE_CONSUMERS[pid]); runtime_md.append("")
 (ROOT/"P029_RUNTIME_HELPER_MAP.md").write_text("\n".join(runtime_md))
 
-# Exact P0.29.72 parent/child evidence. The pair is a coherent closure boundary:
-# P72 captures root P2/P8, while P72.0 captures the parent's env/P2 and local command.
+# Exact P0.29.71/.71.0 and P0.29.72/.72.0 aim-runtime evidence.
+p71=P["0.29.71"]
+p710=P["0.29.71.0"]
 p72=P["0.29.72"]
 p720=P["0.29.72.0"]
-assert p72["upvalues"] == [
-    {"instack":0,"idx":0}, {"instack":1,"idx":19}, {"instack":1,"idx":25}
-]
-assert p720["upvalues"] == [
-    {"instack":0,"idx":0}, {"instack":0,"idx":1}, {"instack":1,"idx":1}
-]
-aim_runtime_map={
-    "_meta":{
-        "source_of_truth":"embedded_payload.bin",
-        "payload_sha256":PAYLOAD_SHA,
-        "names_are_reconstructed_semantic_labels":True,
-        "payload_closure_rebinding":False,
-        "ownership_boundary":["0.29.72","0.29.72.0"],
-        "excluded_adjacent":["0.29.69","0.29.70","0.29.71","0.29.71.0","0.29.73"],
-    },
-    "prototypes":{}
-}
-aim_runtime_map["prototypes"]["0.29.72"]={
-    "prototype_id":"0.29.72",
-    "numparams":p72["numparams"],"instruction_count":p72["instruction_count"],
-    "upvalues":p72["upvalues"],"child_count":p72["child_count"],
-    "p029_parent_register":root_closures["0.29.72"]["register"],
-    "p029_closure_instruction":root_closures["0.29.72"]["instruction"],
-    "captured_helper_registers":captured_root_helpers("0.29.72"),
-    "child_prototype":"0.29.72.0","child_closure_register":"R2","child_closure_instruction":9,
-    "source_symbol":"AimRuntime.set_fire_assisted_aim_debug",
-    "source_file":"src/spectra/aim_runtime.lua",
-    "return_contract":"exactly one value: immediate P0.29.72.0 boolean result",
-    "branch_order":"literal enabled == true selects command 1; create one child; immediate call; P8(0.35,same child); P8(1.2,same child); return immediate",
-    "source_capture_identity":"fixed local P0.29.2 and P0.29.8 identities captured when AimRuntime loads",
-    "source_only_dependency":True,"current_ownership":"source_owned","payload_closure_rebinding":False,
-}
-aim_runtime_map["prototypes"]["0.29.72.0"]={
-    "prototype_id":"0.29.72.0",
-    "numparams":p720["numparams"],"instruction_count":p720["instruction_count"],
-    "upvalues":p720["upvalues"],"child_count":p720["child_count"],
-    "parent_prototype":"0.29.72",
-    "parent_capture_mapping":[
-        {"upvalue":"U0","from":"P0.29.72 U0 environment","descriptor":p720["upvalues"][0]},
-        {"upvalue":"U1","from":"P0.29.72 U1 / root R19 / P0.29.2","descriptor":p720["upvalues"][1]},
-        {"upvalue":"U2","from":"P0.29.72 local R1 command string","descriptor":p720["upvalues"][2]},
-    ],
-    "source_symbol":"AimRuntime.set_fire_assisted_aim_debug nested apply -> execute_console",
-    "source_file":"src/spectra/aim_runtime.lua",
-    "return_contract":"exactly one boolean on every path",
-    "branch_order":"nil-only library import gate; GetGameInstance protected call and nil-only result rejection; fixed P2 ExecuteConsoleCommand lookup; static pcall(gi,command,nil); self fallback pcall(lib,gi,command,nil) only after exception",
-    "source_capture_identity":"fixed P0.29.2 identity plus per-parent-call immutable command capture",
-    "source_only_dependency":True,"current_ownership":"source_owned","payload_closure_rebinding":False,
-}
+assert p71["upvalues"] == [{"instack":1,"idx":0},{"instack":0,"idx":0},{"instack":1,"idx":19},{"instack":1,"idx":32}]
+assert p710["upvalues"] == [{"instack":1,"idx":10},{"instack":1,"idx":11}]
+assert p72["upvalues"] == [{"instack":0,"idx":0},{"instack":1,"idx":19},{"instack":1,"idx":25}]
+assert p720["upvalues"] == [{"instack":0,"idx":0},{"instack":0,"idx":1},{"instack":1,"idx":1}]
+aim_runtime_map={"_meta":{"source_of_truth":"embedded_payload.bin","payload_sha256":PAYLOAD_SHA,"names_are_reconstructed_semantic_labels":True,"payload_closure_rebinding":False,"ownership_boundary":["0.29.71","0.29.71.0","0.29.72","0.29.72.0"],"excluded_adjacent":["0.29.69","0.29.70","0.29.73"]},"prototypes":{}}
+aim_runtime_map["prototypes"]["0.29.71"]={"prototype_id":"0.29.71","numparams":p71["numparams"],"instruction_count":p71["instruction_count"],"upvalues":p71["upvalues"],"child_count":p71["child_count"],"p029_parent_register":root_closures["0.29.71"]["register"],"p029_closure_instruction":root_closures["0.29.71"]["instruction"],"captured_helper_registers":captured_root_helpers("0.29.71"),"captured_state":{"upvalue":"U0","register":"R0","semantic":"P0.29 invocation state table"},"child_prototype":"0.29.71.0","child_closure_register":"R13","child_closure_instruction":88,"source_symbol":"AimRuntime.set_native_aim_assist","source_file":"src/spectra/aim_runtime.lua","return_contract":"exactly one boolean on every reachable parent path; success path returns setter pcall success","branch_order":"captured state table ensure; require import/GetWorld functions; execute both pcalls before checks; nil-specific class/world gates; P2 Get then P12 self-first; one-time snapshot; strict enabled==true desired selection; pcall child assignment; SaveDataConfig protected self call even after setter failure; non-true clears saved; return setter pcall success","source_capture_identity":"fixed P0.29 R0 state table plus fixed P0.29.2 and P0.29.12 identities captured when AimRuntime loads","source_only_dependency":True,"current_ownership":"source_owned","payload_closure_rebinding":False}
+aim_runtime_map["prototypes"]["0.29.71.0"]={"prototype_id":"0.29.71.0","numparams":p710["numparams"],"instruction_count":p710["instruction_count"],"upvalues":p710["upvalues"],"child_count":p710["child_count"],"parent_prototype":"0.29.71","parent_capture_mapping":[{"upvalue":"U0","from":"P0.29.71 local R10 ClientBaseSetting instance","descriptor":p710["upvalues"][0]},{"upvalue":"U1","from":"P0.29.71 local R11 desired boolean","descriptor":p710["upvalues"][1]}],"source_symbol":"AimRuntime.set_native_aim_assist nested assignment closure","source_file":"src/spectra/aim_runtime.lua","return_contract":"exactly zero values; parent pcall observes only success/error","branch_order":"assign captured desired boolean to captured object.bIsAimAssistOpen; return zero values","source_capture_identity":"per-parent-call object and desired captures","source_only_dependency":True,"current_ownership":"source_owned","payload_closure_rebinding":False}
+aim_runtime_map["prototypes"]["0.29.72"]={"prototype_id":"0.29.72","numparams":p72["numparams"],"instruction_count":p72["instruction_count"],"upvalues":p72["upvalues"],"child_count":p72["child_count"],"p029_parent_register":root_closures["0.29.72"]["register"],"p029_closure_instruction":root_closures["0.29.72"]["instruction"],"captured_helper_registers":captured_root_helpers("0.29.72"),"child_prototype":"0.29.72.0","child_closure_register":"R2","child_closure_instruction":9,"source_symbol":"AimRuntime.set_fire_assisted_aim_debug","source_file":"src/spectra/aim_runtime.lua","return_contract":"exactly one value: immediate P0.29.72.0 boolean result","branch_order":"literal enabled == true selects command 1; create one child; immediate call; P8(0.35,same child); P8(1.2,same child); return immediate","source_capture_identity":"fixed local P0.29.2 and P0.29.8 identities captured when AimRuntime loads","source_only_dependency":True,"current_ownership":"source_owned","payload_closure_rebinding":False}
+aim_runtime_map["prototypes"]["0.29.72.0"]={"prototype_id":"0.29.72.0","numparams":p720["numparams"],"instruction_count":p720["instruction_count"],"upvalues":p720["upvalues"],"child_count":p720["child_count"],"parent_prototype":"0.29.72","parent_capture_mapping":[{"upvalue":"U0","from":"P0.29.72 U0 environment","descriptor":p720["upvalues"][0]},{"upvalue":"U1","from":"P0.29.72 U1 / root R19 / P0.29.2","descriptor":p720["upvalues"][1]},{"upvalue":"U2","from":"P0.29.72 local R1 command string","descriptor":p720["upvalues"][2]}],"source_symbol":"AimRuntime.set_fire_assisted_aim_debug nested apply -> execute_console","source_file":"src/spectra/aim_runtime.lua","return_contract":"exactly one boolean on every path","branch_order":"nil-only library import gate; GetGameInstance protected call and nil-only result rejection; fixed P2 ExecuteConsoleCommand lookup; static pcall(gi,command,nil); self fallback pcall(lib,gi,command,nil) only after exception","source_capture_identity":"fixed P0.29.2 identity plus per-parent-call immutable command capture","source_only_dependency":True,"current_ownership":"source_owned","payload_closure_rebinding":False}
 (ROOT/"P029_AIM_RUNTIME_MAP.json").write_text(json.dumps(aim_runtime_map,indent=2,ensure_ascii=False)+"\n")
-aim_runtime_md=[
-    "# P0.29 Aim Runtime Map","",f"Evidence payload SHA-256: `{PAYLOAD_SHA}`.","",
-    "This checkpoint source-owns only `P0.29.72` and `P0.29.72.0`; adjacent P71/P73 ownership is unchanged.","",
-    "| Prototype | Parent register | Params | Instructions | Upvalues | Children | Source symbol | Return contract |",
-    "|---|---:|---:|---:|---:|---:|---|---|",
-]
+aim_runtime_md=["# P0.29 Aim Runtime Map","",f"Evidence payload SHA-256: `{PAYLOAD_SHA}`.","","This subsystem map source-owns `P0.29.71/.71.0` and `P0.29.72/.72.0`; adjacent P69/P70/P73 ownership is unchanged.","","| Prototype | Parent register | Params | Instructions | Upvalues | Children | Source symbol | Return contract |","|---|---:|---:|---:|---:|---:|---|---|"]
 for pid in AIM_RUNTIME:
     e=aim_runtime_map["prototypes"][pid]
     aim_runtime_md.append(f"| `{pid}` | `{e.get('p029_parent_register','nested')}` | {e['numparams']} | {e['instruction_count']} | {len(e['upvalues'])} | {e['child_count']} | `{e['source_symbol']}` | {e['return_contract']} |")
+aim_runtime_md += ["","## P0.29.71.0 parent capture map",""]
+for cap in aim_runtime_map["prototypes"]["0.29.71.0"]["parent_capture_mapping"]: aim_runtime_md.append(f"- `{cap['upvalue']}` <- {cap['from']}")
 aim_runtime_md += ["","## P0.29.72.0 parent capture map",""]
-for cap in aim_runtime_map["prototypes"]["0.29.72.0"]["parent_capture_mapping"]:
-    aim_runtime_md.append(f"- `{cap['upvalue']}` <- {cap['from']}")
+for cap in aim_runtime_map["prototypes"]["0.29.72.0"]["parent_capture_mapping"]: aim_runtime_md.append(f"- `{cap['upvalue']}` <- {cap['from']}")
 (ROOT/"P029_AIM_RUNTIME_MAP.md").write_text("\n".join(aim_runtime_md)+"\n")
 
 index = {
@@ -492,8 +457,8 @@ index = {
         "nested_callbacks": 11,
         "abi_helpers": 5,
         "runtime_helpers": 5,
-        "aim_runtime": 2,
-        "indexed_entries_total": 51,
+        "aim_runtime": 4,
+        "indexed_entries_total": 53,
         "detailed_legacy_index": "AIM_PROTOTYPE_INDEX_LEGACY_DETAILED.json",
         "runtime_ownership": {"aim": True, "anti_shake": True},
         "game_runtime_test": False,
@@ -537,6 +502,10 @@ for pid in ALL:
             reconstructed_name=RUNTIME_SOURCE_SYMBOLS[pid],
             evidence_status="exact bytecode shape, root register/captures, source integration, capture identity and return contract pinned",
         )
+    elif pid == "0.29.71":
+        item.update(reconstructed_name="set_native_aim_assist", evidence_status="108-instruction R96 parent, fixed R0/P2/P12 captures, one-time snapshot, nested setter pcall, SaveDataConfig ordering and one-boolean return pinned")
+    elif pid == "0.29.71.0":
+        item.update(reconstructed_name="set_native_aim_assist nested assignment", evidence_status="6-instruction child, parent R10/R11 captures, assignment-only body and zero-value return pinned")
     elif pid == "0.29.72":
         item.update(
             reconstructed_name="set_fire_assisted_aim_debug",

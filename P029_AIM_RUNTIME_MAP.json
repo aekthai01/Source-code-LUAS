@@ -5,18 +5,115 @@
     "names_are_reconstructed_semantic_labels": true,
     "payload_closure_rebinding": false,
     "ownership_boundary": [
+      "0.29.71",
+      "0.29.71.0",
       "0.29.72",
       "0.29.72.0"
     ],
     "excluded_adjacent": [
       "0.29.69",
       "0.29.70",
-      "0.29.71",
-      "0.29.71.0",
       "0.29.73"
     ]
   },
   "prototypes": {
+    "0.29.71": {
+      "prototype_id": "0.29.71",
+      "numparams": 1,
+      "instruction_count": 108,
+      "upvalues": [
+        {
+          "instack": 1,
+          "idx": 0
+        },
+        {
+          "instack": 0,
+          "idx": 0
+        },
+        {
+          "instack": 1,
+          "idx": 19
+        },
+        {
+          "instack": 1,
+          "idx": 32
+        }
+      ],
+      "child_count": 1,
+      "p029_parent_register": "R96",
+      "p029_closure_instruction": 1056,
+      "captured_helper_registers": [
+        {
+          "upvalue": "U2",
+          "register": "R19",
+          "prototype": "0.29.2"
+        },
+        {
+          "upvalue": "U3",
+          "register": "R32",
+          "prototype": "0.29.12"
+        }
+      ],
+      "captured_state": {
+        "upvalue": "U0",
+        "register": "R0",
+        "semantic": "P0.29 invocation state table"
+      },
+      "child_prototype": "0.29.71.0",
+      "child_closure_register": "R13",
+      "child_closure_instruction": 88,
+      "source_symbol": "AimRuntime.set_native_aim_assist",
+      "source_file": "src/spectra/aim_runtime.lua",
+      "return_contract": "exactly one boolean on every reachable parent path; success path returns setter pcall success",
+      "branch_order": "captured state table ensure; require import/GetWorld functions; execute both pcalls before checks; nil-specific class/world gates; P2 Get then P12 self-first; one-time snapshot; strict enabled==true desired selection; pcall child assignment; SaveDataConfig protected self call even after setter failure; non-true clears saved; return setter pcall success",
+      "source_capture_identity": "fixed P0.29 R0 state table plus fixed P0.29.2 and P0.29.12 identities captured when AimRuntime loads",
+      "source_only_dependency": true,
+      "current_ownership": "source_owned",
+      "payload_closure_rebinding": false
+    },
+    "0.29.71.0": {
+      "prototype_id": "0.29.71.0",
+      "numparams": 0,
+      "instruction_count": 6,
+      "upvalues": [
+        {
+          "instack": 1,
+          "idx": 10
+        },
+        {
+          "instack": 1,
+          "idx": 11
+        }
+      ],
+      "child_count": 0,
+      "parent_prototype": "0.29.71",
+      "parent_capture_mapping": [
+        {
+          "upvalue": "U0",
+          "from": "P0.29.71 local R10 ClientBaseSetting instance",
+          "descriptor": {
+            "instack": 1,
+            "idx": 10
+          }
+        },
+        {
+          "upvalue": "U1",
+          "from": "P0.29.71 local R11 desired boolean",
+          "descriptor": {
+            "instack": 1,
+            "idx": 11
+          }
+        }
+      ],
+      "source_symbol": "AimRuntime.set_native_aim_assist nested assignment closure",
+      "source_file": "src/spectra/aim_runtime.lua",
+      "return_contract": "exactly zero values; parent pcall observes only success/error",
+      "branch_order": "assign captured desired boolean to captured object.bIsAimAssistOpen; return zero values",
+      "source_capture_identity": "per-parent-call object and desired captures",
+      "source_only_dependency": true,
+      "current_ownership": "source_owned",
+      "payload_closure_rebinding": false
+    },
     "0.29.72": {
       "prototype_id": "0.29.72",
       "numparams": 1,
