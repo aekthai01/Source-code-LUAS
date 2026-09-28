@@ -58,7 +58,7 @@ Primary target group:
 - `P0.29.74..77`
 - especially `P0.29.65` (842 instructions / 136 constants)
 
-Useful extracted disassembly is in `_aim_sections/`. Full evidence is in `payload_disassembly.txt`, `payload_constants.json`, and the other forensic exports.
+Useful extracted disassembly is in `_aim_sections/`. Full evidence is in `payload_disassembly.txt`, `payload_constants.json`, `payload_prototypes.json`, and the other forensic exports.
 
 Requirements:
 
