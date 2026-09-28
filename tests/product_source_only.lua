@@ -127,6 +127,9 @@ local names={
     "CheckPlayerBodyItemsByList","CheckNightVisionLimitByList",
     "CheckThermalImagingLimitByList","CheckPlayerBodyItemsEntryQuality",
     "CheckRentalConsumableID",
+    "_CheckPropinfoDownloadWithLog","_CheckItemWithCompsDownloaded",
+    "_CheckItemIdDownloaded","_CheckAllWeaponPartDownloaded",
+    "GetNeedDownloadCategaryKey",
 }
 for _,name in ipairs(names) do truth(type(product[name])=="function",name.." source export") end
 

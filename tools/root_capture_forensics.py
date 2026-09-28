@@ -23,6 +23,8 @@ ROOT_VALUES = {
     9: ("require('DFM.Business.Module.ArmedForceModule.Logic.ArmedForce.ArmedForceExpiredLogic')", "armed_force_expired_logic", "armed_force_expired_logic"),
     10: ("import('AmmoDataManager')", "ammo_data_manager_module", "ammo_data_manager_module"),
     11: ("AmmoDataManager.Get()", "ammo_data_manager", "ammo_data_manager"),
+    12: ("new root download-log table", "prop_download_log_set", "per_product_constructor"),
+    13: ("new root item-ID-log table", "item_id_download_log_set", "per_product_constructor"),
 }
 
 REQUIRE_PATHS = {
@@ -81,6 +83,10 @@ def build():
     expect(root, r"CALL\s+A=10 B=2 C=2", "AmmoDataManager module in R10")
     expect(root, r"GETTABLE\s+R11, R10, K12='Get'", "AmmoDataManager.Get fetch")
     expect(root, r"CALL\s+A=11 B=1 C=2", "AmmoDataManager.Get() result in R11")
+    expect(root, r"^0107 NEWTABLE\s+A=12 B=0 C=0\n0108 CLOSURE\s+R13, P24$",
+           "R12 allocated before P0.24 closure")
+    expect(root, r"^0112 NEWTABLE\s+A=13 B=0 C=0\n0113 CLOSURE\s+R14, P26$",
+           "R13 allocated before P0.26 closure")
 
     # Prove logger meanings from child use sites, not by assuming return order names.
     expected_child_captures = {
@@ -93,6 +99,14 @@ def build():
         ("0.7", 4): 2,
         ("0.8", 1): 2,
         ("0.10", 1): 1,
+        ("0.24", 1): 12,
+        ("0.24", 2): 1,
+        ("0.25", 1): 3,
+        ("0.26", 1): 13,
+        ("0.26", 2): 1,
+        ("0.27", 1): 1,
+        ("0.28", 0): 4,
+        ("0.28", 2): 1,
     }
     for (prototype, upvalue), register in expected_child_captures.items():
         actual = capture_register(meta, prototype, upvalue)
@@ -127,6 +141,8 @@ def build():
         4: ["P0.7 U1 -> P0.7.0 inherited U2 reads GetSubTypeById"],
         10: ["root imports AmmoDataManager before fetching Get"],
         11: ["root calls imported AmmoDataManager.Get() without self"],
+        12: ["P0 PC0107 NEWTABLE before P0.24 capture U1; persists across calls of one product"],
+        13: ["P0 PC0112 NEWTABLE before P0.26 capture U1; distinct from R12 and persists across calls"],
     }
 
     registers = {}
@@ -161,21 +177,22 @@ def build():
         "| Root register | Root value | Semantic role | Direct child upvalue captures |",
         "|---|---|---|---|",
     ]
-    for register in range(12):
+    for register in range(14):
         item = registers[f"R{register}"]
         captures = ", ".join(f"{c['prototype']} {c['upvalue']}" for c in item["direct_child_upvalue_captures"]) or "none"
         lines.append(f"| `R{register}` | `{item['root_value']}` | `{item['semantic_role']}` | {captures} |")
     lines += ["", "## Semantic proof points", ""]
-    for register in (0, 1, 2, 3, 4, 10, 11):
+    for register in (0, 1, 2, 3, 4, 10, 11, 12, 13):
         for evidence in registers[f"R{register}"]["usage_evidence"]:
             lines.append(f"- `R{register}`: {evidence}")
     lines += [
         "", "## Source-only context contract", "",
-        "`src/spectra/product_context.lua` must recreate these root values directly from the runtime globals:", "",
+        "`src/spectra/product_context.lua` and `src/spectra/product_constructor.lua` must recreate these root values directly from the runtime globals and product lifetime:", "",
         "- call `GenLocalLogFunc(ELuaLogCategory.LuaMArmedForce)` once and preserve all three returned functions in R0/R1/R2 order;",
         "- create a fresh source product table for R3;",
         "- resolve the six exact `require` paths into R4..R9 in root bytecode order;",
-        "- call `import('AmmoDataManager')` for R10, then call its `Get` function with no implicit self for R11.", "",
+        "- call `import('AmmoDataManager')` for R10, then call its `Get` function with no implicit self for R11;",
+        "- allocate two distinct tables R12/R13 once per product construction for P0.24/P0.26 dedupe, never per method call or process-wide.", "",
         "Payload-closure introspection is not part of this contract.", "",
     ]
     MD_OUT.write_text("\n".join(lines), encoding="utf-8")

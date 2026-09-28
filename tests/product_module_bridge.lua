@@ -27,9 +27,8 @@ local function product_fixture(payload_calls)
             return "payload:"..name
         end
     end
-    -- Downstream root method is still payload-owned at this checkpoint, but
-    -- P0.7 no longer captures the payload table itself. It resolves this field
-    -- dynamically on whichever product table owns the source wrapper.
+    -- Override source-owned P0.13 in this fixture to isolate P0.7's dynamic
+    -- product-table dispatch without exercising the bullet-count implementation.
     p.GetMatchBulletNumByWeaponItem=function() return 0 end
     return p
 end
@@ -46,7 +45,7 @@ local environment={
     },
 }
 
--- All P0.0..P0.23 public methods install from one source context. No payload
+-- All P0.0..P0.28 public methods install from one source context. No payload
 -- upvalue extraction is involved.
 do
     Bridge.restore_original()
@@ -59,7 +58,7 @@ do
     eq(report.source_only_dependency,true,"source-only dependency report")
     eq(report.payload_upvalue_introspection,false,"payload upvalue introspection disabled")
     local status=Bridge.status()
-    eq(status.source_owned_root_methods,24,"P0.0..P0.23 public methods source-owned")
+    eq(status.source_owned_root_methods,29,"P0.0..P0.28 public methods source-owned")
     eq(status.source_only_dependency,true,"status source-only dependency")
     for _,name in ipairs(Bridge.METHODS) do truth(product[name]~=originals[name],name.." replaced") end
 

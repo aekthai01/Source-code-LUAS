@@ -6,7 +6,7 @@ The current compact ownership index is `FULL_PAYLOAD_PROTOTYPE_INDEX.json`. The 
 
 ## Root capture/context layer
 
-`ROOT_CAPTURE_MAP.json` derives P0 R0..R11 from root bytecode. `src/spectra/product_context.lua` recreates the three loggers, six required tools, AmmoDataManager import/Get result, and a fresh source product table without inspecting payload closures.
+`ROOT_CAPTURE_MAP.json` derives P0 R0..R13 from root bytecode. `src/spectra/product_context.lua` recreates the three loggers, six required tools, AmmoDataManager import/Get result, and a fresh source product table; `product_constructor.lua` allocates independent R12/R13 per-product download-log sets without inspecting payload closures.
 
 ## Root public API P0.0..P0.28
 
@@ -36,17 +36,17 @@ The current compact ownership index is `FULL_PAYLOAD_PROTOTYPE_INDEX.json`. The 
 | `P0.21` | `CheckThermalImagingLimitByList` | `source_owned` | `true` | `src/spectra/product_module.lua` |
 | `P0.22` | `CheckPlayerBodyItemsEntryQuality` | `source_owned` | `true` | `src/spectra/product_module.lua` |
 | `P0.23` | `CheckRentalConsumableID` | `source_owned` | `true` | `src/spectra/product_module.lua` |
-| `P0.24` | `_CheckPropinfoDownloadWithLog` | `payload_owned` | `false` | `payload` |
-| `P0.25` | `_CheckItemWithCompsDownloaded` | `payload_owned` | `false` | `payload` |
-| `P0.26` | `_CheckItemIdDownloaded` | `payload_owned` | `false` | `payload` |
-| `P0.27` | `_CheckAllWeaponPartDownloaded` | `payload_owned` | `false` | `payload` |
-| `P0.28` | `GetNeedDownloadCategaryKey` | `payload_owned` | `false` | `payload` |
+| `P0.24` | `_CheckPropinfoDownloadWithLog` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.25` | `_CheckItemWithCompsDownloaded` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.26` | `_CheckItemIdDownloaded` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.27` | `_CheckAllWeaponPartDownloaded` | `source_owned` | `true` | `src/spectra/product_module.lua` |
+| `P0.28` | `GetNeedDownloadCategaryKey` | `source_owned` | `true` | `src/spectra/product_module.lua` |
 
 Exact root fields: `EquipTypeList`, `ContainerTypeList`.
 
-## P0.0..P0.23 source-only preparation
+## P0.0..P0.28 source-only root API
 
-- All twenty-four public methods P0.0..P0.23 receive source-owned captures and helpers; none use `debug.getupvalue`.
+- All twenty-nine public methods P0.0..P0.28 receive source-owned captures and helpers; none use `debug.getupvalue`.
 - P0.3 uses source `info_logger` (R1) and `error_logger` (R2).
 - P0.7/P0.7.0 use source `ItemHelperTool` (R4), `debug_logger` (R0), `error_logger` (R2), and the owning product table passed by the source constructor.
 - P0.8/P0.8.0 use source `error_logger` (R2).
@@ -62,13 +62,16 @@ Exact root fields: `EquipTypeList`, `ContainerTypeList`.
 - P0.20/P0.21 remain distinct exports and tail-forward every return through a dynamic source R3 `CheckPlayerBodyItemsByList` lookup.
 - P0.22/P0.22.0/P0.22.1/P0.22.2 preserve setdefault(false,true), strict comparators, exact three-slot result state and static R4/R5/R6 helper ABIs.
 - P0.23 preserves the RentalVoucherDoNotMeetEntryRequirements gate, ArmedForce SELF call and exact four-field abnormal record with an empty `param` table.
-- `ProductModule.create(context, globals)` creates/binds P0.0..P0.23 on the same source R3 product table and emits exact `EquipTypeList` / `ContainerTypeList` order.
-- The transitional payload overlay remains restorable; P0.0..P0.23 neither inspect nor call payload closures and do not extract payload upvalues.
+- P0.24/P0.26 capture independent R12/R13 log sets allocated once per product root; P0.27 has no dedupe. P0.25/P0.25.0 preserve shipping traversal and non-shipping early return with dynamic R3 helper lookup.
+- P0.28/P0.28.0 preserve static R4 item helper calls, raw prop priority, the first-component recursive tailcall, and the parent one-result clamp.
+- `ProductModule.create(context, globals)` creates/binds P0.0..P0.28 on the same source R3 product table and emits exact `EquipTypeList` / `ContainerTypeList` order.
+- The transitional payload overlay remains restorable; P0.0..P0.28 neither inspect nor call payload closures and do not extract payload upvalues.
+- Root public API migration is complete; full payload reconstruction is NOT complete. Payload-owned prototypes (predominantly under P0.29) remain.
 
 ## Current ownership
 
-- Source-owned: **105**
-- Payload-owned: **191**
+- Source-owned: **112**
+- Payload-owned: **184**
 - Partially reconstructed: **0**
 - Unknown: **0**
-- Root methods source-owned: **24 / 29**
+- Root methods source-owned: **29 / 29**

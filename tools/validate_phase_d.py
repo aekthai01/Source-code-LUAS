@@ -57,7 +57,7 @@ def main():
     assert source_root_indices==list(range(root_source_owned))
     assert all(roots[name]['source_only_dependency'] for name in list(roots)[:root_source_owned])
     assert all(not roots[name]['source_only_dependency'] for name in list(roots)[root_source_owned:])
-    assert root_source_owned>=24
+    assert root_source_owned==29
     assert {'0.12','0.12.0','0.13','0.13.0'} <= set(groups['source_owned'])
     for source_file in ('product_context.lua','product_constructor.lua','product_module_bridge.lua'):
         text=(ROOT/'src/spectra'/source_file).read_text()
@@ -138,7 +138,49 @@ def main():
     assert all(inv['source_files'][p]=='src/spectra/product_module.lua' for p in migrated)
     for name in ('CheckPlayerBodyItemsByList','CheckNightVisionLimitByList','CheckThermalImagingLimitByList','CheckPlayerBodyItemsEntryQuality','CheckRentalConsumableID'):
         assert roots[name]['source_only_dependency'] is True
-    assert roots['_CheckPropinfoDownloadWithLog']['current_ownership']=='payload_owned'
+    # Final root download group: pin stripped bytecode shape and capture
+    # descriptors, including parent-local captures of both recursive walkers.
+    download_shape={
+        '0.24':(3,25,3,0), '0.25':(1,31,2,1), '0.25.0':(1,91,4,0),
+        '0.26':(1,27,3,0), '0.27':(0,15,2,0),
+        '0.28':(1,59,3,1), '0.28.0':(1,48,2,0),
+    }
+    for path,(params,instructions,upvalues,children) in download_shape.items():
+        item=prototypes[path]
+        assert (item['numparams'],item['instruction_count'],len(item['upvalues']),
+                item['child_count'])==(params,instructions,upvalues,children),path
+    capture_expectations={
+        '0.24':[(0,0),(1,12),(1,1)],
+        '0.25':[(0,0),(1,3)],
+        '0.25.0':[(0,0),(0,1),(1,1),(1,2)],
+        '0.26':[(0,0),(1,13),(1,1)],
+        '0.27':[(0,0),(1,1)],
+        '0.28':[(1,4),(0,0),(1,1)],
+        '0.28.0':[(0,1),(1,5)],
+    }
+    for path,expected in capture_expectations.items():
+        assert prototypes[path]['upvalues']==[
+            {'instack':instack,'idx':index} for instack,index in expected],path
+        assert path in groups['source_owned']
+        assert source_files[path]=='src/spectra/product_module.lua'
+    for reg,proto,u in (
+        ('R12','P0.24','U1'),('R1','P0.24','U2'),('R3','P0.25','U1'),
+        ('R13','P0.26','U1'),('R1','P0.26','U2'),('R1','P0.27','U1'),
+        ('R4','P0.28','U0'),('R1','P0.28','U2')):
+        assert captured(reg,proto,u),(reg,proto,u)
+    disassembly=(ROOT/'payload_disassembly.txt').read_text()
+    blocks={}
+    for block in re.split(r'^=== PROTO ',disassembly,flags=re.M)[1:]:
+        key,_,text=block.partition('\n')
+        blocks[key.split(' ',1)[0]]=text
+    assert set(blocks)==paths
+    def body(path): return blocks[path]
+    # Verify the two branch/return details with direct opcode evidence.
+    assert re.search(r'^0043 TAILCALL\s+A=9 B=2 C=0$',body('0.28.0'),re.M)
+    assert re.search(r'^0044 CALL\s+A=6 B=2 C=2$',body('0.28'),re.M)
+    assert re.search(r'^0045 RETURN\s+A=6 B=2 C=0$',body('0.28'),re.M)
+    assert re.search(r'^0107 NEWTABLE\s+A=12 B=0 C=0$',body('0'),re.M)
+    assert re.search(r'^0112 NEWTABLE\s+A=13 B=0 C=0$',body('0'),re.M)
 
     coverage_text=(ROOT/'RECONSTRUCTION_COVERAGE.md').read_text()
     for line in (
@@ -168,7 +210,7 @@ def main():
       'aim_runtime.lua':'aim-runtime: ok','aim_mutation.lua':'aim-mutation: ok','aim_differential.lua':'aim-differential: ok','aim_bones.lua':'aim-bones: ok',
       'aim_refresh.lua':'aim-refresh: ok','aim_abi.lua':'aim-abi: ok','aim_dispatch.lua':'aim-dispatch: ok','aim_chain.lua':'aim-chain: ok',
       'aim_chain_fidelity.lua':'aim-chain-fidelity: ok','aim_transaction.lua':'aim-transaction: ok','product_context.lua':'product-context: ok',
-      'product_module.lua':'product-module: ok','product_night.lua':'product-night: ok','product_expiration.lua':'product-expiration: ok','product_body_limits.lua':'product-body-limits: ok','product_source_only.lua':'product-source-only: ok','product_module_bridge.lua':'product-module-bridge: ok',
+      'product_module.lua':'product-module: ok','product_night.lua':'product-night: ok','product_expiration.lua':'product-expiration: ok','product_body_limits.lua':'product-body-limits: ok','product_downloads.lua':'product-downloads: ok','product_source_only.lua':'product-source-only: ok','product_module_bridge.lua':'product-module-bridge: ok',
       'visual_runtime.lua':'visual-runtime: ok','mutation_runtime.lua':'mutation-runtime: ok','payload_feature_bridge.lua':'payload-feature-bridge: ok',
       'visual_scan.lua':'visual-scan: ok','payload_visual_bridge.lua':'payload-visual-bridge: ok','smoke.lua':'smoke: ok','protocol_fixture.lua':'protocol-fixture: ok'}
     passed={}
@@ -176,12 +218,12 @@ def main():
         out=run([lua,str(ROOT/'tests'/file),str(ROOT)]); assert marker in out; passed[file]='passed'
 
     report={
-      'phase':'E5.6-root-body-limits-source-only',
+      'phase':'E5.7-root-downloads-source-only',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
       'inventory':{'total':len(paths),'classified':coverage['classified'],'source_owned':coverage['source_owned'],'payload_owned':coverage['payload_owned'],'partially_reconstructed':coverage['partially_reconstructed'],'unknown':coverage['unknown'],'root_methods_source_owned':root_source_owned,'root_methods_total':len(roots)},
-      'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_23':True,'payload_upvalue_introspection':False},
+      'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_28':True,'payload_upvalue_introspection':False},
       'runtime_ownership':{'no_recoil':True,'converge':True,'aim':True,'anti_shake':True},
-      'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
+      'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','root_download_bytecode_captures':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
     (ROOT/'validation_phase_d.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     print('phase-d-validation: ok')
 

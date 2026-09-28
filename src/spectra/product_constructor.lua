@@ -9,6 +9,26 @@ function M.new_product_table()
 end
 
 local function bind(product, globals, source, dependencies, mode)
+    if mode == "download_prop_log" then
+        return function(a, b, c)
+            return source(product, globals, dependencies.log_set, dependencies.info_logger, a, b, c)
+        end
+    end
+    if mode == "download_id_log" then
+        return function(a)
+            return source(product, globals, dependencies.log_set, dependencies.info_logger, a)
+        end
+    end
+    if mode == "download_part" then
+        return function()
+            return source(product, globals, dependencies.info_logger)
+        end
+    end
+    if mode == "download_category" then
+        return function(a)
+            return source(product, globals, dependencies.item_helper, dependencies.info_logger, a)
+        end
+    end
     if mode == "night_zero_arg_item_base" then
         return function()
             return source(product, globals, dependencies.item_base_tool)
@@ -65,10 +85,9 @@ local function bind(product, globals, source, dependencies, mode)
     end
 end
 
--- Source-only constructor for the reconstructed P0.0..P0.23 boundary. The
--- context's R3 table is used directly so every root capture of the product
--- table observes the same source identity. Later root groups extend this same
--- table rather than swapping in a payload-created object.
+-- Source-only constructor for the reconstructed P0.0..P0.28 boundary.
+-- The context's R3 table is shared by every method on this product; R12/R13
+-- log sets are allocated once here, independently for each product construction.
 function M.create(context, globals)
     assert(type(context) == "table", "ProductContext required")
     globals = globals or context.globals or _G
@@ -141,6 +160,21 @@ function M.create(context, globals)
     product.CheckPlayerBodyItemsEntryQuality = bind(product, globals,
         Product.CheckPlayerBodyItemsEntryQuality, p22, "static_one_arg_deps")
     product.CheckRentalConsumableID = bind(product, globals, Product.CheckRentalConsumableID)
+
+    local prop_download_log_set = {} -- root R12
+    product._CheckPropinfoDownloadWithLog = bind(product, globals,
+        Product._CheckPropinfoDownloadWithLog,
+        { log_set = prop_download_log_set, info_logger = context.info_logger }, "download_prop_log")
+    product._CheckItemWithCompsDownloaded = bind(product, globals,
+        Product._CheckItemWithCompsDownloaded, nil, "one_arg")
+    local item_id_log_set = {} -- root R13, distinct from R12
+    product._CheckItemIdDownloaded = bind(product, globals, Product._CheckItemIdDownloaded,
+        { log_set = item_id_log_set, info_logger = context.info_logger }, "download_id_log")
+    product._CheckAllWeaponPartDownloaded = bind(product, globals,
+        Product._CheckAllWeaponPartDownloaded, { info_logger = context.info_logger }, "download_part")
+    product.GetNeedDownloadCategaryKey = bind(product, globals,
+        Product.GetNeedDownloadCategaryKey,
+        { item_helper = context.item_helper, info_logger = context.info_logger }, "download_category")
 
     local slot = assert(globals.ESlotType, "ESlotType required")
     product.EquipTypeList = {

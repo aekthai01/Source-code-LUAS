@@ -289,6 +289,34 @@
       "usage_evidence": [
         "root calls imported AmmoDataManager.Get() without self"
       ]
+    },
+    "R12": {
+      "root_value": "new root download-log table",
+      "semantic_role": "prop_download_log_set",
+      "product_context_field": "per_product_constructor",
+      "direct_child_upvalue_captures": [
+        {
+          "prototype": "P0.24",
+          "upvalue": "U1"
+        }
+      ],
+      "usage_evidence": [
+        "P0 PC0107 NEWTABLE before P0.24 capture U1; persists across calls of one product"
+      ]
+    },
+    "R13": {
+      "root_value": "new root item-ID-log table",
+      "semantic_role": "item_id_download_log_set",
+      "product_context_field": "per_product_constructor",
+      "direct_child_upvalue_captures": [
+        {
+          "prototype": "P0.26",
+          "upvalue": "U1"
+        }
+      ],
+      "usage_evidence": [
+        "P0 PC0112 NEWTABLE before P0.26 capture U1; distinct from R12 and persists across calls"
+      ]
     }
   }
 }

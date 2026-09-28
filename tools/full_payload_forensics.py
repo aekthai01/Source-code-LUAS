@@ -97,12 +97,12 @@ def build():
         if status.startswith("source-") or status == "source-owned after payload init":
             source_files[path] = info.get("source") or "aim reconstruction source"
 
-    # P0.0..P0.23 no longer depend on payload closure captures. Migrated child
+    # P0.0..P0.28 no longer depend on payload closure captures. Migrated child
     # callbacks are mapped separately below as source implementations.
-    for number in range(24):
+    for number in range(29):
         source_files[f"0.{number}"] = "src/spectra/product_module.lua"
     for path in ("0.6.0", "0.7.0", "0.8.0", "0.12.0", "0.13.0",
-                 "0.19.0", "0.22.0", "0.22.1", "0.22.2"):
+                 "0.19.0", "0.22.0", "0.22.1", "0.22.2", "0.25.0", "0.28.0"):
         source_files[path] = "src/spectra/product_module.lua"
 
     for path in ("0.29.17", "0.29.26", "0.29.29"):
@@ -198,7 +198,7 @@ def build():
         f"Evidence payload SHA-256: `{payload_sha}`. Prototype count: **296**.", "",
         "The current compact ownership index is `FULL_PAYLOAD_PROTOTYPE_INDEX.json`. The prior verbose structural index is retained as `FULL_PAYLOAD_PROTOTYPE_INDEX_LEGACY_DETAILED.json`; bytecode constants/upvalues remain independently reproducible from the payload metadata files.",
         "", "## Root capture/context layer", "",
-        "`ROOT_CAPTURE_MAP.json` derives P0 R0..R11 from root bytecode. `src/spectra/product_context.lua` recreates the three loggers, six required tools, AmmoDataManager import/Get result, and a fresh source product table without inspecting payload closures.",
+        "`ROOT_CAPTURE_MAP.json` derives P0 R0..R13 from root bytecode. `src/spectra/product_context.lua` recreates the three loggers, six required tools, AmmoDataManager import/Get result, and a fresh source product table; `product_constructor.lua` allocates independent R12/R13 per-product download-log sets without inspecting payload closures.",
         "", "## Root public API P0.0..P0.28", "",
         "| Prototype | Exact exported name | Ownership | Source-only dependency | Source |",
         "|---|---|---|---|---|",
@@ -209,8 +209,8 @@ def build():
             f"| `P0.{index}` | `{name}` | `{item['current_ownership']}` | `{str(item['source_only_dependency']).lower()}` | `{item['source_file'] or 'payload'}` |")
     map_lines += [
         "", "Exact root fields: `EquipTypeList`, `ContainerTypeList`.", "",
-        "## P0.0..P0.23 source-only preparation", "",
-        "- All twenty-four public methods P0.0..P0.23 receive source-owned captures and helpers; none use `debug.getupvalue`.",
+        "## P0.0..P0.28 source-only root API", "",
+        "- All twenty-nine public methods P0.0..P0.28 receive source-owned captures and helpers; none use `debug.getupvalue`.",
         "- P0.3 uses source `info_logger` (R1) and `error_logger` (R2).",
         "- P0.7/P0.7.0 use source `ItemHelperTool` (R4), `debug_logger` (R0), `error_logger` (R2), and the owning product table passed by the source constructor.",
         "- P0.8/P0.8.0 use source `error_logger` (R2).",
@@ -226,8 +226,11 @@ def build():
         "- P0.20/P0.21 remain distinct exports and tail-forward every return through a dynamic source R3 `CheckPlayerBodyItemsByList` lookup.",
         "- P0.22/P0.22.0/P0.22.1/P0.22.2 preserve setdefault(false,true), strict comparators, exact three-slot result state and static R4/R5/R6 helper ABIs.",
         "- P0.23 preserves the RentalVoucherDoNotMeetEntryRequirements gate, ArmedForce SELF call and exact four-field abnormal record with an empty `param` table.",
-        "- `ProductModule.create(context, globals)` creates/binds P0.0..P0.23 on the same source R3 product table and emits exact `EquipTypeList` / `ContainerTypeList` order.",
-        "- The transitional payload overlay remains restorable; P0.0..P0.23 neither inspect nor call payload closures and do not extract payload upvalues.",
+        "- P0.24/P0.26 capture independent R12/R13 log sets allocated once per product root; P0.27 has no dedupe. P0.25/P0.25.0 preserve shipping traversal and non-shipping early return with dynamic R3 helper lookup.",
+        "- P0.28/P0.28.0 preserve static R4 item helper calls, raw prop priority, the first-component recursive tailcall, and the parent one-result clamp.",
+        "- `ProductModule.create(context, globals)` creates/binds P0.0..P0.28 on the same source R3 product table and emits exact `EquipTypeList` / `ContainerTypeList` order.",
+        "- The transitional payload overlay remains restorable; P0.0..P0.28 neither inspect nor call payload closures and do not extract payload upvalues.",
+        "- Root public API migration is complete; full payload reconstruction is NOT complete. Payload-owned prototypes (predominantly under P0.29) remain.",
         "", "## Current ownership", "",
         f"- Source-owned: **{counts['source_owned']}**",
         f"- Payload-owned: **{counts['payload_owned']}**",
@@ -249,7 +252,7 @@ def build():
         "- Dead/unreachable verified: **0**",
         "- Unknown: **0**",
         f"- Root methods source-owned: **{root_source_owned} / 29**",
-        "", "P0.0..P0.23 are source-owned with `source_only_dependency=true`; their root captures/helpers are recreated from source without loading the embedded payload. Remaining root methods P0.24..P0.28 stay payload-owned until their bounded reconstruction checkpoints complete.",
+        "", "P0.0..P0.28 are source-owned with `source_only_dependency=true`; their root captures/helpers are recreated from source without loading the embedded payload. Root API migration complete != full payload reconstruction complete: payload-owned prototypes, predominantly under P0.29, remain.",
         "", "Generated by `python3 tools/full_payload_forensics.py`; root capture evidence is independently regenerated by `python3 tools/root_capture_forensics.py`.", "",
     ]
     (ROOT / "RECONSTRUCTION_COVERAGE.md").write_text("\n".join(coverage_lines), encoding="utf-8")

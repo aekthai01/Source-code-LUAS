@@ -18,6 +18,8 @@ Logger roles below are inferred from actual child call sites, not from invented 
 | `R9` | `require('DFM.Business.Module.ArmedForceModule.Logic.ArmedForce.ArmedForceExpiredLogic')` | `armed_force_expired_logic` | P0.18 U2 |
 | `R10` | `import('AmmoDataManager')` | `ammo_data_manager_module` | none |
 | `R11` | `AmmoDataManager.Get()` | `ammo_data_manager` | P0.13 U1 |
+| `R12` | `new root download-log table` | `prop_download_log_set` | P0.24 U1 |
+| `R13` | `new root item-ID-log table` | `item_id_download_log_set` | P0.26 U1 |
 
 ## Semantic proof points
 
@@ -32,14 +34,17 @@ Logger roles below are inferred from actual child call sites, not from invented 
 - `R4`: P0.7 U1 -> P0.7.0 inherited U2 reads GetSubTypeById
 - `R10`: root imports AmmoDataManager before fetching Get
 - `R11`: root calls imported AmmoDataManager.Get() without self
+- `R12`: P0 PC0107 NEWTABLE before P0.24 capture U1; persists across calls of one product
+- `R13`: P0 PC0112 NEWTABLE before P0.26 capture U1; distinct from R12 and persists across calls
 
 ## Source-only context contract
 
-`src/spectra/product_context.lua` must recreate these root values directly from the runtime globals:
+`src/spectra/product_context.lua` and `src/spectra/product_constructor.lua` must recreate these root values directly from the runtime globals and product lifetime:
 
 - call `GenLocalLogFunc(ELuaLogCategory.LuaMArmedForce)` once and preserve all three returned functions in R0/R1/R2 order;
 - create a fresh source product table for R3;
 - resolve the six exact `require` paths into R4..R9 in root bytecode order;
-- call `import('AmmoDataManager')` for R10, then call its `Get` function with no implicit self for R11.
+- call `import('AmmoDataManager')` for R10, then call its `Get` function with no implicit self for R11;
+- allocate two distinct tables R12/R13 once per product construction for P0.24/P0.26 dedupe, never per method call or process-wide.
 
 Payload-closure introspection is not part of this contract.

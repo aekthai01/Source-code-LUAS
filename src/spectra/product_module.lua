@@ -3,7 +3,7 @@ assert(type(S) == "table", "spectra module table required")
 local M = {}
 S.ProductModule = M
 
--- P0.0..P0.23 are reconstructed descriptions of stripped closures. Exported
+-- P0.0..P0.28 are reconstructed descriptions of stripped closures. Exported
 -- field names below are exact strings recovered from root P0 bytecode.
 M.PROTOTYPES = {
     CheckEquipmentBeforEnterGameProcess = "0.0",
@@ -30,6 +30,11 @@ M.PROTOTYPES = {
     CheckThermalImagingLimitByList = "0.21",
     CheckPlayerBodyItemsEntryQuality = "0.22",
     CheckRentalConsumableID = "0.23",
+    _CheckPropinfoDownloadWithLog = "0.24",
+    _CheckItemWithCompsDownloaded = "0.25",
+    _CheckItemIdDownloaded = "0.26",
+    _CheckAllWeaponPartDownloaded = "0.27",
+    GetNeedDownloadCategaryKey = "0.28",
 }
 M.ROOT_FIELDS = { "EquipTypeList", "ContainerTypeList" }
 
@@ -1048,6 +1053,147 @@ function M.CheckRentalConsumableID(product, globals)
         loc = check_data.abnormalDesc,
         param = {},
     })
+end
+
+-- P0.24 captures root R12, a per-product log set. The helper itself must
+-- never allocate this set; the source constructor (and bridge) own its lifetime.
+function M._CheckPropinfoDownloadWithLog(product, globals, shared_download_log_set,
+        info_logger, module_name, log_context_id, dedupe_key)
+    globals = globals_or_default(globals)
+    if not module_name then return end
+    local downloaded = globals.Module.LitePackage:IsDownloadedByModuleName(module_name)
+    if not downloaded and dedupe_key and not shared_download_log_set[dedupe_key] then
+        info_logger(
+            "[ DownloadCheck MA1 ] CheckEquipLogic._CheckItemWithCompsDownloaded(item) 当前道具包含道具/配件/皮肤资源尚未下载",
+            log_context_id, dedupe_key)
+        shared_download_log_set[dedupe_key] = true
+    end
+    return downloaded
+end
+
+-- P0.25.0 is instantiated afresh for each P0.25 call and captures that
+-- call's accumulated result; neither traversal mode guards components.
+function M._CheckItemWithCompsDownloaded(product, globals, item)
+    globals = globals_or_default(globals)
+    local downloaded = true
+    if item == nil then return downloaded end
+
+    local walk
+    walk = function(prop_info)
+        local id = prop_info.id
+        local item_category = globals.Module.LitePackage:GetDownloadCategary(prop_info.id)
+        local skin_id = globals.ItemBase.GetWeaponSkinIDFromPropInfo(prop_info)
+        local skin_category = globals.Module.LitePackage:GetDownloadCategary(skin_id)
+        local shipping = globals.VersionUtil.IsShipping()
+        if shipping then
+            if skin_category then
+                local ok = product._CheckPropinfoDownloadWithLog(skin_category, id, skin_id)
+                if downloaded then downloaded = ok end
+            end
+            if item_category then
+                local ok = product._CheckPropinfoDownloadWithLog(item_category, id, prop_info.id)
+                if downloaded then downloaded = ok end
+            end
+            for _, component in globals.ipairs(prop_info.components) do
+                walk(component.prop_data)
+            end
+        else
+            if skin_category then
+                local ok = product._CheckPropinfoDownloadWithLog(skin_category, id, skin_id)
+                if not ok then downloaded = ok; return end
+            end
+            if item_category then
+                local ok = product._CheckPropinfoDownloadWithLog(item_category, id, prop_info.id)
+                if not ok then downloaded = ok; return end
+            end
+            for _, component in globals.ipairs(prop_info.components) do
+                walk(component.prop_data)
+            end
+        end
+    end
+
+    local raw = item.rawPropInfo
+    if raw then
+        walk(raw)
+    else
+        local item_id = item.id
+        if item_id then
+            local category = globals.Module.LitePackage:GetDownloadCategary(item_id)
+            downloaded = product._CheckPropinfoDownloadWithLog(category, item_id, item_id)
+        end
+    end
+    return downloaded
+end
+
+-- P0.26 uses independent root R13; nil IDs still reach both package calls.
+function M._CheckItemIdDownloaded(product, globals, shared_item_id_log_set,
+        info_logger, item_id)
+    globals = globals_or_default(globals)
+    local category = globals.Module.LitePackage:GetDownloadCategary(item_id)
+    local downloaded = globals.Module.LitePackage:IsDownloadedByModuleName(category)
+    if not downloaded and item_id and not shared_item_id_log_set[item_id] then
+        info_logger(
+            "[ DownloadCheck SHE1 ] CheckEquipLogic._CheckItemIdDownloaded(itemId) 当前道具id对应资源尚未下载",
+            item_id)
+        shared_item_id_log_set[item_id] = true
+    end
+    return downloaded
+end
+
+function M._CheckAllWeaponPartDownloaded(product, globals, info_logger)
+    globals = globals_or_default(globals)
+    local downloaded = globals.Module.ExpansionPackCoordinator:GetWeaponPartItemResDownloaded()
+    if not downloaded then
+        info_logger(
+            "[ DownloadCheck SHE1 ] CheckEquipLogic._CheckAllWeaponPartDownloaded() 武器大小包资源尚未下载",
+            downloaded)
+    end
+    return downloaded
+end
+
+-- P0.28: TEST R4 C=1 / JMP ->26 makes unique items enter the
+-- prop-info path; otherwise BOTH type checks must match.
+-- P0.28.0 tailcalls the first component regardless of its result.
+function M.GetNeedDownloadCategaryKey(product, globals, item_helper, info_logger, item)
+    globals = globals_or_default(globals)
+    if item then
+        local item_id = item.id
+        local main_type = item_helper.GetMainTypeById(item_id)
+        local sub_type = item_helper.GetSubTypeById(item_id)
+        local unique = item_helper.IsArmedForceUniquePropByItem(item)
+        if unique or (main_type == globals.EItemType.WeaponSkin
+                and sub_type == globals.ItemConfig.EWeaponItemType.HeroProp) then
+            local raw_prop = item:GetRawPropInfo()
+            if raw_prop then
+                local walk
+                walk = function(prop_info)
+                    local item_category = globals.Module.LitePackage:GetDownloadCategary(prop_info.id)
+                    local skin_id = globals.ItemBase.GetWeaponSkinIDFromPropInfo(prop_info)
+                    local skin_category = globals.Module.LitePackage:GetDownloadCategary(skin_id)
+                    if skin_category and not globals.Module.LitePackage:IsDownloadedByModuleName(skin_category) then
+                        return skin_category
+                    end
+                    if item_category and not globals.Module.LitePackage:IsDownloadedByModuleName(item_category) then
+                        return item_category
+                    end
+                    for _, component in globals.ipairs(prop_info.components) do
+                        return walk(component.prop_data)
+                    end
+                end
+                -- CALL C=2 and RETURN B=2: exactly one result, even if the
+                -- child walker itself returns zero results on an empty list.
+                local category = walk(raw_prop)
+                return category
+            end
+            local category = globals.Module.LitePackage:GetDownloadCategary(item_id)
+            info_logger(
+                "[ DownloadCheck UHE1 ] CheckEquipLogic.GetNeedDownloadCategaryKey(item) 道具缺少propInfo，直接返回道具下载分类key",
+                item_id, category)
+            return category
+        end
+        return globals.Module.LitePackage:GetRuntimeWeaponPartModuleKey()
+    end
+    return globals.Module.LitePackage:GetRuntimeWeaponPartModuleKey()
 end
 
 return M

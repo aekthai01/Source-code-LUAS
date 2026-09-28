@@ -30,6 +30,11 @@ M.METHODS = {
     "CheckThermalImagingLimitByList",
     "CheckPlayerBodyItemsEntryQuality",
     "CheckRentalConsumableID",
+    "_CheckPropinfoDownloadWithLog",
+    "_CheckItemWithCompsDownloaded",
+    "_CheckItemIdDownloaded",
+    "_CheckAllWeaponPartDownloaded",
+    "GetNeedDownloadCategaryKey",
 }
 M.ROOT_METHOD_COUNT = 29
 
@@ -40,7 +45,19 @@ local last_error
 local active_context
 
 local function dependency_sets(context)
+    local prop_download_log_set = {} -- P0 root R12: one per installed product
+    local item_id_log_set = {} -- P0 root R13: independent of R12
     return {
+        _CheckPropinfoDownloadWithLog = {
+            log_set = prop_download_log_set, info_logger = context.info_logger,
+        },
+        _CheckItemIdDownloaded = {
+            log_set = item_id_log_set, info_logger = context.info_logger,
+        },
+        _CheckAllWeaponPartDownloaded = { info_logger = context.info_logger },
+        GetNeedDownloadCategaryKey = {
+            item_helper = context.item_helper, info_logger = context.info_logger,
+        },
         GetAllEquipmentValue = {
             logger = context.info_logger,
             error_logger = context.error_logger,
@@ -93,7 +110,21 @@ local function wrap(name, target, dependencies, environment)
     return function(...)
         local arguments = table.pack(...)
         local result
-        if name == "_CheckUnCarryMedicine" then
+        if name == "_CheckPropinfoDownloadWithLog" then
+            result = table.pack(pcall(target, product, environment,
+                dependencies.log_set, dependencies.info_logger,
+                arguments[1], arguments[2], arguments[3]))
+        elseif name == "_CheckItemIdDownloaded" then
+            result = table.pack(pcall(target, product, environment,
+                dependencies.log_set, dependencies.info_logger, arguments[1]))
+        elseif name == "_CheckAllWeaponPartDownloaded" then
+            result = table.pack(pcall(target, product, environment, dependencies.info_logger))
+        elseif name == "GetNeedDownloadCategaryKey" then
+            result = table.pack(pcall(target, product, environment,
+                dependencies.item_helper, dependencies.info_logger, arguments[1]))
+        elseif name == "_CheckItemWithCompsDownloaded" then
+            result = table.pack(pcall(target, product, environment, arguments[1]))
+        elseif name == "_CheckUnCarryMedicine" then
             result = table.pack(pcall(target, product, environment, arguments[1], arguments[2]))
         elseif name == "CheckEquipSlotEmpty" then
             result = table.pack(pcall(target, product, environment,
@@ -203,6 +234,11 @@ function M.install(target, options)
         CheckThermalImagingLimitByList = Source.CheckThermalImagingLimitByList,
         CheckPlayerBodyItemsEntryQuality = Source.CheckPlayerBodyItemsEntryQuality,
         CheckRentalConsumableID = Source.CheckRentalConsumableID,
+        _CheckPropinfoDownloadWithLog = Source._CheckPropinfoDownloadWithLog,
+        _CheckItemWithCompsDownloaded = Source._CheckItemWithCompsDownloaded,
+        _CheckItemIdDownloaded = Source._CheckItemIdDownloaded,
+        _CheckAllWeaponPartDownloaded = Source._CheckAllWeaponPartDownloaded,
+        GetNeedDownloadCategaryKey = Source.GetNeedDownloadCategaryKey,
     }
 
     local set_method = options.set_method or default_set_method

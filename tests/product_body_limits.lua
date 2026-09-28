@@ -333,7 +333,7 @@ end
 -- Constructor/bridge expose exactly the expanded source boundary; originals are
 -- never invoked merely by installing it.
 do
-    eq(#Bridge.METHODS,24,"bridge root method boundary P0.0..P0.23")
+    eq(#Bridge.METHODS,29,"bridge root method boundary P0.0..P0.28")
     local names={"CheckPlayerBodyItemsByList","CheckNightVisionLimitByList",
         "CheckThermalImagingLimitByList","CheckPlayerBodyItemsEntryQuality","CheckRentalConsumableID"}
     for _,name in ipairs(names) do truth(contains(Bridge.METHODS,name),name.." bridge export") end
