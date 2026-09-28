@@ -58,4 +58,6 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -m 'source-own P0.29 mutation primitive helpers'
+          git fetch origin work/phase-d-aim-reconstruction
+          git rebase origin/work/phase-d-aim-reconstruction
           git push origin HEAD:work/phase-d-aim-reconstruction
