@@ -17,6 +17,33 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y lua5.3
       - name: Apply bounded source reconstruction
         run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('tools/apply_body_limits_checkpoint.py')
+          lines=p.read_text(encoding='utf-8').splitlines()
+          hit=next(i for i,line in enumerate(lines) if '## P0.0..P0.18 source-only preparation' in line)
+          start=hit
+          while start>=0 and lines[start].strip()!='replace_once(':
+              start-=1
+          end=hit
+          while end<len(lines) and lines[end].strip()!=')':
+              end+=1
+          assert start>=0 and end<len(lines)
+          replacement=[
+              'replace_once(',
+              '    "tools/full_payload_forensics.py",',
+              '    "## P0.0..P0.18 source-only preparation",',
+              '    "## P0.0..P0.23 source-only preparation",',
+              ')',
+              'replace_once(',
+              '    "tools/full_payload_forensics.py",',
+              '    "- All nineteen public methods P0.0..P0.18 receive source-owned captures and helpers; none use `debug.getupvalue`.",',
+              '    "- All twenty-four public methods P0.0..P0.23 receive source-owned captures and helpers; none use `debug.getupvalue`.",',
+              ')',
+          ]
+          lines[start:end+1]=replacement
+          p.write_text('\n'.join(lines)+'\n',encoding='utf-8')
+          PY
           python3 tools/apply_body_limits_checkpoint.py
           lua5.3 tests/product_body_limits.lua "$PWD"
           lua5.3 tests/product_expiration.lua "$PWD"
