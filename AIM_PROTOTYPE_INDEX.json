@@ -5,7 +5,8 @@
     "primary_requested_prototypes": 26,
     "outer_dispatch_prototypes": 2,
     "nested_callbacks": 11,
-    "indexed_entries_total": 39,
+    "abi_helpers": 5,
+    "indexed_entries_total": 44,
     "detailed_legacy_index": "AIM_PROTOTYPE_INDEX_LEGACY_DETAILED.json",
     "runtime_ownership": {
       "aim": true,
@@ -258,6 +259,46 @@
       "source": "src/spectra/feature_control.lua",
       "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
       "name_is_original_symbol": false
+    },
+    "0.29.2": {
+      "category": "abi_helper",
+      "source": "src/spectra/aim_abi.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "AimABI.get",
+      "evidence_status": "exact return arity, retry order, root register/capture and source-consumer evidence pinned"
+    },
+    "0.29.2.0": {
+      "category": "abi_helper",
+      "source": "src/spectra/aim_abi.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "AimABI.get nested protected lookup closure",
+      "evidence_status": "exact return arity, retry order, root register/capture and source-consumer evidence pinned"
+    },
+    "0.29.3": {
+      "category": "abi_helper",
+      "source": "src/spectra/aim_abi.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "AimABI.self_first",
+      "evidence_status": "exact return arity, retry order, root register/capture and source-consumer evidence pinned"
+    },
+    "0.29.4": {
+      "category": "abi_helper",
+      "source": "src/spectra/aim_abi.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "AimABI.static_first",
+      "evidence_status": "exact return arity, retry order, root register/capture and source-consumer evidence pinned"
+    },
+    "0.29.12": {
+      "category": "abi_helper",
+      "source": "src/spectra/aim_abi.lua",
+      "implementation_status": "source-owned helper; payload closure copy not rebound for unreconstructed payload callers",
+      "name_is_original_symbol": false,
+      "reconstructed_name": "AimABI.call_optional_self",
+      "evidence_status": "exact return arity, retry order, root register/capture and source-consumer evidence pinned"
     }
   }
 }

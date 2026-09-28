@@ -1,0 +1,1044 @@
+{
+  "_meta": {
+    "source_of_truth": "embedded_payload.bin",
+    "payload_sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263",
+    "parent_prototype": "0.29",
+    "names_are_reconstructed_semantic_labels": true,
+    "payload_closure_rebinding": false,
+    "ownership_model": "source-owned consumers call src/spectra/aim_abi.lua directly; unreconstructed payload-owned callers may continue using their captured payload helper closures"
+  },
+  "helpers": {
+    "0.29.2": {
+      "prototype_id": "0.29.2",
+      "instruction_count": 17,
+      "numparams": 2,
+      "upvalues": [
+        {
+          "instack": 0,
+          "idx": 0
+        }
+      ],
+      "children": 1,
+      "p029_parent_register": "R19",
+      "p029_closure_instruction": 138,
+      "known_payload_capture_consumers": [
+        {
+          "prototype": "0.29.3",
+          "upvalue": "U0",
+          "direct_call_sites": [
+            {
+              "instruction": 6,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.4",
+          "upvalue": "U0",
+          "direct_call_sites": [
+            {
+              "instruction": 6,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.5",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 7,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.8",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 10,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.11",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 10,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.13",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 8,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.15",
+          "upvalue": "U0",
+          "direct_call_sites": [
+            {
+              "instruction": 12,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.18",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 12,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.19",
+          "upvalue": "U0",
+          "direct_call_sites": [
+            {
+              "instruction": 10,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 42,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.21",
+          "upvalue": "U0",
+          "direct_call_sites": [
+            {
+              "instruction": 6,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.27",
+          "upvalue": "U8",
+          "direct_call_sites": [
+            {
+              "instruction": 63,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.28",
+          "upvalue": "U7",
+          "direct_call_sites": [
+            {
+              "instruction": 49,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.29",
+          "upvalue": "U7",
+          "direct_call_sites": [
+            {
+              "instruction": 100,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.44",
+          "upvalue": "U3",
+          "direct_call_sites": [
+            {
+              "instruction": 34,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 55,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.47",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 29,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.48",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 20,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 48,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.49",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 22,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 40,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.56",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 27,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 52,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.57",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 23,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 49,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.62",
+          "upvalue": "U3",
+          "direct_call_sites": [
+            {
+              "instruction": 40,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 44,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 87,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.63",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 16,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 22,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 45,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 68,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 91,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.65",
+          "upvalue": "U9",
+          "direct_call_sites": [
+            {
+              "instruction": 311,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 327,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 343,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 359,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 375,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 391,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.66",
+          "upvalue": "U8",
+          "direct_call_sites": [
+            {
+              "instruction": 63,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.67",
+          "upvalue": "U3",
+          "direct_call_sites": []
+        },
+        {
+          "prototype": "0.29.71",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 52,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 71,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 93,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.72",
+          "upvalue": "U1",
+          "direct_call_sites": []
+        },
+        {
+          "prototype": "0.29.74",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 13,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 18,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 48,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 55,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 67,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 71,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 75,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 129,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.75",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 37,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.76",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 30,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 34,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.78",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 32,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.84",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 31,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 185,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 199,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 334,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.85",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 79,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.87",
+          "upvalue": "U6",
+          "direct_call_sites": []
+        },
+        {
+          "prototype": "0.29.91",
+          "upvalue": "U4",
+          "direct_call_sites": [
+            {
+              "instruction": 27,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.98",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 16,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.104",
+          "upvalue": "U4",
+          "direct_call_sites": [
+            {
+              "instruction": 47,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.105",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 37,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 234,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 254,
+              "opcode": "CALL"
+            }
+          ]
+        }
+      ],
+      "known_source_consumers": [
+        "src/spectra/aim_refresh.lua: AimRefresh.collect_targets/refresh_methods/init_current_weapon",
+        "src/spectra/aim_chain.lua: AimChain.walk_and_patch/apply_aim_row",
+        "src/spectra/payload_feature_bridge.lua: default_dependencies read_field injection",
+        "src/spectra/aim_mutation.lua: replacement consumes injected deps.read_field"
+      ],
+      "return_contract": "exactly one value: truthy field value or nil; false/nil/error collapse to nil",
+      "retry_order": "single protected lookup",
+      "source_implementation_symbol": "AimABI.get",
+      "source_file": "src/spectra/aim_abi.lua",
+      "source_only_dependency": true,
+      "name_is_original_symbol": false
+    },
+    "0.29.2.0": {
+      "prototype_id": "0.29.2.0",
+      "instruction_count": 7,
+      "numparams": 0,
+      "upvalues": [
+        {
+          "instack": 1,
+          "idx": 0
+        },
+        {
+          "instack": 1,
+          "idx": 1
+        }
+      ],
+      "children": 0,
+      "p029_parent_register": null,
+      "p029_closure_instruction": null,
+      "known_payload_capture_consumers": [],
+      "known_source_consumers": [
+        "src/spectra/aim_abi.lua: nested raw owner[key] closure inside AimABI.get"
+      ],
+      "return_contract": "exactly one value: raw owner[key]; no nil guard; parent pcall owns exceptions",
+      "retry_order": "none",
+      "source_implementation_symbol": "AimABI.get nested protected lookup closure",
+      "source_file": "src/spectra/aim_abi.lua",
+      "source_only_dependency": true,
+      "name_is_original_symbol": false,
+      "parent_prototype": "0.29.2",
+      "parent_local_capture_registers": [
+        "R0",
+        "R1"
+      ]
+    },
+    "0.29.3": {
+      "prototype_id": "0.29.3",
+      "instruction_count": 43,
+      "numparams": 2,
+      "upvalues": [
+        {
+          "instack": 1,
+          "idx": 19
+        },
+        {
+          "instack": 0,
+          "idx": 0
+        }
+      ],
+      "children": 0,
+      "p029_parent_register": "R20",
+      "p029_closure_instruction": 139,
+      "known_payload_capture_consumers": [
+        {
+          "prototype": "0.29.6",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 17,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.74",
+          "upvalue": "U4",
+          "direct_call_sites": [
+            {
+              "instruction": 38,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 92,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 101,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 147,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.75",
+          "upvalue": "U3",
+          "direct_call_sites": [
+            {
+              "instruction": 44,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.78",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 21,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 61,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.84",
+          "upvalue": "U3",
+          "direct_call_sites": [
+            {
+              "instruction": 49,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 210,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 243,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 255,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 276,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 301,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.85",
+          "upvalue": "U3",
+          "direct_call_sites": [
+            {
+              "instruction": 98,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.86",
+          "upvalue": "U3",
+          "direct_call_sites": [
+            {
+              "instruction": 42,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.87",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 28,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 38,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 71,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.92",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 27,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 34,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 39,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 44,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.93",
+          "upvalue": "U5",
+          "direct_call_sites": [
+            {
+              "instruction": 60,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 92,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 104,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 109,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 114,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 134,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 147,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 157,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.94",
+          "upvalue": "U3",
+          "direct_call_sites": [
+            {
+              "instruction": 37,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 77,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 84,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 106,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 117,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 138,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 143,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 148,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.98",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 20,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.104",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 20,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 25,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 37,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 60,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 67,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.107",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 11,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 27,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 38,
+              "opcode": "CALL"
+            }
+          ]
+        }
+      ],
+      "known_source_consumers": [
+        "src/spectra/aim_refresh.lua: invoke(self_first=true) used by collect_targets/refresh_methods"
+      ],
+      "return_contract": "missing/both-fail: exactly false,nil; success: exactly true,result1,result2",
+      "retry_order": "self-first pcall, then static pcall only after first exception",
+      "source_implementation_symbol": "AimABI.self_first",
+      "source_file": "src/spectra/aim_abi.lua",
+      "source_only_dependency": true,
+      "name_is_original_symbol": false
+    },
+    "0.29.4": {
+      "prototype_id": "0.29.4",
+      "instruction_count": 43,
+      "numparams": 2,
+      "upvalues": [
+        {
+          "instack": 1,
+          "idx": 19
+        },
+        {
+          "instack": 0,
+          "idx": 0
+        }
+      ],
+      "children": 0,
+      "p029_parent_register": "R21",
+      "p029_closure_instruction": 140,
+      "known_payload_capture_consumers": [
+        {
+          "prototype": "0.29.74",
+          "upvalue": "U3",
+          "direct_call_sites": [
+            {
+              "instruction": 30,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.76",
+          "upvalue": "U1",
+          "direct_call_sites": [
+            {
+              "instruction": 20,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 43,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.90",
+          "upvalue": "U0",
+          "direct_call_sites": [
+            {
+              "instruction": 8,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 20,
+              "opcode": "TAILCALL"
+            }
+          ]
+        }
+      ],
+      "known_source_consumers": [
+        "src/spectra/aim_refresh.lua: invoke(self_first=false) used by collect_targets/init_current_weapon"
+      ],
+      "return_contract": "missing/both-fail: exactly false,nil; success: exactly true,result1,result2",
+      "retry_order": "static-first pcall, then self pcall only after first exception",
+      "source_implementation_symbol": "AimABI.static_first",
+      "source_file": "src/spectra/aim_abi.lua",
+      "source_only_dependency": true,
+      "name_is_original_symbol": false
+    },
+    "0.29.12": {
+      "prototype_id": "0.29.12",
+      "instruction_count": 31,
+      "numparams": 2,
+      "upvalues": [
+        {
+          "instack": 0,
+          "idx": 0
+        }
+      ],
+      "children": 0,
+      "p029_parent_register": "R32",
+      "p029_closure_instruction": 327,
+      "known_payload_capture_consumers": [
+        {
+          "prototype": "0.29.13",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 13,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.44",
+          "upvalue": "U4",
+          "direct_call_sites": [
+            {
+              "instruction": 59,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.48",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 24,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.49",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 27,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.56",
+          "upvalue": "U3",
+          "direct_call_sites": [
+            {
+              "instruction": 40,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.57",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 36,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.71",
+          "upvalue": "U3",
+          "direct_call_sites": [
+            {
+              "instruction": 57,
+              "opcode": "CALL"
+            }
+          ]
+        },
+        {
+          "prototype": "0.29.74",
+          "upvalue": "U2",
+          "direct_call_sites": [
+            {
+              "instruction": 20,
+              "opcode": "CALL"
+            },
+            {
+              "instruction": 81,
+              "opcode": "CALL"
+            }
+          ]
+        }
+      ],
+      "known_source_consumers": [
+        "src/spectra/aim_refresh.lua: collect_targets FindComponentByClass optional-self call"
+      ],
+      "return_contract": "all paths exactly two values; success true,result1; fallback failure false,error",
+      "retry_order": "self-first pcall, then static pcall only after first exception",
+      "source_implementation_symbol": "AimABI.call_optional_self",
+      "source_file": "src/spectra/aim_abi.lua",
+      "source_only_dependency": true,
+      "name_is_original_symbol": false
+    }
+  },
+  "inspected_source_files": [
+    "src/spectra/aim_refresh.lua",
+    "src/spectra/aim_chain.lua",
+    "src/spectra/aim_mutation.lua",
+    "src/spectra/payload_feature_bridge.lua",
+    "src/spectra/feature_control.lua"
+  ]
+}

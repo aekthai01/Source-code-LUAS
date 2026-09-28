@@ -1,5 +1,5 @@
 {
-  "phase": "E5.7-root-downloads-source-only",
+  "phase": "E5.8-p029-abi-helpers-source-only",
   "baseline": {
     "size": 180034,
     "sha256": "35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536"
@@ -9,22 +9,22 @@
     "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263"
   },
   "phase_d_source": {
-    "size": 437394,
-    "sha256": "e9d80f758862106a72d68f32af75eec6f239e4da501871a33167aabd6ed770fe"
+    "size": 437462,
+    "sha256": "7ddbd6f92ad793fcc6b563186d52e37a1dbeac259205ad1d81880f0d2a676226"
   },
   "phase_d_standard": {
-    "size": 332138,
-    "sha256": "6eb9da2a345b1fa12f20050a089c61d20d9a506708e86b7f0381b46cc925c9bc"
+    "size": 332146,
+    "sha256": "975a186b501e8614e5631a3cc8fdfbdf2e30ca5c7a485257ee26860976a30853"
   },
   "phase_d_custom": {
-    "size": 332138,
-    "sha256": "8054668bb6d6d7da75ff88175e86c8eb79140a50221c8654d89d7ea43c2522c5"
+    "size": 332146,
+    "sha256": "475ad6eb89afd71758a5d806aac76588c9af21e148dfb7d85d610781dd055913"
   },
   "inventory": {
     "total": 296,
     "classified": 296,
-    "source_owned": 112,
-    "payload_owned": 184,
+    "source_owned": 117,
+    "payload_owned": 179,
     "partially_reconstructed": 0,
     "unknown": 0,
     "root_methods_source_owned": 29,
@@ -35,6 +35,7 @@
     "product_context": true,
     "product_constructor": true,
     "p0_0_through_p0_28": true,
+    "p029_abi_helpers": true,
     "payload_upvalue_introspection": false
   },
   "runtime_ownership": {
@@ -51,6 +52,8 @@
     "lua53_chunk_structure": true,
     "root_capture_map": "passed",
     "root_download_bytecode_captures": "passed",
+    "p029_abi_helper_map": "passed",
+    "p029_abi_exact_return_shapes": "passed",
     "source_only_product_constructor": "passed",
     "no_source_owned_root_payload_capture_dependency": "passed",
     "native_settings_ui.lua": "passed",

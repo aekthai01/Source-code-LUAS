@@ -70,8 +70,8 @@ Exact root fields: `EquipTypeList`, `ContainerTypeList`.
 
 ## Current ownership
 
-- Source-owned: **112**
-- Payload-owned: **184**
+- Source-owned: **117**
+- Payload-owned: **179**
 - Partially reconstructed: **0**
 - Unknown: **0**
 - Root methods source-owned: **29 / 29**

@@ -4,8 +4,8 @@ Payload SHA-256: `a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f62
 
 - Total prototypes: **296**
 - Classified: **296**
-- Source-owned: **112**
-- Payload-owned: **184**
+- Source-owned: **117**
+- Payload-owned: **179**
 - Partially reconstructed: **0**
 - Dead/unreachable verified: **0**
 - Unknown: **0**
