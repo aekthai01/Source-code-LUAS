@@ -36,8 +36,7 @@ jobs:
           d=json.load(open('FULL_PAYLOAD_PROTOTYPE_INDEX.json'))
           g=d['ownership_groups']
           assert {'0.29.72','0.29.72.0'} <= set(g['source_owned'])
-          assert {'0.29.69','0.29.70','0.29.71','0.29.71.0'} <= set(g['payload_owned'])
-          assert '0.29.73' in g['source_owned']
+          assert {'0.29.69','0.29.70','0.29.71','0.29.71.0','0.29.73'} <= set(g['payload_owned'])
           assert d['coverage']['classified']==d['_meta']['total_prototypes']==296
           assert d['coverage']['partially_reconstructed']==0
           assert d['coverage']['unknown']==0
