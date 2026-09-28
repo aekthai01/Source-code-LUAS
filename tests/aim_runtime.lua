@@ -41,17 +41,29 @@ local function one_child_case(label,setup,expected,check)
   if check then check(q) end
 end
 
--- Existing P71 semantic path remains unchanged and is not claimed by this checkpoint.
-local cfg={bIsAimAssistOpen=false,SaveDataConfig=function(self) self.saved_calls=(self.saved_calls or 0)+1 end}
-_G.import=function(name) if name=="ClientBaseSetting" then return {Get=function(self,world) return cfg end} end end
-_G.GetWorld=function() return {} end
-local state={}
-eq(M.set_native_aim_assist(state,true),true,"P71 enable regression")
-eq(cfg.bIsAimAssistOpen,true,"P71 enabled")
-eq(state.custom_dongdong_native_aim_state.value,false,"P71 snapshot")
-eq(M.set_native_aim_assist(state,false),true,"P71 disable regression")
-eq(cfg.bIsAimAssistOpen,false,"P71 restored")
-eq(state.custom_dongdong_native_aim_state.saved,false,"P71 snapshot closed")
+-- Exact P71/P71.0 source-owned behavior.
+local ORIGINAL_NATIVE_AIM_STATE=rawget(_G,"custom_dongdong_native_aim_state")
+local function reset_p71() rawset(_G,"custom_dongdong_native_aim_state",nil); rawset(_G,"import",nil); rawset(_G,"GetWorld",nil) end
+local function install_p71(cfg,world)
+  local cls={}; cls.Get=function(self,w) eq(self,cls,"P71 Get self"); eq(w,world,"P71 Get world"); return cfg end
+  _G.import=function(name) eq(name,"ClientBaseSetting","P71 import"); return cls end; _G.GetWorld=function() return world end
+end
+reset_p71(); local r=packed(M.set_native_aim_assist,true); eq(r.n,1,"P71 early arity"); eq(r[1],false,"P71 early false"); truth(type(rawget(_G,"custom_dongdong_native_aim_state"))=="table","P71 early state")
+reset_p71(); local order={}; _G.import=function() order[#order+1]="import"; error("x") end; _G.GetWorld=function() order[#order+1]="world"; return {} end
+r=packed(M.set_native_aim_assist,true); eq(r.n,1,"P71 pcall arity"); eq(r[1],false); eq(order[1],"import"); eq(order[2],"world","P71 both pcalls")
+reset_p71(); local cfg_false={bIsAimAssistOpen=false,SaveDataConfig=function() end}; install_p71(cfg_false,false); r=packed(M.set_native_aim_assist,true); eq(r.n,1); eq(r[1],true,"P71 false world accepted")
+reset_p71(); local saves=0; local cfg={bIsAimAssistOpen=false}; cfg.SaveDataConfig=function(self) eq(self,cfg,"P71 save self"); saves=saves+1 end; install_p71(cfg,{})
+local a1=packed(M.set_native_aim_assist,true); local st=rawget(_G,"custom_dongdong_native_aim_state"); eq(a1.n,1); eq(a1[1],true); eq(st.saved,true); eq(st.value,false); eq(cfg.bIsAimAssistOpen,true)
+local a2=packed(M.set_native_aim_assist,true); eq(a2.n,1); eq(a2[1],true); eq(st.value,false,"P71 snapshot stable")
+local a3=packed(M.set_native_aim_assist,false); eq(a3.n,1); eq(a3[1],true); eq(cfg.bIsAimAssistOpen,false,"P71 restore"); eq(st.saved,false); eq(saves,3)
+reset_p71(); local save_after_throw=0; local bad=setmetatable({SaveDataConfig=function() save_after_throw=save_after_throw+1 end},{__index=function(_,k) if k=="bIsAimAssistOpen" then return false end end,__newindex=function(_,k) if k=="bIsAimAssistOpen" then error("set") end end}); install_p71(bad,{})
+r=packed(M.set_native_aim_assist,true); eq(r.n,1); eq(r[1],false,"P71 setter pcall result"); eq(save_after_throw,1,"P71 save after setter failure")
+reset_p71(); local save_fail=0; local sf={bIsAimAssistOpen=false}; sf.SaveDataConfig=function(...) save_fail=save_fail+1; local a=table.pack(...); eq(a.n,1,"P71 save arity"); eq(a[1],sf); error("save") end; install_p71(sf,{})
+r=packed(M.set_native_aim_assist,true); eq(r.n,1); eq(r[1],true,"P71 ignores save error"); eq(save_fail,1,"P71 no save retry")
+local old2,old12=ABI.get,ABI.call_optional_self; local repl2,repl12=0,0; ABI.get=function() repl2=repl2+1; error("P2") end; ABI.call_optional_self=function() repl12=repl12+1; error("P12") end
+reset_p71(); local fixed={bIsAimAssistOpen=false,SaveDataConfig=function() end}; install_p71(fixed,{}); r=packed(M.set_native_aim_assist,true); ABI.get=old2; ABI.call_optional_self=old12; eq(r.n,1); eq(r[1],true); eq(repl2,0,"P71 fixed P2"); eq(repl12,0,"P71 fixed P12")
+reset_p71(); local original_global=_G; local fake={}; local captured={bIsAimAssistOpen=false,SaveDataConfig=function() end}; local cls={Get=function() return captured end}; fake.import=function() return cls end; fake.GetWorld=function() return {} end; original_global._G=fake; r=packed(M.set_native_aim_assist,true); original_global._G=original_global; eq(r.n,1); eq(r[1],true,"P71 captured state result"); truth(type(rawget(original_global,"custom_dongdong_native_aim_state"))=="table","P71 fixed state table"); eq(rawget(fake,"custom_dongdong_native_aim_state"),nil,"P71 ignores replacement state table")
+rawset(_G,"custom_dongdong_native_aim_state",ORIGINAL_NATIVE_AIM_STATE)
 
 -- P72 command selection is equality to literal true, never generic truthiness.
 local command_cases={{true,1},{false,0},{nil,0},{0,0},{1,0},{"true",0}}
