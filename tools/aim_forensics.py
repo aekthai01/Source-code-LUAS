@@ -25,6 +25,8 @@ NESTED = [
     "0.29.17.0",
     "0.29.57.0",
     "0.29.57.1",
+    "0.29.58.0",
+    "0.29.58.1",
     "0.29.62.0",
     "0.29.64.0",
     "0.29.66.0",
@@ -39,17 +41,17 @@ NESTED = [
 ]
 ABI_HELPERS = ["0.29.2", "0.29.2.0", "0.29.3", "0.29.4", "0.29.12"]
 RUNTIME_HELPERS = ["0.29.5", "0.29.6", "0.29.8", "0.29.11", "0.29.13"]
-MUTATION_HELPERS = ["0.29.10", "0.29.14", "0.29.15", "0.29.16", "0.29.18", "0.29.49", "0.29.57"]
+MUTATION_HELPERS = ["0.29.10", "0.29.14", "0.29.15", "0.29.16", "0.29.18", "0.29.49", "0.29.57", "0.29.58"]
 AIM_RUNTIME = ["0.29.71", "0.29.71.0", "0.29.72", "0.29.72.0"]
 ALL = [*PRIMARY, *OUTER, *NESTED, *ABI_HELPERS, *RUNTIME_HELPERS, *MUTATION_HELPERS, *AIM_RUNTIME]
 assert len(PRIMARY) == 26
 assert len(OUTER) == 2
-assert len(NESTED) == 15
+assert len(NESTED) == 17
 assert len(ABI_HELPERS) == 5
 assert len(RUNTIME_HELPERS) == 5
-assert len(MUTATION_HELPERS) == 7
+assert len(MUTATION_HELPERS) == 8
 assert len(AIM_RUNTIME) == 4
-assert len(ALL) == 64 and len(set(ALL)) == 64
+assert len(ALL) == 67 and len(set(ALL)) == 67
 missing = [pid for pid in ALL if pid not in P]
 assert not missing, f"missing payload prototypes: {missing}"
 
@@ -63,7 +65,7 @@ def source_for(pid):
         return "src/spectra/mutation_runtime.lua"
     if pid in AIM_RUNTIME:
         return "src/spectra/aim_runtime.lua"
-    if pid in {"0.29.15.0", "0.29.17.0", "0.29.57.0", "0.29.57.1"}:
+    if pid in {"0.29.15.0", "0.29.17.0", "0.29.57.0", "0.29.57.1", "0.29.58.0", "0.29.58.1"}:
         return "src/spectra/mutation_runtime.lua"
     if pid.startswith("0.29.77"):
         return "src/spectra/feature_control.lua"
@@ -125,6 +127,7 @@ expected_root_registers = {
     "0.29.18": "R38",
     "0.29.49": "R74",
     "0.29.57": "R82",
+    "0.29.58": "R83",
     "0.29.71": "R96",
     "0.29.72": "R97",
 }
@@ -468,7 +471,7 @@ for cap in aim_runtime_map["prototypes"]["0.29.72.0"]["parent_capture_mapping"]:
 
 # Reusable source-ownership evidence for mutation primitives. Later bone-array
 # checkpoints extend this subsystem map rather than inventing one file per helper.
-mutation_symbols={"0.29.10":"MutationRuntime.normalize_identifier","0.29.14":"MutationRuntime.p029_ensure_feature_snapshot","0.29.15":"MutationRuntime.p029_snapshot_set","0.29.16":"MutationRuntime.p029_clear_feature_snapshot","0.29.18":"MutationRuntime.table_extend","0.29.49":"MutationRuntime.array_get","0.29.57":"MutationRuntime.array_set_raw"}
+mutation_symbols={"0.29.10":"MutationRuntime.normalize_identifier","0.29.14":"MutationRuntime.p029_ensure_feature_snapshot","0.29.15":"MutationRuntime.p029_snapshot_set","0.29.16":"MutationRuntime.p029_clear_feature_snapshot","0.29.18":"MutationRuntime.table_extend","0.29.49":"MutationRuntime.array_get","0.29.57":"MutationRuntime.array_set_raw","0.29.58":"MutationRuntime.restore_binding"}
 mutation_contracts={
   "0.29.10":"tail-return string.gsub: exactly normalized string plus substitution count",
   "0.29.14":"exactly one snapshot table; captured state table identity",
@@ -477,6 +480,7 @@ mutation_contracts={
   "0.29.18":"exactly one value: table extension only on successful protected call yielding table, else original input",
   "0.29.49":"exactly one value: zero-based table read or protected userdata Get/helper Get with false preserved and nil fallback",
   "0.29.57":"table/final assignment tail-return pcall arity; wrong type one false; successful userdata Set paths one true",
+  "0.29.58":"exactly one boolean; protected direct/parent-owner writes and fixed P57 parent-array restore aggregate success",
 }
 mutation_order={
   "0.29.10":"lower(tostring(input or empty)); tailcall gsub non-word removal",
@@ -486,6 +490,7 @@ mutation_order={
   "0.29.18":"userdata gate; fixed P2 TableExtend lookup; pcall(fn,value); retry pcall(fn) only after exception; accept table result only",
   "0.29.49":"table direct index+1; userdata gate; fixed P2 Get; fixed P12 self-first; direct nil falls through to ULuaArrayHelper Get through same P2/P12",
   "0.29.57":"index+1; table pcall child; userdata fixed P2 Set then fixed P12 self-first; ULuaArrayHelper.Set static pcall then self pcall only after exception; final pcall child",
+  "0.29.58":"binding table/owner/key gate; protected owner assignment; nil-specific parent triple invokes fixed P57; nil-specific parent owner/key protected assignment; return aggregate boolean",
 }
 mutation_map={"_meta":{"source_of_truth":"embedded_payload.bin","payload_sha256":PAYLOAD_SHA,"names_are_reconstructed_semantic_labels":True,"payload_closure_rebinding":False,"ownership_boundary":MUTATION_HELPERS},"helpers":{}}
 for pid in MUTATION_HELPERS:

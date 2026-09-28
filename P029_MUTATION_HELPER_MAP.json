@@ -11,7 +11,8 @@
       "0.29.16",
       "0.29.18",
       "0.29.49",
-      "0.29.57"
+      "0.29.57",
+      "0.29.58"
     ]
   },
   "helpers": {
@@ -246,6 +247,39 @@
       "source_file": "src/spectra/mutation_runtime.lua",
       "return_contract": "table/final assignment tail-return pcall arity; wrong type one false; successful userdata Set paths one true",
       "branch_retry_order": "index+1; table pcall child; userdata fixed P2 Set then fixed P12 self-first; ULuaArrayHelper.Set static pcall then self pcall only after exception; final pcall child",
+      "source_capture_identity": "fixed sibling helper identities captured when MutationRuntime loads",
+      "source_only_dependency": true,
+      "current_ownership": "source_owned",
+      "payload_closure_rebinding": false
+    },
+    "0.29.58": {
+      "prototype_id": "0.29.58",
+      "numparams": 2,
+      "instruction_count": 50,
+      "upvalues": [
+        {
+          "instack": 0,
+          "idx": 0
+        },
+        {
+          "instack": 1,
+          "idx": 82
+        }
+      ],
+      "child_count": 2,
+      "p029_parent_register": "R83",
+      "p029_closure_instruction": 1043,
+      "captured_helper_registers": [
+        {
+          "upvalue": "U1",
+          "register": "R82",
+          "prototype": "0.29.57"
+        }
+      ],
+      "source_symbol": "MutationRuntime.restore_binding",
+      "source_file": "src/spectra/mutation_runtime.lua",
+      "return_contract": "exactly one boolean; protected direct/parent-owner writes and fixed P57 parent-array restore aggregate success",
+      "branch_retry_order": "binding table/owner/key gate; protected owner assignment; nil-specific parent triple invokes fixed P57; nil-specific parent owner/key protected assignment; return aggregate boolean",
       "source_capture_identity": "fixed sibling helper identities captured when MutationRuntime loads",
       "source_only_dependency": true,
       "current_ownership": "source_owned",

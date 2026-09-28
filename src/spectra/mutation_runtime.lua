@@ -510,6 +510,8 @@ function M.array_set_raw(array, index0, value)
     return pcall(function() array[index1] = value end)
 end
 
+local array_set_raw_029_57 = M.array_set_raw
+
 function M.ensure_bone_name_pool(state)
     local pool = state.custom_dongdong_bone_name_pool
     if type(pool) ~= "table" then pool = {}; state.custom_dongdong_bone_name_pool = pool end
@@ -588,7 +590,7 @@ function M.restore_binding(binding, array)
     if type(binding) ~= "table" or binding.owner == nil or binding.key == nil then return false end
     local ok = pcall(function() binding.owner[binding.key] = array end)
     if binding.parent_array ~= nil and binding.parent_index ~= nil and binding.parent_value ~= nil then
-        if M.array_set_raw(binding.parent_array, binding.parent_index, binding.parent_value) then ok = true end
+        if array_set_raw_029_57(binding.parent_array, binding.parent_index, binding.parent_value) then ok = true end
     end
     if binding.parent_owner ~= nil and binding.parent_key ~= nil then
         if pcall(function() binding.parent_owner[binding.parent_key] = binding.parent_array end) then ok = true end

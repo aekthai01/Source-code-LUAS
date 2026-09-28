@@ -223,6 +223,18 @@
       "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
       "name_is_original_symbol": false
     },
+    "0.29.58.0": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.58.1": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
     "0.29.62.0": {
       "category": "nested_callback",
       "source": "src/spectra/aim_bones.lua",
@@ -412,6 +424,12 @@
       "evidence_status": "71-instruction fixed P2/P12 userdata array getter; false-vs-nil and one-value return pinned"
     },
     "0.29.57": {
+      "category": "nested_callback",
+      "source": "src/spectra/mutation_runtime.lua",
+      "implementation_status": "source-reconstructed and owned through reconstructed parent flow",
+      "name_is_original_symbol": false
+    },
+    "0.29.58": {
       "category": "nested_callback",
       "source": "src/spectra/mutation_runtime.lua",
       "implementation_status": "source-reconstructed and owned through reconstructed parent flow",

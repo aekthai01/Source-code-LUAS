@@ -13,3 +13,4 @@ Names are reconstructed semantic labels. Payload copies are not dynamically rebo
 | `0.29.18` | `R38` | 1 | 40 | R19/0.29.2 | `MutationRuntime.table_extend` | exactly one value: table extension only on successful protected call yielding table, else original input |
 | `0.29.49` | `R74` | 2 | 71 | R19/0.29.2, R32/0.29.12 | `MutationRuntime.array_get` | exactly one value: zero-based table read or protected userdata Get/helper Get with false preserved and nil fallback |
 | `0.29.57` | `R82` | 3 | 80 | R19/0.29.2, R32/0.29.12 | `MutationRuntime.array_set_raw` | table/final assignment tail-return pcall arity; wrong type one false; successful userdata Set paths one true |
+| `0.29.58` | `R83` | 2 | 50 | R82/0.29.57 | `MutationRuntime.restore_binding` | exactly one boolean; protected direct/parent-owner writes and fixed P57 parent-array restore aggregate success |
