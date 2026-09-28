@@ -20,7 +20,7 @@ jobs:
       - name: Regenerate aim implementation index
         run: |
           python3 tools/aim_forensics.py
-          git diff --exit-code -- AIM_PROTOTYPE_INDEX.json P029_ABI_HELPER_MAP.json P029_ABI_HELPER_MAP.md P029_RUNTIME_HELPER_MAP.json P029_RUNTIME_HELPER_MAP.md P029_AIM_RUNTIME_MAP.json P029_AIM_RUNTIME_MAP.md
+          git diff --exit-code -- AIM_PROTOTYPE_INDEX.json P029_ABI_HELPER_MAP.json P029_ABI_HELPER_MAP.md P029_RUNTIME_HELPER_MAP.json P029_RUNTIME_HELPER_MAP.md P029_MUTATION_HELPER_MAP.json P029_MUTATION_HELPER_MAP.md P029_AIM_RUNTIME_MAP.json P029_AIM_RUNTIME_MAP.md
       - name: Regenerate complete payload inventory and coverage
         run: |
           python3 tools/full_payload_forensics.py
