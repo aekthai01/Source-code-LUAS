@@ -69,7 +69,7 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git rm .github/workflows/phase-d-expiration-bootstrap.yml tools/apply_expiration_checkpoint.py
+          git rm -f .github/workflows/phase-d-expiration-bootstrap.yml tools/apply_expiration_checkpoint.py
           git add -A
           git commit -m 'reconstruct source-only P0.16 P0.17 P0.18 expiration checks'
           git push origin HEAD:work/phase-d-aim-reconstruction
