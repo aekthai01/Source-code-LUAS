@@ -45,6 +45,16 @@ jobs:
           p.write_text('\n'.join(lines)+'\n',encoding='utf-8')
           PY
           python3 tools/apply_body_limits_checkpoint.py
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('tests/product_body_limits.lua')
+          text=p.read_text(encoding='utf-8')
+          for name in ('inventory','armed','receiver','receiver_empty','receiver_nil_raw','receiver_nil','armed_server'):
+              old=f'    local {name}={{'
+              new=f'    local {name}\n    {name}={{'
+              text=text.replace(old,new)
+          p.write_text(text,encoding='utf-8')
+          PY
           lua5.3 tests/product_body_limits.lua "$PWD"
           lua5.3 tests/product_expiration.lua "$PWD"
           lua5.3 tests/product_source_only.lua "$PWD"
