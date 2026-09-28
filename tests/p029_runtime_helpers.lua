@@ -15,6 +15,14 @@ end
 local function packed(fn, ...)
     return table.pack(fn(...))
 end
+local function with_replaced(owner, key, replacement, fn)
+    local previous = owner[key]
+    owner[key] = replacement
+    local outcome = table.pack(pcall(fn))
+    owner[key] = previous
+    if not outcome[1] then error(outcome[2], 0) end
+    return table.unpack(outcome, 2, outcome.n)
+end
 
 local old = {
     Facade = rawget(_G, "Facade"),
@@ -167,6 +175,52 @@ result = packed(H.get_data_table, "Fail")
 eq(result.n, 1, "P13 both-fail arity")
 eq(result[1], nil, "P13 both-fail nil")
 eq(attempts, 2, "P13 both-fail attempts")
+
+-- Fixed sibling-helper capture identity: replacements after module load are not observed internally.
+with_replaced(ABI, "self_first", function()
+    error("replacement self_first must not be observed")
+end, function()
+    local captured = packed(H.object_name, {GetFullName = function() return "captured-p3" end})
+    eq(captured.n, 1, "P6 fixed P3 capture arity")
+    eq(captured[1], "captured-p3", "P6 fixed P3 capture")
+end)
+
+local original_p11 = H.get_table_manager
+with_replaced(H, "get_table_manager", function()
+    error("replacement P11 must not be observed by P13")
+end, function()
+    local manager13 = {GetTable = function(self, name) return "p11:" .. name end}
+    _G.Facade = nil
+    _G.TableManager = manager13
+    local captured = packed(H.get_data_table, "Captured")
+    eq(captured.n, 1, "P13 fixed P11 capture arity")
+    eq(captured[1], "p11:Captured", "P13 fixed P11 capture")
+    local ok_external = pcall(H.get_table_manager)
+    eq(ok_external, false, "export replacement remains externally visible")
+end)
+eq(H.get_table_manager, original_p11, "P11 export restored")
+
+with_replaced(ABI, "call_optional_self", function()
+    error("replacement P12 must not be observed by P13")
+end, function()
+    local manager13 = {GetTable = function(self, name) return "p12:" .. name end}
+    _G.Facade = nil
+    _G.TableManager = manager13
+    local captured = packed(H.get_data_table, "Captured")
+    eq(captured.n, 1, "P13 fixed P12 capture arity")
+    eq(captured[1], "p12:Captured", "P13 fixed P12 capture")
+end)
+
+with_replaced(ABI, "get", function()
+    error("replacement P2 must not be observed by P13")
+end, function()
+    local manager13 = {GetTable = function(self, name) return "p2:" .. name end}
+    _G.Facade = nil
+    _G.TableManager = manager13
+    local captured = packed(H.get_data_table, "Captured")
+    eq(captured.n, 1, "P13 fixed P2 capture arity")
+    eq(captured[1], "p2:Captured", "P13 fixed P2 capture")
+end)
 
 -- Active MutationRuntime integration uses the canonical ABI and runtime helpers.
 eq(Mutation.safe_get, ABI.get, "MutationRuntime reuses AimABI.get")

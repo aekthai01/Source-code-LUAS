@@ -13,7 +13,11 @@ M.PROTOTYPES = {
     get_data_table = "0.29.13",
 }
 
-local safe_get = ABI.get
+-- P0.29 captures sibling helpers once when the parent closure is constructed.
+-- Freeze those identities here rather than re-reading mutable export tables.
+local safe_get = assert(ABI.get, "P0.29.2 required")
+local self_first = assert(ABI.self_first, "P0.29.3 required")
+local call_optional_self = assert(ABI.call_optional_self, "P0.29.12 required")
 
 function M.is_function_field(owner, key)
     return type(safe_get(owner, key)) == "function"
@@ -24,7 +28,7 @@ function M.object_name(object)
         return ""
     end
     for _, method_name in ipairs({"GetFullName", "GetName"}) do
-        local ok, value = ABI.self_first(object, method_name)
+        local ok, value = self_first(object, method_name)
         if ok and value ~= nil then
             return tostring(value)
         end
@@ -49,7 +53,7 @@ function M.delay(seconds, callback)
     return
 end
 
-function M.get_table_manager()
+local function get_table_manager_impl()
     local facade = rawget(_G, "Facade")
     local manager = safe_get(facade, "TableManager")
     if manager then
@@ -58,14 +62,17 @@ function M.get_table_manager()
     return rawget(_G, "TableManager")
 end
 
-function M.get_data_table(table_name)
-    local manager = M.get_table_manager()
+local function get_data_table_impl(table_name)
+    local manager = get_table_manager_impl()
     local fn = safe_get(manager, "GetTable")
-    local ok, value = ABI.call_optional_self(fn, manager, table_name)
+    local ok, value = call_optional_self(fn, manager, table_name)
     if ok then
         return value
     end
     return nil
 end
+
+M.get_table_manager = get_table_manager_impl
+M.get_data_table = get_data_table_impl
 
 return M

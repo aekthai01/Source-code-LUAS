@@ -363,6 +363,16 @@ def main():
     visual_source=(ROOT/'src/spectra/visual_scan.lua').read_text()
     bridge_source=(ROOT/'src/spectra/payload_feature_bridge.lua').read_text()
     assert 'local ABI = assert(S.AimABI, "AimABI required")' in runtime_source
+    assert 'local safe_get = assert(ABI.get, "P0.29.2 required")' in runtime_source
+    assert 'local self_first = assert(ABI.self_first, "P0.29.3 required")' in runtime_source
+    assert 'local call_optional_self = assert(ABI.call_optional_self, "P0.29.12 required")' in runtime_source
+    assert 'local manager = get_table_manager_impl()' in runtime_source
+    assert 'M.get_table_manager = get_table_manager_impl' in runtime_source
+    assert 'M.get_data_table = get_data_table_impl' in runtime_source
+    assert 'ABI.self_first(' not in runtime_source
+    assert 'M.get_table_manager(' not in runtime_source
+    assert 'ABI.call_optional_self(' not in runtime_source
+    assert '0.29.72' in groups['payload_owned'] and '0.29.72.0' in groups['payload_owned']
     assert 'local function safe_get' not in mutation_source
     assert 'local function call_optional_self' not in mutation_source
     assert 'local safe_get = ABI.get' in mutation_source
@@ -409,12 +419,12 @@ def main():
         out=run([lua,str(ROOT/'tests'/file),str(ROOT)]); assert marker in out; passed[file]='passed'
 
     report={
-      'phase':'E5.9-p029-runtime-helpers-source-only',
+      'phase':'E5.9a-p029-capture-identity-fidelity',
       'baseline':rec(baseline),'embedded_payload':rec(payload),'phase_d_source':rec(source),'phase_d_standard':rec(standard),'phase_d_custom':rec(custom),
       'inventory':{'total':len(paths),'classified':coverage['classified'],'source_owned':coverage['source_owned'],'payload_owned':coverage['payload_owned'],'partially_reconstructed':coverage['partially_reconstructed'],'unknown':coverage['unknown'],'root_methods_source_owned':root_source_owned,'root_methods_total':len(roots)},
       'source_only':{'root_capture_map_complete':True,'product_context':True,'product_constructor':True,'p0_0_through_p0_28':True,'p029_abi_helpers':True,'p029_runtime_helpers':True,'payload_upvalue_introspection':False},
       'runtime_ownership':{'no_recoil':True,'converge':True,'aim':True,'anti_shake':True},
-      'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','root_download_bytecode_captures':'passed','p029_abi_helper_map':'passed','p029_abi_exact_return_shapes':'passed','p029_runtime_helper_map':'passed','mutation_runtime_abi_integration':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
+      'checks':{'baseline_identity':True,'payload_identity':True,'payload_embed_801_fragments_exact':True,'custom_standard_roundtrip_exact':True,'lua53_chunk_structure':True,'root_capture_map':'passed','root_download_bytecode_captures':'passed','p029_abi_helper_map':'passed','p029_abi_exact_return_shapes':'passed','p029_runtime_helper_map':'passed','mutation_runtime_abi_integration':'passed','p029_capture_identity':'passed','source_only_product_constructor':'passed','no_source_owned_root_payload_capture_dependency':'passed',**passed,'game_runtime_test':False}}
     (ROOT/'validation_phase_d.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     print('phase-d-validation: ok')
 

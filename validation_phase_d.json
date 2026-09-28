@@ -1,5 +1,5 @@
 {
-  "phase": "E5.9-p029-runtime-helpers-source-only",
+  "phase": "E5.9a-p029-capture-identity-fidelity",
   "baseline": {
     "size": 180034,
     "sha256": "35ee381760ea24dcfebfac44433f8fe3078b4b34df79b165968bfeb87c874536"
@@ -9,16 +9,16 @@
     "sha256": "a0438b2eb2ecdec664dc25a6093766b9d79ab2dc6bc00536d59ff901798f6263"
   },
   "phase_d_source": {
-    "size": 438733,
-    "sha256": "316d9ea442d462efa1bb05ecb23688f7d4cbe9c2bfb37c3827d2808896fb65a7"
+    "size": 439157,
+    "sha256": "7025bb6962b1b70d78bbebc936500b94ea9c3a60cbaf96af21d7be9bed32d50c"
   },
   "phase_d_standard": {
-    "size": 332850,
-    "sha256": "13c4830974b826d0a79608c3ec116c0610d9a0c2afcf418e00c7b7a44be71f47"
+    "size": 332930,
+    "sha256": "4d6c1d53e745e2853ecde65217f976229d4c95409f659b8356c2f99c4a105ea4"
   },
   "phase_d_custom": {
-    "size": 332850,
-    "sha256": "e4f36a4e7c2b891cb60374c48ec63f47a4a36682aa28d9d0282ec604dda6cbb3"
+    "size": 332930,
+    "sha256": "581ca4748d79b50272741d02e4e3cf33a2896911dc8fa35ae0af062b5642abd4"
   },
   "inventory": {
     "total": 296,
@@ -57,6 +57,7 @@
     "p029_abi_exact_return_shapes": "passed",
     "p029_runtime_helper_map": "passed",
     "mutation_runtime_abi_integration": "passed",
+    "p029_capture_identity": "passed",
     "source_only_product_constructor": "passed",
     "no_source_owned_root_payload_capture_dependency": "passed",
     "native_settings_ui.lua": "passed",
