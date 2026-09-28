@@ -1,4 +1,4 @@
-name: Phase D reconstruction
+name: Full-source reconstruction validation
 on:
   push:
     branches: [work/phase-d-aim-reconstruction]
@@ -20,7 +20,7 @@ jobs:
       - name: Regenerate aim implementation index
         run: |
           python3 tools/aim_forensics.py
-          git diff --exit-code -- AIM_PROTOTYPE_INDEX.json
+          git diff --exit-code -- AIM_PROTOTYPE_INDEX.json P029_ABI_HELPER_MAP.json P029_ABI_HELPER_MAP.md
       - name: Regenerate complete payload inventory and coverage
         run: |
           python3 tools/full_payload_forensics.py
